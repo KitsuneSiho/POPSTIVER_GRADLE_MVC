@@ -26,10 +26,6 @@ body {
     align-items: center;
     width: 100%;
 }
-.mainTopSearchContainer label {
-    width: 100%;
-    display: flex;
-}
 
 .mainTopSearch input {
     flex: 1;
@@ -112,142 +108,22 @@ body {
     color: inherit;
     text-decoration: none;
 }
-
-
-
-.mainButton {
+.mapApi{
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+}
+.map h1{
+    font-family: 'KBO',sans-serif;
+    color: white;
+    font-size: 40px;
+    margin-left: 10%;
+}
+.map img{
+    width: 70%;
 }
 
-.mainButton .popupButton {
-    padding: 0;
-    width: 500px;
-    height: 50px;
-    border: none;
-    border-radius: 10px 0 0 10px;
-    cursor: pointer;
-}
 
-.mainButton .popupButton img {
-    width: 500px;
-    height: 50px;
-    border: none;
-    border-radius: 10px 0 0 10px;
-    cursor: pointer;
-}
 
-.mainButton .festivalButton {
-    padding: 0;
-    width: 500px;
-    height: 50px;
-    border: none;
-    border-radius: 0 10px 10px 0;
-    cursor: pointer;
-}
-
-.mainButton .festivalButton img {
-    width: 500px;
-    height: 50px;
-    border: none;
-    border-radius: 0 10px 10px 0;
-    cursor: pointer;
-    opacity: 0.3;
-}
-
-.mainPoster {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.mainPoster img {
-    margin-top: 30px;
-    width: 100%;
-    height: 450px;
-    border: none;
-}
-
-.popular {
-    margin-top: 100px;
-}
-
-.popularPosterText {
-    font-family: 'KBO', sans-serif;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin: 0 16% 0 16%;
-}
-
-.popularText1 {
-    color: #ffff33;
-    font-size: 50px;
-    margin: 0;
-}
-
-.popularText2 {
-    color: #5e5e5e;
-    font-size: 20px;
-    margin: 0;
-    cursor: pointer;
-}
-
-.popularPoster {
-    display: flex;
-    place-content: center;
-    cursor: pointer;
-}
-
-.popularPoster img {
-    display: inline-flex;
-    width: 180px;
-    height: 250px;
-    margin: 20px;
-    border-radius: 10px;
-    border: none;
-}
-
-.open {
-    margin-top: 100px;
-
-}
-
-.openPosterText {
-    font-family: 'KBO', sans-serif;
-    display: flex;
-    align-items: baseline;
-    margin: 0 16% 0 16%;
-    justify-content: space-between;
-}
-
-.openText1 {
-    color: #ffff33;
-    font-size: 50px;
-    margin: 0;
-}
-
-.openText2 {
-    color: #5e5e5e;
-    font-size: 20px;
-    margin: 0;
-    cursor: pointer;
-}
-
-.openPoster {
-    display: flex;
-    place-content: center;
-}
-
-.openPoster img {
-    display: inline-flex;
-    width: 180px;
-    height: 250px;
-    margin: 20px;
-    border-radius: 10px;
-    border: none;
-}
 
 
 footer {
@@ -264,5 +140,3 @@ footer {
         transform: translateX(0);
     }
 }
-
-

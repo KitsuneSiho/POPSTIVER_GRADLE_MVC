@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/map.css">
+    <link rel="stylesheet" href="${root}/resources/css/calender.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -64,15 +64,15 @@
     </div>
 </div>
 
-<div class="map">
-    <h1>근처 행사</h1>
-    <div class="mapApi">
-        <img src="${root}/resources/asset/포스터이미지/testimage1.JPG" alt="">
-    </div>
+<div class="calenderTitle">
+    <h1>행사 일정</h1>
 </div>
 
-
-
+<div id='calender'></div>
+<dialog>
+    <button class="close-button">&times;</button>
+    <div>제목 테스트</div>
+</dialog>
 
 
 <footer>
@@ -81,6 +81,11 @@
 </footer>
 
 <script src="${root}/resources/js/menuModal.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
+<script src="${root}/resources/js/calenderApi.js"></script>
+
+
 </body>
 
 </html>
