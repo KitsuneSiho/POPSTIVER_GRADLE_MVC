@@ -60,14 +60,14 @@
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="main.jsp">POPSTIVER</a></h1>
+        <h1><a href="main">POPSTIVER</a></h1>
     </div>
 
     <div class="mainTopSearch">
         <div class="mainTopSearchContainer">
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-                <button type="submit" class="searchButton" onclick="window.location.href='searchResult.jsp'">
+                <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
                     <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
                 </button>
             </label>
@@ -77,7 +77,7 @@
 
 
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage.jsp'">
+        <button class="myPageButton" onclick="window.location.href='myPage'">
             <img src="${root}/resources/asset/myPageButton.svg" alt="">
         </button>
         <button class="menuButton">
@@ -89,10 +89,11 @@
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="login.jsp">로그인</a></li>
-            <li><a href="map.jsp">근처 행사</a></li>
-            <li><a href="bookmark.jsp">관심 행사</a></li>
-            <li><a href="contact.jsp">게시판</a></li>
+            <li><a href="login">로그인</a></li>
+            <li><a href="map">근처 행사</a></li>
+            <li><a href="bookmark">관심 행사</a></li>
+            <li><a href="calender">행사 일정</a></li>
+            <li><a href="contact">게시판</a></li>
         </ul>
     </div>
 </div>
@@ -134,7 +135,7 @@
 
     function closeModal() {
         document.getElementById('myModal').style.display = 'none';
-        window.location.href = 'myPage.html';
+        window.location.href = 'myPage';
     }
 
     // 모달 외부 클릭 시 모달 닫기

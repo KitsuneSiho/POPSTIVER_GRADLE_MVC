@@ -25,14 +25,14 @@
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="main.jsp">POPSTIVER</a></h1>
+        <h1><a href="main">POPSTIVER</a></h1>
     </div>
 
     <div class="mainTopSearch">
         <div class="mainTopSearchContainer">
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-                <button type="submit" class="searchButton" onclick="window.location.href='searchResult.jsp'">
+                <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
                     <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
                 </button>
             </label>
@@ -42,7 +42,7 @@
 
 
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage.jsp'">
+        <button class="myPageButton" onclick="window.location.href='myPage'">
             <img src="${root}/resources/asset/myPageButton.svg" alt="">
         </button>
         <button class="menuButton">
@@ -54,31 +54,32 @@
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="login.jsp">로그인</a></li>
-            <li><a href="map.jsp">근처 행사</a></li>
-            <li><a href="bookmark.jsp">관심 행사</a></li>
-            <li><a href="contact.jsp">게시판</a></li>
+            <li><a href="login">로그인</a></li>
+            <li><a href="map">근처 행사</a></li>
+            <li><a href="bookmark">관심 행사</a></li>
+            <li><a href="calender">행사 일정</a></li>
+            <li><a href="contact">게시판</a></li>
         </ul>
     </div>
 </div>
 
 <div class="contactMenu">
-    <a class="on" href="contact.jsp">
+    <a class="on" href="contact">
         <h2>공지사항</h2>
     </a>
-    <a href="faq.jsp">
+    <a href="faq">
         <h2>FAQ</h2>
     </a>
-    <a href="money.jsp">
+    <a href="money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="report.jsp">
+    <a href="report">
         <h2>제보하기</h2>
     </a>
-    <a href="together.jsp">
+    <a href="together">
         <h2>동행구하기</h2>
     </a>
-    <a href="free.jsp">
+    <a href="free">
         <h2>자유게시판</h2>
     </a>
 </div>

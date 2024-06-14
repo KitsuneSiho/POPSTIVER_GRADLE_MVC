@@ -20,7 +20,7 @@ public class FlowController {
     public String login_page() {
         return "page/login";
     }
-    @GetMapping("/contact")//
+    @GetMapping("/contact")//공지사항페이지(게시판메인페이지)
     public String contact_page() {
         return "page/contact";
     }
@@ -31,6 +31,35 @@ public class FlowController {
     @GetMapping("map")//지도페이지
     public String map_page() {
         return "page/map";
+    }
+
+    @GetMapping("bookmark")//관심행사페이지
+    public String bookmark_page() {
+        return "page/bookmark";
+    }
+    @GetMapping("calender")//행사일정페이지
+    public String calender_page() {
+        return "page/calender";
+    }
+    @GetMapping("deleteUser")//회원탈퇴페이지
+    public String deleteUser_page() {
+        return "page/deleteUser";
+    }
+    @GetMapping("mainFestival")//페스티벌메인페이지(메인에서 페스티벌 눌렀을때)
+    public String mainFestival_page() {
+        return "page/mainFestival";
+    }
+    @GetMapping("mainPopup")//팝업메인페이지(메인에서 팝업 눌렀을때)
+    public String mainPopup_page() {
+        return "page/mainPopup";
+    }
+    @GetMapping("posterInfo")//행사세부정보페이지
+    public String posterInfo_page() {
+        return "page/posterInfo";
+    }
+    @GetMapping("searchResult")//검색결과페이지
+    public String searchResult_page() {
+        return "page/searchResult";
     }
 
 
