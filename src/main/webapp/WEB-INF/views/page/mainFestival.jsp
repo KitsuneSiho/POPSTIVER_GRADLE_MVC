@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/main.css">
+    <link rel="stylesheet" href="${root}/resources/css/mainFestival.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -33,9 +33,9 @@
         <div class="mainTopSearchContainer">
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult.jsp'">
-                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-            </button>
+                <button type="submit" class="searchButton" onclick="window.location.href='searchResult.jsp'">
+                    <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+                </button>
             </label>
         </div>
     </div>
@@ -73,9 +73,7 @@
 </div>
 
 <div class="mainPoster">
-    <video width="1000px" height="400px" controls autoplay loop muted>
-        <source src="${root}/resources/asset/포스터이미지/워터밤영상.mp4" type="video/mp4">
-    </video>
+    <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
 </div>
 
 <div class="popular">

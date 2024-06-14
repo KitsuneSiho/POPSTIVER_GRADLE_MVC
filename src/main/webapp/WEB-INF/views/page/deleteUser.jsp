@@ -3,11 +3,10 @@
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/myPage.css">
+    <link rel="stylesheet" href="${root}/resources/css/deleteUser.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -62,80 +61,27 @@
     </div>
 </div>
 
-
 <div class="myPage">
-    <a class="on" href="myPage.jsp">
+    <a  href="myPage.html">
         <h2>내 정보</h2>
     </a>
-    <a href="bookmark.jsp">
+    <a href="">
         <h2>관심 행사</h2>
     </a>
-    <a href="deleteUser.jsp">
+    <a class="on"href="deleteUser.jsp">
         <h2>회원 탈퇴</h2>
     </a>
 </div>
 
-<div class="userInfo">
-    <ul class="info">
-        <li>
-            <span>이름</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>닉네임</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>계정 정보</span><br>
-            <label>
-                <input type="email">
-            </label>
-        </li>
-        <li>
-            <span>연락처</span><br>
-            <label>
-                <input type="tel">
-            </label>
-        </li>
-        <li>
-            <span>생일</span><br>
-            <label>
-                <input type="text" placeholder="년 - 월 - 일">
-            </label>
-        </li>
-        <li>
-            <span>주소</span><br>
-            <label>
-                <input type="text">
-            </label>
-            <button class="searchAddress" type="button">주소 검색</button>
-        </li>
-    </ul>
-</div>
-
-<div class="tag">
-    <span>관심 태그</span>
-    <div class="tagButton">
-        <button class="tag1">태그1</button>
-        <button class="tag2">태그2</button>
-        <button class="tag3">태그3</button>
-        <button class="tag4">태그4</button>
-        <button class="tag5">태그5</button>
-        <button class="tag6">태그6</button>
-        <button class="tag7">태그7</button>
-        <button class="tag8">태그8</button>
-        <button class="tag9">태그9</button>
-        <button class="tag10">태그10</button>
+<div class="deletePage">
+    <div class="deleteUser">
+        <span class="delete">회원 탈퇴</span><br>
+        <span class="delete2">탈퇴 시 가입된 회원 정보가 모두 삭제됩니다.<br>
+            정말 회원 탈퇴를 진행하시겠습니까?
+        </span><br>
+        <button class="deleteYes" type="submit">탈퇴하기</button>
+        <button class="deleteNo" type="reset">취소</button>
     </div>
-</div>
-
-<div class="updateButton">
-    <button type="submit">수정하기</button>
-    <button type="reset">취소</button>
 </div>
 
 

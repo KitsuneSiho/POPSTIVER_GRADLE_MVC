@@ -86,10 +86,11 @@ body {
     display: none;
     position: fixed;
     right: 0;
-    width: 300px;
-    height: 100%;
+    width: 250px;
+    height: 400px;
+    border-radius: 5px 0 0 5px;
     background: rgba(255, 255, 51, 0.6);
-    animation: slideInRight 0.5s ease; /* 애니메이션 적용 */
+    animation: slideInRight 0.2s ease; /* 애니메이션 적용 */
 }
 
 .modal-content ul{
@@ -158,8 +159,8 @@ body {
 
 .mainPoster video {
     margin-top: 30px;
-    width: 1000px;
-    height: 400px;
+    width: 65%;
+    height: 450px;
     border-radius: 10px;
     border: none;
 }
@@ -173,7 +174,7 @@ body {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 0 23% 0 23%;
+    margin: 0 16% 0 16%;
 }
 
 .popularText1 {
@@ -198,9 +199,10 @@ body {
     display: inline-flex;
     width: 180px;
     height: 250px;
-    margin: 12px;
+    margin: 20px;
     border-radius: 10px;
     border: none;
+    cursor: pointer;
 }
 
 .open {
@@ -212,7 +214,7 @@ body {
     font-family: 'KBO', sans-serif;
     display: flex;
     align-items: baseline;
-    margin: 0 23% 0 23%;
+    margin: 0 16% 0 16%;
     justify-content: space-between;
 }
 
@@ -238,7 +240,7 @@ body {
     display: inline-flex;
     width: 180px;
     height: 250px;
-    margin: 12px;
+    margin: 20px;
     border-radius: 10px;
     border: none;
 }
@@ -258,5 +260,3 @@ footer {
         transform: translateX(0);
     }
 }
-
-
