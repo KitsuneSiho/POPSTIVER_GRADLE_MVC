@@ -1,5 +1,5 @@
 # 🎆 POPSTIVER - 축제와 팝업스토어 정보를 한곳에서
-### NaverCloud Devops 10rd 3 TEAM
+### NaverCloud Devops 10rd : 3 TEAM
 
 <p align="center">
   <br>
@@ -62,7 +62,7 @@
 
 ## 🐼 DEVELOPER
 
-#### Siho (팀장, PM) : SQL 및 데이터베이스 설계, 데이터 처리흐름 담당, Git 버전관리
+#### KitsuneSiho (팀장) : SQL 및 데이터베이스 설계, 데이터 처리흐름 담당, Git 버전관리
 #### HarryKang (Back-End) : C/R/U/D 게시판 설계, 프로젝트 전체 버전관리, WebSocket 설계 ChatService 구현
 #### SangWoo (Back-End) : C/R/U/D 게시판 설계, Google API & Framwork 을 이용한 지도와 캘린더 서비스 구현
 #### boddak (Front-End) : UI설계, 반응형 웹페이지 제작, Front-End Data Flow Managerment
@@ -85,6 +85,27 @@
 <br>
 
 ## 📜 라이센스
+MIT License
+
+Copyright (c) 2021 Othneil Drew
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 <!-- Stack Icon Refernces -->
