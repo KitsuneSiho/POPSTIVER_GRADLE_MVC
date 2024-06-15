@@ -3,7 +3,7 @@ plugins {
     id 'war' // JSP를 사용하므로 WAR 플러그인을 사용
 }
 
-group 'com.example'
+group 'kr.bit'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = '17'
@@ -38,7 +38,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0' // JUnit 4와의 호환성을 위해
 
+    // Gson 라이브러리 의존성
+    implementation 'com.google.code.gson:gson:2.8.9'
 
+    // https://mvnrepository.com/artifact/org.ibankapp/base-exception
+    implementation group: 'org.ibankapp', name: 'base-exception', version: '1.0.0-beta.6'
+
+    implementation 'org.projectlombok:lombok:1.18.22' // Lombok 의존성 추가
+    annotationProcessor 'org.projectlombok:lombok:1.18.22' // Lombok 어노테이션 프로세서 추가
 }
 
 tasks.named('test') {

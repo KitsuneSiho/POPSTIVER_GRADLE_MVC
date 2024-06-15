@@ -1,4 +1,4 @@
-package com.example.controller;
+package kr.bit.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ public class FlowController {
 
     @GetMapping("/")//"/" 경로로 들어가면 일단 메인페이지로 리다이렉트 시킨다.
     public String home() {
-        return "redirect:/main";
+        return "page/main";
     }
     @GetMapping("/main")//메인페이지
     public String main_page() {
