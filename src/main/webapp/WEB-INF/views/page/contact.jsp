@@ -57,7 +57,7 @@
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="login.jsp">로그인</a></li>
+            <li><a href="login_practice.jsp">로그인</a></li>
             <li><a href="map.jsp">근처 행사</a></li>
             <li><a href="">관심 행사</a></li>
             <li><a href="">게시판</a></li>

@@ -1,4 +1,4 @@
-package com.example.config;
+package kr.bit.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan(basePackages = "com.example.**") //example 밑 경로에있는 폴더전부들어가 컴포넌트 스캔 하겠다
+@ComponentScan(basePackages = "kr.bit.**") //example 밑 경로에있는 폴더전부들어가 컴포넌트 스캔 하겠다
 @PropertySource("classpath:properties/db.properties") //프로퍼티 소스를 불러오겠다!
 public class RootConfig {
 

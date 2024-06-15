@@ -1,4 +1,4 @@
-package com.example.config;
+package kr.bit.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.example.**")
+@ComponentScan(basePackages = "kr.bit.**")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
