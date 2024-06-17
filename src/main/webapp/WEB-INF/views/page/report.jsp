@@ -103,7 +103,7 @@
 </div>
 
 <div class="write">
-    <button class="writeButton" onclick="window.location.href='reportWrite.html'">
+    <button class="writeButton" onclick="window.location.href='reportWrite'">
         <img src="${root}/resources/asset/글쓰기.svg" alt="">
         제보하기</button>
 </div>

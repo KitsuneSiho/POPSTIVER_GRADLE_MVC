@@ -84,21 +84,41 @@
 
 <div class="board">
     <table class="boardTable">
-        <tbody>
+        <thead>
         <tr>
-            <td><a href="">공지사항</a></td>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        </thead>
+        <tbody id="boardBody">
+        <tr>
+            <td><a href="#">공지사항</a></td>
+            <td>관리자</td>
             <td>2024-06-12 15:12</td>
         </tr>
+
         </tbody>
     </table>
 </div>
-
 <div class="pageNumber">
-    <ul>
-        <li>
-            <a class="pageOn">1</a>
-        </li>
+    <ul id="pageNumberList">
+        <li><a class="pageOn"></a></li>
     </ul>
+</div>
+
+<img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
+
+<div id="chatModal" class="chatModal">
+    <div class="chatModalContent">
+        <span class="closeChatModal">&times;</span>
+        <h2>1:1 채팅</h2>
+        <div class="chatBox">
+            <!-- Chat messages will go here -->
+        </div>
+        <label for="chatInput"><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" /></label>
+        <button id="sendChatButton">보내기</button>
+    </div>
 </div>
 
 <footer>
