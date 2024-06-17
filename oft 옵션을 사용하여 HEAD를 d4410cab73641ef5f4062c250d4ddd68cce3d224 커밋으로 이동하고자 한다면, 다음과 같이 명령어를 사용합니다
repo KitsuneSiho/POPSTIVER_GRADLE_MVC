@@ -1,0 +1,108 @@
+[33mcommit 54e22824f91477475e76ed152148d39bac2b4d4b[m[33m ([m[1;36mHEAD -> [m[1;32mjaeyoung2[m[33m)[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 17:29:24 2024 +0900
+
+    비번 뺀 거
+
+[33mcommit d0077e74ac9415a07c91f754b276f03a137aab89[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 17:26:43 2024 +0900
+
+    네카구 로그인
+
+[33mcommit 28f7fa28704f1178f06a4fbcdb4d8d8c70959f71[m
+Merge: cb9e906 7597a88
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 17:22:35 2024 +0900
+
+    Merge branch 'jaeyoung2' of https://github.com/KitsuneSiho/POPSTIVER_GRADLE_MVC into jaeyoung2
+
+[33mcommit cb9e90642ad53981b91aa9ddfa837353f8a2c912[m[33m ([m[1;32mjaeyoung[m[33m)[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 16:38:19 2024 +0900
+
+    구글, 네이버 로그인 추가 깃 이그노어
+
+[33mcommit c2de25579e8aa22e5b9f2cdd948ccecbde8ff417[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 11:30:40 2024 +0900
+
+    구글, 네이버 로그인 추가 깃 이그노어
+
+[33mcommit fc180ba6f57ccefeda2fa46e8e4ac99da102d280[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Mon Jun 17 10:50:12 2024 +0900
+
+    구글, 네이버 로그인 추가
+
+[33mcommit 40d3787fe0eb9b928380b5612abccdd50b52b35c[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Sun Jun 16 00:03:53 2024 +0900
+
+    구글, 네이버 로그인 추가
+
+[33mcommit d4410cab73641ef5f4062c250d4ddd68cce3d224[m[33m ([m[1;31morigin/jaeyoung[m[33m)[m
+Author: answodud <answodud0112@gmail.com>
+Date:   Sat Jun 15 21:14:36 2024 +0900
+
+    카카오 간편로그인 gradle로 변경
+
+[33mcommit 7597a88f9edd13571be96c517817eb802bf5d47f[m[33m ([m[1;31morigin/jaeyoung2[m[33m)[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Fri Jun 14 19:21:54 2024 +0900
+
+    Update README.md
+
+[33mcommit 1c7e514bcccacb776da9196beaf6df2229fadbb1[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/hojune[m[33m, [m[1;31morigin/Siho[m[33m, [m[1;31morigin/Sangwoo[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Fri Jun 14 15:27:25 2024 +0900
+
+    Update README.md
+
+[33mcommit 3b74275c1b56a2ec0547e86840cf2789e30b8c47[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Fri Jun 14 15:13:49 2024 +0900
+
+    Create README.md
+
+[33mcommit 9f1837d1cf18c8d01c38d89ef016daddffdb09bc[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Thu Jun 13 22:57:31 2024 -0700
+
+    Add files via upload
+
+[33mcommit 3532e0ec91088fdeae2f766aa09edc0967f1b5c7[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Fri Jun 14 14:56:57 2024 +0900
+
+    Delete readme_asset/stack directory
+
+[33mcommit 910aad4e0ec972299cc678b5a29ddbc857740804[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Fri Jun 14 14:54:29 2024 +0900
+
+    Delete readme_asset/common/popstivel_logo.png
+
+[33mcommit 067157992e768746cfd2db3dbe54a2bbe86ca592[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Thu Jun 13 22:53:05 2024 -0700
+
+    Add files via upload
+
+[33mcommit 58b791a6409a2de1597bb8ec0ca899c1206074f8[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Thu Jun 13 22:52:17 2024 -0700
+
+    resizing icon
+
+[33mcommit a2c9c2f858ca648b99817904b14a1c69eeff44be[m
+Author: キツネシホ <166580690+KitsuneSiho@users.noreply.github.com>
+Date:   Thu Jun 13 22:10:02 2024 -0700
+
+    Add files via upload
+
+[33mcommit 38daf2311999d73e121a2513e2beb0e044475d4f[m
+Author: KitsuneSiho <achromatic.flame@gmail.com>
+Date:   Fri Jun 14 13:08:14 2024 +0900
+
+    first commit

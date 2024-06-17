@@ -4,18 +4,31 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.ibankapp.base.exception.BaseException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+@PropertySource("classpath:properties/application.properties")
 
 @Service
-public class OAuthService {
+public class NaverOAuthService {
+    @Value("${naver.clientId}")
+    private String clientId;
 
-    public String getKakaoAccessToken(String code) {
+    @Value("${naver.clientSecret}")
+    private String clientSecret;
+
+    @Value("${naver.redirectUri}")
+    private String redirectUri;
+    // 네이버 OAuth 인증 코드 받기
+    public String getNaverAccessToken(String code) {
         String access_Token = "";
-        String reqURL = "https://kauth.kakao.com/oauth/token";
+        String refresh_Token = "";
+        String reqURL = "https://nid.naver.com/oauth2.0/token";
 
         try {
             URL url = new URL(reqURL);
@@ -29,9 +42,10 @@ public class OAuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=cffd2c8562ed8ebbb1d01137aa0349f7"); // TODO REST_API_KEY 입력
-            sb.append("&redirect_uri=http://localhost:8080/login/oauth2/code/kakao"); // TODO 인가코드 받은 redirect_uri 입력
-            sb.append("&code=").append(code);
+            sb.append("&client_id=").append(URLEncoder.encode(clientId, "UTF-8"));
+            sb.append("&client_secret=").append(URLEncoder.encode(clientSecret, "UTF-8"));
+            sb.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, "UTF-8"));
+            sb.append("&code=").append(URLEncoder.encode(code, "UTF-8"));
             bw.write(sb.toString());
             bw.flush();
 
@@ -64,16 +78,16 @@ public class OAuthService {
         return access_Token;
     }
 
-    public JsonObject getKakaoUserInfo(String token) throws BaseException {
-        String reqURL = "https://kapi.kakao.com/v2/user/me";
+    // 네이버 사용자 정보 가져오기
+    public JsonObject getNaverUserInfo(String token) throws BaseException {
+        String reqURL = "https://openapi.naver.com/v1/nid/me";
         JsonObject userInfo = new JsonObject();
 
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("Authorization", "Bearer " + token); // 전송할 header 작성, access_token 전송
 
             // 결과 코드가 200이라면 성공
@@ -94,16 +108,16 @@ public class OAuthService {
             JsonElement element = parser.parse(response.toString());
 
             // 사용자 정보 파싱
-            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-            int id = element.getAsJsonObject().get("id").getAsInt();
-            String nickname = kakaoAccount.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
-            String profileImage = kakaoAccount.getAsJsonObject().get("profile").getAsJsonObject().get("profile_image_url").getAsString();
-            String email = kakaoAccount.get("email").getAsString();
-            String name = kakaoAccount.getAsJsonObject().get("profile").getAsJsonObject().get("nickname").getAsString();
-            String gender = kakaoAccount.get("gender").getAsString();
-            String ageRange = kakaoAccount.get("age_range").getAsString();
-            String birthday = kakaoAccount.get("birthday").getAsString();
-            String birthyear = kakaoAccount.get("birthyear").getAsString();
+            JsonObject naverAccount = element.getAsJsonObject().get("response").getAsJsonObject();
+            String id = naverAccount.get("id").getAsString();
+            String nickname = naverAccount.get("nickname").getAsString();
+            String profileImage = naverAccount.get("profile_image").getAsString();
+            String email = naverAccount.get("email").getAsString();
+            String name = naverAccount.get("name").getAsString();
+            String gender = naverAccount.get("gender").getAsString();
+            String birthday = naverAccount.get("birthday").getAsString();
+            String birthyear = naverAccount.get("birthyear").getAsString();
+            String age = naverAccount.get("age").getAsString();
 
             // 사용자 정보를 JsonObject에 담기
             userInfo.addProperty("id", id);
@@ -112,9 +126,9 @@ public class OAuthService {
             userInfo.addProperty("email", email);
             userInfo.addProperty("name", name);
             userInfo.addProperty("gender", gender);
-            userInfo.addProperty("ageRange", ageRange);
             userInfo.addProperty("birthday", birthday);
             userInfo.addProperty("birthyear", birthyear);
+            userInfo.addProperty("age", age);
 
             System.out.println("id : " + id);
             System.out.println("nickname : " + nickname);
@@ -122,8 +136,8 @@ public class OAuthService {
             System.out.println("email : " + email);
             System.out.println("name : " + name);
             System.out.println("gender : " + gender);
-            System.out.println("ageRange : " + ageRange);
             System.out.println("birthday : " + birthday);
+            System.out.println("age : " + age);
             System.out.println("birthyear : " + birthyear);
 
         } catch (IOException e) {
@@ -131,5 +145,40 @@ public class OAuthService {
         }
 
         return userInfo;
+    }
+    public void naverLogout(String accessToken) {
+        try {
+            // 네이버 로그아웃 API 호출 URL
+            String logoutUrl = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=jUYpMer5eMaFflJnxZX6&client_secret=pYrIANkNKI&access_token=" + accessToken + "&service_provider=NAVER";
+            URL url = new URL(logoutUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            // 요청 메서드 설정
+            conn.setRequestMethod("GET");
+
+            // 연결 시도
+            int responseCode = conn.getResponseCode();
+            System.out.println("GET Response Code :: " + responseCode);
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // 정상적으로 로그아웃 처리된 경우
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                // 결과 출력
+                System.out.println("네이버 로그아웃 응답: " + response.toString());
+            } else {
+                // 로그아웃 요청이 실패한 경우
+                System.out.println("GET request not worked");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

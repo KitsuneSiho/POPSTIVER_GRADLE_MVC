@@ -96,30 +96,114 @@
 </div>
 
 <div class="loginButton">
-    <div class="naverLogin">
-        <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">네이버로그인</a>
-        </button>
-    </div>
     <div class="kakaoLogin">
         <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">카카오로그인</a>
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=cffd2c8562ed8ebbb1d01137aa0349f7&redirect_uri=http://localhost:8080/login/oauth2/code/kakao&response_type=code"
+               th:href="@{https://kauth.kakao.com/oauth/authorize(client_id=cffd2c8562ed8ebbb1d01137aa0349f7, redirect_uri=http://localhost:8080/login/oauth2/code/kakao, response_type='code')}">
+                <img src="/images/kakao_login_medium_narrow.png" alt="Kakao 로그인">
+            </a>
         </button>
+        <button type="button" onclick="logoutKakao()">로그아웃</button>
+    </div>
+
+    <script>
+        function logoutKakao() {
+            // 서버 로그아웃 요청
+            fetch('/logout/kakao', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        // 모든 쿠키 삭제
+                        document.cookie.split(";").forEach(function(c) {
+                            document.cookie = c.trim().split("=")[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+                        });
+                        // 리디렉션
+                        window.location.href = 'https://kauth.kakao.com/oauth/logout?client_id=cffd2c8562ed8ebbb1d01137aa0349f7&logout_redirect_uri=http://localhost:8080/login';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
     </div>
     <div class="googleLogin">
         <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">구글로그인</a>
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=936690125897-3ckd20rldril6je2gn3p6575la97vhj9.apps.googleusercontent.com&redirect_uri=http://localhost:8080/auth/google/callback&response_type=code&scope=email%20profile%20openid">
+                <img src="/images/google_login_button.png" alt="Google 로그인">
+            </a>
         </button>
+        <button type="button" onclick="logoutGoogle()">로그아웃</button>
     </div>
-</div>
 
-<!-- 모달 -->
-<div id="myModal" class="infoModal">
-    <div class="infoModal-content">
-        <p>회원가입을 축하드립니다. 추가 정보를 입력해주세요</p>
-        <button onclick="closeModal()">확인</button>
+<script>
+    function logoutGoogle() {
+        fetch('/logout/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({}) // 빈 객체 전송
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 모든 쿠키 삭제
+                    document.cookie.split(";").forEach(function(c) {
+                        document.cookie = c.trim().split("=")[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+                    });
+                    // 리디렉션
+                    window.location.href = 'http://localhost:8080/login';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+<div class="naverLogin">
+        <button type="button" onclick="showModal()">
+            <a href="https://nid.naver.com/oauth2.0/authorize?client_id=jUYpMer5eMaFflJnxZX6&redirect_uri=http://localhost:8080/auth/naver/callback&response_type=code&scope=name%20email%20profile_image"
+               th:href="@{https://nid.naver.com/oauth2.0/authorize(client_id='jUYpMer5eMaFflJnxZX6', redirect_uri='http://localhost:8080/auth/naver/callback', response_type='code', scope='name%20email%20profile_image')}">
+                <img src="/images/naver_login_button.png" alt="Naver 로그인">
+            </a>
+        </button>
+    <button type="button" onclick="logoutNaver()">네이버 로그아웃</button>
     </div>
 </div>
+<script>
+    function logoutNaver() {
+        // 서버로 네이버 로그아웃 요청 보내기
+        fetch('/logout/naver', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 모든 쿠키 삭제
+                    document.cookie.split(";").forEach(function(c) {
+                        document.cookie = c.trim().split("=")[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;';
+                    });
+                    // 성공적으로 로그아웃한 경우
+                    alert('네이버 로그아웃 완료!');
+                    window.location.href = 'http://localhost:8080/login';
+                    // 필요한 경우 추가적인 처리 (예: 쿠키 삭제, 페이지 리디렉션 등)
+                } else {
+                    // 로그아웃 실패 시 처리
+                    alert('네이버 로그아웃 실패');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('네이버 로그아웃 중 오류가 발생했습니다.');
+            });
+    }
+</script>
+
+<%--<!-- 모달 -->--%>
+<%--<div id="myModal" class="infoModal">--%>
+<%--    <div class="infoModal-content">--%>
+<%--        <p>회원가입을 축하드립니다. 추가 정보를 입력해주세요</p>--%>
+<%--        <button onclick="closeModal()">확인</button>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
