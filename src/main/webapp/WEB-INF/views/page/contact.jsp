@@ -127,6 +127,7 @@
 </footer>
 
 <script src="${root}/resources/js/menuModal.js"></script>
+<script src="${root}/resources/js/chatModal.js"></script>
 </body>
 
 </html>
