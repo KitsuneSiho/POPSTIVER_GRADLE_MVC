@@ -103,7 +103,7 @@
 </div>
 
 <div class="write">
-    <button class="writeButton" onclick="window.location.href='togetherWrite.html'">
+    <button class="writeButton" onclick="window.location.href='togetherWrite'">
         <img src="${root}/resources/asset/글쓰기.svg" alt="">
         글쓰기</button>
 </div>
