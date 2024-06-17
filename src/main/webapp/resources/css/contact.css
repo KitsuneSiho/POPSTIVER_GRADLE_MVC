@@ -17,7 +17,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 30%;
 }
 
 .mainTopSearchContainer {
@@ -62,7 +62,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    width: 300px;
+    width: 20%;
 }
 .mainTopLogo a, a:visited{
     text-decoration: none;
@@ -94,7 +94,7 @@ body {
     height: 400px;
     border-radius: 5px 0 0 5px;
     background: rgba(255, 255, 51, 0.6);
-    animation: slideInRight 0.2s ease; /* 애니메이션 적용 */
+    animation: slideInRight 0.2s ease;
 }
 
 .modal-content ul{
@@ -105,10 +105,9 @@ body {
     padding: 0;
     margin: 0 auto;
     text-align: center;
-
 }
 
-.modal-content li a:link, li a:visited{
+.modal-content li a:link, .modal-content li a:visited {
     color: inherit;
     text-decoration: none;
 }
@@ -122,9 +121,9 @@ body {
     padding-bottom: 10px;
     font-family: 'KBO',sans-serif;
     color: white;
-
 }
-.contactMenu a, a:visited{
+
+.contactMenu a, .contactMenu a:visited {
     text-decoration: none;
     color: inherit;
 }
@@ -133,76 +132,175 @@ body {
     border-bottom: 2px solid #ffff33;
 }
 
-.board{
-    width: 100%;
-    height: auto;
-    overflow-x: auto;
-    padding: 0 20px;
-}
-.boardTable{
-    border-collapse: collapse;
-    font-family: 'KBO',sans-serif;
-    color: white;
-}
-.boardTable table{
-    display: table;
-    box-sizing: border-box;
-    text-indent: initial;
-    unicode-bidi: isolate;
-    border-spacing: 2px;
-    border-color: #5e5e5e;
-}
-.boardTable tbody{
-    display: table-row-group;
-    vertical-align: middle;
-    unicode-bidi: isolate;
-    border-color: inherit;
-}
-.boardTable tr{
-    display: table-row;
-    vertical-align: inherit;
-    unicode-bidi: isolate;
-    border-color: inherit;
-}
-.boardTable td{
-    border: none;
-    font-size: 16px;
-    padding: 10px 5px;
-    word-break: keep-all;
-    display: table-cell;
-    vertical-align: inherit;
-    unicode-bidi: isolate;
-}
-.boardTable td a{
-    text-decoration: none;
-    caret-color: inherit;
-    cursor: pointer;
+.board {
+    width: 70%;
+    margin: 0 auto 20px auto;
 }
 
-.pageNumber{
+.boardTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'KBO', sans-serif;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+}
+
+.boardTable th, .boardTable td {
+    border: 1px solid #4e4e4e;
+    padding: 10px;
+    text-align: left;
+}
+
+.boardTable th {
+    background-color: #3e3e3e;
+    color: #ffff33;
+    text-align: center;
+}
+
+.boardTable td {
+    font-size: 14px;
+}
+
+.boardTable td a {
+    text-decoration: none;
+    color: white;
+}
+
+.boardTable th:nth-child(1), .boardTable td:nth-child(1) {
+    width: 30%;
+}
+
+.boardTable th:nth-child(2), .boardTable td:nth-child(2) {
+    width: 10%;
+    text-align: center;
+}
+
+.boardTable th:nth-child(3), .boardTable td:nth-child(3) {
+    width: 10%;
+    text-align: center;
+}
+
+.pageNumber {
     width: 100%;
     display: flex;
     justify-content: center;
     margin: 50px 0;
 }
-.pageNumber ul{
+
+.pageNumber ul {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     column-gap: 10px;
     list-style: none;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     font-size: 20px;
 }
-.pageNumber ul li{
-    width: 10%;
+
+.pageNumber ul li {
     cursor: pointer;
     color: white;
 }
-.pageNumber ul li a .on{
+
+.pageNumber ul li a.pageOn {
     font-weight: 700;
     color: white;
+}
+.pageNumber ul li a:visited, .pageNumber ul li a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.chatButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.chatButton img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Chat Modal */
+.chatModal {
+    display: none;
+    position: fixed;
+    bottom: 7%;
+    right: 2%;
+    width: 20%;
+    height: 60%;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    animation: fadeIn 0.3s ease;
+    font-family: 'KBO',sans-serif;
+}
+
+.chatModalContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    font-family: 'KBO', sans-serif;
+    color: white;
+}
+
+.closeChatModal {
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 25px;
+}
+
+.chatBox {
+    flex: 1;
+    overflow-y: auto;
+    background-color: #2e2e2e;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-family: 'KBO', sans-serif;
+    line-height: 1.5;
+}
+
+#chatInput {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #3e3e3e;
+    color: white;
+    font-family: 'KBO', sans-serif;
+}
+
+#sendChatButton {
+    background-color: #ffff33;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 6%;
+    font-family: 'KBO', sans-serif;
+}
+#sendChatButton button:hover{
+    background-color: #ffff3388;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 footer {
