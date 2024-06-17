@@ -20,7 +20,6 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
-
     </style>
 </head>
 
@@ -77,34 +76,29 @@
 <div class="userInfo">
     <ul class="info">
         <li>
-            <span>회원 유형</span><br>
-            <input type="radio" id="host" name="user_type" value="1">
-            <label for="host">주최자</label>
-            <input type="radio" id="user" name="user_type" value="2">
-            <label for="user">사용자</label>
-        </li>
-        <li>
-            <span>아이디</span><br>
-            <input type="text" name="user_id" value="${userEmail}">
-        </li>
-        <li>
             <span>이름</span><br>
-            <input type="text" name="user_name" value="${userName}">
+            <input type="text">
         </li>
         <li>
-            <span>이메일</span><br>
-            <input type="text" name="user_id" value="${userEmail}">
+            <span>닉네임</span><br>
+            <input type="text">
+        </li>
+        <li>
+            <span>계정 정보</span><br>
+            <input type="email" id="userEmail" value="${userEmail}">
+        </li>
+        <li>
+            <span>연락처</span><br>
+            <input type="tel">
         </li>
         <li>
             <span>생일</span><br>
-            <input type="text" name="user_birth" value="${userBirthyear}${userBirthday}">
+            <input type="text" placeholder="년 - 월 - 일">
         </li>
         <li>
-            <span>성별</span><br>
-            <input type="radio" id="male" name="user_gender" value="male" ${userGender == 'male' ? 'checked' : ''}>
-            <label for="male">남</label>
-            <input type="radio" id="female" name="user_gender" value="female" ${userGender == 'female' ? 'checked' : ''}>
-            <label for="female">여</label>
+            <span>주소</span><br>
+            <input type="text">
+            <button class="searchAddress" type="button">주소 검색</button>
         </li>
     </ul>
 </div>

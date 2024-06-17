@@ -46,6 +46,7 @@ dependencies {
 
     implementation 'org.projectlombok:lombok:1.18.22' // Lombok 의존성 추가
     annotationProcessor 'org.projectlombok:lombok:1.18.22' // Lombok 어노테이션 프로세서 추가
+
 }
 
 tasks.named('test') {
