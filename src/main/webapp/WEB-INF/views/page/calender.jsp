@@ -48,6 +48,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -83,7 +84,7 @@
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
-<script src="${root}/resources/js/calenderApi.js"></script>
+<script src="${root}/resources/js/calender.js"></script>
 
 
 </body>

@@ -48,6 +48,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -77,7 +78,7 @@
             <li><button>태그</button></li>
             <li><button>태그</button></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
-            <li><img src="${root}/resources/asset/좋아요.svg" alt=""></li>
+            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt=""></li>
         </ul>
         <h1 class="title">흠뻑쇼</h1>
@@ -166,6 +167,7 @@
 </footer>
 
 <script src="${root}/resources/js/menuModal.js"></script>
+<script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
 
 </html>

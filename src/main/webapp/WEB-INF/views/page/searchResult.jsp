@@ -48,6 +48,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -286,6 +287,7 @@
 
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/menuModal.js"></script>
+<script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
 
 </html>

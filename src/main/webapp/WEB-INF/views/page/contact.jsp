@@ -47,6 +47,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -66,9 +67,6 @@
 <div class="contactMenu">
     <a class="on" href="contact">
         <h2>공지사항</h2>
-    </a>
-    <a href="faq">
-        <h2>FAQ</h2>
     </a>
     <a href="money">
         <h2>비즈니스 문의</h2>

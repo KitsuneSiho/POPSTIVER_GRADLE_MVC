@@ -19,7 +19,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 30%;
 }
 
 .mainTopSearchContainer {
@@ -42,6 +42,7 @@ body {
     border: none;
     border-radius: 30px;
     outline: none;
+    font-family: 'KBO', sans-serif;
     color: white;
 }
 
@@ -63,11 +64,9 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    width: 300px;
+    width: 20%;
 }
-
-.mainTopLogo a,
-a:visited {
+.mainTopLogo a, a:visited{
     text-decoration: none;
     color: inherit;
 }

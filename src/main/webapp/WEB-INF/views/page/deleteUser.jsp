@@ -46,6 +46,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -63,13 +64,13 @@
 </div>
 
 <div class="myPage">
-    <a  href="myPage.html">
+    <a  href="myPage">
         <h2>내 정보</h2>
     </a>
-    <a href="">
+    <a href="bookmark">
         <h2>관심 행사</h2>
     </a>
-    <a class="on"href="deleteUser">
+    <a class="on" href="deleteUser">
         <h2>회원 탈퇴</h2>
     </a>
 </div>

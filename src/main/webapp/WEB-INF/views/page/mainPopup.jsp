@@ -48,6 +48,7 @@
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
+        </button>
     </div>
 
 
@@ -80,7 +81,7 @@
 <div class="popular">
     <div class="popularPosterText">
         <p class="popularText1">인기</p>
-        <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
+        <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
     </div>
     <div class="popularPoster">
         <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
@@ -95,7 +96,7 @@
 <div class="open">
     <div class="openPosterText">
         <p class="openText1">오픈예정</p>
-        <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
+        <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
     </div>
     <div class="openPoster">
         <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
