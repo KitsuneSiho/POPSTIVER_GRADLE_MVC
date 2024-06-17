@@ -97,9 +97,9 @@ body {
     animation: slideInRight 0.2s ease;
 }
 
-.modal-content ul{
+.modal-content ul {
     list-style: none;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     font-size: 30px;
     line-height: 2.5;
     padding: 0;
@@ -112,14 +112,14 @@ body {
     text-decoration: none;
 }
 
-.contactMenu{
+.contactMenu {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 15px 0 20px;
     padding-bottom: 10px;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     color: white;
 }
 
@@ -127,7 +127,8 @@ body {
     text-decoration: none;
     color: inherit;
 }
-.contactMenu .on{
+
+.contactMenu .on {
     color: #ffff33;
     border-bottom: 2px solid #ffff33;
 }
