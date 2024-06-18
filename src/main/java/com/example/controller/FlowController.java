@@ -43,9 +43,9 @@ public class FlowController {
         return "page/bookmark";
     }
 
-    @GetMapping("calender")//행사일정페이지
-    public String calender_page() {
-        return "page/calender";
+    @GetMapping("calendar")//행사일정페이지
+    public String calendar_page() {
+        return "calendar";
     }
 
     @GetMapping("deleteUser")//회원탈퇴페이지

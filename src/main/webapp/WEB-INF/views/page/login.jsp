@@ -93,7 +93,7 @@
             <li><a href="login">로그인</a></li>
             <li><a href="map">근처 행사</a></li>
             <li><a href="bookmark">관심 행사</a></li>
-            <li><a href="calender">행사 일정</a></li>
+            <li><a href="calendar">행사 일정</a></li>
             <li><a href="contact">게시판</a></li>
         </ul>
     </div>

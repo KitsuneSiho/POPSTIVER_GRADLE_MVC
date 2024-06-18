@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/calender.css">
+    <link rel="stylesheet" href="${root}/resources/css/calendar.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -59,17 +59,17 @@
             <li><a href="login">로그인</a></li>
             <li><a href="map">근처 행사</a></li>
             <li><a href="bookmark">관심 행사</a></li>
-            <li><a href="calender">행사 일정</a></li>
+            <li><a href="calendar">행사 일정</a></li>
             <li><a href="contact">게시판</a></li>
         </ul>
     </div>
 </div>
 
-<div class="calenderTitle">
+<div class="calendarTitle">
     <h1>행사 일정</h1>
 </div>
 
-<div id='calender'></div>
+<div id='calendar'></div>
 <dialog>
     <button class="close-button">&times;</button>
     <div>제목 테스트</div>
@@ -84,7 +84,7 @@
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
-<script src="${root}/resources/js/calender.js"></script>
+<script src="${root}/resources/js/calendar.js"></script>
 
 
 </body>
