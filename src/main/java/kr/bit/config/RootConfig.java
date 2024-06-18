@@ -1,4 +1,4 @@
-package com.example.config;
+package kr.bit.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

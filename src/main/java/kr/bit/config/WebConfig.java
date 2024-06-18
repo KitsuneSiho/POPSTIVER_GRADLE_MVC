@@ -1,4 +1,4 @@
-package com.example.config;
+package kr.bit.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
