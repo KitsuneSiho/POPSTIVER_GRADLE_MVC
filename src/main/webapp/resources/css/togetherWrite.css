@@ -107,7 +107,8 @@ body {
     text-align: center;
 }
 
-.modal-content li a:link, .modal-content li a:visited {
+.modal-content li a:link,
+li a:visited {
     color: inherit;
     text-decoration: none;
 }
@@ -133,87 +134,108 @@ body {
     border-bottom: 2px solid #ffff33;
 }
 
-.board {
-    width: 70%;
-    margin: 0 auto 20px auto;
-}
 
-.boardTable {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+.business {
     font-family: 'KBO', sans-serif;
     color: white;
-    border-radius: 5px;
-    overflow: hidden;
-    background-color: #1e1e1e;
+    background-color: #333;
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 10px;
 }
 
-.boardTable th, .boardTable td {
-    border: 1px solid #4e4e4e;
-    padding: 10px;
-    text-align: left;
+.business ul {
+    list-style: none;
+    padding: 3%;
 }
 
-.boardTable th {
-    background-color: #3e3e3e;
+.business li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.business span {
     color: #ffff33;
-    text-align: center;
+    display: inline-block;
+    width: auto;
 }
 
-.boardTable td {
-    font-size: 14px;
-}
-
-.boardTable td a {
-    text-decoration: none;
+.businessList input,
+.businessList textarea,
+.businessList .date{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #555;
     color: white;
+    font-family: 'KBO', sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+    outline: none;
 }
 
-.boardTable th:nth-child(1), .boardTable td:nth-child(1) {
+.businessList .title{
+    width: 100%;
+}
+.businessList .infoTextarea{
+    width: 100%;
+}
+.businessList .link{
+    width: 100%;
+}
+.businessList .dateLabel{
     width: 30%;
 }
 
-.boardTable th:nth-child(2), .boardTable td:nth-child(2) {
-    width: 10%;
-    text-align: center;
-}
-
-.boardTable th:nth-child(3), .boardTable td:nth-child(3) {
-    width: 10%;
-    text-align: center;
-}
-
-.pageNumber {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 50px 0;
-}
-
-.pageNumber ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    column-gap: 10px;
-    list-style: none;
-    font-family: 'KBO', sans-serif;
+.businessList li input[type="radio"] + label {
     font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+.businessList li input[type="radio"] {
+    width: 2%;
+    margin: 0 1%;
+    padding: 0;
+    color: black;
 }
 
-.pageNumber ul li {
+.businessList p{
+    margin: 0 1%;
+}
+
+.businessList li {
+    display: flex;
+    align-items: center;
+}
+
+.businessList li span {
+    flex-shrink: 0;
+    width: 100px;
+}
+
+
+.updateButton {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.updateButton button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'KBO', sans-serif;
+    font-size: 18px;
     cursor: pointer;
-    color: white;
+    transition: background-color 0.3s ease;
 }
 
-.pageNumber ul li a.pageOn {
-    font-weight: 700;
-    color: white;
-}
-.pageNumber ul li a:visited, .pageNumber ul li a{
-    text-decoration: none;
-    color: inherit;
+.updateButton button:hover {
+    background-color: #ffff3388;
 }
 
 .chatButton {
@@ -285,7 +307,6 @@ body {
     width: 100%;
 }
 
-
 #sendChatButton {
     background-color: #ffff33;
     border: none;
@@ -312,12 +333,14 @@ footer {
     margin-top: 50px;
     border-top: 1px solid #2e2e2e;
     color: #5e5e5e;
+    padding: 20px;
 }
 
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
     }
+
     to {
         transform: translateX(0);
     }

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/main.css">
+    <link rel="stylesheet" href="${root}/resources/css/mainFestival.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -33,10 +33,10 @@
         <div class="mainTopSearchContainer">
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
+                <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
+                    <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+                </button>
             </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
-                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-            </button>
         </div>
     </div>
 
@@ -75,15 +75,13 @@
 </div>
 
 <div class="mainPoster">
-    <video width="1000px" height="400px" controls autoplay loop muted>
-        <source src="${root}/resources/asset/포스터이미지/워터밤영상.mp4" type="video/mp4">
-    </video>
+    <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
 </div>
 
 <div class="popular">
     <div class="popularPosterText">
         <p class="popularText1">인기</p>
-        <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
+        <p class="popularText2" onclick="window.location.href='popularAddFestival'">더보기</p>
     </div>
     <div class="popularPoster">
         <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
@@ -97,8 +95,8 @@
 
 <div class="open">
     <div class="openPosterText">
-        <p class="openText1">오픈 예정</p>
-        <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
+        <p class="openText1">오픈예정</p>
+        <p class="openText2" onclick="window.location.href='openAddFestival'">더보기</p>
     </div>
     <div class="openPoster">
         <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
