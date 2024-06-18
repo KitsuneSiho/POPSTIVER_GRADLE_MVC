@@ -1,4 +1,4 @@
-package com.example.config;
+package kr.bit.config;
 
 import jakarta.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
