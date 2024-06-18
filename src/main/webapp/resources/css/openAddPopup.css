@@ -27,6 +27,12 @@ body {
     width: 100%;
 }
 
+.mainTopSearchContainer label {
+    width: 100%;
+    display: flex;
+}
+
+
 .mainTopSearch input {
     flex: 1;
     padding: 10px 30px;

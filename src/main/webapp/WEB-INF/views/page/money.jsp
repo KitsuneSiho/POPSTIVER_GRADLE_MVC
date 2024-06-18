@@ -88,7 +88,7 @@
     <ul class="businessList">
         <li>
             <span>제목</span>
-            <label>
+            <label class="title">
                 <input type="text" placeholder="30자 이내로 입력해주세요">
             </label>
         </li>
@@ -101,27 +101,25 @@
         </li>
         <li>
             <span>행사 내용</span>
-            <label>
+            <label class="infoTextarea">
                 <textarea placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10"></textarea>
             </label>
         </li>
         <li>
             <span>주소</span>
-            <label>
+            <label class="addressLabel">
                 <input type="text">
             </label>
             <button class="searchAddress" type="button">주소 검색</button>
         </li>
         <li>
             <span>행사기간</span>
-            <label>
+            <label class="dateLabel">
                 <input type="date" class="date">
-
             </label>
             <p>부터</p>
-            <label>
+            <label class="dateLabel">
                 <input type="date" class="date">
-
             </label>
             <p>까지</p>
         </li>
@@ -146,7 +144,7 @@
         <div class="chatBox">
             <!-- Chat messages will go here -->
         </div>
-        <label for="chatInput"><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" /></label>
+        <label for="chatInput"></label><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" />
         <button id="sendChatButton">보내기</button>
     </div>
 </div>

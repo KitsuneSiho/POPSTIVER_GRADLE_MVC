@@ -97,7 +97,7 @@
 
 <div class="open">
     <div class="openPosterText">
-        <p class="openText1">오픈예정</p>
+        <p class="openText1">오픈 예정</p>
         <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
     </div>
     <div class="openPoster">
