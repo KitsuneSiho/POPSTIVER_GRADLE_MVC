@@ -3,8 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     bookmarks.forEach(function(bookmark) {
         bookmark.addEventListener("click", function() {
-            const likedSrc = "${root}/resources/asset/좋아요.svg";
-            const unlikedSrc = "${root}/resources/asset/아니좋아요.svg";
+            const likedSrc = "/resources/asset/좋아요.svg";
+            const unlikedSrc = "/resources/asset/아니좋아요.svg";
             const currentSrc = bookmark.getAttribute("src");
 
             if (currentSrc === likedSrc) {
