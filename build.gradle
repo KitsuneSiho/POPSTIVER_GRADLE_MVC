@@ -22,12 +22,13 @@ dependencies {
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.10' // JSP 지원을 위한 Tomcat Jasper
 
     // Spring Framework 및 Spring Security 관련 의존성
-    implementation 'org.springframework:spring-webmvc:6.0.11' // Spring Web MVC
+    implementation 'org.springframework:spring-webmvc:6.1.8' // Spring Web MVC
     implementation 'org.springframework:spring-jdbc:6.0.11' // Spring JDBC
-    implementation 'org.springframework.security:spring-security-web:6.2.1' // Spring Security Web
-    implementation 'org.springframework.security:spring-security-config:6.2.1' // Spring Security Config
-    implementation 'org.springframework.security:spring-security-oauth2-client:6.2.1' // Spring Security OAuth2 클라이언트
-    implementation 'org.springframework.security:spring-security-oauth2-core:6.2.1' // Spring Security OAuth2 Core
+    implementation 'org.springframework.security:spring-security-web:6.3.0' // Spring Security Web
+    implementation 'org.springframework.security:spring-security-config:6.3.0' // Spring Security Config
+    implementation 'org.springframework.security:spring-security-oauth2-client:6.3.0' // Spring Security OAuth2 클라이언트
+    implementation 'org.springframework.security:spring-security-oauth2-core:6.3.0' // Spring Security OAuth2 Core
+    implementation 'org.springframework.security:spring-security-oauth2-jose:6.3.0'
 
     // JDBC 및 데이터베이스 관련 의존성
     implementation 'mysql:mysql-connector-java:8.0.33' // 최신 MySQL JDBC 드라이버
@@ -46,6 +47,24 @@ dependencies {
 
     implementation 'org.projectlombok:lombok:1.18.22' // Lombok 의존성 추가
     annotationProcessor 'org.projectlombok:lombok:1.18.22' // Lombok 어노테이션 프로세서 추가
+
+    // JSON 직렬화/역직렬화
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.1'
+
+
+    // JWT 및 OAuth2 관련 의존성
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1' // 최신 버전 확인
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.1' // 최신 버전 확인
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.9'
+
 
 }
 
