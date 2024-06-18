@@ -88,14 +88,14 @@
     <ul class="businessList">
         <li>
             <span>제목</span>
-            <label>
+            <label class="title">
                 <input type="text" placeholder="30자 이내로 입력해주세요">
             </label>
         </li>
 
         <li>
             <span>내용</span>
-            <label>
+            <label class="infoTextarea">
                 <textarea placeholder="자유롭게 작성해주세요" rows="10"></textarea>
             </label>
         </li>
@@ -121,7 +121,7 @@
         <div class="chatBox">
             <!-- Chat messages will go here -->
         </div>
-        <label for="chatInput"><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" /></label>
+        <label for="chatInput"></label><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" />
         <button id="sendChatButton">보내기</button>
     </div>
 </div>

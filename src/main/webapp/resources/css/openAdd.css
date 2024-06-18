@@ -2,6 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
+    font-family: 'KBO', sans-serif;
 }
 
 .mainTop {
@@ -11,6 +12,7 @@ body {
     padding: 0 20px;
     height: 100px;
     position: relative;
+    background-color: #1e1e1e;
 }
 
 .mainTopSearch {
@@ -26,7 +28,6 @@ body {
     align-items: center;
     width: 100%;
 }
-
 .mainTopSearchContainer label {
     width: 100%;
     display: flex;

@@ -26,6 +26,11 @@ body {
     align-items: center;
     width: 100%;
 }
+.mainTopSearchContainer label {
+    width: 100%;
+    display: flex;
+}
+
 
 .mainTopSearch input {
     flex: 1;

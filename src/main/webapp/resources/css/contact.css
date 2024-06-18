@@ -281,6 +281,10 @@ body {
     color: white;
     font-family: 'KBO', sans-serif;
 }
+.chatModalContent label{
+    width: 100%;
+}
+
 
 #sendChatButton {
     background-color: #ffff33;

@@ -176,6 +176,18 @@ li a:visited {
     box-sizing: border-box;
     outline: none;
 }
+.businessList .title{
+    width: 100%;
+}
+.businessList .infoTextarea{
+    width: 100%;
+}
+.businessList .addressLabel{
+    width: 100%;
+}
+.businessList .dateLabel{
+    width: 30%;
+}
 
 .businessList .image{
     width: 20%;
@@ -197,9 +209,7 @@ li a:visited {
     background-color: #ffff3388;
 }
 
-.businessList .date {
-    width: 30%;
-}
+
 .businessList p{
     margin: 0 1%;
 }
@@ -311,6 +321,9 @@ li a:visited {
     background-color: #3e3e3e;
     color: white;
     font-family: 'KBO', sans-serif;
+}
+.chatModalContent label{
+    width: 100%;
 }
 
 #sendChatButton {

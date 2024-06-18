@@ -124,7 +124,7 @@
         <div class="chatBox">
             <!-- Chat messages will go here -->
         </div>
-        <label for="chatInput"><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" /></label>
+        <label for="chatInput"></label><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" />
         <button id="sendChatButton">보내기</button>
     </div>
 </div>
