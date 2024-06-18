@@ -6,7 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/deleteUser.css">
+    <link rel="stylesheet" href="${root}/resources/css/myPageCss/deleteUser.css">
+    <link rel="stylesheet" href="${root}/resources/css/fixCss/header.css">
+    <link rel="stylesheet" href="${root}/resources/css/fixCss/footer.css">
+    <link rel="stylesheet" href="${root}/resources/css/fixCss/menuModal.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
