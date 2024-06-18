@@ -45,7 +45,7 @@ public class FlowController {
 
     @GetMapping("calendar")//행사일정페이지
     public String calendar_page() {
-        return "calendar";
+        return "page/calendar";
     }
 
     @GetMapping("deleteUser")//회원탈퇴페이지
