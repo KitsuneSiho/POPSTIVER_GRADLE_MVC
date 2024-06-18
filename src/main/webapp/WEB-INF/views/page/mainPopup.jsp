@@ -1,13 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/myPage.css">
+    <link rel="stylesheet" href="${root}/resources/css/mainPopup.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -64,84 +65,48 @@
     </div>
 </div>
 
-
-<div class="myPage">
-    <a class="on" href="myPage">
-        <h2>내 정보</h2>
-    </a>
-    <a href="bookmark">
-        <h2>관심 행사</h2>
-    </a>
-    <a href="deleteUser">
-        <h2>회원 탈퇴</h2>
-    </a>
+<div class="mainButton">
+    <button class="popupButton" onclick="window.location.href='mainPopup'">
+        <img src="${root}/resources/asset/POPUP메인버튼.png" alt="">
+    </button>
+    <button class="festivalButton" onclick="window.location.href='mainFestival'">
+        <img src="${root}/resources/asset/FESTIVAL메인버튼.png" alt="">
+    </button>
 </div>
 
-<div class="userInfo">
-    <ul class="info">
-        <li>
-            <span>이름</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>닉네임</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>계정 정보</span><br>
-            <label>
-                <input type="email">
-            </label>
-        </li>
-        <li>
-            <span>연락처</span><br>
-            <label>
-                <input type="tel">
-            </label>
-        </li>
-        <li>
-            <span>생일</span><br>
-            <label>
-                <input type="text" placeholder="년 - 월 - 일">
-            </label>
-        </li>
-        <li>
-            <span>주소</span><br>
-            <label>
-                <input type="text">
-            </label>
-            <button class="searchAddress" type="button">주소 검색</button>
-        </li>
-    </ul>
+<div class="mainPoster">
+    <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
 </div>
 
-<div class="tag">
-    <span>관심 태그</span>
-    <div class="tagButton">
-        <button class="tag1">태그1</button>
-        <button class="tag2">태그2</button>
-        <button class="tag3">태그3</button>
-        <button class="tag4">태그4</button>
-        <button class="tag5">태그5</button>
-        <button class="tag6">태그6</button>
-        <button class="tag7">태그7</button>
-        <button class="tag8">태그8</button>
-        <button class="tag9">태그9</button>
-        <button class="tag10">태그10</button>
+<div class="popular">
+    <div class="popularPosterText">
+        <p class="popularText1">인기</p>
+        <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
+    </div>
+    <div class="popularPoster">
+        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
+        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
+        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
+        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
+        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
     </div>
 </div>
 
-<div class="updateButton">
-    <button type="submit">수정하기</button>
-    <button type="reset">취소</button>
+<div class="open">
+    <div class="openPosterText">
+        <p class="openText1">오픈예정</p>
+        <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
+    </div>
+    <div class="openPoster">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼5.gif" alt="">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼7.gif" alt="">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼9.gif" alt="">
+        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼9.gif" alt="">
+    </div>
 </div>
-
-
-
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
     ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ

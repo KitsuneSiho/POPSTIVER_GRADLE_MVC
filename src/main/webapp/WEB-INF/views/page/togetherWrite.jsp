@@ -1,13 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/contact.css">
+    <link rel="stylesheet" href="${root}/resources/css/togetherWrite.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -32,10 +33,10 @@
         <div class="mainTopSearchContainer">
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-                <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
-                    <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-                </button>
             </label>
+            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
+                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+            </button>
         </div>
     </div>
 
@@ -65,7 +66,7 @@
 </div>
 
 <div class="contactMenu">
-    <a class="on" href="contact">
+    <a href="contact">
         <h2>공지사항</h2>
     </a>
     <a href="money">
@@ -74,7 +75,7 @@
     <a href="report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a class="on" href="together">
         <h2>동행구하기</h2>
     </a>
     <a href="free">
@@ -82,29 +83,46 @@
     </a>
 </div>
 
-<div class="board">
-    <table class="boardTable">
-        <thead>
-        <tr>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-        </tr>
-        </thead>
-        <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
 
-        </tbody>
-    </table>
-</div>
-<div class="pageNumber">
-    <ul id="pageNumberList">
-        <li><a class="pageOn"></a></li>
+<div class="business">
+    <ul class="businessList">
+        <li>
+            <span>제목</span>
+            <label class="title">
+                <input type="text" placeholder="30자 이내로 입력해주세요">
+            </label>
+        </li>
+        <li>
+            <span>유형</span>
+            <input type="radio" id="festival" name="type" value="지역 페스티벌">
+            <label for="festival">지역 페스티벌</label>
+            <input type="radio" id="popup-store" name="type" value="팝업 스토어" checked>
+            <label for="popup-store">팝업 스토어</label>
+        </li>
+        <li>
+            <span>동행기간</span>
+            <label class="dateLabel">
+                <input type="date" class="date">
+            </label>
+        </li>
+        <li>
+            <span>내용</span>
+            <label class="infoTextarea">
+                <textarea placeholder="자유롭게 작성해주세요" rows="10"></textarea>
+            </label>
+        </li>
+        <li>
+            <span>행사링크</span>
+            <label class="link">
+                <input type="text" placeholder="해당 행사 링크를 입력해주세요">
+            </label>
+        </li>
     </ul>
+</div>
+
+<div class="updateButton">
+    <button type="submit">동행구하기</button>
+    <button type="reset">취소</button>
 </div>
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
@@ -128,7 +146,6 @@
 
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
-<script src="${root}/resources/js/contact.js"></script>
 </body>
 
 </html>
