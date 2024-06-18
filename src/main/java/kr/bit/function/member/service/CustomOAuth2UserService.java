@@ -22,7 +22,6 @@ import java.util.Map;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(CustomOAuth2UserService.class);
 
     private final UserRepository userRepository;
 
@@ -42,10 +41,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         OAuth2Response oAuth2Response = null;
 
         // Access Token을 사용하여 카카오 사용자 정보를 가져오는 API 호출
-        if ("kakao".equals(registrationId)) {
-            String accessToken = userRequest.getAccessToken().getTokenValue();
-            getKakaoUserInfo(accessToken);
-        }
+//        if ("kakao".equals(registrationId)) {
+//            String accessToken = userRequest.getAccessToken().getTokenValue();
+//            getKakaoUserInfo(accessToken);
+//        }
 
         System.out.println("OAuth2User Attributes: " + oAuth2User.getAttributes());
 
@@ -58,8 +57,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 break;
             case "kakao":
                 oAuth2Response = new KakaoResponse(oAuth2User.getAttributes());
-                logger.debug("KakaoResponse: ID={}, Email={}, Name={}",
-                        oAuth2Response.getProviderId(), oAuth2Response.getEmail(), oAuth2Response.getName());
+//                        oAuth2Response.getProviderId(), oAuth2Response.getEmail(), oAuth2Response.getName());
                 break;
             default:
                 throw new OAuth2AuthenticationException("Unsupported registration id: " + registrationId);
@@ -92,18 +90,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     // Access Token을 사용하여 카카오 사용자 정보를 가져오는 메소드 추가
-    public void getKakaoUserInfo(String accessToken) {
-        String userInfoUri = "https://kapi.kakao.com/v2/user/me";
-        RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken);
-        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(userInfoUri, HttpMethod.GET, entity, String.class);
-
-        System.out.println("Kakao User Info: " + response.getBody());
-    }
+//    public void getKakaoUserInfo(String accessToken) {
+//        String userInfoUri = "https://kapi.kakao.com/v2/user/me";
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setBearerAuth(accessToken);
+//        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+//
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//
+//        ResponseEntity<String> response = restTemplate.exchange(userInfoUri, HttpMethod.GET, entity, String.class);
+//
+//        System.out.println("Kakao User Info: " + response.getBody());
+//    }
 }
