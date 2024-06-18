@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,10 @@ public class CommBoardController {
 
     //모든 게시글 목록
     @GetMapping
-    public List<CommBoardEntity> getAllBoards() {
-        return commBoardService.getAllBoards();
+    public String getAllBoards(Model model) {
+    List<CommBoardEntity> boards = commBoardService.getAllBoards();
+    model.addAttribute("boards", boards);
+        return "list";
     }
 
     //게시글 상세 조회

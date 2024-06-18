@@ -1,7 +1,7 @@
 package com.example.function.page.pageService;
 
+import com.example.function.page.pageMapper.CalendarMapper;
 import com.example.function.page.pageEntity.CalendarEntity;
-import com.example.function.page.pageRepository.CalendarRepository;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
+
+
 @Service
 public class CalendarService {
 
@@ -30,11 +32,12 @@ public class CalendarService {
     //->한 번 사용자의 동의를 받은 후, 발급받은 인증 토큰을 저장해두고 재사용 가능
 
     @Autowired
-    private CalendarRepository calendarRepository;
+    private CalendarMapper calendarMapper;
+
 
     //DB에서 일정 정보를 가져와서 구글 캘린더에 추가
     public void addEventsFromDBToGoogleCalendar() throws IOException, GeneralSecurityException {
-        List<CalendarEntity> events = calendarRepository.findAll();
+        List<CalendarEntity> events = calendarMapper.findAll();
 
         //Google API 클라이언트 초기화
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
@@ -44,39 +47,17 @@ public class CalendarService {
                 .setApplicationName("Popstiver_Calendar")
                 .build(); //객체 최종 생성
 
-        //가져온 일정 정보를 반복하여 구글 캘린더에 추가
-        for (CalendarEntity eventEntity : events) {
-            Event event = new Event()
-                    .setSummary(eventEntity.getTitle()) //제목 설정
-                    .setDescription(eventEntity.getDescription()); // 설명 설정
+        // DB에서 가져온 일정 정보를 반복하며 구글 캘린더에 추가
+        for (CalendarEntity event : events) {
+            Event googleEvent = new Event()
+                    .setSummary(event.getTitle())
+                    .setStart(new EventDateTime().setDateTime(new DateTime(event.getStartDate())))
+                    .setEnd(new EventDateTime().setDateTime(new DateTime(event.getEndDate())))
+                    .setDescription(event.getType()); // 예시로 'festival' 또는 'popup'을 설명에 넣었습니다.
 
-            DateTime start = new DateTime(eventEntity.getStartDateTime());
-            EventDateTime startEventDateTime = new EventDateTime()
-                    .setDateTime(start) //시작 일시
-                    .setTimeZone("UTC"); //시간대 설정
-            event.setStart(startEventDateTime);
-
-            DateTime end = new DateTime(eventEntity.getEndDateTime());
-            EventDateTime endEventDateTime = new EventDateTime()
-                    .setDateTime(end) //종료 일시
-                    .setTimeZone("UTC");
-            event.setEnd(endEventDateTime);
-
-            // URL을 설정하여 클릭 시 리다이렉트
-            if (eventEntity.getUrl() != null) {
-                Event.Source source = new Event.Source();
-                source.setTitle("Event Link");
-                source.setUrl(eventEntity.getUrl());
-                event.setSource(source);
-
-                //달력상에서는 일정 제목만 보이나, 일단은 정보가 필요할지도 모르니 코드는 남겨놓음
-
-                //설정한 이벤트 Google 캘린더에 추가
-                String calendarId = "primary";
-                event = service.events().insert(calendarId, event).execute();
-                //추가된 이벤트 링크 출력
-                System.out.printf("Event created: %s\n", event.getHtmlLink());
-            }
+            // 구글 캘린더에 이벤트 추가 요청
+            service.events().insert("primary", googleEvent).execute();
         }
+
     }
 }
