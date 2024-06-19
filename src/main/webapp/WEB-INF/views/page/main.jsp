@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 
@@ -26,7 +27,7 @@
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="main">POPSTIVER</a></h1>
+        <h1><a href="${root}/main">POPSTIVER</a></h1>
     </div>
 
     <div class="mainTopSearch">
@@ -34,42 +35,56 @@
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
             </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
+            <button type="submit" class="searchButton" onclick="window.location.href='${root}/searchResult'">
                 <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
             </button>
         </div>
     </div>
 
-
-
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage'">
+        <button class="myPageButton" onclick="window.location.href='${root}/myPage'">
             <img src="${root}/resources/asset/myPageButton.svg" alt="">
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
         </button>
+        <sec:authorize access="isAuthenticated()">
+            <!-- 인증된 사용자에게 로그아웃 버튼 표시 -->
+            <button class="logoutButton" onclick="window.location.href='${root}/logout'">
+                <img src="${root}/resources/asset/logoutButton.svg" alt="Logout">
+            </button>
+        </sec:authorize>
+        <sec:authorize access="!isAuthenticated()">
+            <!-- 인증되지 않은 사용자에게 로그인 버튼 표시 -->
+            <button class="loginButton" onclick="window.location.href='${root}/login'">
+                <img src="${root}/resources/asset/loginButton.svg" alt="Login">
+            </button>
+        </sec:authorize>
     </div>
-
-
 </header>
+
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="login">로그인</a></li>
-            <li><a href="map">근처 행사</a></li>
-            <li><a href="bookmark">관심 행사</a></li>
-            <li><a href="calendar">행사 일정</a></li>
-            <li><a href="contact">게시판</a></li>
+            <sec:authorize access="isAuthenticated()">
+                <li><a href="${root}/logout">로그아웃</a></li>
+            </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <li><a href="${root}/login">로그인</a></li>
+            </sec:authorize>
+            <li><a href="${root}/map">근처 행사</a></li>
+            <li><a href="${root}/bookmark">관심 행사</a></li>
+            <li><a href="${root}/calendar">행사 일정</a></li>
+            <li><a href="${root}/contact">게시판</a></li>
         </ul>
     </div>
 </div>
 
 <div class="mainButton">
-    <button class="popupButton" onclick="window.location.href='mainPopup'">
+    <button class="popupButton" onclick="window.location.href='${root}/mainPopup'">
         <img src="${root}/resources/asset/POPUP메인버튼.png" alt="">
     </button>
-    <button class="festivalButton" onclick="window.location.href='mainFestival'">
+    <button class="festivalButton" onclick="window.location.href='${root}/mainFestival'">
         <img src="${root}/resources/asset/FESTIVAL메인버튼.png" alt="">
     </button>
 </div>
@@ -83,10 +98,10 @@
 <div class="popular">
     <div class="popularPosterText">
         <p class="popularText1">인기</p>
-        <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
+        <p class="popularText2" onclick="window.location.href='${root}/popularAdd'">더보기</p>
     </div>
     <div class="popularPoster">
-        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='${root}/posterInfo'">
         <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
         <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
         <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
@@ -98,7 +113,7 @@
 <div class="open">
     <div class="openPosterText">
         <p class="openText1">오픈 예정</p>
-        <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
+        <p class="openText2" onclick="window.location.href='${root}/openAdd'">더보기</p>
     </div>
     <div class="openPoster">
         <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
@@ -109,6 +124,7 @@
         <img src="${root}/resources/asset/포스터이미지/흠뻑쇼9.gif" alt="">
     </div>
 </div>
+
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
     ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
