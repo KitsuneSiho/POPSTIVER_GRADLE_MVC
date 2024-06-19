@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/together.css">
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <link rel="stylesheet" href="${root}/resources/css/fixCss/header.css">
     <link rel="stylesheet" href="${root}/resources/css/fixCss/footer.css">
     <link rel="stylesheet" href="${root}/resources/css/fixCss/menuModal.css">
@@ -46,8 +47,8 @@
 
 
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage'">
-            <img src="${root}/resources/asset/myPageButton.svg" alt="">
+        <button class="loginButton" onclick="window.location.href='login'">
+            로그인
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
@@ -69,7 +70,7 @@
 </div>
 
 <div class="contactMenu">
-    <a href="contact.html">
+    <a href="contact">
         <h2>공지사항</h2>
     </a>
     <a href="money">

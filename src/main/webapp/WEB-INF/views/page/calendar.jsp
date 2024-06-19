@@ -46,14 +46,13 @@
 
 
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage'">
-            <img src="${root}/resources/asset/myPageButton.svg" alt="">
+        <button class="loginButton" onclick="window.location.href='login'">
+            로그인
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
         </button>
     </div>
-
 
 </header>
 <div id="menuModal" class="modal">
@@ -68,11 +67,11 @@
     </div>
 </div>
 
-<div class="calendarTitle">
+<div class="calenderTitle">
     <h1>행사 일정</h1>
 </div>
 
-<div id='calendar'></div>
+<div id='calender'></div>
 <dialog>
     <button class="close-button">&times;</button>
     <div>제목 테스트</div>
@@ -85,9 +84,9 @@
 </footer>
 
 <script src="${root}/resources/js/menuModal.js"></script>
+<script src="${root}/resources/js/calendar.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
-<script src="${root}/resources/js/calendar.js"></script>
 
 
 </body>
