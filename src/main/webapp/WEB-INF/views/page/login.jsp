@@ -192,10 +192,10 @@
         document.getElementById('myModal').style.display = 'block';
     }
 
-    function closeModal() {
-        document.getElementById('myModal').style.display = 'none';
-        window.location.href = 'myPage';
-    }
+    // function closeModal() {
+    //     document.getElementById('myModal').style.display = 'none';
+    //     window.location.href = 'myPage';
+    // }
 
     window.onclick = function(event) {
         const modal = document.getElementById('myModal');
