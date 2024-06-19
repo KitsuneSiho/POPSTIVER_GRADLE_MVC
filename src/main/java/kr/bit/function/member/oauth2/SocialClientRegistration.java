@@ -5,7 +5,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
 import org.springframework.stereotype.Component;
 
 @PropertySource("classpath:properties/application.properties") // 프로퍼티 소스를 불러옵니다.
@@ -37,12 +36,13 @@ public class SocialClientRegistration {
                 .redirectUri("http://localhost:8080/login/oauth2/code/google")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .scope("profile", "email")
-                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
+                .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent")
                 .tokenUri("https://www.googleapis.com/oauth2/v4/token")
                 .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
                 .issuerUri("https://accounts.google.com")
                 .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
-                .userNameAttributeName(IdTokenClaimNames.SUB)
+                .userNameAttributeName("sub")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .build();
     }
 
@@ -52,11 +52,12 @@ public class SocialClientRegistration {
                 .clientSecret(naverClientSecret)
                 .redirectUri("http://localhost:8080/login/oauth2/code/naver")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .scope("name", "email")
+                .scope("profile", "name", "email", "gender", "birthday", "birthyear") // 'profile' 추가
                 .authorizationUri("https://nid.naver.com/oauth2.0/authorize")
                 .tokenUri("https://nid.naver.com/oauth2.0/token")
                 .userInfoUri("https://openapi.naver.com/v1/nid/me")
                 .userNameAttributeName("response")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .build();
     }
 
@@ -66,8 +67,8 @@ public class SocialClientRegistration {
                 .clientSecret(kakaoClientSecret)
                 .redirectUri("http://localhost:8080/login/oauth2/code/kakao")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .scope("profile_nickname", "account_email")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST) // 최신 권장 방식
+                .scope("profile_nickname", "account_email", "gender", "birthday", "birthyear")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
                 .authorizationUri("https://kauth.kakao.com/oauth/authorize")
                 .tokenUri("https://kauth.kakao.com/oauth/token")
                 .userInfoUri("https://kapi.kakao.com/v2/user/me")

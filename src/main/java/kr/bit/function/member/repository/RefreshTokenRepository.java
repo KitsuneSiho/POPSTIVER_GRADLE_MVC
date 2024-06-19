@@ -14,15 +14,15 @@ public class RefreshTokenRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    // 사용자 이름 기반으로 모든 Refresh 토큰 삭제
+    // principal_name 기반으로 모든 Refresh 토큰 삭제
     public void deleteRefreshTokensByUsername(String username) {
-        String sql = "DELETE FROM refresh_tokens WHERE username = ?";
+        String sql = "DELETE FROM oauth2_authorized_client WHERE principal_name = ?";
         jdbcTemplate.update(sql, username);
     }
 
-    // Refresh 토큰 자체로 삭제 (개별 토큰 삭제)
+    // refresh_token_value 기반으로 개별 Refresh 토큰 삭제
     public void deleteRefreshToken(String refreshToken) {
-        String sql = "DELETE FROM refresh_tokens WHERE token = ?";
+        String sql = "DELETE FROM oauth2_authorized_client WHERE refresh_token_value = ?";
         jdbcTemplate.update(sql, refreshToken);
     }
 }

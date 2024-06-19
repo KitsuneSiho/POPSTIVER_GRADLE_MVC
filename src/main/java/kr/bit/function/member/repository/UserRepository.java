@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 @Repository
 public class UserRepository {
@@ -30,26 +31,27 @@ public class UserRepository {
     }
 
     public void saveUser(UserEntity user) {
-        String sql = "INSERT INTO user (user_type, user_id, user_pw, user_name, user_email, user_birth, user_gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender, user_birthyear) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 user.getUserType(),
                 user.getUserId(),
-                user.getUserPw(),
                 user.getUserName(),
                 user.getUserEmail(),
-                user.getUserBirth(),
-                user.getUserGender());
+                user.getUserBirth(), // Date 타입으로 저장
+                user.getUserGender(),
+                user.getUserBirthYear()
+        );
     }
 
     public void updateUser(UserEntity user) {
-        String sql = "UPDATE user SET user_type = ?, user_pw = ?, user_name = ?, user_email = ?, user_birth = ?, user_gender = ? WHERE user_id = ?";
+        String sql = "UPDATE user SET user_type = ?, user_name = ?, user_email = ?, user_birth = ?, user_gender = ?, user_birthyear = ? WHERE user_id = ?";
         jdbcTemplate.update(sql,
                 user.getUserType(),
-                user.getUserPw(),
                 user.getUserName(),
                 user.getUserEmail(),
-                user.getUserBirth(),
+                user.getUserBirth(), // Date 타입으로 저장
                 user.getUserGender(),
+                user.getUserBirthYear(),
                 user.getUserId());
     }
 
@@ -69,11 +71,11 @@ public class UserRepository {
             user.setUserNo(rs.getInt("user_no"));
             user.setUserType(rs.getInt("user_type"));
             user.setUserId(rs.getString("user_id"));
-            user.setUserPw(rs.getString("user_pw"));
             user.setUserName(rs.getString("user_name"));
             user.setUserEmail(rs.getString("user_email"));
-            user.setUserBirth(rs.getDate("user_birth"));
+            user.setUserBirth(rs.getDate("user_birth")); // Date 타입으로 매핑
             user.setUserGender(rs.getString("user_gender"));
+            user.setUserBirthYear(rs.getString("user_birthyear"));
             return user;
         }
     }
