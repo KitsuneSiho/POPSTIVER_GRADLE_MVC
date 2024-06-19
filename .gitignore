@@ -1,12 +1,14 @@
-.gradle
+../../IdeaProjects/POPSTIVER_GRADLE_MVC_back/.gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
 ### DATABASE ###
-db.properties
-fsf.prop
+**/src/main/resources/properties/
+
+### APIKEY ###
+**/src/main/resources/API/
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
