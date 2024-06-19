@@ -30,13 +30,8 @@ public class FlowController {
     }
 
     @GetMapping("/myPage")//마이페이지
-    public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        if (principal != null) {
-            // OAuth2User로부터 사용자 정보를 가져와 모델에 추가
-            model.addAttribute("userName", principal.getAttribute("name"));
-            model.addAttribute("userEmail", principal.getAttribute("email"));
-            // 필요한 다른 속성도 추가
-        }
+    public String my_page() {
+
         return "page/myPage";
     }
 
