@@ -64,7 +64,8 @@ body {
     text-align: center;
     width: 20%;
 }
-.mainTopLogo a, a:visited{
+
+.mainTopLogo a, a:visited {
     text-decoration: none;
     color: inherit;
 }
@@ -73,15 +74,18 @@ body {
     display: flex;
 }
 
-.myPageButton,
+.loginButton,
 .menuButton {
     background: none;
     border: none;
     cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
 }
 
-.myPageButton img {
-    border-radius: 100%;
-    width: 50px;
-    height: 50px;
+.loginButton {
+    font-size: 25px;
+    margin-right: 10px;
+    color: white;
+    font-family: 'KBO',sans-serif;
 }

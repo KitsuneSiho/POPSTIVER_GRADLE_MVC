@@ -80,8 +80,8 @@
 
 
     <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage'">
-            <img src="${root}/resources/asset/myPageButton.svg" alt="">
+        <button class="loginButton" onclick="window.location.href='login'">
+            로그인
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
