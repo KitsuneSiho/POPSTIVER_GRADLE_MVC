@@ -45,6 +45,9 @@ dependencies {
     //구글 캘린더 API
     implementation 'com.google.http-client:google-http-client-jackson2:1.44.2'
     implementation 'com.google.apis:google-api-services-calendar:v3-rev411-1.25.0'
+    implementation 'com.google.api-client:google-api-client:1.15.0-rc'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.36.0'
+    implementation 'com.google.oauth-client:google-oauth-client:1.36.0'
 
     // JSTL
     implementation "javax.servlet:jstl:1.2"
