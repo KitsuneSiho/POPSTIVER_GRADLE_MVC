@@ -6,6 +6,7 @@ build/
 
 ### DATABASE ###
 db.properties
+fsf.prop
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
