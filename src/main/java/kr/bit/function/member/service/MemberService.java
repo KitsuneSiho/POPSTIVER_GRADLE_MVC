@@ -42,7 +42,11 @@ public class MemberService {
         jdbcTemplate.update(sql, userId);
     }
 
-
-
+    // 아이디를 기준으로 사용자 존재 여부 확인
+    public boolean existsById(String userId) {
+        String sql = "SELECT COUNT(*) FROM user WHERE user_id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+        return count != null && count > 0;
+    }
 
 }
