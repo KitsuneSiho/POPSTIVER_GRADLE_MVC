@@ -23,40 +23,6 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
-
-        /* 모달 스타일 */
-        .infoModal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .infoModal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 300px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .infoModal-content button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
     </style>
 </head>
 
@@ -102,54 +68,41 @@
     </div>
 </div>
 
-<div class="loginButton">
+<div class="loginTitle">
+    <h1>간편 로그인</h1>
+    <p>아이디 / 비밀번호 입력할 필요 없어요!<br>
+        SNS 아이디로 빠르게 로그인 / 회원가입 하세요 :)
+    </p>
+</div>
+
+<div class="nkgloginButton">
     <div class="naverLogin">
-        <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">네이버로그인</a>
-        </button>
+            <button type="button" onclick="">
+                <img src="${root}/resources/asset/네이버아이콘.png" alt="">
+                <span>네이버 로그인 / 회원가입</span>
+            </button>
     </div>
     <div class="kakaoLogin">
-        <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">카카오로그인</a>
+        <button type="button" onclick="">
+            <img src="${root}/resources/asset/카카오아이콘.png" alt="">
+            <span>카카오 로그인 / 회원가입</span>
         </button>
     </div>
     <div class="googleLogin">
-        <button type="button" onclick="showModal()">
-            <a href="javascript:void(0)">구글로그인</a>
+        <button type="button" onclick="">
+            <img src="${root}/resources/asset/구글아이콘.png" alt="">
+            <span>구글 로그인 / 회원가입</span>
         </button>
     </div>
 </div>
 
-<!-- 모달 -->
-<div id="myModal" class="infoModal">
-    <div class="infoModal-content">
-        <p>회원가입을 축하드립니다. 추가 정보를 입력해주세요</p>
-        <button onclick="closeModal()">확인</button>
-    </div>
-</div>
+
 
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
 </footer>
 
-<script>
-    function showModal() {
-        document.getElementById('myModal').style.display = 'block';
-    }
 
-    function closeModal() {
-        document.getElementById('myModal').style.display = 'none';
-        window.location.href = 'myPage';
-    }
-
-    // 모달 외부 클릭 시 모달 닫기
-    window.onclick = function(event) {
-        const modal = document.getElementById('myModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    }
-</script>
 <script src="${root}/resources/js/menuModal.js"></script>
 </body>
 

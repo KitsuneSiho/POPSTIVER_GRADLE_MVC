@@ -3,37 +3,99 @@ body {
     padding: 0;
     background-color: black;
 }
-
-.loginButton{
-    display: block;
-}
-.naverLogin{
-    background-color: green;
-    width: 700px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-}
-.kakaoLogin{
-    background-color: yellow;
-    width: 700px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-}
-.googleLogin{
-    background-color: white;
-    width: 700px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
+.loginTitle{
+    font-family: 'KBO',sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.5;
 }
 
-.alert{
-    width: 100px;
-    height: 100px;
+.nkgloginButton{
+    width: 100%;
+    margin: 3% auto;
+    text-align: center;
+    font-family: 'KBO',sans-serif;
+}
+.naverLogin button{
+    color: white;
+    background-color: #03c75a;
+    width: 30%;
+    height: 80px;
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 10px;
+    margin: 1% auto;
+    justify-content: start;
+    cursor: pointer;
+}
+.naverLogin button img {
+    width: 80px;
+    height: 80px;
+    z-index: 1;
+}
+.naverLogin button span{
+    font-family: 'KBO',sans-serif;
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.kakaoLogin button{
+    color: white;
+    background-color: #fee500;
+    width: 30%;
+    height: 80px;
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 10px;
+    margin: 1% auto;
+    justify-content: start;
+    cursor: pointer;
+}
+.kakaoLogin button img {
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+    margin: 0 3% ;
+}
+.kakaoLogin button span{
+    font-family: 'KBO',sans-serif;
+    font-size: 30px;
+    color: black;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.googleLogin button{
+    color: white;
+    background-color: #ffffff;
+    width: 30%;
+    height: 80px;
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 10px;
+    margin: 1% auto;
+    justify-content: start;
+    cursor: pointer;
+}
+.googleLogin button img {
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+    margin: 0 3%;
+}
+.googleLogin button span{
+    font-family: 'KBO',sans-serif;
+    font-size: 30px;
+    color: black;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
