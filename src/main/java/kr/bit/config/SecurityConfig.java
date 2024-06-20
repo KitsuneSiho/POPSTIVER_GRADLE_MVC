@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 public class SecurityConfig {
 
     private final SocialClientRegistration socialClientRegistration;
-//    private final CustomOAuth2UserService customOAuth2UserService;
+    //    private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomClientRegistrationRepo customClientRegistrationRepo;
     private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler; // LogoutSuccessHandler 주입
@@ -30,11 +30,11 @@ public class SecurityConfig {
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     public SecurityConfig(
-                          CustomClientRegistrationRepo customClientRegistrationRepo,
-                          CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService,
-                          JdbcTemplate jdbcTemplate,
-                          SocialClientRegistration socialClientRegistration,
-                          CustomLogoutSuccessHandler customLogoutSuccessHandler) {
+            CustomClientRegistrationRepo customClientRegistrationRepo,
+            CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService,
+            JdbcTemplate jdbcTemplate,
+            SocialClientRegistration socialClientRegistration,
+            CustomLogoutSuccessHandler customLogoutSuccessHandler) {
 //        this.customOAuth2UserService = customOAuth2UserService;
         this.customClientRegistrationRepo = customClientRegistrationRepo;
         this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
@@ -52,13 +52,15 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/main", "/map" ,"/calendar", "/openAddPopup", "/openAdd","/mainPopup","/mainFestival","/popularAdd","/popularAdd","/popularAddFestival","/popularAddPopup","/posterInfo","/searchResult").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())
                         .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
-                        .defaultSuccessUrl("/join_information", true)  // 로그인 성공 후 리디렉션할 URL 설정
+                        .defaultSuccessUrl("/login_success", true)  // 로그인 성공 후 리디렉션할 URL 설정
                         .authorizationEndpoint(authorization ->
                                 authorization.authorizationRequestResolver(
                                         new CustomAuthorizationRequestResolver(customClientRegistrationRepo.clientRegistrationRepository())
