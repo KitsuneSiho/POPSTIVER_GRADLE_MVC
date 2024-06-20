@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +24,82 @@
             src: url('${root}/resources/font/KBO.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // 문서 로드 시 사용자 정보 로드
+            loadUserInfo();
+        });
+
+
+        function loadUserInfo() {
+
+            $.ajax({
+                type: "GET",
+                url: "member/getUserInfo",
+                success: function(response) {
+                    // 사용자 정보가 성공적으로 로드되면 폼에 데이터 설정
+                    var user = response;
+                    $("input[name='user_name']").val(user.user_name);
+                    $("input[name='user_email']").val(user.user_email);
+                    $("input[name='user_birth']").val(user.user_birth);
+                    $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
+                    $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
+                },
+                error: function(xhr, status, error) {
+                    console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
+                }
+            });
+        }
+        // 수정하기 버튼을 클릭할 시
+        function enableEdit(){
+            $("#editButton").css("display", "none"); // 수정 버튼은 안 보이게
+            $("#saveButton").css("display", "block"); // 저장 버튼은 보이게
+
+            // 입력 필드들의 readonly 속성 해제
+            $("input[type='text']").prop("readonly", false);
+            $("input[type='date']").prop("readonly", false);
+
+            // 라디오 버튼들의 disabled 속성 해제
+            $("input[type='radio']").prop("disabled", false);
+        }
+
+        // 저장하기 버튼을 누르면
+        function submitForm(event){
+            // 폼 데이터 변수로 가져오기
+            var userEmail = $("input[name='user_email']").val();
+
+            event.preventDefault(); // 폼 제출 방지
+
+            $.ajax({
+                type: "put",
+                url: "member/updateUser",
+                contentType: 'application/json;charset=utf-8',
+                // StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
+                data: JSON.stringify({
+                    "user_email" : userEmail
+                }),
+                success: function(response) {
+                    // 업데이트 성공 시 처리할 코드
+                    alert("회원 정보가 업데이트되었습니다!");
+                    // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
+                },
+                error: function(xhr, status, error) {
+                    // 실패 시 처리할 코드
+                    alert("회원 정보 업데이트 중 오류가 발생했습니다.");
+                }
+            });
+
+            $("#editButton").css("display", "block"); // 수정 버튼은 보이게
+            $("#saveButton").css("display", "none"); // 저장 버튼은 안 보이게
+
+            // 입력 필드들의 readonly 속성 적용
+            $("input[type='text']").prop("readonly", true);
+            $("input[type='date']").prop("readonly", true);
+
+        }
+
+    </script>
 </head>
 
 <body>
@@ -67,7 +144,6 @@
     </div>
 </div>
 
-
 <div class="myPage">
     <a class="on" href="myPage">
         <h2>내 정보</h2>
@@ -80,70 +156,44 @@
     </a>
 </div>
 
-<div class="userInfo">
-    <ul class="info">
-        <li>
-            <span>이름</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>닉네임</span><br>
-            <label>
-                <input type="text">
-            </label>
-        </li>
-        <li>
-            <span>계정 정보</span><br>
-            <label>
-                <input type="email">
-            </label>
-        </li>
-        <li>
-            <span>연락처</span><br>
-            <label>
-                <input type="tel">
-            </label>
-        </li>
-        <li>
-            <span>생일</span><br>
-            <label>
-                <input type="text" placeholder="년 - 월 - 일">
-            </label>
-        </li>
-        <li>
-            <span>주소</span><br>
-            <label>
-                <input type="text">
-            </label>
-            <button class="searchAddress" type="button">주소 검색</button>
-        </li>
-    </ul>
-</div>
-
-<div class="tag">
-    <span>관심 태그</span>
-    <div class="tagButton">
-        <button class="tag1">태그1</button>
-        <button class="tag2">태그2</button>
-        <button class="tag3">태그3</button>
-        <button class="tag4">태그4</button>
-        <button class="tag5">태그5</button>
-        <button class="tag6">태그6</button>
-        <button class="tag7">태그7</button>
-        <button class="tag8">태그8</button>
-        <button class="tag9">태그9</button>
-        <button class="tag10">태그10</button>
+<form id="userInfoForm" method="post" onsubmit="submitForm(event)">
+    <div class="userInfo">
+        <ul class="info">
+            <li>
+                <span>회원 유형</span><br>
+                <input type="radio" id="host" name="user_type" value="1" ${user.user_type == 1 ? 'checked' : ''}>
+                <label for="host">주최자</label>
+                <input type="radio" id="user" name="user_type" value="2" ${user.user_type == 2 ? 'checked' : ''}>
+                <label for="user">사용자</label>
+            </li>
+            <li>
+                <span>이름</span><br>
+                <input type="text" name="user_name" value="${user.user_name}" readonly>
+            </li>
+            <li>
+                <span>이메일</span><br>
+                <input type="text" name="user_email" value="${user.user_email}" readonly>
+            </li>
+            <li>
+                <span>생일</span><br>
+                <input type="text" name="user_birth" value="${user.user_birth}" readonly>
+            </li>
+            <li>
+                <span>성별</span><br>
+                <input type="radio" id="male" name="user_gender" value="male" ${user.user_gender == 'male' ? 'checked' : ''}>
+                <label for="male">남</label>
+                <input type="radio" id="female" name="user_gender" value="female" ${user.user_gender == 'female' ? 'checked' : ''}>
+                <label for="female">여</label>
+            </li>
+        </ul>
     </div>
-</div>
+    </div>
 
-<div class="updateButton">
-    <button type="submit">수정하기</button>
-    <button type="reset">취소</button>
-</div>
-
-
+    <div class="updateButton">
+        <button type="button" id="editButton" onclick="enableEdit()">수정하기</button>
+        <button type="submit" id="saveButton" style="display:none">저장하기</button>
+    </div>
+</form>
 
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>

@@ -23,7 +23,26 @@
         }
     </style>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#deleteUserForm").on("submit", function(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
 
+            $.ajax({
+                type: "DELETE",
+                url: "/member/deleteUser",
+                success: function(response) {
+                    alert("회원 탈퇴가 완료되었습니다.");
+                    window.location.href = "/main"; // 탈퇴 후 메인 페이지로 이동
+                },
+                error: function(xhr, status, error) {
+                    alert("회원 탈퇴 중 오류가 발생했습니다.");
+                }
+            });
+        });
+    });
+</script>
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
@@ -79,14 +98,16 @@
 </div>
 
 <div class="deletePage">
-    <div class="deleteUser">
-        <span class="delete">회원 탈퇴</span><br>
-        <span class="delete2">탈퇴 시 가입된 회원 정보가 모두 삭제됩니다.<br>
+    <form id="deleteUserForm">
+        <div class="deleteUser">
+            <span class="delete">회원 탈퇴</span><br>
+            <span class="delete2">탈퇴 시 가입된 회원 정보가 모두 삭제됩니다.<br>
             정말 회원 탈퇴를 진행하시겠습니까?
         </span><br>
-        <button class="deleteYes" type="submit">탈퇴하기</button>
-        <button class="deleteNo" type="reset">취소</button>
-    </div>
+            <button class="deleteYes" type="submit">탈퇴하기</button>
+            <button class="deleteNo" type="reset">취소</button>
+        </div>
+    </form>
 </div>
 
 
@@ -97,6 +118,8 @@
 </footer>
 
 <script src="${root}/resources/js/menuModal.js"></script>
+
+
 </body>
 
 </html>
