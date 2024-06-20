@@ -30,8 +30,7 @@ public class FlowController {
     }
 
     @GetMapping("/myPage")//마이페이지
-    public String my_page() {
-
+    public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "page/myPage";
     }
 

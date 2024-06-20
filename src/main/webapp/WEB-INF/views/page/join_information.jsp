@@ -94,7 +94,7 @@
             </li>
             <li>
                 <span>생일</span><br>
-                <input type="text" name="user_birth" value="${birthyear}${birthday}">
+                <input type="text" name="user_birth" value="${birthYear}${birthday}">
             </li>
             <li>
                 <span>성별</span><br>
