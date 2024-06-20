@@ -2,7 +2,11 @@ package kr.bit.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.*;
+
+import java.util.List;
 
 @Configuration
 @EnableWebMvc
@@ -22,4 +26,5 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
+
 }

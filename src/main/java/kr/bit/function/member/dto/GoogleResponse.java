@@ -38,7 +38,7 @@ public class GoogleResponse implements OAuth2Response {
     }
 
     @Override
-    public Date getBirthday() {
+    public String getBirthday() {
         return null;
     }
 

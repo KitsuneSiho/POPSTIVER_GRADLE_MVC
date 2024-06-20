@@ -1,7 +1,10 @@
 package kr.bit.config;
 
-import kr.bit.function.member.oauth2.*;
-import kr.bit.function.member.service.CustomOAuth2UserService;
+import kr.bit.function.member.oauth2.CustomAuthorizationRequestResolver;
+import kr.bit.function.member.oauth2.CustomClientRegistrationRepo;
+import kr.bit.function.member.oauth2.CustomLogoutSuccessHandler;
+import kr.bit.function.member.oauth2.CustomOAuth2AuthorizedClientService;
+import kr.bit.function.member.oauth2.SocialClientRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,21 +21,21 @@ import org.slf4j.LoggerFactory;
 public class SecurityConfig {
 
     private final SocialClientRegistration socialClientRegistration;
-    private final CustomOAuth2UserService customOAuth2UserService;
+//    private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomClientRegistrationRepo customClientRegistrationRepo;
     private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
-    private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    private final CustomLogoutSuccessHandler customLogoutSuccessHandler; // LogoutSuccessHandler 주입
     private final JdbcTemplate jdbcTemplate;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService,
+    public SecurityConfig(
                           CustomClientRegistrationRepo customClientRegistrationRepo,
                           CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService,
                           JdbcTemplate jdbcTemplate,
                           SocialClientRegistration socialClientRegistration,
                           CustomLogoutSuccessHandler customLogoutSuccessHandler) {
-        this.customOAuth2UserService = customOAuth2UserService;
+//        this.customOAuth2UserService = customOAuth2UserService;
         this.customClientRegistrationRepo = customClientRegistrationRepo;
         this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
         this.jdbcTemplate = jdbcTemplate;
@@ -55,8 +58,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())
                         .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
-                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(customOAuth2UserService))
-                        .successHandler(new CustomAuthenticationSuccessHandler("/main")) // 커스텀 성공 핸들러 사용
+                        .defaultSuccessUrl("/join_information", true)  // 로그인 성공 후 리디렉션할 URL 설정
                         .authorizationEndpoint(authorization ->
                                 authorization.authorizationRequestResolver(
                                         new CustomAuthorizationRequestResolver(customClientRegistrationRepo.clientRegistrationRepository())
@@ -65,7 +67,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessHandler(customLogoutSuccessHandler)
+                        .logoutSuccessHandler(customLogoutSuccessHandler) // 분리된 핸들러를 사용
                         .invalidateHttpSession(true)
                         .deleteCookies("refreshToken")
                 );
