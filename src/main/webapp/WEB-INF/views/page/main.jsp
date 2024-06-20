@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 
@@ -46,12 +47,24 @@
 
 
     <div class="mainTopButton">
-        <button class="loginButton" onclick="window.location.href='login'">
-            로그인
+        <button class="myPageButton" onclick="window.location.href='myPage'">
+            <img src="${root}/resources/asset/myPageButton.svg" alt="">
         </button>
         <button class="menuButton">
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
         </button>
+        <sec:authorize access="isAuthenticated()">
+            <!-- 인증된 사용자에게 로그아웃 버튼 표시 -->
+            <button class="logoutButton" onclick="window.location.href='${root}/logout'">
+                <img src="${root}/resources/asset/logoutButton.svg" alt="Logout">
+            </button>
+        </sec:authorize>
+        <sec:authorize access="!isAuthenticated()">
+            <!-- 인증되지 않은 사용자에게 로그인 버튼 표시 -->
+            <button class="loginButton" onclick="window.location.href='${root}/login'">
+                <img src="${root}/resources/asset/loginButton.svg" alt="Login">
+            </button>
+        </sec:authorize>
     </div>
 
 
@@ -59,11 +72,16 @@
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="login">로그인</a></li>
-            <li><a href="map">근처 행사</a></li>
-            <li><a href="bookmark">관심 행사</a></li>
-            <li><a href="calendar">행사 일정</a></li>
-            <li><a href="contact">게시판</a></li>
+            <sec:authorize access="isAuthenticated()">
+                <li><a href="${root}/logout">로그아웃</a></li>
+            </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <li><a href="${root}/login">로그인</a></li>
+            </sec:authorize>
+            <li><a href="${root}/map">근처 행사</a></li>
+            <li><a href="${root}/bookmark">관심 행사</a></li>
+            <li><a href="${root}/calendar">행사 일정</a></li>
+            <li><a href="${root}/contact">게시판</a></li>
         </ul>
     </div>
 </div>

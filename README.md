@@ -65,8 +65,8 @@
 #### KitsuneSiho (팀장) : SQL 및 데이터베이스 설계, 데이터 처리흐름 담당, Git 버전관리
 #### HarryKang (Back-End) : C/R/U/D 게시판 설계, 프로젝트 전체 버전관리, WebSocket 설계 ChatService 구현
 #### SangWoo (Back-End) : C/R/U/D 게시판 설계, Google API & Framwork 을 이용한 지도와 캘린더 서비스 구현
-#### boddak (Front-End) : UI설계, 반응형 웹페이지 제작, Front-End Data Flow Managerment
-#### Hojun (Back-End) : User Permission Managerment, PersonalSecurityToken 처리
+#### boddak (Front-End) : UI설계, 반응형 웹페이지 제작, Front-End Data Flow Management
+#### Hojun (Back-End) : User Permission Management, PersonalSecurityToken 처리
 #### Jaeyoung (Back-End) : User Verification, Kakako/naver/google Login 구현, 외부 SecurityToken 처리
 
 </p>
