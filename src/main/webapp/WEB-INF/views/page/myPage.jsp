@@ -34,20 +34,24 @@
             $.ajax({
                 type: "GET",
                 url: "member/getUserInfo",
-                success: function(response) {
-                    // 사용자 정보가 성공적으로 로드되면 폼에 데이터 설정
-                    var user = response;
-                    $("input[name='user_name']").val(user.user_name);
-                    $("input[name='user_email']").val(user.user_email);
-                    $("input[name='user_birth']").val(user.user_birth);
-                    $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
-                    $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
-                },
+                dataType : "json",
+                success: make,
                 error: function(xhr, status, error) {
                     console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
                 }
             });
         }
+
+        function make(response){
+            var user = response;
+            console.log("서버에서 받은 데이터:", response);
+            $("input[name='user_name']").val(user.user_name);
+            $("input[name='user_email']").val(user.user_email);
+            $("input[name='user_birth']").val(user.user_birth);
+            $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
+            $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
+        }
+
         // 수정하기 버튼을 클릭할 시
         function enableEdit(){
             $("#editButton").css("display", "none"); // 수정 버튼은 안 보이게
