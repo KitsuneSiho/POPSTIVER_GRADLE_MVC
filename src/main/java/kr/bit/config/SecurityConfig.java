@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/main", "/map" ,"/calendar", "/openAddPopup", "/openAdd","/mainPopup","/mainFestival","/popularAdd","/popularAdd","/popularAddFestival","/popularAddPopup","/posterInfo","/searchResult").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
