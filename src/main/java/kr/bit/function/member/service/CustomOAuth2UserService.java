@@ -2,7 +2,7 @@ package kr.bit.function.member.service;
 
 import kr.bit.function.member.dto.*;
 import kr.bit.function.member.entity.MemberEntity;
-import kr.bit.function.member.entity.UserEntity;
+
 import kr.bit.function.member.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
