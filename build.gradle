@@ -32,6 +32,8 @@ dependencies {
 
     // WebSocket 관련 의존성 추가
     implementation 'org.springframework:spring-websocket:6.0.10' // Spring WebSocket
+    implementation 'org.springframework:spring-messaging:6.0.10'
+
 
     // JDBC 및 데이터베이스 관련 의존성
     implementation 'mysql:mysql-connector-java:8.0.33' // 최신 MySQL JDBC 드라이버
