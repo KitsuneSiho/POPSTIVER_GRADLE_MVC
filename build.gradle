@@ -42,13 +42,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0' // JUnit 4와의 호환성을 위해
 
-    //구글 캘린더 API
-    implementation 'com.google.http-client:google-http-client-jackson2:1.44.2'
-    implementation 'com.google.apis:google-api-services-calendar:v3-rev411-1.25.0'
-    implementation 'com.google.api-client:google-api-client:1.15.0-rc'
-    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.36.0'
-    implementation 'com.google.oauth-client:google-oauth-client:1.36.0'
-
     // JSTL
     implementation "javax.servlet:jstl:1.2"
 
@@ -57,9 +50,20 @@ dependencies {
     implementation 'org.mybatis:mybatis-spring:3.0.3'
 
     // Jackson
-    implementation "com.fasterxml.jackson.core:jackson-core:2.11.4"
-    implementation "com.fasterxml.jackson.core:jackson-annotations:2.11.4"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.11.4"
+    implementation "com.fasterxml.jackson.core:jackson-core:2.15.0"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.15.0"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.15.0"
+
+    // SLF4J API
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+
+    // Logback Implementation
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
+
+    //FullCalendar
+    implementation 'org.webjars.npm:fullcalendar:6.1.14'
+
+
 
 
 }
