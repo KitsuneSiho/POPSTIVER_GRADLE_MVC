@@ -56,17 +56,10 @@ public class NaverResponse implements OAuth2Response {
     }
 
     @Override
-    public Date getBirthday() {
+    public String getBirthday() {
         String birthdayStr = attribute.get("birthday") != null ? attribute.get("birthday").toString() : null;
         System.out.println("Birthday: " + birthdayStr); // 디버깅을 위해 추가
-        if (birthdayStr != null) {
-            try {
-                return new SimpleDateFormat("MM-dd").parse(birthdayStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
+        return birthdayStr;
     }
 
     @Override

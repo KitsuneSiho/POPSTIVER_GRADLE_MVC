@@ -1,6 +1,7 @@
 package kr.bit.function.member.service;
 
 import kr.bit.function.member.dto.*;
+import kr.bit.function.member.entity.MemberEntity;
 import kr.bit.function.member.entity.UserEntity;
 import kr.bit.function.member.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -40,35 +41,32 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         }
 
         String userId = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
-        UserEntity userEntity = userRepository.findByUserId(userId);
+        MemberEntity user = userRepository.findByUserId(userId);
 
-        if (userEntity == null) {
-            userEntity = new UserEntity();
-            userEntity.setUserId(userId);
-            userEntity.setUserEmail(oAuth2Response.getEmail());
-            userEntity.setUserName(oAuth2Response.getName());
-            userEntity.setUserType(1); // Default to user type 1 (regular user)
-            userEntity.setUserGender(oAuth2Response.getGender());
-            userEntity.setUserBirth(oAuth2Response.getBirthday()); // Date 타입으로 설정
-            userEntity.setUserBirthYear(oAuth2Response.getBirthYear());
+        if (user == null) {
+            user = new MemberEntity();
+            user.setUser_id(userId);
+            user.setUser_email(oAuth2Response.getEmail());
+            user.setUser_name(oAuth2Response.getName());
+            user.setUser_type(1); // Default to user type 1 (regular user)
+            user.setUser_gender(oAuth2Response.getGender());
+            user.setUser_birth(oAuth2Response.getBirthYear() + oAuth2Response.getBirthday());
         } else {
-            userEntity.setUserEmail(oAuth2Response.getEmail());
-            userEntity.setUserName(oAuth2Response.getName());
-            userEntity.setUserGender(oAuth2Response.getGender());
-            userEntity.setUserBirth(oAuth2Response.getBirthday()); // Date 타입으로 설정
-            userEntity.setUserBirthYear(oAuth2Response.getBirthYear());
+            user.setUser_email(oAuth2Response.getEmail());
+            user.setUser_name(oAuth2Response.getName());
+            user.setUser_gender(oAuth2Response.getGender());
+            user.setUser_birth(oAuth2Response.getBirthYear() + oAuth2Response.getBirthday());
         }
 
-        userRepository.saveOrUpdateUser(userEntity);
 
         UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(userEntity.getUserId());
-        userDTO.setName(userEntity.getUserName());
-        userDTO.setUserType(userEntity.getUserType());
-        userDTO.setUserEmail(userEntity.getUserEmail());
-        userDTO.setUserGender(userEntity.getUserGender());
-        userDTO.setUserBirth(userEntity.getUserBirth());
-        userDTO.setUserBirthYear(userEntity.getUserBirthYear());
+        userDTO.setUsername(user.getUser_id());
+        userDTO.setName(user.getUser_name());
+        userDTO.setUserType(user.getUser_type());
+        userDTO.setUserEmail(user.getUser_email());
+        userDTO.setUserGender(user.getUser_gender());
+        userDTO.setUserBirth(user.getUser_birth());
+
 
         return new CustomOAuth2User(userDTO, oAuth2User.getAttributes());
     }

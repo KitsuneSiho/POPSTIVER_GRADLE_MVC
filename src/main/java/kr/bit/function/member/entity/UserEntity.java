@@ -10,7 +10,7 @@ public class UserEntity {
     private String userId;    // user_id, unique
     private String userName;  // user_name
     private String userEmail; // user_email
-    private Date userBirth;   // user_birth, Date 타입으로 변경
+    private String userBirth;   // user_birth, Date 타입으로 변경
     private String userGender; // user_gender
     private String userBirthYear; // user_birth_year, 출생연도
 }

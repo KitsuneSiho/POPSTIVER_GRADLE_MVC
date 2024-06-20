@@ -9,6 +9,6 @@ public interface OAuth2Response {
     String getEmail();
     String getName();
     String getGender();  // 성별
-    Date getBirthday();  // 생일
+    String getBirthday();  // 생일
     String getBirthYear();  // 출생연도
 }
