@@ -12,6 +12,6 @@ public class UserDTO {
     private int userType; // 0: Admin, 1: User
     private String userEmail; // 사용자 이메일
     private String userGender; // 사용자 성별
-    private Date userBirth; // 사용자 생일
+    private String userBirth; // 사용자 생일
     private String userBirthYear; // 사용자 출생연도
 }

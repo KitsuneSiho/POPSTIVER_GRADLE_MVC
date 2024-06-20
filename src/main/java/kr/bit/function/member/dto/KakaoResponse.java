@@ -11,8 +11,6 @@ public class KakaoResponse implements OAuth2Response {
     private final Map<String, Object> kakaoAccountAttribute;
     private final Map<String, Object> profileAttribute;
 
-    // Kakao의 생일은 "MMDD" 형식으로 제공됩니다.
-    private static final SimpleDateFormat KAKAO_BIRTHDAY_FORMAT = new SimpleDateFormat("MMdd");
 
     public KakaoResponse(Map<String, Object> attribute) {
         this.attribute = attribute;
@@ -71,17 +69,10 @@ public class KakaoResponse implements OAuth2Response {
     }
 
     @Override
-    public Date getBirthday() {
-        if (kakaoAccountAttribute != null && kakaoAccountAttribute.get("birthday") != null) {
-            String birthdayStr = kakaoAccountAttribute.get("birthday").toString();
-            try {
-                // "MMdd" 형식의 문자열을 Date 객체로 변환
-                return KAKAO_BIRTHDAY_FORMAT.parse(birthdayStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return null; // 변환에 실패하면 null 반환
+    public String getBirthday() {
+        return kakaoAccountAttribute != null && kakaoAccountAttribute.get("birthday") != null
+                ? kakaoAccountAttribute.get("birthday").toString()
+                : null;
     }
 
     @Override
