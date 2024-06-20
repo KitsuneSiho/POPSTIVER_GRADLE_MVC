@@ -42,4 +42,20 @@ public class CustomOAuth2User implements OAuth2User {
     public String getUsername() {
         return userDTO.getUsername();
     }
+
+    // 제공자(Provider) 구분 메서드 추가
+    public String getProvider() {
+        if (attributes.containsKey("sub")) {
+            return "google";
+        } else if (attributes.containsKey("response")) {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+            if (response.containsKey("id")) {
+                return "naver";
+            }
+        } else if (attributes.containsKey("id")) {
+            return "kakao";
+        }
+        return null; // 구분할 수 없는 경우
+    }
+
 }
