@@ -21,7 +21,8 @@ function connect() {
 function sendMessage() {
     const content = document.getElementById('chatInput').value;
     if (content.trim() !== "") {
-        stompClient.send("/app/chat.send", {}, JSON.stringify({'sender': '사용자', 'content': content}));
+        // 전송할 메시지에 sender를 loggedInNickname으로 설정
+        stompClient.send("/app/chat.send", {}, JSON.stringify({'sender': loggedInNickname, 'content': content}));
         document.getElementById('chatInput').value = '';
     }
 }
@@ -63,16 +64,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 채팅 메시지 보내기
     sendChatButton.addEventListener('click', function() {
-        const message = "나 : " + chatInput.value;
         if (chatInput.value.trim()) {
+            // 전송할 메시지를 화면에 "나" 대신 실제 닉네임으로 표시
             const messageElement = document.createElement('div');
-            messageElement.textContent = message;
+            messageElement.textContent = `${loggedInNickname} : ${chatInput.value}`;
             chatBox.appendChild(messageElement);
             chatInput.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 실제 메시지를 서버로 전송
+            sendMessage();
         }
     });
-    sendChatButton.addEventListener('click', sendMessage);
 
     // 모달 외부 클릭 시 모달 닫기
     window.addEventListener('click', function(event) {
