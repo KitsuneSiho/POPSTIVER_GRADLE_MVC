@@ -5,9 +5,13 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class ChatController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 
     private final SimpMessagingTemplate messagingTemplate;
 
@@ -18,11 +22,14 @@ public class ChatController {
     @MessageMapping("/chat.send")
     @SendTo("/topic/messages")
     public ChatMessage sendMessage(ChatMessage chatMessage) {
+        logger.info("Broadcasting message: " + chatMessage);
         return chatMessage;
     }
 
     @MessageMapping("/chat.private")
     public void sendPrivateMessage(ChatMessage chatMessage) {
-        messagingTemplate.convertAndSendToUser(chatMessage.getReceiver(), "/queue/private", chatMessage);
+        String adminUsername = "관리자"; // 관리자 사용자 이름 (또는 ID)
+        logger.info("Sending private message to admin: " + chatMessage);
+        messagingTemplate.convertAndSendToUser(adminUsername, "/queue/private", chatMessage);
     }
 }

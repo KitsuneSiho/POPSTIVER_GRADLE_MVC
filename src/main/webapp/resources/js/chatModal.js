@@ -3,7 +3,7 @@
 let stompClient = null;
 
 function connect() {
-    const socket = new SockJS('/ws/chat'); // WebSocket 엔드포인트를 /ws/chat으로 변경
+    const socket = new SockJS('/ws/chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
@@ -15,17 +15,37 @@ function connect() {
         stompClient.subscribe('/user/queue/private', function (message) {
             showPrivateMessage(JSON.parse(message.body));
         });
+    }, function (error) {
+        console.error('WebSocket connection error: ' + error);
     });
+
+    socket.onopen = function() {
+        console.log('WebSocket connection opened.');
+    };
+    socket.onclose = function() {
+        console.log('WebSocket connection closed.');
+    };
 }
 
 function sendMessage() {
     const content = document.getElementById('chatInput').value;
     if (content.trim() !== "") {
-        // 전송할 메시지에 sender를 loggedInNickname으로 설정
-        stompClient.send("/app/chat.send", {}, JSON.stringify({'sender': loggedInNickname, 'content': content}));
+        const message = {
+            'sender': loggedInNickname,
+            'content': content,
+            'receiver': '관리자'
+        };
+
+        console.log('Sending message: ', message);
+
+        // 메시지를 서버로 전송
+        stompClient.send("/app/chat.send", {}, JSON.stringify(message));
+        stompClient.send("/app/chat.private", {}, JSON.stringify(message));
+
         document.getElementById('chatInput').value = '';
     }
 }
+
 
 function showMessage(message) {
     const chatBox = document.querySelector('.chatBox');
