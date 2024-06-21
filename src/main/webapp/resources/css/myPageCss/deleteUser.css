@@ -63,3 +63,43 @@ body {
     background-color: #ffff3388;
 }
 
+/* 모달 배경 */
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* 모달 컨텐츠 */
+.custom-alert-content {
+    font-family: 'KBO',sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 25px;
+}
+
+/* 닫기 버튼 */
+.custom-alert-close {
+    font-family: 'KBO',sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
