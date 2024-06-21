@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
@@ -93,6 +92,6 @@ public class MemberTestController {
                 return "error"; // 예시로 간단히 에러 페이지 반환
         }
 
-        return "page/join_information";
+        return "page/myPage/join_information";
     }
 }
