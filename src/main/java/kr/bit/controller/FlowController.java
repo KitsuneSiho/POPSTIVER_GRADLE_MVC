@@ -34,10 +34,6 @@ public class FlowController {
         return "page/myPage/myPage";
     }
 
-    @GetMapping("map")//지도페이지
-    public String map_page() {
-        return "page/etc/map";
-    }
 
     @GetMapping("bookmark")//관심행사페이지
     public String bookmark_page() {
