@@ -3,7 +3,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +20,6 @@
         }
     </style>
 </head>
-
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
@@ -39,8 +37,6 @@
         </div>
     </div>
 
-
-
     <div class="mainTopButton">
         <button class="myPageButton" onclick="window.location.href='myPage'">
             <img src="${root}/resources/asset/myPageButton.svg" alt="">
@@ -49,9 +45,8 @@
             <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
         </button>
     </div>
-
-
 </header>
+
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
@@ -97,7 +92,6 @@
             <td>관리자</td>
             <td>2024-06-12 15:12</td>
         </tr>
-
         </tbody>
     </table>
 </div>
@@ -128,7 +122,7 @@
 
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
-<script src="${root}/resources/js/contact.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 </body>
-
 </html>

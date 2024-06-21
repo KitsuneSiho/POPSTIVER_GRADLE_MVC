@@ -4,11 +4,9 @@ import lombok.Data;
 
 @Data
 public class ChatMessage {
-    private String content;
-    private String sender;
-    private MessageType type;
 
-    public enum MessageType {
-        CHAT, JOIN, LEAVE
-    }
+    private String sender;
+    private String receiver;
+    private String content;
+
 }
