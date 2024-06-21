@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.contactMenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 15px 0 20px;
+    padding-bottom: 10px;
+    font-family: 'KBO', sans-serif;
+    color: white;
+}
+
+.contactMenu a, .contactMenu a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contactMenu .on {
+    color: #ffff33;
+    border-bottom: 2px solid #ffff33;
+}
+
+
+.business {
+    font-family: 'KBO', sans-serif;
+    color: white;
+    background-color: #333;
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 10px;
+}
+
+.business ul {
+    list-style: none;
+    padding: 3%;
+}
+
+.business li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.business span {
+    color: #ffff33;
+    display: inline-block;
+    width: auto;
+}
+
+.businessList input,
+.businessList textarea,
+.businessList .date{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #555;
+    color: white;
+    font-family: 'KBO', sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.businessList .title{
+    width: 100%;
+}
+.businessList .infoTextarea{
+    width: 100%;
+}
+.businessList .link{
+    width: 100%;
+}
+.businessList .dateLabel{
+    width: 30%;
+}
+
+.businessList li input[type="radio"] + label {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+.businessList li input[type="radio"] {
+    width: 2%;
+    margin: 0 1%;
+    padding: 0;
+    color: black;
+}
+
+.businessList p{
+    margin: 0 1%;
+}
+
+.businessList li {
+    display: flex;
+    align-items: center;
+}
+
+.businessList li span {
+    flex-shrink: 0;
+    width: 100px;
+}
+
+
+.updateButton {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.updateButton button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'KBO', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.updateButton button:hover {
+    background-color: #ffff3388;
+}

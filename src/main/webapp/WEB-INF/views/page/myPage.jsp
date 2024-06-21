@@ -34,24 +34,20 @@
             $.ajax({
                 type: "GET",
                 url: "member/getUserInfo",
-                dataType : "json",
-                success: make,
+                success: function(response) {
+                    // 사용자 정보가 성공적으로 로드되면 폼에 데이터 설정
+                    var user = response;
+                    $("input[name='user_name']").val(user.user_name);
+                    $("input[name='user_email']").val(user.user_email);
+                    $("input[name='user_birth']").val(user.user_birth);
+                    $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
+                    $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
+                },
                 error: function(xhr, status, error) {
                     console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
                 }
             });
         }
-
-        function make(response){
-            var user = response;
-            console.log("서버에서 받은 데이터:", response);
-            $("input[name='user_name']").val(user.user_name);
-            $("input[name='user_email']").val(user.user_email);
-            $("input[name='user_birth']").val(user.user_birth);
-            $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
-            $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
-        }
-
         // 수정하기 버튼을 클릭할 시
         function enableEdit(){
             $("#editButton").css("display", "none"); // 수정 버튼은 안 보이게
@@ -119,89 +115,3 @@
             </label>
         </div>
     </div>
-
-
-
-    <div class="mainTopButton">
-        <button class="myPageButton" onclick="window.location.href='myPage'">
-            <img src="${root}/resources/asset/myPageButton.svg" alt="">
-        </button>
-        <button class="menuButton">
-            <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
-        </button>
-    </div>
-
-
-</header>
-<div id="menuModal" class="modal">
-    <div class="modal-content">
-        <ul>
-            <li><a href="login">로그인</a></li>
-            <li><a href="map">근처 행사</a></li>
-            <li><a href="bookmark">관심 행사</a></li>
-            <li><a href="calendar">행사 일정</a></li>
-            <li><a href="contact">게시판</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="myPage">
-    <a class="on" href="myPage">
-        <h2>내 정보</h2>
-    </a>
-    <a href="bookmark">
-        <h2>관심 행사</h2>
-    </a>
-    <a href="deleteUser">
-        <h2>회원 탈퇴</h2>
-    </a>
-</div>
-
-<form id="userInfoForm" method="post" onsubmit="submitForm(event)">
-    <div class="userInfo">
-        <ul class="info">
-            <li>
-                <span>회원 유형</span><br>
-                <input type="radio" id="host" name="user_type" value="1" ${user.user_type == 1 ? 'checked' : ''}>
-                <label for="host">주최자</label>
-                <input type="radio" id="user" name="user_type" value="2" ${user.user_type == 2 ? 'checked' : ''}>
-                <label for="user">사용자</label>
-            </li>
-            <li>
-                <span>이름</span><br>
-                <input type="text" name="user_name" value="${user.user_name}" readonly>
-            </li>
-            <li>
-                <span>이메일</span><br>
-                <input type="text" name="user_email" value="${user.user_email}" readonly>
-            </li>
-            <li>
-                <span>생일</span><br>
-                <input type="text" name="user_birth" value="${user.user_birth}" readonly>
-            </li>
-            <li>
-                <span>성별</span><br>
-                <input type="radio" id="male" name="user_gender" value="male" ${user.user_gender == 'male' ? 'checked' : ''}>
-                <label for="male">남</label>
-                <input type="radio" id="female" name="user_gender" value="female" ${user.user_gender == 'female' ? 'checked' : ''}>
-                <label for="female">여</label>
-            </li>
-        </ul>
-    </div>
-    </div>
-
-    <div class="updateButton">
-        <button type="button" id="editButton" onclick="enableEdit()">수정하기</button>
-        <button type="submit" id="saveButton" style="display:none">저장하기</button>
-    </div>
-</form>
-
-<footer>
-    ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
-    ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-</footer>
-
-<script src="${root}/resources/js/menuModal.js"></script>
-</body>
-
-</html>
