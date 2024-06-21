@@ -5,7 +5,8 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Getter @Setter
+@Getter
+@Setter
 public class UserDTO {
     private String username; // 사용자 ID
     private String name; // 사용자 이름

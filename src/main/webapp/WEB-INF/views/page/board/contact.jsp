@@ -4,7 +4,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +27,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/loginName.js"></script>
 </head>
-
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
@@ -68,6 +66,7 @@
     </div>
 
 </header>
+
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
@@ -144,7 +143,7 @@
 
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
-<script src="${root}/resources/js/contact.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 </body>
-
 </html>
