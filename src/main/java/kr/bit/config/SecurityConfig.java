@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 public class SecurityConfig {
 
     private final SocialClientRegistration socialClientRegistration;
-    //    private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomClientRegistrationRepo customClientRegistrationRepo;
     private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler; // LogoutSuccessHandler 주입
@@ -35,7 +34,6 @@ public class SecurityConfig {
             JdbcTemplate jdbcTemplate,
             SocialClientRegistration socialClientRegistration,
             CustomLogoutSuccessHandler customLogoutSuccessHandler) {
-//        this.customOAuth2UserService = customOAuth2UserService;
         this.customClientRegistrationRepo = customClientRegistrationRepo;
         this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
         this.jdbcTemplate = jdbcTemplate;
@@ -47,20 +45,23 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         logger.debug("Configuring SecurityFilterChain...");
         http
-                .csrf(csrf -> csrf.disable())
-                .formLogin(login -> login.disable())
-                .httpBasic(basic -> basic.disable())
+                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+//                .headers(headers -> headers.frameOptions().sameOrigin()) // X-Frame-Options 설정 // 6.1버전 이전 사용코드
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin()) // X-Frame-Options 설정, 최신 API 사용( 시큐리티 6.3)
+                )
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/main", "/map" ,"/calendar", "/openAddPopup", "/openAdd","/mainPopup","/mainFestival","/popularAdd","/popularAdd","/popularAddFestival","/popularAddPopup","/posterInfo","/searchResult").permitAll()
-                        .requestMatchers("/chat/**").permitAll()
+                        .requestMatchers("/main", "/map", "/calendar", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
+                        .requestMatchers("/chat/**").permitAll() // WebSocket 연결과 관련된 요청 허용
+                        .requestMatchers("/ws/**").permitAll() // WebSocket 엔드포인트 허용
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
                         .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())
                         .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
-                        .defaultSuccessUrl("/login_success", true)  // 로그인 성공 후 리디렉션할 URL 설정
+                        .defaultSuccessUrl("/login_success", true) // 로그인 성공 후 리디렉션할 URL 설정
                         .authorizationEndpoint(authorization ->
                                 authorization.authorizationRequestResolver(
                                         new CustomAuthorizationRequestResolver(customClientRegistrationRepo.clientRegistrationRepository())
@@ -86,4 +87,3 @@ public class SecurityConfig {
         );
     }
 }
-

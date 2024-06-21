@@ -51,13 +51,15 @@
     var stompClient = null;
 
     function connect() {
-        var socket = new SockJS('/chat');
+        var socket = new SockJS('/ws/chat'); // WebSocket 엔드포인트 변경
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/public', function (message) {
                 showMessage(JSON.parse(message.body));
             });
+        }, function (error) {
+            console.error('WebSocket connection error:', error);
         });
     }
 
@@ -69,12 +71,14 @@
                 sender: 'User',  // 실제 사용자 이름을 설정해야 합니다.
                 type: 'CHAT'
             };
+            console.log('Sending message:', chatMessage);
             stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
             $('#messageInput').val('');
         }
     }
 
     function showMessage(message) {
+        console.log('Displaying message:', message);
         var messageElement = $('<li>');
         var timestamp = new Date().toLocaleTimeString();
         messageElement.text(message.sender + ': ' + message.content);
