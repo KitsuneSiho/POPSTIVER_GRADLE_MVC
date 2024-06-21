@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sendChatButton = document.getElementById('sendChatButton');
     const chatInput = document.getElementById('chatInput');
     const chatBox = document.querySelector('.chatBox');
+    const chatModalContent = document.querySelector('.chatModalContent');
 
     // 채팅 모달 열기
     chatButton.addEventListener('click', function() {
@@ -18,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 채팅 메시지 보내기
     sendChatButton.addEventListener('click', function() {
-        const message = "나 : "+chatInput.value;
-        if (message.trim()) {
+        const message = "나 : " + chatInput.value;
+        if (chatInput.value.trim()) {
             const messageElement = document.createElement('div');
             messageElement.textContent = message;
             chatBox.appendChild(messageElement);
@@ -28,10 +29,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close chat modal when clicking outside of it
+    // 모달 외부 클릭 시 모달 닫기
     window.addEventListener('click', function(event) {
         if (event.target === chatModal) {
             chatModal.style.display = 'none';
         }
+    });
+
+    // 모달 내부 클릭 시 이벤트 버블링 방지
+    chatModalContent.addEventListener('click', function(event) {
+        event.stopPropagation();
     });
 });
