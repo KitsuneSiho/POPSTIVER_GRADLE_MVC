@@ -9,9 +9,9 @@ function loginName() {
         url: "member/getUserInfo",
         success: function(response) {
             // 사용자 정보가 성공적으로 로드되면 폼에 데이터 설정
-            if (response && response.user_name) {
+            if (response && response.user_nickname) {
                 $(".mainTopButton").prepend('<span class="userName">' +
-                    ''+ response.user_name + '님 ' + '환영합니다 |  </span>');
+                    ''+ response.user_nickname + '님 ' + '환영합니다 😊 |  </span>');
             } else {
                 console.error("사용자 이름을 가져오는 데 실패했습니다.");
             }
