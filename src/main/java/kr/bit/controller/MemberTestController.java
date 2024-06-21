@@ -4,16 +4,12 @@ import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
-import kr.bit.function.member.entity.MemberEntity;
 import kr.bit.function.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -96,8 +92,6 @@ public class MemberTestController {
                 return "error"; // 예시로 간단히 에러 페이지 반환
         }
 
-        return "page/join_information";
+        return "page/myPage/join_information";
     }
-
-
 }
