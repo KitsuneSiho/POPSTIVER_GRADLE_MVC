@@ -30,44 +30,6 @@
     <div id="multiMap" style="width:100%;height:600px;"></div>
 </div>
 
-        <sec:authorize access="isAuthenticated()">
-            <button class="logoutButton" onclick="window.location.href='logout'">
-                로그아웃
-            </button>
-        </sec:authorize>
-
-        <button class="menuButton">
-            <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
-        </button>
-    </div>
-
-</header>
-<div id="menuModal" class="modal">
-    <div class="modal-content">
-        <ul>
-            <li><a href="${root}/myPage">마이페이지</a></li>
-            <li><a href="${root}/map">근처 행사</a></li>
-            <li><a href="${root}/bookmark">관심 행사</a></li>
-            <li><a href="${root}/calendar">행사 일정</a></li>
-            <li><a href="${root}/contact">게시판</a></li>
-        </ul>
-    </div>
-</div>
-<div class="map">
-    <h1>근처 행사</h1>
-    <div id="mapView" ></div>
-</div>
-
-
-<footer>
-    ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
-    ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-</footer>
-
-<script src="${root}/resources/js/menuModal.js"></script>
-<script src="${root}/resources/js/map.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d"></script>
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
 <script>
     var geocoder = new kakao.maps.services.Geocoder();
