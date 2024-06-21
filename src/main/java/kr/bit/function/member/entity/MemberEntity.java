@@ -12,5 +12,6 @@ public class MemberEntity {
     private String user_email;
     private String user_birth;
     private String user_gender;
+    private String user_nickname;
 
 }

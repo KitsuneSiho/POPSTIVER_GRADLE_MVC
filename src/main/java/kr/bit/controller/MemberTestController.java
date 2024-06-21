@@ -92,6 +92,6 @@ public class MemberTestController {
                 return "error"; // 예시로 간단히 에러 페이지 반환
         }
 
-        return "page/join_information";
+        return "page/myPage/join_information";
     }
 }

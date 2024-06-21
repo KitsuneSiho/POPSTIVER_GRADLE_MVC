@@ -15,6 +15,7 @@ function loadUserInfo() {
             $("input[name='user_name']").val(user.user_name);
             $("input[name='user_email']").val(user.user_email);
             $("input[name='user_birth']").val(user.user_birth);
+            $("input[name='user_nickName']").val(user.user_nickname);
             $("input[name='user_gender'][value='" + user.user_gender + "']").prop('checked', true);
             $("input[name='user_type'][value='" + user.user_type + "']").prop('checked', true);
         },
@@ -40,16 +41,18 @@ function enableEdit(){
 function submitForm(event){
     // 폼 데이터 변수로 가져오기
     var userEmail = $("input[name='user_email']").val();
+    var userNickname = $("input[name='user_nickName']").val();
 
     event.preventDefault(); // 폼 제출 방지
 
     $.ajax({
-        type: "put",
+        method: "put",
         url: "member/updateUser",
         contentType: 'application/json;charset=utf-8',
         // StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
         data: JSON.stringify({
-            "user_email" : userEmail
+            "user_email" : userEmail,
+            "user_nickname" : userNickname
         }),
         success: function(response) {
             // 업데이트 성공 시 처리할 코드
