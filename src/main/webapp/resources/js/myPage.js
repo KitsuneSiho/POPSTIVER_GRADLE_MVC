@@ -56,12 +56,12 @@ function submitForm(event){
         }),
         success: function(response) {
             // 업데이트 성공 시 처리할 코드
-            alert("회원 정보가 업데이트되었습니다!");
+            showCustomAlert("회원 정보가 업데이트되었습니다!");
             // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },
         error: function(xhr, status, error) {
             // 실패 시 처리할 코드
-            alert("회원 정보 업데이트 중 오류가 발생했습니다.");
+            showCustomAlert("회원 정보 업데이트 중 오류가 발생했습니다.");
         }
     });
 
@@ -72,4 +72,13 @@ function submitForm(event){
     $("input[type='text']").prop("readonly", true);
     $("input[type='date']").prop("readonly", true);
 
+}
+
+function showCustomAlert(message) {
+    $("#customAlertMessage").text(message);
+    $("#customAlertModal").css("display", "flex");
+}
+
+function closeCustomAlert() {
+    $("#customAlertModal").css("display", "none");
 }

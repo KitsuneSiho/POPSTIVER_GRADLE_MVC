@@ -147,6 +147,14 @@
     </div>
 </form>
 
+<!-- alert창 커스텀 모달 -->
+<div id="customAlertModal" class="custom-alert-modal">
+    <div class="custom-alert-content">
+        <p id="customAlertMessage"></p>
+        <button class="custom-alert-close" onclick="closeCustomAlert()">확인</button>
+    </div>
+</div>
+
 <footer>
     ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
     ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
