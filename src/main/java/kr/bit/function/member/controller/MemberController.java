@@ -96,6 +96,7 @@ public class MemberController {
 
     // 내 정보 페이지에서 사용자 정보 가져오는 것
     @GetMapping("/getUserInfo")
+    @ResponseBody
     public MemberEntity getUserInfo(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
         // 세션에서 로그인한 사용자의 정보를 가져옴
         String provider = customOAuth2User.getProvider();
