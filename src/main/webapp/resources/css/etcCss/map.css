@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.mapApi{
+    display: flex;
+    justify-content: center;
+}
+.map h1{
+    font-family: 'KBO',sans-serif;
+    color: white;
+    font-size: 40px;
+    margin-left: 10%;
+}
+.map #mapView{
+    width: 1500px;
+    height: 800px;
+    margin: 2% auto;
+    border-radius: 10px;
+}

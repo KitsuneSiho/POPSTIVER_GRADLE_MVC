@@ -18,15 +18,15 @@ public class MemberService {
 
     // 가입 시 사용자 정보 저장
     public void saveUser(MemberEntity user) {
-        String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender) VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, user.getUser_type(), user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_birth(), user.getUser_gender());
+        String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender, user_nickname) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, user.getUser_type(), user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_birth(), user.getUser_gender(), user.getUser_nickname());
     }
 
     // 사용자 정보 수정
-    public void updateUserInfo(String userId, String userEmail) {
+    public void updateUserInfo(String userId, String userEmail, String userNickname) {
 
-        String sql = "UPDATE user SET user_email = ? WHERE user_id = ?";
-        jdbcTemplate.update(sql, userEmail, userId);
+        String sql = "UPDATE user SET user_email = ? , user_nickname = ? WHERE user_id = ?";
+        jdbcTemplate.update(sql, userEmail, userNickname, userId);
         System.out.println("회원 정보 업데이트 완료: " + userId);
     }
 

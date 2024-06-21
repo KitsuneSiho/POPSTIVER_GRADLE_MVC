@@ -1,6 +1,6 @@
 package kr.bit.function.board.boardService;
 
-import kr.bit.function.board.DTO.BoardDTO;
+import kr.bit.function.board.boardDTO.BoardDTO;
 
 import java.util.List;
 

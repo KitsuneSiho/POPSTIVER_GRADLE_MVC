@@ -64,11 +64,6 @@
         <div id="singleMap" style="width:100%;height:350px;"></div>
     </div>
 
-    <div class="map">
-        <h3>모든 행사 위치 (카카오 지도)</h3>
-        <div id="multiMap" style="width:100%;height:350px;"></div>
-    </div>
-
     <div class="share">
         <h3>공유</h3>
         <p><a href="https://www.instagram.com/?url=${festival.brand_link}" target="_blank">인스타그램으로 공유하기</a></p>
@@ -119,48 +114,6 @@
             alert('주소를 찾을 수 없습니다.');
         }
     });
-
-    // 두 번째 지도: 모든 행사 위치
-    var multiMapContainer = document.getElementById('multiMap'), // 지도를 표시할 div
-        multiMapOption = {
-            center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울을 중심으로 기본값 설정
-            level: 7 // 지도의 확대 레벨
-        };
-
-    var multiMap = new kakao.maps.Map(multiMapContainer, multiMapOption); // 지도를 생성합니다
-
-    // 모든 축제 위치 데이터를 JSP로부터 가져옵니다.
-    var festivals = [];
-    <c:forEach var="festival" items="${allFestivals}">
-    festivals.push({
-        location: "${festival.festival_location}",
-        link: "${root}/festival_Details/${festival.festival_no}"
-    });
-    </c:forEach>
-
-    // 함수 내에서 마커를 비동기적으로 추가
-    function addMarkers(map, geocoder, festivals) {
-        festivals.forEach(function(festival) {
-            geocoder.addressSearch(festival.location, function(result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                    // 마커를 생성하고 지도의 해당 위치에 표시합니다.
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords
-                    });
-
-                    // 마커 클릭 이벤트를 추가합니다.
-                    kakao.maps.event.addListener(marker, 'click', function() {
-                        window.location.href = festival.link;
-                    });
-                } else {
-                    console.error('주소를 찾을 수 없습니다:', festival.location);
-                }
-            });
-        });
-    }
 
     // 모든 주소에 대해 마커를 추가하는 함수 호출
     addMarkers(multiMap, geocoder, festivals);

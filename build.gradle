@@ -17,7 +17,7 @@ dependencies {
     implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0' // Spring 6와 호환되는 Servlet API
     implementation 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.0' // JSP API
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0' // JSTL API
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' // JAKARTA 글래스피시 라이브러리. 이게있어야 taglibs사용가능!
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' // JAKARTA 글래스피시 라이브러리. 이게 있어야 taglibs 사용 가능!
     implementation 'jakarta.el:jakarta.el-api:5.0.0' // Expression Language API
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.10' // JSP 지원을 위한 Tomcat Jasper
 
@@ -28,7 +28,12 @@ dependencies {
     implementation 'org.springframework.security:spring-security-config:6.3.0' // Spring Security Config
     implementation 'org.springframework.security:spring-security-oauth2-client:6.3.0' // Spring Security OAuth2 클라이언트
     implementation 'org.springframework.security:spring-security-oauth2-core:6.3.0' // Spring Security OAuth2 Core
-    implementation 'org.springframework.security:spring-security-oauth2-jose:6.3.0'
+    implementation 'org.springframework.security:spring-security-oauth2-jose:6.3.0' // OAuth2 JWT 및 JWK 관련 의존성
+
+    // WebSocket 관련 의존성 추가
+    implementation 'org.springframework:spring-websocket:6.0.10' // Spring WebSocket
+    implementation 'org.springframework:spring-messaging:6.0.10'
+
 
     // JDBC 및 데이터베이스 관련 의존성
     implementation 'mysql:mysql-connector-java:8.0.33' // 최신 MySQL JDBC 드라이버
@@ -42,34 +47,33 @@ dependencies {
     // Gson 라이브러리 의존성
     implementation 'com.google.code.gson:gson:2.8.9'
 
-    // https://mvnrepository.com/artifact/org.ibankapp/base-exception
-    implementation group: 'org.ibankapp', name: 'base-exception', version: '1.0.0-beta.6'
+    // 예외 처리 라이브러리
+    implementation 'org.ibankapp:base-exception:1.0.0-beta.6'
 
-    implementation 'org.projectlombok:lombok:1.18.22' // Lombok 의존성 추가
-    annotationProcessor 'org.projectlombok:lombok:1.18.22' // Lombok 어노테이션 프로세서 추가
+    // Lombok 의존성 추가
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
     // JSON 직렬화/역직렬화
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.14.1'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.1'
 
-
     // JWT 및 OAuth2 관련 의존성
     implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
 
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.1' // 최신 버전 확인
-    implementation 'org.apache.logging.log4j:log4j-api:2.14.1' // 최신 버전 확인
+    // 로깅 관련 의존성
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1' // SLF4J와 Log4j 연동을 위한 의존성
 
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.9'
+    // SLF4J API
+    implementation 'org.slf4j:slf4j-api:2.0.9'
 
-    dependencies {
-        implementation 'org.springframework.security:spring-security-taglibs:6.1.2' // 최신 버전으로 업데이트 필요
-    }
-
-
+    // Spring Security 태그 라이브러리
+    implementation 'org.springframework.security:spring-security-taglibs:6.1.2' // 최신 버전으로 업데이트 필요
 }
 
 tasks.named('test') {

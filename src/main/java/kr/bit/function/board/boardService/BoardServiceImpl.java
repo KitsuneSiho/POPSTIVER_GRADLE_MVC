@@ -1,7 +1,7 @@
 package kr.bit.function.board.boardService;
 
-import kr.bit.function.board.DTO.BoardDTO;
 import kr.bit.function.board.boardDAO.BoardRepository;
+import kr.bit.function.board.boardDTO.BoardDTO;
 import kr.bit.function.board.boardEntity.BoardEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,9 +84,6 @@ public class BoardServiceImpl implements BoardService {
                 boardEntity.getFestival_start(), boardEntity.getFestival_end(), boardEntity.getOpen_time(), boardEntity.getFestival_post_date(),
                 boardEntity.getFestival_attachment(), boardEntity.getEvent_type(), boardEntity.getLike_that(), boardEntity.getViews(), boardEntity.getBrand_link(), boardEntity.getBrand_sns());
     }
-
-
-
 
     @Override
     public List<BoardDTO> selectAll() throws Exception { //전체데이터조회
