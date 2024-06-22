@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:set var="root" value="${pageContext.request.contextPath }" />
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +26,12 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/loginName.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+        // JSP에서 JavaScript로 contextPath를 전달
+        var contextPath = '<%= request.getContextPath() %>';
+    </script>
 </head>
 <body>
 <header class="mainTop">
@@ -44,15 +50,12 @@
         </div>
     </div>
 
-
-
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
             <button class="loginButton" onclick="window.location.href='login'">
                 로그인
             </button>
         </sec:authorize>
-
 
         <sec:authorize access="isAuthenticated()">
             <button class="logoutButton" onclick="window.location.href='logout'">
@@ -112,7 +115,6 @@
             <td>관리자</td>
             <td>2024-06-12 15:12</td>
         </tr>
-
         </tbody>
     </table>
 </div>
@@ -143,7 +145,5 @@
 
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 </body>
 </html>

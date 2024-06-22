@@ -1,116 +1,51 @@
-let stompClient = null;
+// 채팅 버튼 클릭 시 모달 열기
+$("#chatButton").click(function() {
+    $("#chatModal").show();
+});
 
-function connect() {
-    const socket = new SockJS('/ws/chat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
+// 채팅 모달 닫기
+$(".closeChatModal").click(function() {
+    $("#chatModal").hide();
+});
 
-        // 전체 메시지 수신
-        stompClient.subscribe('/topic/messages', function (message) {
-            showMessage(JSON.parse(message.body));
-        });
+// WebSocket 연결 설정
+var socket = new SockJS(contextPath + '/chat-websocket'); // JSP에서 전달된 contextPath 사용
+var stompClient = Stomp.over(socket);
 
-        // 개인 메시지 수신
-        stompClient.subscribe('/user/queue/private', function (message) {
-            showPrivateMessage(JSON.parse(message.body));
-        });
-    }, function (error) {
-        console.error('WebSocket 연결 오류: ' + error);
-    });
+stompClient.connect({}, function(frame) {
+    console.log('Connected: ' + frame);
 
-    socket.onopen = function() {
-        console.log('WebSocket 연결이 열렸습니다.');
-    };
-    socket.onclose = function() {
-        console.log('WebSocket 연결이 닫혔습니다.');
-    };
-}
-
-function sendMessage() {
-    const content = document.getElementById('chatInput').value;
-    if (content.trim() !== "") {
-        const message = {
-            'sender': loggedInNickname, // 전역 변수로 설정된 닉네임 사용
-            'content': content,
-            'receiver': '관리자' // 관리자로 전송
-        };
-
-        console.log('메시지 전송: ', message);
-
-        // try-catch 구문으로 메시지 전송 오류 처리
-        try {
-            // 메시지를 서버로 전송
-            stompClient.send("/app/chat.send", {}, JSON.stringify(message));
-            stompClient.send("/app/chat.private", {}, JSON.stringify(message));
-        } catch (error) {
-            console.error('메시지 전송 중 오류 발생:', error);
-        }
-
-        // 입력 필드 초기화
-        document.getElementById('chatInput').value = '';
-    }
-}
-
-function showMessage(message) {
-    const chatBox = document.querySelector('.chatBox');
-    const messageElement = document.createElement('div');
-    messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function showPrivateMessage(message) {
-    const chatBox = document.querySelector('.chatBox');
-    const messageElement = document.createElement('div');
-    messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    connect();
-
-    const chatButton = document.getElementById('chatButton');
-    const chatModal = document.getElementById('chatModal');
-    const closeChatModal = document.querySelector('.closeChatModal');
-    const sendChatButton = document.getElementById('sendChatButton');
-    const chatInput = document.getElementById('chatInput');
-    const chatBox = document.querySelector('.chatBox');
-    const chatModalContent = document.querySelector('.chatModalContent');
-
-    chatButton.addEventListener('click', function() {
-        chatModal.style.display = 'block';
-    });
-
-    closeChatModal.addEventListener('click', function() {
-        chatModal.style.display = 'none';
-    });
-
-    // 채팅 메시지 보내기
-    sendChatButton.addEventListener('click', function() {
-        if (chatInput.value.trim()) {
-            // 메시지를 화면에 표시
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${loggedInNickname} : ${chatInput.value}`;
-            chatBox.appendChild(messageElement);
-            chatInput.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // 실제 메시지를 서버로 전송
-            sendMessage();
-        }
-    });
-
-    // 모달 외부 클릭 시 모달 닫기
-    window.addEventListener('click', function(event) {
-        if (event.target === chatModal) {
-            chatModal.style.display = 'none';
-        }
-    });
-
-    // 모달 내부 클릭 시 이벤트 버블링 방지
-    chatModalContent.addEventListener('click', function(event) {
-        event.stopPropagation();
+    // 메시지 구독
+    stompClient.subscribe('/queue/messages', function(messageOutput) {
+        showMessage(JSON.parse(messageOutput.body));
     });
 });
+
+// 메시지 전송
+$("#sendChatButton").click(function() {
+    var messageContent = $("#chatInput").val().trim();
+    if (messageContent && stompClient) {
+        var chatMessage = {
+            sender: loggedInNickname, // 여기에 로그인된 사용자의 닉네임을 넣어야 합니다.
+            content: messageContent,
+            timestamp: new Date().toLocaleTimeString()
+        };
+
+        // 서버로 메시지 전송
+        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+
+        // 메시지를 화면에 즉시 표시
+        showMessage(chatMessage);
+
+        // 입력 창 초기화
+        $("#chatInput").val("");
+    }
+});
+
+// 메시지를 화면에 표시하는 함수
+function showMessage(message) {
+    var messageElement = $("<div class='message'></div>");
+    messageElement.text(message.sender + ": " + message.content);
+    $(".chatBox").append(messageElement);
+    $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight); // 새로운 메시지가 들어올 때 자동 스크롤
+}

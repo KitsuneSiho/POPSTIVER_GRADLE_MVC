@@ -18,8 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws/chat") // WebSocket 엔드포인트를 /ws/chat으로 변경하여 HTTP 요청과 충돌하지 않도록 한다.
-//        registry.addEndpoint("/chat")
+        registry.addEndpoint("/chat-websocket") // 엔드포인트를 JSP에서 참조하는 경로와 일치//        registry.addEndpoint("/chat")
 //                .setAllowedOrigins("*") // 실제 배포 시에는 특정 도메인으로 제한하는 것이 좋습니다.
 //        allowedOrigins에 *를 설정하면서 allowCredentials가 true로 설정된 것이 문제
 

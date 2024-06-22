@@ -22,14 +22,12 @@ public class ChatController {
     @MessageMapping("/chat.send")
     @SendTo("/topic/messages")
     public ChatMessage sendMessage(ChatMessage chatMessage) {
-        logger.info("Broadcasting message: " + chatMessage);
         return chatMessage;
     }
 
     @MessageMapping("/chat.private")
     public void sendPrivateMessage(ChatMessage chatMessage) {
         String adminUsername = "관리자"; // 관리자 사용자 이름 (또는 ID)
-        logger.info("Sending private message to admin: " + chatMessage);
         messagingTemplate.convertAndSendToUser(adminUsername, "/queue/private", chatMessage);
     }
 }
