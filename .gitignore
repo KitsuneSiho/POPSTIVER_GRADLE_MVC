@@ -27,6 +27,7 @@ out/
 .settings
 .springBeans
 .sts4-cache
+.idea/vcs.xml
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
