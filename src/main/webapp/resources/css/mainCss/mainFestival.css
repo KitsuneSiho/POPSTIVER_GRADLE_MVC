@@ -67,7 +67,7 @@ body {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 0 16% 0 16%;
+    margin: 0 10% 0 10%;
 }
 
 .popularText1 {
@@ -84,8 +84,10 @@ body {
 }
 
 .popularPoster {
-    display: flex;
-    place-content: center;
+    overflow: hidden;
+    width: 80%;
+    padding: 20px 0;
+    margin: 0 auto;
 }
 
 .popularPoster img {
@@ -98,6 +100,41 @@ body {
     cursor: pointer;
 }
 
+.poster-item {
+    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+}
+
+.poster-item img {
+    width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.poster-item .bookmark{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.poster-caption {
+    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
+    bottom: 10px; /* 아래에서 10픽셀 정도 떨어진 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    right: 0; /* 오른쪽 정렬 */
+    color: white; /* 글씨색 */
+    font-size: 18px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
+    padding: 5px; /* 여백 */
+}
+
+
 .open {
     margin-top: 100px;
 
@@ -107,7 +144,7 @@ body {
     font-family: 'KBO', sans-serif;
     display: flex;
     align-items: baseline;
-    margin: 0 16% 0 16%;
+    margin: 0 10% 0 10%;
     justify-content: space-between;
 }
 
@@ -125,8 +162,10 @@ body {
 }
 
 .openPoster {
-    display: flex;
-    place-content: center;
+    overflow: hidden;
+    width: 80%;
+    padding: 20px 0;
+    margin: 0 auto;
 }
 
 .openPoster img {
@@ -136,6 +175,69 @@ body {
     margin: 20px;
     border-radius: 10px;
     border: none;
+}
+
+.open-item {
+    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+}
+
+.open-item img {
+    width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.open-item .bookmark{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+.open-caption {
+    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
+    bottom: 10px; /* 아래에서 10픽셀 정도 떨어진 위치 */
+    left: 0; /* 왼쪽 정렬 */
+    right: 0; /* 오른쪽 정렬 */
+    color: white; /* 글씨색 */
+    font-size: 18px; /* 폰트 크기 */
+    font-weight: bold; /* 폰트 굵기 */
+    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
+    padding: 5px; /* 여백 */
+}
+
+.slide-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide-track {
+    display: flex;
+    animation: scroll 15s linear infinite;
+}
+
+.slide-track img {
+    width: 180px;
+    height: 250px;
+    margin: 0 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-220px * 6));
+    }
 }
 
 

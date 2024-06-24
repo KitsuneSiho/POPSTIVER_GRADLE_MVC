@@ -75,7 +75,7 @@ public class BoardController {
             e.printStackTrace();
         }
 
-        return "page/test/festival_Details";
+        return "page/searchResult/festival_Details";
     }
 
 
