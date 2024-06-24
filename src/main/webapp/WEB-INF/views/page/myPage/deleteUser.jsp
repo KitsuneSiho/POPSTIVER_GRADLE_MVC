@@ -49,7 +49,7 @@
             정말 회원 탈퇴를 진행하시겠습니까?
         </span><br>
             <button class="deleteYes" type="submit">탈퇴하기</button>
-            <button class="deleteNo" type="reset">취소</button>
+            <button class="deleteNo" type="reset" onclick="window.location.href='main'">취소</button>
         </div>
     </form>
 </div>

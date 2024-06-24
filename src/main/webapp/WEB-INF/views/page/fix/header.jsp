@@ -68,5 +68,13 @@
         </ul>
     </div>
 </div>
+
+<div id="loader"></div>
 <script src="${root}/resources/js/menuModal.js"></script>
+<script>
+    $(window).on('load', function() {
+        $('#loader').fadeOut(500); // 페이지 로딩 완료 시 스피너 숨김
+        $('.popularText1, .popularText2, .openText1, .openText2').fadeIn(2000); // 2초 동안 서서히 나타남
+    });
+</script>
 </body>

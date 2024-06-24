@@ -26,6 +26,7 @@
 </head>
 
 <body>
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="mainButton">
@@ -193,5 +194,6 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
+
 </body>
 </html>
