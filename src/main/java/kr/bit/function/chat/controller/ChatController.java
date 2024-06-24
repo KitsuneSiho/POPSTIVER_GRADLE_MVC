@@ -2,7 +2,9 @@ package kr.bit.function.chat.controller;
 
 import kr.bit.function.chat.model.ChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.slf4j.Logger;
@@ -19,15 +21,29 @@ public class ChatController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @MessageMapping("/chat.send")
-    @SendTo("/topic/messages")
-    public ChatMessage sendMessage(ChatMessage chatMessage) {
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        if (username != null) {
+            chatMessage.setSender(username);
+        }
+        logger.info("Received message from {}: {}", chatMessage.getSender(), chatMessage.getContent());
         return chatMessage;
     }
 
     @MessageMapping("/chat.private")
-    public void sendPrivateMessage(ChatMessage chatMessage) {
-        String adminUsername = "관리자"; // 관리자 사용자 이름 (또는 ID)
-        messagingTemplate.convertAndSendToUser(adminUsername, "/queue/private", chatMessage);
+    public void sendPrivateMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        String senderUsername = (String) headerAccessor.getSessionAttributes().get("username");
+        if (senderUsername != null) {
+            chatMessage.setSender(senderUsername);
+        }
+        String recipientUsername = chatMessage.getReceiver();
+        logger.info("Sending private message from {} to {}: {}", chatMessage.getSender(), recipientUsername, chatMessage.getContent());
+        messagingTemplate.convertAndSendToUser(
+                recipientUsername,
+                "/queue/private",
+                chatMessage
+        );
     }
 }
