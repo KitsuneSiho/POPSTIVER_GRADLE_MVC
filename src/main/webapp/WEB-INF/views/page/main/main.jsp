@@ -112,7 +112,6 @@
                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                     <p class="poster-caption">속초 포스터</p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -194,6 +193,5 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
-
 </body>
 </html>

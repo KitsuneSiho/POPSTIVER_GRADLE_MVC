@@ -219,7 +219,7 @@ body {
 
 .slide-track {
     display: flex;
-    animation: scroll 15s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 
 .slide-track img {
@@ -229,6 +229,11 @@ body {
     border-radius: 10px;
     border: none;
     cursor: pointer;
+}
+
+.slider {
+    width: 100%;
+    margin-top: 5px;
 }
 
 @keyframes scroll {

@@ -219,7 +219,7 @@ body {
 
 .slide-track {
     display: flex;
-    animation: scroll 15s linear infinite;
+    animation: scroll 30s linear infinite;
 }
 
 .slide-track img {
