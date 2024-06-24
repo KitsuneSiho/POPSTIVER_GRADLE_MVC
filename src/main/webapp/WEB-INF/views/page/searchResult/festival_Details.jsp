@@ -42,7 +42,28 @@
             <li><button>태그</button></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
-            <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()"></li>
+            <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
+                <!-- 공유 모달 창 -->
+                <div id="shareModal" class="share-modal">
+                    <div class="share-modal-content">
+                        <div class="brandWebsite">
+                            <p>브랜드 홈페이지</p>
+                            <a id="brandWebsiteLink" href="${festival.brand_link}" target="_blank">${festival.brand_link}</a>
+                            <button onclick="copyToClipboard('brandWebsiteLink')">
+                                <img src="${root}/resources/asset/복사버튼.svg" alt="">
+                            </button>
+                        </div>
+
+                        <div class="brandSns">
+                            <p>브랜드 SNS</p>
+                            <a id="brandSNSLink" href="${festival.brand_sns}" target="_blank">${festival.brand_sns}</a>
+                            <button onclick="copyToClipboard('brandSNSLink')">
+                                <img src="${root}/resources/asset/복사버튼.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </li>
         </ul>
         <h1 class="title">${festival.festival_title}</h1>
         <p class="detailDate">${festival.festival_start} ~ ${festival.festival_end}</p>
@@ -115,26 +136,7 @@
 </div>
 
 
-<!-- 공유 모달 창 -->
-<div id="shareModal" class="share-modal">
-    <div class="share-modal-content">
-        <div class="brandWebsite">
-            <p>브랜드 홈페이지</p>
-            <a id="brandWebsiteLink" href="${festival.brand_link}" target="_blank">${festival.brand_link}</a>
-            <button onclick="copyToClipboard('brandWebsiteLink')">
-                <img src="${root}/resources/asset/복사버튼.svg" alt="">
-            </button>
-        </div>
 
-        <div class="brandSns">
-            <p>브랜드 SNS</p>
-            <a id="brandSNSLink" href="${festival.brand_sns}" target="_blank">${festival.brand_sns}</a>
-            <button onclick="copyToClipboard('brandSNSLink')">
-                <img src="${root}/resources/asset/복사버튼.svg" alt="">
-            </button>
-        </div>
-    </div>
-</div>
 
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />

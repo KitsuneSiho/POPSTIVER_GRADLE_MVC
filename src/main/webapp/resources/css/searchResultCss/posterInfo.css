@@ -12,10 +12,9 @@ body {
 
 .mainPoster img {
     margin-top: 30px;
-    width: 80%;
-    height: 450px;
+    width: 100%;
+    height: 500px;
     border: none;
-    border-radius: 10px;
 }
 .detailInfo{
     font-family: 'KBO',sans-serif;
@@ -39,6 +38,7 @@ body {
 
 }
 .detailInfoTitle li{
+    position: relative;
     display: flex;
     align-items: center;
 }
@@ -165,18 +165,22 @@ body {
 .share-modal {
     display: none;
     position: absolute;
+    top: 100%; /* 버튼 바로 아래에 위치 */
     right: 0;
-    top: 70%;
     background-color: #2e2e2e;
-    padding: 1% 2%;
     border-radius: 10px;
     z-index: 1000;
     font-family: 'KBO',sans-serif;
     font-size: 20px;
+    width: max-content; /* 내용에 맞게 너비 조절 */
+    margin-top: 5%;
 }
 .share-modal p{
     color: #ffff33;
+    margin-left: 2%;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
 }
+
 
 .brandWebsite, .brandSns{
     display: flex;
@@ -192,13 +196,14 @@ body {
 .brandSns a:link, a:visited{
     color: inherit;
     text-decoration: none;
+    margin-left: 2%;
 }
 
 .share-modal-content button {
     margin-left: 10px;
     border: none;
     cursor: pointer;
-    background-color: #2e2e2e;
+    background-color: #2e2e2e !important;
 }
 
 
