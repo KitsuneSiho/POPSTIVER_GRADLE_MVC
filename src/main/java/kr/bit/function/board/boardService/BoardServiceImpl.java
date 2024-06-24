@@ -17,29 +17,6 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    @Override
-    public void insertAllDB() throws Exception{
-        //자기 자신 클래스(this)의 insert 메소드를 실행한다.
-        //insert()메소드에 들어갈 인자는 BoardDTO형태의 데이터이며
-        //BoardDto에 넣을 때 new를 통해 이름,학번,각 성적 데이터를 가진 객체를 만들어서 넣는다.
-        //이건 예시이고 JSP에서 게시글을 삽입할때 해당부분을 인자로 구현하면 편할것이다.
-
-        this.insert(new BoardDTO(0, "영등포페스티벌", "페스티벌에 어서 오셈", "서울시",
-                "서울시 영등포구", "2024-07-01", "2024-07-18",
-                "평일 오전9:00 ~ 오후4:00", null, "/resources/3412313.png",
-                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul"));
-
-        this.insert(new BoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
-                "서울시 한강구", "2024-07-12", "2024-07-14",
-                "오후10:00", null, "/resources/42246264.png",
-                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul"));
-
-        this.insert(new BoardDTO(0, "동성로흠뻑쇼", "싸이와함꼐하는동성로워터밤", "대구",
-                "대구광역시", "2024-08-04", "2024-08-11",
-                "평일 오후10:00 <br> 주말 오후8:00", null, "/resources/daegu_waterbam.png",
-                2, 3456, 21044, "www.daegu.world.com", "www.instagram.Daegu"));
-
-    }
 
     @Override
     public void insert(BoardDTO boardDTO) throws Exception { //데이터삽입
@@ -54,6 +31,8 @@ public class BoardServiceImpl implements BoardService {
                 boardDTO.getFestival_content(),
                 boardDTO.getHost(),
                 boardDTO.getFestival_location(),
+                boardDTO.getFestival_dist(),
+                boardDTO.getFestival_subdist(),
                 boardDTO.getFestival_start(),
                 boardDTO.getFestival_end(),
                 boardDTO.getOpen_time(),
@@ -81,6 +60,7 @@ public class BoardServiceImpl implements BoardService {
         //담은 데이터를 다시 BoardDTO객체를 만들어서 각 데이터를 넣고  리턴한다.
         assert boardEntity != null; //ㅈㅁ
         return new BoardDTO(boardEntity.getFestival_no(), boardEntity.getFestival_title(), boardEntity.getFestival_content(), boardEntity.getHost(), boardEntity.getFestival_location(),
+                boardEntity.getFestival_dist(), boardEntity.getFestival_subdist(),
                 boardEntity.getFestival_start(), boardEntity.getFestival_end(), boardEntity.getOpen_time(), boardEntity.getFestival_post_date(),
                 boardEntity.getFestival_attachment(), boardEntity.getEvent_type(), boardEntity.getLike_that(), boardEntity.getViews(), boardEntity.getBrand_link(), boardEntity.getBrand_sns());
     }
@@ -106,6 +86,8 @@ public class BoardServiceImpl implements BoardService {
                     boardEntities.get(i).getFestival_content(),
                     boardEntities.get(i).getHost(),
                     boardEntities.get(i).getFestival_location(),
+                    boardEntities.get(i).getFestival_dist(),
+                    boardEntities.get(i).getFestival_subdist(),
                     boardEntities.get(i).getFestival_start(),
                     boardEntities.get(i).getFestival_end(),
                     boardEntities.get(i).getOpen_time(),
