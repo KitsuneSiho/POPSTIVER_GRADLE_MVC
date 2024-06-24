@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +20,12 @@
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
-            position: relative; /* 추가: 버튼을 포함하는 컨테이너의 위치 지정 */
+            position: relative;
         }
 
         .map {
             margin-top: 20px;
+        }
 
         @font-face {
             font-family: KBO;
@@ -33,7 +34,7 @@
 
         .customoverlay {
             position: absolute;
-            bottom: 80px; /* 예시로 조정한 값 */
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 6px;
@@ -56,129 +57,49 @@
             cursor: pointer;
         }
 
-        /* 추가: Bootstrap Icons를 통해 사용할 스타일 */
-        .bi {
-            vertical-align: middle;
-            margin-bottom: 2px; /* 아이콘과 텍스트 간격 조정 */
-        }
-
-        /* 추가: 드롭다운 메뉴 스타일 */
         .dropdown {
             position: absolute;
             top: 80px;
             left: 20px;
-            z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+            z-index: 1000;
             background-color: #fff;
             padding: 10px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
-
     </style>
+    <!-- Kakao Maps API -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
-
-
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-<div class="map">
-    <h3>모든 행사 위치 (카카오 지도)</h3>
-    <div id="multiMap"></div>
+<div class="container">
+    <div class="map">
+        <h3>모든 행사 위치 (카카오 지도)</h3>
+        <div id="multiMap" style="width:100%;height:600px;"></div>
+        <div class="dropdown">
+            <label for="districtSelect">서울특별시 구 선택:</label>
+            <select id="districtSelect">
+                <option value="">구 선택</option>
+                <option value="강남구">강남구</option>
+                <option value="강동구">강동구</option>
+                <option value="강서구">강서구</option>
+                <option value="구로구">구로구</option>
+                <!-- 다른 구들도 추가할 수 있음 -->
+            </select>
+        </div>
+        <button id="currentLocationButton">내 위치로 돌아가기</button>
+    </div>
 </div>
-
 
 <div class="searchList">
-    <article>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
-            <p>진행 중</p>
-            <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
-        </div>
-        <div class="popupFestivalInfo">
-            <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
-    <div class="dropdown">
-        <label for="districtSelect">서울특별시 구 선택:</label>
-        <select id="districtSelect">
-            <option value="">구 선택</option>
-            <option value="강남구">강남구</option>
-            <option value="강동구">강동구</option>
-            <option value="강서구">강서구</option>
-            <!-- 다른 구들도 추가할 수 있음 -->
-        </select>
-    </div>
-    <button id="currentLocationButton">내 위치로 돌아가기</button>
-    <div id="multiMap" style="width:100%;height:600px;"></div>
+    <!-- 생략: 다른 부분 -->
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
-<!-- Bootstrap Icons CDN 추가 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
 <script src="${root}/resources/js/searchResult.js"></script>
@@ -219,16 +140,16 @@
 
             var multiMap = new kakao.maps.Map(multiMapContainer, multiMapOption);
 
-            // 사용자 위치 마커 이미지 설정 (기본 마커 사용)
-            var userMarkerImageSrc = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css',
-                userMarkerImageSize = new kakao.maps.Size(50, 50),
-                userMarkerImageOption = { offset: new kakao.maps.Point(25, 50) };
-
+            // 사용자 위치 마커 이미지 설정
+            var userMarkerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
+            var userMarkerImageSize = new kakao.maps.Size(24, 35);
+            var userMarkerImageOption = { offset: new kakao.maps.Point(13, 35) };
             var userMarkerImage = new kakao.maps.MarkerImage(userMarkerImageSrc, userMarkerImageSize, userMarkerImageOption);
 
             // 사용자 위치 마커 생성 및 추가
             var userMarker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(userLocation.lat, userLocation.lng),
+                image: userMarkerImage,
                 map: multiMap
             });
 
@@ -251,7 +172,7 @@
                 </c:forEach>
             ];
 
-            // 함수 내에서 마커를 비동기적으로 추가
+            // 마커를 비동기적으로 추가하는 함수
             function addMarkers(map, geocoder, festivals) {
                 festivals.forEach(function(festival) {
                     geocoder.addressSearch(festival.location, function(result, status) {
@@ -260,7 +181,8 @@
 
                             var marker = new kakao.maps.Marker({
                                 map: map,
-                                position: coords
+                                position: coords,
+                                data: festival // 축제 데이터를 마커에 연결
                             });
 
                             kakao.maps.event.addListener(marker, 'click', function() {
@@ -273,7 +195,7 @@
                 });
             }
 
-            // 모든 주소에 대해 마커를 추가하는 함수 호출
+            // 모든 축제 마커를 추가
             addMarkers(multiMap, geocoder, festivals);
 
             // 구 선택 드롭다운 메뉴 이벤트 처리
@@ -316,5 +238,6 @@
         });
     });
 </script>
+
 </body>
 </html>
