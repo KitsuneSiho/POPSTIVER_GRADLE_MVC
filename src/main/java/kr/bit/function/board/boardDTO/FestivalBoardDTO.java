@@ -1,37 +1,41 @@
-package kr.bit.function.board.boardEntity;
+package kr.bit.function.board.boardDTO;
 
-public class BoardEntity {
-
+public class FestivalBoardDTO {
     private int festival_no; // 보드넘버
     private String festival_title; // 제목
     private String festival_content; // 본문
     private String host; // 주최자
-    private String festival_location;
-    private String festival_start;
-    private String festival_end;
-    private String open_time;
-    private String festival_post_date;
-    private String festival_attachment;
-    private int event_type;
-    private int like_that;
-    private int views;
-    private String brand_link;
-    private String brand_sns;
+    private String festival_dist;
+    private String festival_subdist;
+    private String festival_location; // 행사위치
+    private String festival_start; // 행사시작날짜
+    private String festival_end; // 행사끝나는날짜
+    private String open_time; // 열리는 시간
+    private String festival_post_date; // 이건 언제작성됐는지 자동으로 판단하기에 읽기만 하면 될 것 같아요
+    private String festival_attachment; // 첨부파일 링크
+    private int event_type; // 이벤트타입
+    private int like_that; // 좋아요 수
+    private int views; // 조회수
+    private String brand_link; // 공식홈피링크
+    private String brand_sns; // SNS링크
 
-    // 기본 생성자
-    public BoardEntity() {
+    // 빈 생성자
+    public FestivalBoardDTO() {
         super();
     }
 
-    // 모든 필드를 초기화하는 생성자
-    public BoardEntity(int festival_no, String festival_title, String festival_content, String host, String festival_location,
-                       String festival_start, String festival_end, String open_time, String festival_post_date,
-                       String festival_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+    // 모든 데이터를 초기화하는 생성자
+    public FestivalBoardDTO(int festival_no, String festival_title, String festival_content, String host, String festival_dist,
+                            String festival_subdist, String festival_location, String festival_start, String festival_end,
+                            String open_time, String festival_post_date, String festival_attachment,
+                            int event_type, int like_that, int views, String brand_link, String brand_sns) {
         super();
         this.festival_no = festival_no;
         this.festival_title = festival_title;
         this.festival_content = festival_content;
         this.host = host;
+        this.festival_dist = festival_dist;
+        this.festival_subdist = festival_subdist;
         this.festival_location = festival_location;
         this.festival_start = festival_start;
         this.festival_end = festival_end;
@@ -75,6 +79,22 @@ public class BoardEntity {
 
     public void setHost(String host) {
         this.host = host;
+    }
+
+    public String getFestival_dist() {
+        return festival_dist;
+    }
+
+    public void setFestival_dist(String festival_dist) {
+        this.festival_dist = festival_dist;
+    }
+
+    public String getFestival_subdist() {
+        return festival_subdist;
+    }
+
+    public void setFestival_subdist(String festival_subdist) {
+        this.festival_subdist = festival_subdist;
     }
 
     public String getFestival_location() {
