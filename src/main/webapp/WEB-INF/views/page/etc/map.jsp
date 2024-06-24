@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -22,34 +20,7 @@
         @font-face {
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
-        .container {
-            width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #333;
-            border-radius: 10px;
-            position: relative;
         }
-        .map {
-            margin-top: 20px;
-        }
-
-        #currentLocationButton {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-        }
-        #currentLocationButton img {
-            width: 45px;
-            height: 45px;
-        }
-
-
 
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
@@ -62,7 +33,10 @@
 
 <div class="map">
     <h3>모든 행사 위치 (카카오 지도)</h3>
-    <div id="multiMap"></div>
+    <div id="multiMap">
+        <button id="currentLocationButton"><%= request.getContextPath() %>현재 위치</button>
+    </div>
+
 </div>
 
 
@@ -139,8 +113,7 @@
             </div>
         </div>
     </article>
-    <button id="currentLocationButton"><%= request.getContextPath() %>현재 위치</button>
-    <div id="multiMap" style="width:100%;height:600px;"></div>
+
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
@@ -248,9 +221,6 @@
                     });
                 });
             }
-
-
-
 
             addMarkers(multiMap, geocoder, festivals);
 
