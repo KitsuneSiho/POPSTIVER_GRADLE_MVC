@@ -1,6 +1,6 @@
 package kr.bit.function.board.boardEntity;
 
-public class PopupBoardEntity {
+public class PopupEntity {
     //--------------------POPUP ENTITY---------------------//
     private int popup_no; // 팝업보드넘버. 자동증가이기에 '0'으로 주입할것
     private String popup_title; // 팝업 제목
@@ -22,14 +22,14 @@ public class PopupBoardEntity {
     private String brand_sns; // 공식SNS링크
 
     // 기본 생성자
-    public PopupBoardEntity() {
+    public PopupEntity() {
         super();
     }
 
     // 모든 필드를 초기화하는 생성자
-    public PopupBoardEntity(int popup_no, String popup_title, String popup_content, String host, String popup_dist, String popup_subdist, String popup_location,
-                            String popup_start, String popup_end, String open_time, String popup_post_date,
-                            String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+    public PopupEntity(int popup_no, String popup_title, String popup_content, String host, String popup_dist, String popup_subdist, String popup_location,
+                       String popup_start, String popup_end, String open_time, String popup_post_date,
+                       String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
         super();
         this.popup_no = popup_no;
         this.popup_title = popup_title;

@@ -1,6 +1,6 @@
 package kr.bit.function.board.boardEntity;
 
-public class FestivalBoardEntity {
+public class FestivalEntity {
     //--------------------FESTIVAL ENTITY---------------------//
     private int festival_no; // 페스티벌보드넘버. 자동증가이기에 '0'으로 주입할것
     private String festival_title; // 페스티벌 제목
@@ -22,14 +22,14 @@ public class FestivalBoardEntity {
     private String brand_sns; //공식SNS링크
 
     // 기본 생성자
-    public FestivalBoardEntity() {
+    public FestivalEntity() {
         super();
     }
 
     // 모든 필드를 초기화하는 생성자
-    public FestivalBoardEntity(int festival_no, String festival_title, String festival_content, String host, String festival_dist, String festival_subdist, String festival_location,
-                               String festival_start, String festival_end, String open_time, String festival_post_date,
-                               String festival_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+    public FestivalEntity(int festival_no, String festival_title, String festival_content, String host, String festival_dist, String festival_subdist, String festival_location,
+                          String festival_start, String festival_end, String open_time, String festival_post_date,
+                          String festival_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
         super();
         this.festival_no = festival_no;
         this.festival_title = festival_title;

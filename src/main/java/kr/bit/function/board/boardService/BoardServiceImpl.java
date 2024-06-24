@@ -2,7 +2,7 @@ package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardEntity.FestivalBoardEntity;
+import kr.bit.function.board.boardEntity.FestivalEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +43,7 @@ public class BoardServiceImpl implements BoardService {
         //BoardEntity형의 데이터를 넣을 때 new를 통해 객체를 만들고
         //넣을 데이터로서 매개변수로 받은 BoardDTO의 데이터를 get메소드를 통해
         //페스티벌 정보를 추출하여 데이터를 넣어준다
-        boardRepository.insert(new FestivalBoardEntity(
+        boardRepository.insert(new FestivalEntity(
                 0,                       // festival_no는 NULL 값으로 설정
                 festivalBoardDTO.getFestival_title(),
                 festivalBoardDTO.getFestival_content(),
@@ -67,25 +67,25 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public FestivalBoardDTO selectOne(int festival_no) throws Exception { //페스티벌 게시글 번호로 찾기
         //ExamRIO형의 변수를 하나 만들고
-        FestivalBoardEntity festivalBoardEntity = null;
+        FestivalEntity festivalEntity = null;
         try {
             //레포지토리의 getRecordByFestivalNo()메소드를 불러와서(DB요청)
             //인자로 festival_no를 넣어서 해당하는 데이터를 boardEntity변수에 담는다.
-            festivalBoardEntity = boardRepository.getRecordByFestivalNo(festival_no);
+            festivalEntity = boardRepository.getRecordByFestivalNo(festival_no);
         }catch(Exception e) {
             e.printStackTrace();
         }
         //담은 데이터를 다시 BoardDTO객체를 만들어서 각 데이터를 넣고  리턴한다.
-        assert festivalBoardEntity != null; //ㅈㅁ
-        return new FestivalBoardDTO(festivalBoardEntity.getFestival_no(), festivalBoardEntity.getFestival_title(), festivalBoardEntity.getFestival_content(), festivalBoardEntity.getHost(), festivalBoardEntity.getFestival_dist(), festivalBoardEntity.getFestival_subdist(), festivalBoardEntity.getFestival_location(),
-                festivalBoardEntity.getFestival_start(), festivalBoardEntity.getFestival_end(), festivalBoardEntity.getOpen_time(), festivalBoardEntity.getFestival_post_date(),
-                festivalBoardEntity.getFestival_attachment(), festivalBoardEntity.getEvent_type(), festivalBoardEntity.getLike_that(), festivalBoardEntity.getViews(), festivalBoardEntity.getBrand_link(), festivalBoardEntity.getBrand_sns());
+        assert festivalEntity != null; //ㅈㅁ
+        return new FestivalBoardDTO(festivalEntity.getFestival_no(), festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(),
+                festivalEntity.getFestival_start(), festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_post_date(),
+                festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
     }
 
     @Override
     public List<FestivalBoardDTO> selectAll() throws Exception { //전체데이터조회
         //List<BoardEntity>형태의 변수를 하나 만든다.
-        List<FestivalBoardEntity> boardEntities = null;
+        List<FestivalEntity> boardEntities = null;
         try {
             //레파지토리의 getAllrecords()메소드를 불러와서(DB요청)
             //리턴된 데이터를 Entities에 담는다.

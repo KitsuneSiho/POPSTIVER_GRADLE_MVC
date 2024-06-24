@@ -1,6 +1,6 @@
 package kr.bit.function.board.boardDAO;
 
-import kr.bit.function.board.boardEntity.FestivalBoardEntity;
+import kr.bit.function.board.boardEntity.FestivalEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,34 +22,34 @@ public class BoardRepository {
     //-----------------FESTIVAL TABLE-------------------------------------//
 
     //festival 테이블 출력
-    public List<FestivalBoardEntity> getAllrecords() throws Exception {
+    public List<FestivalEntity> getAllrecords() throws Exception {
         logger.info("getAllrecords"); //로그남기기
         //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
-        List<FestivalBoardEntity> result = jdbcTemplate.query("select * from festival;",  new RowMapper<FestivalBoardEntity>() {
+        List<FestivalEntity> result = jdbcTemplate.query("select * from festival;",  new RowMapper<FestivalEntity>() {
             //콤마 뒤에 RowMapper 객체를 만든다.
             //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
             //그리고 해당 결과를 results에 담는다.
             @Override
-            public FestivalBoardEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-                FestivalBoardEntity festivalBoardEntity = new FestivalBoardEntity();
-                festivalBoardEntity.setFestival_no(rs.getInt("festival_no"));
-                festivalBoardEntity.setFestival_title(rs.getString("festival_title"));
-                festivalBoardEntity.setFestival_content(rs.getString("festival_content"));
-                festivalBoardEntity.setHost(rs.getString("host"));
-                festivalBoardEntity.setFestival_dist(rs.getString("festival_dist"));
-                festivalBoardEntity.setFestival_subdist(rs.getString("festival_subdist"));
-                festivalBoardEntity.setFestival_location(rs.getString("festival_location"));
-                festivalBoardEntity.setFestival_start(rs.getString("festival_start"));
-                festivalBoardEntity.setFestival_end(rs.getString("festival_end"));
-                festivalBoardEntity.setOpen_time(rs.getString("open_time"));
-                festivalBoardEntity.setFestival_post_date(rs.getString("festival_post_date"));
-                festivalBoardEntity.setFestival_attachment(rs.getString("festival_attachment"));
-                festivalBoardEntity.setEvent_type(rs.getInt("event_type"));
-                festivalBoardEntity.setLike_that(rs.getInt("like_that"));
-                festivalBoardEntity.setViews(rs.getInt("views"));
-                festivalBoardEntity.setBrand_link(rs.getString("brand_link"));
-                festivalBoardEntity.setBrand_sns(rs.getString("brand_sns"));
-                return festivalBoardEntity;
+            public FestivalEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                FestivalEntity festivalEntity = new FestivalEntity();
+                festivalEntity.setFestival_no(rs.getInt("festival_no"));
+                festivalEntity.setFestival_title(rs.getString("festival_title"));
+                festivalEntity.setFestival_content(rs.getString("festival_content"));
+                festivalEntity.setHost(rs.getString("host"));
+                festivalEntity.setFestival_dist(rs.getString("festival_dist"));
+                festivalEntity.setFestival_subdist(rs.getString("festival_subdist"));
+                festivalEntity.setFestival_location(rs.getString("festival_location"));
+                festivalEntity.setFestival_start(rs.getString("festival_start"));
+                festivalEntity.setFestival_end(rs.getString("festival_end"));
+                festivalEntity.setOpen_time(rs.getString("open_time"));
+                festivalEntity.setFestival_post_date(rs.getString("festival_post_date"));
+                festivalEntity.setFestival_attachment(rs.getString("festival_attachment"));
+                festivalEntity.setEvent_type(rs.getInt("event_type"));
+                festivalEntity.setLike_that(rs.getInt("like_that"));
+                festivalEntity.setViews(rs.getInt("views"));
+                festivalEntity.setBrand_link(rs.getString("brand_link"));
+                festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                return festivalEntity;
             }
         });
         //데이터를 담은 List를 반환
@@ -60,34 +60,34 @@ public class BoardRepository {
      * @param festival_no : 게시글번호(festival_no)
      * @return BoardEntity  형태의 데이터
      */
-    public FestivalBoardEntity getRecordByFestivalNo(int festival_no) throws Exception {
+    public FestivalEntity getRecordByFestivalNo(int festival_no) throws Exception {
         //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
         //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
         //전체 출력 메소드와 매우 흡사하다
-        List<FestivalBoardEntity> result = jdbcTemplate.query(
+        List<FestivalEntity> result = jdbcTemplate.query(
                 "select * from festival where festival_no=?;", //쿼리문
-                new RowMapper<FestivalBoardEntity>() {
+                new RowMapper<FestivalEntity>() {
                     @Override
-                    public FestivalBoardEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        FestivalBoardEntity festivalBoardEntity = new FestivalBoardEntity();
-                        festivalBoardEntity.setFestival_no(rs.getInt("festival_no"));
-                        festivalBoardEntity.setFestival_title(rs.getString("festival_title"));
-                        festivalBoardEntity.setFestival_content(rs.getString("festival_content"));
-                        festivalBoardEntity.setHost(rs.getString("host"));
-                        festivalBoardEntity.setFestival_dist(rs.getString("festival_dist"));
-                        festivalBoardEntity.setFestival_subdist(rs.getString("festival_subdist"));
-                        festivalBoardEntity.setFestival_location(rs.getString("festival_location"));
-                        festivalBoardEntity.setFestival_start(rs.getString("festival_start"));
-                        festivalBoardEntity.setFestival_end(rs.getString("festival_end"));
-                        festivalBoardEntity.setOpen_time(rs.getString("open_time"));
-                        festivalBoardEntity.setFestival_post_date(rs.getString("festival_post_date"));
-                        festivalBoardEntity.setFestival_attachment(rs.getString("festival_attachment"));
-                        festivalBoardEntity.setEvent_type(rs.getInt("event_type"));
-                        festivalBoardEntity.setLike_that(rs.getInt("like_that"));
-                        festivalBoardEntity.setViews(rs.getInt("views"));
-                        festivalBoardEntity.setBrand_link(rs.getString("brand_link"));
-                        festivalBoardEntity.setBrand_sns(rs.getString("brand_sns"));
-                        return festivalBoardEntity;
+                    public FestivalEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        FestivalEntity festivalEntity = new FestivalEntity();
+                        festivalEntity.setFestival_no(rs.getInt("festival_no"));
+                        festivalEntity.setFestival_title(rs.getString("festival_title"));
+                        festivalEntity.setFestival_content(rs.getString("festival_content"));
+                        festivalEntity.setHost(rs.getString("host"));
+                        festivalEntity.setFestival_dist(rs.getString("festival_dist"));
+                        festivalEntity.setFestival_subdist(rs.getString("festival_subdist"));
+                        festivalEntity.setFestival_location(rs.getString("festival_location"));
+                        festivalEntity.setFestival_start(rs.getString("festival_start"));
+                        festivalEntity.setFestival_end(rs.getString("festival_end"));
+                        festivalEntity.setOpen_time(rs.getString("open_time"));
+                        festivalEntity.setFestival_post_date(rs.getString("festival_post_date"));
+                        festivalEntity.setFestival_attachment(rs.getString("festival_attachment"));
+                        festivalEntity.setEvent_type(rs.getInt("event_type"));
+                        festivalEntity.setLike_that(rs.getInt("like_that"));
+                        festivalEntity.setViews(rs.getInt("views"));
+                        festivalEntity.setBrand_link(rs.getString("brand_link"));
+                        festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                        return festivalEntity;
                     }
                     //쿼리끝 ? 부분에 데이터를 넣는다
                 }, festival_no);
@@ -100,10 +100,10 @@ public class BoardRepository {
     }
     /**
      * 데이터를 insert하는 메소드
-     * @param festivalBoardEntity: ExanRIO형의 데이터(DB에 삽입하고자 하는 데이터)
+     * @param festivalEntity: ExanRIO형의 데이터(DB에 삽입하고자 하는 데이터)
      * @return int형인 status를 반환한다.(아마 성공 여부인듯 하다)
      */
-    public int insert(FestivalBoardEntity festivalBoardEntity) throws Exception{
+    public int insert(FestivalEntity festivalEntity) throws Exception{
         //메소드 불러올 때 로그를 남김
         logger.info("Board insert");
         //쿼리문을 적고 실행하고 리턴한다.(insert는 update)
@@ -113,8 +113,8 @@ public class BoardRepository {
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
                 "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
-                , festivalBoardEntity.getFestival_title(), festivalBoardEntity.getFestival_content(), festivalBoardEntity.getHost(), festivalBoardEntity.getFestival_dist(), festivalBoardEntity.getFestival_subdist(), festivalBoardEntity.getFestival_location(), festivalBoardEntity.getFestival_start(),
-                festivalBoardEntity.getFestival_end(), festivalBoardEntity.getOpen_time(), festivalBoardEntity.getFestival_attachment(), festivalBoardEntity.getEvent_type(), festivalBoardEntity.getLike_that(), festivalBoardEntity.getViews(), festivalBoardEntity.getBrand_link(), festivalBoardEntity.getBrand_sns());
+                , festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(), festivalEntity.getFestival_start(),
+                festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
     }
 
     //----------------------------POPUP TABLE--------------------------------------//

@@ -1,6 +1,6 @@
-package kr.bit.function.board.boardEntity;
+package kr.bit.function.board.boardDTO;
 
-public class Report {
+public class ReportDTO {
     private int report_no;
     private String report_title;
     private String report_content;
@@ -19,26 +19,26 @@ public class Report {
     private String user_id;
     private String user_name;
 
-    public Report() {
+    public ReportDTO() {
         super();
     }
 
-    public Report(int report_no,
-                  String report_title,
-                  String report_content,
-                  String report_host,
-                  String report_dist,
-                  String report_subdist,
-                  String report_location,
-                  String report_start,
-                  String report_end,
-                  String open_time,
-                  String report_attachment,
-                  int event_type,
-                  String brand_link,
-                  String brand_sns,
-                  String user_id,
-                  String user_name) {
+    public ReportDTO(int report_no,
+                     String report_title,
+                     String report_content,
+                     String report_host,
+                     String report_dist,
+                     String report_subdist,
+                     String report_location,
+                     String report_start,
+                     String report_end,
+                     String open_time,
+                     String report_attachment,
+                     int event_type,
+                     String brand_link,
+                     String brand_sns,
+                     String user_id,
+                     String user_name) {
         super();
         this.report_no = report_no;
         this.report_title = report_title;

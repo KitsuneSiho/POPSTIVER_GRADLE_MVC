@@ -1,19 +1,19 @@
 package kr.bit.function.board.boardEntity;
 
-public class Notice {
+public class NoticeEntity {
     private int notice_no;
     private String notice_title;
     private String notice_content;
     private String notice_date;
 
-    public Notice(){
+    public NoticeEntity(){
         super();
     }
 
-    public Notice(int notice_no,
-                  String notice_title,
-                  String notice_content,
-                  String notice_date) {
+    public NoticeEntity(int notice_no,
+                        String notice_title,
+                        String notice_content,
+                        String notice_date) {
         super();
         this.notice_no = notice_no;
         this.notice_title = notice_title;

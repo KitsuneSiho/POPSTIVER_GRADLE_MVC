@@ -1,6 +1,6 @@
-package kr.bit.function.board.boardEntity;
+package kr.bit.function.board.boardDTO;
 //REPORT 에서 작성한내용을 관리자가 승인해주기 이전에 대기하는 테이블.
-public class Temporary_post {
+public class TemporaryPostDTO {
     private int temp_no;
     private String temp_title;
     private String temp_content;
@@ -16,23 +16,23 @@ public class Temporary_post {
     private String brand_link;
     private String brand_sns;
 
-    public Temporary_post() {
+    public TemporaryPostDTO() {
         super();
     }
 
-    public Temporary_post(int temp_no, String temp_title,
-                          String temp_content,
-                          String temp_host,
-                          String temp_dist,
-                          String temp_subdist,
-                          String temp_location,
-                          String temp_start,
-                          String temp_end,
-                          String open_time,
-                          String temp_attachment,
-                          int event_type,
-                          String brand_link,
-                          String brand_sns) {
+    public TemporaryPostDTO(int temp_no, String temp_title,
+                            String temp_content,
+                            String temp_host,
+                            String temp_dist,
+                            String temp_subdist,
+                            String temp_location,
+                            String temp_start,
+                            String temp_end,
+                            String open_time,
+                            String temp_attachment,
+                            int event_type,
+                            String brand_link,
+                            String brand_sns) {
         super();
         this.temp_no = temp_no;
         this.temp_title = temp_title;
