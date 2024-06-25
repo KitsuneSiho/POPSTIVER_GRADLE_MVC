@@ -25,7 +25,6 @@ body {
     border-bottom: 2px solid #ffff33;
 }
 
-
 .business {
     font-family: 'KBO', sans-serif;
     color: white;
@@ -54,7 +53,7 @@ body {
 
 .businessList input,
 .businessList textarea,
-.businessList .date{
+.businessList .date {
     width: 100%;
     padding: 10px;
     border: none;
@@ -127,4 +126,70 @@ body {
 
 .updateButton button:hover {
     background-color: #ffff3388;
+}
+
+@media screen and (max-width: 1024px) {
+    .business {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .business {
+        width: 95%;
+    }
+
+    .businessList .dateLabel {
+        width: 45%;
+    }
+
+    .businessList .searchAddress {
+        width: 20%;
+        margin-top: 10px;
+    }
+
+    .businessList li {
+        flex-wrap: wrap;
+    }
+
+    .businessList li span {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .businessList input,
+    .businessList textarea,
+    .businessList .date {
+        font-size: 16px;
+    }
+
+    .businessList .dateLabel {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .businessList .image {
+        width: 50%;
+    }
+
+    .businessList li input[type="radio"] + label {
+        font-size: 16px;
+    }
+
+    .updateButton {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .updateButton button {
+        width: 80%;
+        margin-bottom: 10px;
+    }
 }

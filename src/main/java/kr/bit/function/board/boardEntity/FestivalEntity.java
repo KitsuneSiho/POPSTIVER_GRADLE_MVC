@@ -1,5 +1,6 @@
 package kr.bit.function.board.boardEntity;
 
+<<<<<<<<< Temporary merge branch 1:src/main/java/kr/bit/function/board/boardEntity/FestivalEntity.java
 public class FestivalEntity {
     //--------------------FESTIVAL ENTITY---------------------//
     private int festival_no; // 페스티벌보드넘버. 자동증가이기에 '0'으로 주입할것
@@ -27,9 +28,16 @@ public class FestivalEntity {
     }
 
     // 모든 필드를 초기화하는 생성자
+<<<<<<<<< Temporary merge branch 1:src/main/java/kr/bit/function/board/boardEntity/FestivalEntity.java
     public FestivalEntity(int festival_no, String festival_title, String festival_content, String host, String festival_dist, String festival_subdist, String festival_location,
                           String festival_start, String festival_end, String open_time, String festival_post_date,
                           String festival_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+=========
+    public BoardEntity(int festival_no, String festival_title, String festival_content, String host, String festival_location,
+                       String festival_dist, String festival_subdist,
+                       String festival_start, String festival_end, String open_time, String festival_post_date,
+                       String festival_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+>>>>>>>>> Temporary merge branch 2:src/main/java/kr/bit/function/board/boardEntity/BoardEntity.java
         super();
         this.festival_no = festival_no;
         this.festival_title = festival_title;
@@ -38,6 +46,8 @@ public class FestivalEntity {
         this.festival_dist = festival_dist;
         this.festival_subdist = festival_subdist;
         this.festival_location = festival_location;
+        this.festival_dist = festival_dist;
+        this.festival_subdist = festival_start;
         this.festival_start = festival_start;
         this.festival_end = festival_end;
         this.open_time = open_time;
@@ -50,6 +60,7 @@ public class FestivalEntity {
         this.brand_sns = brand_sns;
     }
 
+<<<<<<<<< Temporary merge branch 1:src/main/java/kr/bit/function/board/boardEntity/FestivalEntity.java
     public int getFestival_no() {
         return festival_no;
     }
@@ -186,3 +197,6 @@ public class FestivalEntity {
         this.brand_sns = brand_sns;
     }
 }
+=========
+}
+>>>>>>>>> Temporary merge branch 2:src/main/java/kr/bit/function/board/boardEntity/BoardEntity.java

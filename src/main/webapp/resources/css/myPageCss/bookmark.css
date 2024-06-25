@@ -136,3 +136,44 @@ footer {
         transform: translateX(0);
     }
 }
+
+/* 수정된 CSS */
+
+@media (max-width: 767px) {
+    .searchList article {
+        width: 90%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .searchList article {
+        width: 80%;
+    }
+
+    .card {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .searchList article {
+        width: 70%;
+    }
+
+    .card {
+        width: 33.33%;
+    }
+}

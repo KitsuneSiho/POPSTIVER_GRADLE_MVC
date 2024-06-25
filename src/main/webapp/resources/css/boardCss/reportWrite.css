@@ -25,7 +25,6 @@ body {
     border-bottom: 2px solid #ffff33;
 }
 
-
 .business {
     font-family: 'KBO', sans-serif;
     color: white;
@@ -66,23 +65,22 @@ body {
     box-sizing: border-box;
     outline: none;
 }
-.businessList .title{
+
+.businessList .title,
+.businessList .infoTextarea,
+.businessList .addressLabel {
     width: 100%;
 }
-.businessList .infoTextarea{
-    width: 100%;
-}
-.businessList .addressLabel{
-    width: 100%;
-}
-.businessList .dateLabel{
+
+.businessList .dateLabel {
     width: 30%;
 }
 
-.businessList .image{
+.businessList .image {
     width: 20%;
     height: 20%;
 }
+
 .businessList .searchAddress {
     width: 10%;
     height: 35px;
@@ -95,12 +93,12 @@ body {
     cursor: pointer;
     margin-left: 1%;
 }
+
 .businessList button:hover {
     background-color: #ffff3388;
 }
 
-
-.businessList p{
+.businessList p {
     margin: 0 1%;
 }
 
@@ -113,6 +111,7 @@ body {
     flex-shrink: 0;
     width: 100px;
 }
+
 .businessList li input[type="radio"] {
     width: 2%;
     margin: 0 1%;
@@ -125,6 +124,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 .updateButton {
     display: flex;
     justify-content: center;
@@ -145,4 +145,75 @@ body {
 
 .updateButton button:hover {
     background-color: #ffff3388;
+}
+
+@media screen and (max-width: 1024px) {
+    .business {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .business {
+        width: 95%;
+    }
+
+    .businessList .dateLabel {
+        width: 45%;
+    }
+
+    .businessList .searchAddress {
+        width: 20%;
+        margin-top: 10px;
+    }
+
+    .businessList li {
+        flex-wrap: wrap;
+    }
+
+    .businessList li span {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .businessList input,
+    .businessList textarea,
+    .businessList .date {
+        font-size: 16px;
+    }
+
+    .businessList .dateLabel {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .businessList .searchAddress {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .businessList .image {
+        width: 50%;
+    }
+
+    .businessList li input[type="radio"] + label {
+        font-size: 16px;
+    }
+
+    .updateButton {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .updateButton button {
+        width: 80%;
+        margin-bottom: 10px;
+    }
 }

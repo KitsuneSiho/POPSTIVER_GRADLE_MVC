@@ -4,32 +4,35 @@ body {
     background-color: black;
 }
 
-.myPage{
+.myPage {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 15px 0 20px;
     padding-bottom: 10px;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     color: white;
-
 }
-.myPage a, a:visited{
+
+.myPage a, .myPage a:visited {
     text-decoration: none;
     color: inherit;
 }
-.myPage .on{
+
+.myPage .on {
     color: #ffff33;
     border-bottom: 2px solid #ffff33;
 }
-.deletePage{
+
+.deletePage {
     display: flex;
     justify-content: center;
 }
-.deleteUser{
+
+.deleteUser {
     align-content: center;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     color: white;
     width: 800px;
     height: 400px;
@@ -37,16 +40,19 @@ body {
     border-radius: 5px;
     text-align: center;
 }
-.deleteUser .delete{
+
+.deleteUser .delete {
     font-size: 50px;
     color: #ffff33;
     line-height: 3;
 }
-.deleteUser .delete2{
+
+.deleteUser .delete2 {
     font-size: 30px;
     line-height: 2;
 }
-.deleteUser button{
+
+.deleteUser button {
     margin: 25px;
     width: 100px;
     height: 40px;
@@ -54,16 +60,15 @@ body {
     border-radius: 5px;
     background-color: black;
     color: white;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     font-size: 18px;
     cursor: pointer;
 }
 
-.deleteUser button:hover{
+.deleteUser button:hover {
     background-color: #ffff3388;
 }
 
-/* 모달 배경 */
 .custom-alert-modal {
     display: none;
     position: fixed;
@@ -76,9 +81,8 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 모달 컨텐츠 */
 .custom-alert-content {
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -94,12 +98,71 @@ body {
     font-size: 25px;
 }
 
-/* 닫기 버튼 */
 .custom-alert-close {
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
 }
 
+/* 반응형 스타일 */
+@media screen and (max-width: 900px) {
+    .deleteUser {
+        width: 90%;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .deleteUser .delete {
+        font-size: 40px;
+    }
+
+    .deleteUser .delete2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .myPage {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .myPage a {
+        margin-bottom: 10px;
+    }
+
+    .deleteUser .delete {
+        font-size: 30px;
+    }
+
+    .deleteUser .delete2 {
+        font-size: 20px;
+    }
+
+    .deleteUser button {
+        margin: 15px;
+    }
+
+    .custom-alert-content {
+        width: 80%;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .deleteUser .delete {
+        font-size: 24px;
+    }
+
+    .deleteUser .delete2 {
+        font-size: 16px;
+    }
+
+    .deleteUser button {
+        width: 80px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
