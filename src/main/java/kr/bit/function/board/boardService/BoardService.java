@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface BoardService {
     public void deleteFestival(int festival_no) throws Exception;
 
     //----------------POPUP BOARD----------------------------------------------------------------//
-    public void insertPopupManual() throws Exception; //페스티벌 보드 디비에 데이터 삽입
+    public void insertPopupManual() throws Exception; //팝업 보드 디비에 데이터 삽입
 
     //건내준 인자를 기반으로 데이터 삽입
     public void insertPopup (PopupBoardDTO popupBoardDTO) throws Exception;
@@ -47,4 +48,6 @@ public interface BoardService {
 
 
     //----------------NOTICE BOARD---------------------------------------------------------------//
+    public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
+    public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;//특정공지내용출력
 }
