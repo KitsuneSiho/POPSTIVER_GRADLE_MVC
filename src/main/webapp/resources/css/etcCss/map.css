@@ -156,3 +156,21 @@ body {
     font-size: 30px;
     cursor: pointer;
 }
+
+#currentLocationButton {
+    position: absolute;
+    top: 20px; /* 원하는 위치로 조정 */
+    right: 20px; /* 원하는 위치로 조정 */
+    background-color: #ffff33;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10; /* 필요에 따라 z-index 설정 */
+    font-family: 'KBO',sans-serif;
+}
+
+#currentLocationButton img {
+    width: 45px;
+    height: 45px;
+}

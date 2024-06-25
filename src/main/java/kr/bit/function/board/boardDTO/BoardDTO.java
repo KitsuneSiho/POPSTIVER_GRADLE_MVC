@@ -39,7 +39,7 @@ public class BoardDTO {
         this.host = host;
         this.festival_location = festival_location;
         this.festival_dist = festival_dist;
-        this.festival_subdist = festival_start;
+        this.festival_subdist = festival_subdist;
         this.festival_start = festival_start;
         this.festival_end = festival_end;
         this.open_time = open_time;
