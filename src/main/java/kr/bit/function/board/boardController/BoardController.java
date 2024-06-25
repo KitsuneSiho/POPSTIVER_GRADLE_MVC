@@ -1,7 +1,6 @@
 package kr.bit.function.board.boardController;
 
-
-import kr.bit.function.board.boardDTO.BoardDTO;
+import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

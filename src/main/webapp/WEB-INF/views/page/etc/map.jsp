@@ -282,17 +282,17 @@
 
     var festivalMarkerImage = new kakao.maps.MarkerImage(
         'http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png',
-        new kakao.maps.Size(30, 30),
+        new kakao.maps.Size(24, 35),
         {
-            offset: new kakao.maps.Point(15, 30)
+            offset: new kakao.maps.Point(13, 35)
         }
     );
 
     var popupMarkerImage = new kakao.maps.MarkerImage(
-        'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites.png',
+        'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
         new kakao.maps.Size(24, 35),
         {
-            offset: new kakao.maps.Point(15, 30)
+            offset: new kakao.maps.Point(13, 35)
         }
     );
 
@@ -368,7 +368,7 @@
                 {
                     title: "${popup.popup_title}",
                     location: "${popup.popup_location}",
-                    // link: "${pageContext.request.contextPath}/festival_Details/${popup.popup_no}",
+                    link: "${pageContext.request.contextPath}/festival_Details/${popup.popup_no}",
                     dist: "${popup.popup_dist}",
                     subdist: "${popup.popup_subdist}",
                     start: "${popup.popup_start}",
@@ -437,7 +437,7 @@
                                 document.getElementById('festivalLocation').textContent = popup.location;
                                 document.getElementById('festivalStart').textContent = popup.start;
                                 document.getElementById('festivalEnd').textContent = popup.end;
-                                //document.getElementById('festivalLink').href = popup.link;
+                                document.getElementById('festivalLink').href = popup.link;
                                 modal.style.display = "block";
                             });
                         } else {

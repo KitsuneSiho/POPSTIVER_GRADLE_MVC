@@ -1,7 +1,7 @@
 package kr.bit.function.board.boardController;
 
-import kr.bit.function.board.boardDTO.BoardDTO;
-
+import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.PopupBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,9 @@ public class MapController {
         try {
 
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
+            List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
             model.addAttribute("allFestivals", allFestivals);
+            model.addAttribute("allPopups", allPopups);
 
         } catch (Exception e) {
             e.printStackTrace();
