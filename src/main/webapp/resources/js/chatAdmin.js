@@ -1,5 +1,7 @@
 let adminStompClient = null;
-const adminUsername = '관리자'; // 실제 구현에서는 관리자의 실제 사용자 이름으로 설정해야 합니다.
+const adminUsername = '관리자';
+let currentRecipient = null;
+const userMessages = {};
 
 function connectAdmin() {
     const root = 'http://localhost:8080';
@@ -7,29 +9,42 @@ function connectAdmin() {
     adminStompClient = Stomp.over(socket);
     adminStompClient.connect({}, function (frame) {
         console.log('관리자 연결됨: ' + frame);
+        console.log('Admin Username: ' + adminUsername);  // 로그 추가
 
-        // 연결 시 관리자 이름 설정
+        adminStompClient.subscribe('/topic/public', function (message) {
+            const msg = JSON.parse(message.body);
+            handleIncomingMessage(msg);
+        });
+
+        adminStompClient.subscribe('/user/queue/private', function (message) {
+            const msg = JSON.parse(message.body);
+            handleIncomingMessage(msg);
+        });
+        // 관리자 연결 시 사용자 이름 설정
         adminStompClient.send("/app/chat.addUser",
             {},
             JSON.stringify({sender: adminUsername, type: 'JOIN'})
         );
-
-        // 공개 채널 구독
-        adminStompClient.subscribe('/topic/public', function (message) {
-            showAdminMessage(JSON.parse(message.body));
-        });
-
-        // 관리자 전용 개인 메시지 채널 구독
-        adminStompClient.subscribe('/user/queue/private', function (message) {
-            showAdminMessage(JSON.parse(message.body));
-        });
     }, function (error) {
         console.error('WebSocket connection error: ' + error);
     });
 }
 
+function handleIncomingMessage(msg) {
+    console.log('Message received: ', msg);
+    if (msg.sender !== adminUsername) {
+        if (!userMessages[msg.sender]) {
+            userMessages[msg.sender] = [];
+            updateUserList(msg.sender);
+        }
+        userMessages[msg.sender].push(msg);
+        if (msg.sender === currentRecipient) {
+            showAdminMessage(msg);
+        }
+    }
+}
+
 function showAdminMessage(message) {
-    console.log('Received message: ', message);
     const chatBox = document.querySelector('.chatBox');
     const messageElement = document.createElement('div');
     messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
@@ -39,25 +54,50 @@ function showAdminMessage(message) {
 
 function sendAdminMessage() {
     const messageContent = document.getElementById('adminChatInput').value.trim();
-    if (messageContent && adminStompClient) {
+    if (messageContent && adminStompClient && currentRecipient) {
         const chatMessage = {
             sender: adminUsername,
             content: messageContent,
+            receiver: currentRecipient,
             type: 'CHAT'
         };
 
-        // 공개 메시지 전송
-        adminStompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-
-        // 특정 사용자에게 개인 메시지 전송 (예: 마지막으로 메시지를 보낸 사용자에게)
-        chatMessage.receiver = 'lastMessageSender'; // 실제 구현에서는 동적으로 설정해야 합니다.
         adminStompClient.send("/app/chat.private", {}, JSON.stringify(chatMessage));
-
+        userMessages[currentRecipient].push(chatMessage);
+        showAdminMessage(chatMessage);
         document.getElementById('adminChatInput').value = '';
+    } else {
+        alert('메시지를 보낼 사용자를 선택하세요.');
     }
 }
 
-// 페이지가 로드되면 WebSocket 연결을 설정합니다.
+function updateUserList(username) {
+    const userList = document.getElementById('userList');
+    if (!userList.querySelector(`li[data-username='${username}']`)) {
+        const userElement = document.createElement('li');
+        userElement.textContent = username;
+        userElement.dataset.username = username;
+        userElement.addEventListener('click', () => {
+            currentRecipient = username;
+            document.getElementById('currentUser').textContent = username;
+            showUserMessages(username);
+        });
+        userList.appendChild(userElement);
+    }
+}
+
+function showUserMessages(username) {
+    const chatBox = document.querySelector('.chatBox');
+    chatBox.innerHTML = '';
+    const messages = userMessages[username] || [];
+    messages.forEach(msg => {
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `<b>${msg.sender}:</b> ${msg.content}`;
+        chatBox.appendChild(messageElement);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     connectAdmin();
     document.getElementById('adminSendButton').addEventListener('click', sendAdminMessage);

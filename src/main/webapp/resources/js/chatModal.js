@@ -11,7 +11,7 @@ $(document).ready(function() {
 
     // WebSocket 연결 설정
     var contextPath = 'http://localhost:8080';
-    var socket = new SockJS(contextPath + '/chat-websocket');
+    var socket = new SockJS(contextPath + '/chat-websocket?username=' + encodeURIComponent(username));
     var stompClient = Stomp.over(socket);
 
     // 세션 스토리지에서 로그인한 사용자의 닉네임을 가져옴
@@ -19,6 +19,7 @@ $(document).ready(function() {
 
     stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
+        console.log('Username: ' + username);  // 로그 추가
 
         // 연결 시 사용자 이름 설정
         stompClient.send("/app/chat.addUser",
@@ -28,11 +29,13 @@ $(document).ready(function() {
 
         // 공개 메시지 구독
         stompClient.subscribe('/topic/public', function(messageOutput) {
+            console.log("Received public message:", messageOutput.body);
             showMessage(JSON.parse(messageOutput.body));
         });
 
         // 개인 메시지 구독
-        stompClient.subscribe('/user/queue/private', function(messageOutput) {
+        stompClient.subscribe('/user/' + username + '/queue/private', function(messageOutput) {
+            console.log("Received private message:", messageOutput.body);
             showMessage(JSON.parse(messageOutput.body));
         });
     });

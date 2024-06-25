@@ -34,16 +34,42 @@ public class ChatController {
 
     @MessageMapping("/chat.private")
     public void sendPrivateMessage(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        String senderUsername = (String) headerAccessor.getSessionAttributes().get("username");
-        if (senderUsername != null) {
-            chatMessage.setSender(senderUsername);
+        String senderUsername = chatMessage.getSender(); // 메시지에서 직접 발신자 이름을 가져옵니다.
+
+        if (senderUsername == null || senderUsername.isEmpty()) {
+            senderUsername = (String) headerAccessor.getSessionAttributes().get("username");
+            if (senderUsername == null || senderUsername.isEmpty()) {
+                logger.error("Sender username is null or empty");
+                return; // 유효한 발신자 이름이 없으면 메시지 전송을 중단합니다.
+            }
         }
+
+        chatMessage.setSender(senderUsername);
+
         String recipientUsername = chatMessage.getReceiver();
-        logger.info("Sending private message from {} to {}: {}", chatMessage.getSender(), recipientUsername, chatMessage.getContent());
+        logger.info("Received private message: {}", chatMessage);
+        logger.info("Sending private message from {} to {}: {}", senderUsername, recipientUsername, chatMessage.getContent());
+
         messagingTemplate.convertAndSendToUser(
                 recipientUsername,
                 "/queue/private",
                 chatMessage
         );
+
+        // 발신자에게도 메시지를 보냅니다 (채팅 창에 표시하기 위해)
+        if (!senderUsername.equals(recipientUsername)) {
+            messagingTemplate.convertAndSendToUser(
+                    senderUsername,
+                    "/queue/private",
+                    chatMessage
+            );
+        }
+    }
+
+    @MessageMapping("/chat.addUser")
+    public void addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        String username = chatMessage.getSender();
+        headerAccessor.getSessionAttributes().put("username", username);
+        logger.info("User added to chat: {}", username);
     }
 }

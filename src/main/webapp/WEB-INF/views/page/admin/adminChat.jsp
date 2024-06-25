@@ -11,7 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
-    <script src="/js/admin-chat.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -26,7 +25,8 @@
 
         .chat-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+            height: 600px;
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -35,9 +35,10 @@
         }
 
         .user-list {
-            width: 200px;
+            width: 250px;
             border-right: 1px solid #ccc;
             background: #f9f9f9;
+            overflow-y: auto;
         }
 
         .user-list ul {
@@ -47,15 +48,22 @@
         }
 
         .user-list ul li {
-            padding: 10px;
+            padding: 15px;
             border-bottom: 1px solid #ddd;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-list ul li:hover {
+            background-color: #f1f1f1;
         }
 
         .chat-section {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .chat-header {
@@ -69,17 +77,17 @@
 
         .chatBox {
             flex-grow: 1;
-            border-top: 1px solid #ddd;
-            overflow-y: scroll;
-            padding: 10px;
-            box-sizing: border-box;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             background: #f9f9f9;
         }
 
         .chatBox div {
             margin-bottom: 10px;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 10px;
+            border-radius: 10px;
             background: #e1f5fe;
             display: inline-block;
             max-width: 80%;
@@ -96,7 +104,7 @@
             flex: 1;
             padding: 10px;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             margin-right: 10px;
             font-size: 1em;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -105,7 +113,7 @@
         #adminSendButton {
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             background: #007bff;
             color: white;
             font-size: 1em;
