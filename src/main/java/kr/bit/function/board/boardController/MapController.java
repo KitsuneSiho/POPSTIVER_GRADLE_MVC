@@ -25,7 +25,7 @@ public class MapController {
     public String festivalDetails(Model model) {
         try {
             // 모든 축제 정보
-            List<FestivalBoardDTO> allFestivals = boardService.selectAll();
+            List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardEntity.FestivalEntity;
+import kr.bit.function.board.boardEntity.PopupEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BoardRepository {
     //-----------------FESTIVAL TABLE-------------------------------------//
 
     //festival 테이블 출력
-    public List<FestivalEntity> getAllrecords() throws Exception {
+    public List<FestivalEntity> getFestivalRepo() throws Exception {
         logger.info("getAllrecords"); //로그남기기
         //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
         List<FestivalEntity> result = jdbcTemplate.query("select * from festival;",  new RowMapper<FestivalEntity>() {
@@ -55,12 +56,12 @@ public class BoardRepository {
         //데이터를 담은 List를 반환
         return result;
     }
-    /**
+    /*
      * 특정 게시물을 출력하기.
      * @param festival_no : 게시글번호(festival_no)
      * @return BoardEntity  형태의 데이터
      */
-    public FestivalEntity getRecordByFestivalNo(int festival_no) throws Exception {
+    public FestivalEntity getFestivalByFestivalNoRepo(int festival_no) throws Exception {
         //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
         //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
         //전체 출력 메소드와 매우 흡사하다
@@ -98,12 +99,12 @@ public class BoardRepository {
         return result.isEmpty() ? null : result.get(0);
 
     }
-    /**
+    /*
      * 데이터를 insert하는 메소드
      * @param festivalEntity: ExanRIO형의 데이터(DB에 삽입하고자 하는 데이터)
      * @return int형인 status를 반환한다.(아마 성공 여부인듯 하다)
      */
-    public int insert(FestivalEntity festivalEntity) throws Exception{
+    public int insertFestivalRepo(FestivalEntity festivalEntity) throws Exception{
         //메소드 불러올 때 로그를 남김
         logger.info("Board insert");
         //쿼리문을 적고 실행하고 리턴한다.(insert는 update)
@@ -119,6 +120,101 @@ public class BoardRepository {
 
     //----------------------------POPUP TABLE--------------------------------------//
 
+    //popup 테이블 출력
+    public List<PopupEntity> getPopupRepo() throws Exception {
+        logger.info("getAllPopup"); //로그남기기
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+        List<PopupEntity> result = jdbcTemplate.query("select * from popup;",  new RowMapper<PopupEntity>() {
+            //콤마 뒤에 RowMapper 객체를 만든다.
+            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
+            //그리고 해당 결과를 results에 담는다.
+            @Override
+            public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopupEntity popupEntity = new PopupEntity();
+                popupEntity.setPopup_no(rs.getInt("popup_no"));
+                popupEntity.setPopup_title(rs.getString("popup_title"));
+                popupEntity.setPopup_content(rs.getString("popup_content"));
+                popupEntity.setHost(rs.getString("host"));
+                popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                popupEntity.setPopup_location(rs.getString("popup_location"));
+                popupEntity.setPopup_start(rs.getString("popup_start"));
+                popupEntity.setPopup_end(rs.getString("popup_end"));
+                popupEntity.setOpen_time(rs.getString("open_time"));
+                popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                popupEntity.setEvent_type(rs.getInt("event_type"));
+                popupEntity.setLike_that(rs.getInt("like_that"));
+                popupEntity.setViews(rs.getInt("views"));
+                popupEntity.setBrand_link(rs.getString("brand_link"));
+                popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                return popupEntity;
+            }
+        });
+        //데이터를 담은 List를 반환
+        return result;
+    }
+    /*
+     * 특정 게시물을 출력하기.
+     * @param popup_no : 게시글번호(popup_no)
+     * @return BoardEntity  형태의 데이터
+     */
+    public PopupEntity getPopupByPopupNoRepo(int popup_no) throws Exception {
+        //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
+        //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
+        //전체 출력 메소드와 매우 흡사하다
+        List<PopupEntity> result = jdbcTemplate.query(
+                "select * from popup where popup_no=?;", //쿼리문
+                new RowMapper<PopupEntity>() {
+                    @Override
+                    public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        PopupEntity popupEntity = new PopupEntity();
+                        popupEntity.setPopup_no(rs.getInt("popup_no"));
+                        popupEntity.setPopup_title(rs.getString("popup_title"));
+                        popupEntity.setPopup_content(rs.getString("popup_content"));
+                        popupEntity.setHost(rs.getString("host"));
+                        popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                        popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                        popupEntity.setPopup_location(rs.getString("popup_location"));
+                        popupEntity.setPopup_start(rs.getString("popup_start"));
+                        popupEntity.setPopup_end(rs.getString("popup_end"));
+                        popupEntity.setOpen_time(rs.getString("open_time"));
+                        popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                        popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                        popupEntity.setEvent_type(rs.getInt("event_type"));
+                        popupEntity.setLike_that(rs.getInt("like_that"));
+                        popupEntity.setViews(rs.getInt("views"));
+                        popupEntity.setBrand_link(rs.getString("brand_link"));
+                        popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                        return popupEntity;
+                    }
+                    //쿼리끝 ? 부분에 데이터를 넣는다
+                }, popup_no);
+        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
+        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
+        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
+        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+        return result.isEmpty() ? null : result.get(0);
+
+    }
+    /*
+     * 데이터를 insert하는 메소드
+     * @param festivalEntity: ExanRIO형의 데이터(DB에 삽입하고자 하는 데이터)
+     * @return int형인 status를 반환한다.(아마 성공 여부인듯 하다)
+     */
+    public int insertPopupRepo(PopupEntity popupEntity) throws Exception{
+        //메소드 불러올 때 로그를 남김
+        logger.info("Popup Board insert");
+        //쿼리문을 적고 실행하고 리턴한다.(insert는 update)
+        //sql : 데이터들을 넣음
+        //insert 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
+        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
+        //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
+        return jdbcTemplate.update(
+                "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                , popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(), popupEntity.getPopup_start(),
+                popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+    }
 
 
 }
