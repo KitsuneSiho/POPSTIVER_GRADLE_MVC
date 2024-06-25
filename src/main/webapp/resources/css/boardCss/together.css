@@ -123,9 +123,68 @@ body {
 
 .pageNumber ul li a.pageOn {
     font-weight: 700;
-    color: white;
+    color: #ffff33 !important;
 }
 .pageNumber ul li a:visited, .pageNumber ul li a{
     text-decoration: none;
     color: inherit;
+}
+
+@media screen and (max-width: 1024px) {
+    .board {
+        width: 80%;
+    }
+
+    .write {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .board {
+        width: 90%;
+    }
+
+    .write {
+        width: 95%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 8px;
+    }
+
+    .boardTable td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .board {
+        width: 95%;
+    }
+
+    .write {
+        width: 100%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 5px;
+    }
+
+    .boardTable td {
+        font-size: 10px;
+    }
+
+    .write .writeButton {
+        font-size: 14px;
+    }
+
+    .pageNumber ul {
+        font-size: 16px;
+    }
 }

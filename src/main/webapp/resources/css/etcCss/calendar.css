@@ -4,42 +4,53 @@ body {
     background-color: black;
 }
 
-.calenderTitle{
+.calenderTitle {
     color: white;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     text-align: center;
     font-size: 25px;
+    margin-top: 20px; /* 추가: 제목과의 간격 */
 }
-#calender{
-    width: 70%;
+
+#calender {
+    width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
+    max-width: 80%; /* 추가: 최대 너비 설정 */
     margin: 0 auto;
     color: white;
     background-color: black;
     border-radius: 5px;
     overflow: hidden !important;
+    margin-top: 20px; /* 추가: 달력과의 간격 */
 }
-#calender table{
+
+#calender table {
     border-radius: 5px;
     background-color: #2e2e2e;
     border: 3px solid #ffff33;
 }
-.fc-today-button, .fc-prev-button, .fc-next-button {
+
+.fc-today-button,
+.fc-prev-button,
+.fc-next-button {
     background-color: #ffff33 !important;
     color: black !important;
-    font-family: 'KBO',sans-serif !important;
+    font-family: 'KBO', sans-serif !important;
 }
 
-.fc-day a{
+.fc-day a {
     color: white;
-    font-family: 'KBO',sans-serif;
+    font-family: 'KBO', sans-serif;
     font-size: 20px;
 }
+
 .fc-day-sat a {
     color: #00aaff;
 }
+
 .fc-day-sun a {
     color: #ff0000;
 }
+
 .fc .fc-col-header-cell-cushion {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -48,7 +59,8 @@ body {
 dialog {
     font-family: 'KBO', sans-serif;
     position: fixed;
-    width: 400px;
+    width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
+    max-width: 400px; /* 추가: 최대 너비 설정 */
     margin: 0;
     z-index: 100;
     padding: 30px;
@@ -71,4 +83,21 @@ dialog {
     font-size: 30px;
     cursor: pointer;
     color: black;
+}
+
+@media (max-width: 768px) {
+    .calenderTitle {
+        font-size: 20px;
+    }
+
+    #calender {
+        width: 95%; /* 더 작은 화면에 맞춰 더 조정 */
+    }
+
+    dialog {
+        width: 95%; /* 더 작은 화면에 맞춰 더 조정 */
+        max-width: none; /* 최대 너비 해제 */
+        padding: 20px; /* 패딩 줄임 */
+        font-size: 14px; /* 폰트 크기 줄임 */
+    }
 }

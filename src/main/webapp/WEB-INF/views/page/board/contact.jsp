@@ -9,9 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/contact.css">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
-    <link rel="stylesheet" href="${root}/resources/css/fixCss/header.css">
-    <link rel="stylesheet" href="${root}/resources/css/fixCss/footer.css">
-    <link rel="stylesheet" href="${root}/resources/css/fixCss/menuModal.css">
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -24,63 +21,9 @@
             src: url('${root}/resources/font/KBO.ttf');
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${root}/resources/js/loginName.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script>
-        // JSP에서 JavaScript로 contextPath를 전달
-        var contextPath = '<%= request.getContextPath() %>';
-    </script>
 </head>
 <body>
-<header class="mainTop">
-    <div class="mainTopLogo">
-        <h1><a href="../main">POPSTIVER</a></h1>
-    </div>
-
-    <div class="mainTopSearch">
-        <div class="mainTopSearchContainer">
-            <label>
-                <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-            </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
-                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-            </button>
-        </div>
-    </div>
-
-    <div class="mainTopButton">
-        <sec:authorize access="!isAuthenticated()">
-            <button class="loginButton" onclick="window.location.href='login'">
-                로그인
-            </button>
-        </sec:authorize>
-
-        <sec:authorize access="isAuthenticated()">
-            <button class="logoutButton" onclick="window.location.href='logout'">
-                로그아웃
-            </button>
-        </sec:authorize>
-
-        <button class="menuButton">
-            <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
-        </button>
-    </div>
-
-</header>
-
-<div id="menuModal" class="modal">
-    <div class="modal-content">
-        <ul>
-            <li><a href="${root}/myPage">마이페이지</a></li>
-            <li><a href="${root}/map">근처 행사</a></li>
-            <li><a href="${root}/bookmark">관심 행사</a></li>
-            <li><a href="${root}/calendar">행사 일정</a></li>
-            <li><a href="${root}/contact">게시판</a></li>
-        </ul>
-    </div>
-</div>
+<jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
     <a class="on" href="contact">
@@ -102,20 +45,35 @@
 
 <div class="board">
     <table class="boardTable">
-        <thead>
         <tr>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
         </tr>
-        </thead>
-        <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
-        </tbody>
+        <c:choose>
+            <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+            <c:when test="${empty list}">
+                <%-- 아래의 메시지를 출력한다. --%>
+                <tr>
+                    <td colspan=15>
+                        <spring:message code="common.listEmpty"/>
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
+                <c:forEach items="${list}" var="notice">
+                    <tr>
+                            <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
+                        <td><p><a href="notice_Details/${notice.notice_no}">${notice.notice_title}</a></p></td>
+                        <td ><p>관리자</p></td>
+                        <td ><p>${notice.notice_date}</p></td>
+
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
     </table>
 </div>
 <div class="pageNumber">
@@ -138,12 +96,22 @@
     </div>
 </div>
 
-<footer>
-    ㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇㅎㅇ<br>
-    ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
-</footer>
-
-<script src="${root}/resources/js/menuModal.js"></script>
+<jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const notice = [
+        <c:forEach var="notice" items="${allNotice}" varStatus="loop">
+        {
+            title: "${notice.notice_title}",
+            link: "${pageContext.request.contextPath}/notice_Details/${notice.notice_no}",
+            content: "${notice.notice_content}",
+            date: "${notice.notice_date}"
+        }<c:if test="${!loop.last}">, </c:if>
+        </c:forEach>
+    ];
+</script>
 </body>
 </html>

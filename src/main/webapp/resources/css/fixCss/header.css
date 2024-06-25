@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    padding: 0;
     background-color: black;
+    padding: 0;
 }
 
 .mainTop {
@@ -10,7 +10,9 @@ body {
     justify-content: space-between;
     padding: 0 20px;
     height: 100px;
-    position: relative;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    background-color: black; /* 배경색 지정 */
 }
 
 .mainTopSearch {
@@ -26,6 +28,7 @@ body {
     align-items: center;
     width: 100%;
 }
+
 .mainTopSearchContainer label {
     width: 100%;
     display: flex;
@@ -83,7 +86,7 @@ body {
     margin-right: 10px;
 }
 
-.logoutButton{
+.logoutButton {
     background: none;
     border: none;
     cursor: pointer;
@@ -98,19 +101,125 @@ body {
     font-family: 'KBO', sans-serif;
 }
 
-.logoutButton{
+.logoutButton {
     font-size: 25px;
     margin-right: 10px;
     color: white;
     font-family: 'KBO', sans-serif;
 }
 
-.userName{
+.userName {
     color: white;
     font-family: 'KBO', sans-serif;
-    font-size: 25px;
+    font-size: 15px;
     display: flex;
     align-items: center;
 }
 
+#loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border: 6px solid #ffd700;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .mainTopLogo {
+        font-size: 20px;
+    }
+
+    .mainTopSearch input {
+        font-size: 18px;
+    }
+
+    .loginButton, .logoutButton {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .mainTop {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .mainTopLogo {
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .mainTopSearch {
+        width: 100%;
+    }
+
+    .mainTopButton {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainTopSearchContainer label {
+        width: 100%;
+    }
+
+    .mainTopSearch input {
+        font-size: 16px;
+        padding: 8px 20px;
+    }
+
+    .loginButton, .logoutButton {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mainTopLogo {
+        font-size: 18px;
+    }
+
+    .mainTopSearch input {
+        font-size: 14px;
+    }
+
+    .loginButton, .logoutButton {
+        font-size: 16px;
+    }
+
+    .menuButton img {
+        width: 20px;
+        height: 20px;
+    }
+}
 
