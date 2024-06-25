@@ -1,4 +1,3 @@
-// 전역 변수로 닉네임 저장
 let loggedInNickname = '';
 
 $(document).ready(function() {
@@ -15,6 +14,9 @@ function loginName() {
             if (response && response.user_nickname) {
                 // 닉네임을 전역 변수에 저장
                 loggedInNickname = response.user_nickname;
+
+                // 닉네임을 세션 스토리지에 저장
+                sessionStorage.setItem('loggedInNickname', loggedInNickname);
 
                 // 닉네임을 UI에 표시
                 $(".mainTopButton").prepend('<span class="userName">' +
