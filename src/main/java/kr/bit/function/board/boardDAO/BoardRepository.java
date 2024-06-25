@@ -35,6 +35,8 @@ public class BoardRepository {
                 boardEntity.setFestival_content(rs.getString("festival_content"));
                 boardEntity.setHost(rs.getString("host"));
                 boardEntity.setFestival_location(rs.getString("festival_location"));
+                boardEntity.setFestival_dist(rs.getString("festival_dist"));
+                boardEntity.setFestival_subdist(rs.getString("festival_subdist"));
                 boardEntity.setFestival_start(rs.getString("festival_start"));
                 boardEntity.setFestival_end(rs.getString("festival_end"));
                 boardEntity.setOpen_time(rs.getString("open_time"));
@@ -71,6 +73,8 @@ public class BoardRepository {
                         boardEntity.setFestival_content(rs.getString("festival_content"));
                         boardEntity.setHost(rs.getString("host"));
                         boardEntity.setFestival_location(rs.getString("festival_location"));
+                        boardEntity.setFestival_dist(rs.getString("festival_dist"));
+                        boardEntity.setFestival_subdist(rs.getString("festival_subdist"));
                         boardEntity.setFestival_start(rs.getString("festival_start"));
                         boardEntity.setFestival_end(rs.getString("festival_end"));
                         boardEntity.setOpen_time(rs.getString("open_time"));
@@ -106,8 +110,8 @@ public class BoardRepository {
         //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
-                "insert into festival(festival_title, festival_content, host, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?);"
-                ,boardEntity.getFestival_title(), boardEntity.getFestival_content(), boardEntity.getHost(), boardEntity.getFestival_location(), boardEntity.getFestival_start(),
+                "insert into festival(festival_title, festival_content, host, festival_location, festival_dist, festival_subdist, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                ,boardEntity.getFestival_title(), boardEntity.getFestival_content(), boardEntity.getHost(), boardEntity.getFestival_location(), boardEntity.getFestival_dist(), boardEntity.getFestival_subdist(), boardEntity.getFestival_start(),
                 boardEntity.getFestival_end(), boardEntity.getOpen_time(), boardEntity.getFestival_attachment(), boardEntity.getEvent_type(), boardEntity.getLike_that(), boardEntity.getViews(), boardEntity.getBrand_link(), boardEntity.getBrand_sns());
     }
 

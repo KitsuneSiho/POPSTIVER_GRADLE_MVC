@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface BoardService {
 
-    public void insertAllDB() throws Exception; //페스티벌 보드 디비에 데이터 삽입
-
     //건내준 인자를 기반으로 데이터 삽입
     public void insert (BoardDTO boardDTO) throws Exception;
 

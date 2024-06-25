@@ -44,21 +44,6 @@ public class BoardController {
     public String home() {
         return "page/test/festival_page";
     }
-    @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
-    public String insert(Model model) {
-        logger.info("festival_insert.jsp start");
-        String ret = null;
-        try{
-            boardService.insertAllDB();
-            ret = "DB SAVE COMPLETE";
-        }catch(Exception e){
-            ret = "DB SAVE FAILED"+e;
-        }
-        //위 처리에 따라 넣어진 메시지 값을 value로 하고
-        //'msg'라는 key값을 가진 model에 값을 넣는다.
-        model.addAttribute("msg",ret);
-        return "page/test/festival_insert";
-    }
 
     @RequestMapping(value = "/festival_Details/{festival_no}", method = RequestMethod.GET)
     public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
