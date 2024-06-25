@@ -1,15 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
- html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 채팅</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script src="/js/admin-chat.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -24,11 +26,36 @@
 
         .chat-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
+            display: flex;
+        }
+
+        .user-list {
+            width: 200px;
+            border-right: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+
+        .user-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-list ul li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .chat-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .chat-header {
@@ -41,8 +68,7 @@
         }
 
         .chatBox {
-            width: 100%;
-            height: 300px;
+            flex-grow: 1;
             border-top: 1px solid #ddd;
             overflow-y: scroll;
             padding: 10px;
@@ -94,11 +120,17 @@
 </head>
 <body>
 <div class="chat-container">
-    <div class="chat-header">관리자 채팅 화면</div>
-    <div class="chatBox"></div>
-    <div class="chat-input-container">
-        <input type="text" id="adminChatInput" placeholder="메시지를 입력하세요..." />
-        <button id="adminSendButton"><i class="fas fa-paper-plane"></i></button>
+    <div class="user-list">
+        <ul id="userList"></ul>
+    </div>
+    <div class="chat-section">
+        <div class="chat-header">관리자 채팅 화면</div>
+        <h2>Chat with: <span id="currentUser"></span></h2>
+        <div class="chatBox"></div>
+        <div class="chat-input-container">
+            <input type="text" id="adminChatInput" placeholder="메시지를 입력하세요..." />
+            <button id="adminSendButton"><i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
 </div>
 <script src="${root}/resources/js/chatAdmin.js"></script>
