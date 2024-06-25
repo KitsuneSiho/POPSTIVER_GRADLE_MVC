@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardEntity.BoardEntity;
+import kr.bit.function.board.boardEntity.PopupEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,40 @@ public class BoardRepository {
         //데이터를 담은 List를 반환
         return result;
     }
+
+    //popup 테이블 출력
+    public List<PopupEntity> getAllPopuprecords() throws Exception {
+        logger.info("getAllPopuprecords"); //로그남기기
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+
+        List<PopupEntity> result = jdbcTemplate.query("select * from popup;", new RowMapper<PopupEntity>() {
+            @Override
+            public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopupEntity popupEntity = new PopupEntity();
+                popupEntity.setPopup_no(rs.getInt("popup_no"));
+                popupEntity.setPopup_title(rs.getString("popup_title"));
+                popupEntity.setPopup_content(rs.getString("popup_content"));
+                popupEntity.setHost(rs.getString("host"));
+                popupEntity.setPopup_location(rs.getString("popup_location"));
+                popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                popupEntity.setPopup_start(rs.getString("popup_start"));
+                popupEntity.setPopup_end(rs.getString("popup_end"));
+                popupEntity.setOpen_time(rs.getString("open_time"));
+                popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                popupEntity.setEvent_type(rs.getInt("event_type"));
+                popupEntity.setLike_that(rs.getInt("like_that"));
+                popupEntity.setViews(rs.getInt("views"));
+                popupEntity.setBrand_link(rs.getString("brand_link"));
+                popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                return popupEntity;
+            }
+        });
+
+        return result;
+    }
+
     /**
      * 특정 게시물을 출력하기.
      * @param festival_no : 게시글번호(festival_no)

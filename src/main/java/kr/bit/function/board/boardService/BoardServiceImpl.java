@@ -2,7 +2,9 @@ package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.BoardDTO;
+import kr.bit.function.board.boardDTO.PopupDTO;
 import kr.bit.function.board.boardEntity.BoardEntity;
+import kr.bit.function.board.boardEntity.PopupEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +104,45 @@ public class BoardServiceImpl implements BoardService {
         }
         //그렇게 담겨진 리스트를 리턴한다.
         return festivalData;
+    }
+
+    @Override
+    public List<PopupDTO> selectAllPopup() throws Exception { //전체데이터조회
+        //List<BoardEntity>형태의 변수를 하나 만든다.
+        List<PopupEntity> boardEntities = null;
+        try {
+            //레파지토리의 getAllrecords()메소드를 불러와서(DB요청)
+            //리턴된 데이터를 Entities에 담는다.
+            boardEntities =boardRepository.getAllPopuprecords();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        //List<BoardDTO>형의 변수를 하나 생성하고
+        List<PopupDTO> popupData = new ArrayList<PopupDTO>();
+        //for문을 써서 list갯수 만큼 반복하면서,
+        for(int i=0;i < boardEntities.size();i++) {
+            //boardEntities에 담겼던 모든 데이터들을 다시 BoardDTO객체를 생성해서 거기에 담아 festivalData리스트에 담는다.
+            popupData.add(new PopupDTO(boardEntities.get(i).getPopup_no(),
+                    boardEntities.get(i).getPopup_title(),
+                    boardEntities.get(i).getPopup_content(),
+                    boardEntities.get(i).getHost(),
+                    boardEntities.get(i).getPopup_location(),
+                    boardEntities.get(i).getPopup_dist(),
+                    boardEntities.get(i).getPopup_subdist(),
+                    boardEntities.get(i).getPopup_start(),
+                    boardEntities.get(i).getPopup_end(),
+                    boardEntities.get(i).getOpen_time(),
+                    boardEntities.get(i).getPopup_post_date(),
+                    boardEntities.get(i).getPopup_attachment(),
+                    boardEntities.get(i).getEvent_type(),
+                    boardEntities.get(i).getLike_that(),
+                    boardEntities.get(i).getViews(),
+                    boardEntities.get(i).getBrand_link(),
+                    boardEntities.get(i).getBrand_sns()
+            ));
+        }
+        //그렇게 담겨진 리스트를 리턴한다.
+        return popupData;
     }
 
     @Override
