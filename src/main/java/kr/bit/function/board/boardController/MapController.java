@@ -2,7 +2,6 @@ package kr.bit.function.board.boardController;
 
 import kr.bit.function.board.boardDTO.BoardDTO;
 
-import kr.bit.function.board.boardDTO.PopupDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +25,9 @@ public class MapController {
     @RequestMapping(value = "/map", method = RequestMethod.GET)
     public String festivalDetails(Model model) {
         try {
-            // 모든 축제 정보
-            List<BoardDTO> allFestivals = boardService.selectAll();
-            List<PopupDTO> allPopups = boardService.selectAllPopup();
 
+            List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
-            model.addAttribute("allPopups", allPopups);
 
         } catch (Exception e) {
             e.printStackTrace();

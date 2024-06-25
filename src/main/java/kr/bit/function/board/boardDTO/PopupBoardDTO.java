@@ -1,35 +1,34 @@
-package kr.bit.function.board.boardEntity;
+package kr.bit.function.board.boardDTO;
 
-public class PopupEntity {
-    //--------------------POPUP ENTITY---------------------//
-    private int popup_no; // 팝업보드넘버. 자동증가이기에 '0'으로 주입할것
-    private String popup_title; // 팝업 제목
-    private String popup_content; // 팝업 본문
-    private String popup_dist; // 팝업 위치(시)
-    private String popup_subdist; // 팝업 위치(군구)
-    private String popup_location; // 팝업 위치
-    private String popup_start; // 팝업 시작 날짜. 형식: YY-MM-dd
-    private String popup_end; // 팝업 끝나는 날짜. 형식: YY-MM-dd
-    private String popup_post_date; // 팝업 등록일자. 이건 자동이기에 '0'으로 주입할것.
-    private String popup_attachment; // 팝업 첨부파일 위치. 리소스폴더에 저장될 경로명? 파일명을 설정한다.
-    //------------------POPUP & POPUP 공통 엔티티-------------//
-    private String open_time; // 운영시간
+public class PopupBoardDTO {
+    private int popup_no; // 보드넘버
+    private String popup_title; // 제목
+    private String popup_content; // 본문
     private String host; // 주최자
-    private int event_type; // 이벤트형식. 1=팝업 2=팝업스토어
-    private int like_that; // 좋아요
+    private String popup_dist;
+    private String popup_subdist;
+    private String popup_location; // 행사위치
+    private String popup_start; // 행사시작날짜
+    private String popup_end; // 행사끝나는날짜
+    private String open_time; // 열리는 시간
+    private String popup_post_date; // 이건 언제작성됐는지 자동으로 판단하기에 읽기만 하면 될 것 같아요
+    private String popup_attachment; // 첨부파일 링크
+    private int event_type; // 이벤트타입
+    private int like_that; // 좋아요 수
     private int views; // 조회수
-    private String brand_link; // 공식사이트링크
-    private String brand_sns; // 공식SNS링크
+    private String brand_link; // 공식홈피링크
+    private String brand_sns; // SNS링크
 
-    // 기본 생성자
-    public PopupEntity() {
+    // 빈 생성자
+    public PopupBoardDTO() {
         super();
     }
 
-    // 모든 필드를 초기화하는 생성자
-    public PopupEntity(int popup_no, String popup_title, String popup_content, String host, String popup_dist, String popup_subdist, String popup_location,
-                       String popup_start, String popup_end, String open_time, String popup_post_date,
-                       String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+    // 모든 데이터를 초기화하는 생성자
+    public PopupBoardDTO(int popup_no, String popup_title, String popup_content, String host, String popup_dist,
+                         String popup_subdist, String popup_location, String popup_start, String popup_end,
+                         String open_time, String popup_post_date, String popup_attachment,
+                         int event_type, int like_that, int views, String brand_link, String brand_sns) {
         super();
         this.popup_no = popup_no;
         this.popup_title = popup_title;
@@ -74,6 +73,14 @@ public class PopupEntity {
         this.popup_content = popup_content;
     }
 
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
     public String getPopup_dist() {
         return popup_dist;
     }
@@ -114,6 +121,14 @@ public class PopupEntity {
         this.popup_end = popup_end;
     }
 
+    public String getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(String open_time) {
+        this.open_time = open_time;
+    }
+
     public String getPopup_post_date() {
         return popup_post_date;
     }
@@ -128,22 +143,6 @@ public class PopupEntity {
 
     public void setPopup_attachment(String popup_attachment) {
         this.popup_attachment = popup_attachment;
-    }
-
-    public String getOpen_time() {
-        return open_time;
-    }
-
-    public void setOpen_time(String open_time) {
-        this.open_time = open_time;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
     }
 
     public int getEvent_type() {
