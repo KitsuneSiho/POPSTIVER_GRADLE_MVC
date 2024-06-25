@@ -110,4 +110,18 @@ public class BoardController {
         }
         return "page/test/popup_view";
     }
+
+    //-------------------------------------------------------//
+    //                        NOTICE                         //
+    //-------------------------------------------------------//
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        logger.info("contact.jsp start");
+        try {
+            model.addAttribute("list",boardService.selectAllNotice());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/contact";
+    }
 }
