@@ -91,16 +91,27 @@
                 <div class="carousel-content" id="carousel-content">
                     <div class="card">
                         <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
+                            <!-- 포스터 이미지 -->
+                            <c:choose>
+                                <c:when test="${result.type == 'popup'}">
+                                    <img src="${root}/resources/asset/포스터이미지/${result.attachment}" alt="포스터">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="${root}/resources/asset/포스터이미지/${result.attachment}" alt="포스터">
+                                </c:otherwise>
+                            </c:choose>
                             <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
+                            <!-- 제목 -->
+                            <h3>${result.title}</h3>
+                            <!-- 지역 -->
                             <p>
                                 <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
+                                ${result.location}
                             </p>
+                            <!-- 날짜 -->
                             <p>
                                 <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
+                                ${result.startDate} - ${result.endDate}
                             </p>
                         </div>
                     </div>

@@ -25,7 +25,7 @@
             src: url('${root}/resources/font/KBO.ttf');
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script src="${root}/resources/js/loginName.js"></script>
 </head>
 
@@ -99,7 +99,7 @@
 <script src="${root}/resources/js/menuModal.js"></script>
 <script src="${root}/resources/js/calendar.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
+
 
 
 </body>

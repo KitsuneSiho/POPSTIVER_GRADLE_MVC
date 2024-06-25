@@ -40,7 +40,7 @@
             <label>
                 <input type="text" placeholder="팝업스토어, 페스티벌 검색">
             </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
+            <button type="submit" class="searchButton" onclick="window.location.href='searchResultjsp'">
                 <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
             </button>
         </div>

@@ -14,15 +14,11 @@ public class FlowController {
         return "page/main/main";
     }
 
-    @GetMapping("/main")//메인페이지
-    public String main_page() {
-        return "page/main/main";
-    }
+//    @GetMapping("/main")//메인페이지
+//    public String main_page() { return "page/main/main"; }
 
     @GetMapping("/login")//로그인페이지
-    public String login_page() {
-        return "page/myPage/login";
-    }
+    public String login_page() { return "page/myPage/login"; }
 
     @GetMapping("/contact")//연락처 페이지
     public String contact_page() {
@@ -132,9 +128,9 @@ public class FlowController {
         return "page/searchResult/posterInfo";
     }
 
-    @GetMapping("searchResult")//검색결과페이지
-    public String searchResult_page() {
-        return "page/searchResult/searchResult";
-    }
+//    @GetMapping("searchResult")//검색결과페이지
+//    public String searchResult_page() {
+//        return "page/searchResult/searchResult";
+//    }
 
 }
