@@ -1,7 +1,7 @@
 package kr.bit.function.board.boardController;
 
 
-import kr.bit.function.board.boardDTO.BoardDTO;
+import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,11 +49,11 @@ public class BoardController {
     public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
         try {
             // 특정 축제 정보
-            BoardDTO festival = boardService.selectOne(festivalNo);
+            FestivalBoardDTO festival = boardService.selectOne(festivalNo);
             model.addAttribute("festival", festival);
 
             // 모든 축제 정보
-            List<BoardDTO> allFestivals = boardService.selectAll();
+            List<FestivalBoardDTO> allFestivals = boardService.selectAll();
             model.addAttribute("allFestivals", allFestivals);
 
         } catch (Exception e) {
