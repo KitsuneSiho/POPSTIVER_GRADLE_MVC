@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.contactMenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 15px 0 20px;
+    padding-bottom: 10px;
+    font-family: 'KBO', sans-serif;
+    color: white;
+}
+
+.contactMenu a, .contactMenu a:visited {
+    text-decoration: none;
+    color: inherit;
+    margin: 5px;
+    font-size: 1rem;
+}
+
+.contactMenu .on {
+    color: #ffff33;
+    border-bottom: 2px solid #ffff33;
+}
+
+.notice{
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    font-family: 'KBO', sans-serif;
+    color: white;
+}
+.noticeDetails h1{
+    border-bottom: 1px solid #2e2e2e;
+    padding-bottom: 1%;
+    margin-bottom: 1%;
+}
+
+.writerDate{
+    display: flex;
+    align-content: center;
+    color: #5e5e5e;
+    justify-content: space-between;
+    margin-bottom: 2%;
+}
+
+.noticeText{
+    line-height: 1.8;
+    border-bottom: 1px solid #2e2e2e;
+    padding-bottom: 1%;
+}
+
+.listButton{
+    text-align: right;
+}
+
+.listButton button{
+    padding: 5px 10px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'KBO', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.listButton button:hover{
+    background-color: #ffff3388;
+}
+
+@media (max-width: 768px) {
+    .notice {
+        width: 90%;
+    }
+}

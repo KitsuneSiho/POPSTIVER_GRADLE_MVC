@@ -77,11 +77,11 @@
             <li>
                 <a href="${root}/contact">게시판</a>
                 <ul>
-                    <li><a href="contact">공지사항</a></li>
-                    <li><a href="money">비즈니스 문의</a></li>
-                    <li><a href="report">제보하기</a></li>
-                    <li><a href="together">동행구하기</a></li>
-                    <li><a href="free">자유게시판</a></li>
+                    <li><a href="${root}/contact">공지사항</a></li>
+                    <li><a href="${root}/money">비즈니스 문의</a></li>
+                    <li><a href="${root}/report">제보하기</a></li>
+                    <li><a href="${root}/together">동행구하기</a></li>
+                    <li><a href="${root}/free">자유게시판</a></li>
                 </ul>
             </li>
         </ul>

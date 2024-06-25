@@ -25,6 +25,13 @@
 </head>
 
 <body>
+
+<div class="video-background">
+    <video autoplay muted loop id="bg-video">
+        <source src="${root}/resources/asset/동영상8.mp4" type="video/mp4">
+    </video>
+</div>
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="mainButton">

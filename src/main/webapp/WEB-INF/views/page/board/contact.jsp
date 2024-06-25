@@ -65,9 +65,9 @@
                 <c:forEach items="${list}" var="notice">
                     <tr>
                             <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
-                        <td><p align=center><a href="notice_Details/${notice.notice_title}">${notice.notice_no}</a></p></td>
-                        <td ><p align=center>관리자</p></td>
-                        <td ><p align=center>${notice.notice_date}</p></td>
+                        <td><p><a href="notice_Details/${notice.notice_no}">${notice.notice_title}</a></p></td>
+                        <td ><p>관리자</p></td>
+                        <td ><p>${notice.notice_date}</p></td>
 
                     </tr>
                 </c:forEach>
@@ -101,5 +101,17 @@
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const notice = [
+        <c:forEach var="notice" items="${allNotice}" varStatus="loop">
+        {
+            title: "${notice.notice_title}",
+            link: "${pageContext.request.contextPath}/notice_Details/${notice.notice_no}",
+            content: "${notice.notice_content}",
+            date: "${notice.notice_date}"
+        }<c:if test="${!loop.last}">, </c:if>
+        </c:forEach>
+    ];
+</script>
 </body>
 </html>
