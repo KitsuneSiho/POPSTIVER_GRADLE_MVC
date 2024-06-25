@@ -35,8 +35,6 @@
         </div>
     </div>
 
-
-
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
             <button class="loginButton" onclick="window.location.href='login'">
@@ -60,11 +58,32 @@
 <div id="menuModal" class="modal">
     <div class="modal-content">
         <ul>
-            <li><a href="${root}/myPage">마이페이지</a></li>
-            <li><a href="${root}/map">근처 행사</a></li>
-            <li><a href="${root}/bookmark">관심 행사</a></li>
-            <li><a href="${root}/calendar">행사 일정</a></li>
-            <li><a href="${root}/contact">게시판</a></li>
+            <li>
+                <a href="myPage">마이페이지</a>
+                <ul>
+                    <li><a href="myPage">내 정보</a></li>
+                    <li><a href="deleteUser">회원 탈퇴</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="${root}/map">근처 행사</a>
+            </li>
+            <li>
+                <a href="${root}/bookmark">관심 행사</a>
+            </li>
+            <li>
+                <a href="${root}/calendar">행사 일정</a>
+            </li>
+            <li>
+                <a href="${root}/contact">게시판</a>
+                <ul>
+                    <li><a href="contact">공지사항</a></li>
+                    <li><a href="money">비즈니스 문의</a></li>
+                    <li><a href="report">제보하기</a></li>
+                    <li><a href="together">동행구하기</a></li>
+                    <li><a href="free">자유게시판</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

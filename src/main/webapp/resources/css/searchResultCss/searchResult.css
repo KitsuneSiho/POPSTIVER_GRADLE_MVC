@@ -2,7 +2,6 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    font-family: 'KBO', sans-serif;
 }
 
 .searchList {
@@ -90,6 +89,7 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
+    cursor: pointer;
 }
 
 .card-content .cardAddress {
@@ -117,4 +117,63 @@ body {
     color: white;
     font-size: 30px;
     cursor: pointer;
+}
+
+footer {
+    margin-top: 50px;
+    border-top: 1px solid #2e2e2e;
+    color: #5e5e5e;
+    text-align: center;
+    padding: 20px 0;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* 수정된 CSS */
+
+@media (max-width: 767px) {
+    .searchList article {
+        width: 90%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .carousel {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .searchList article {
+        width: 80%;
+    }
+
+    .card {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .searchList article {
+        width: 70%;
+    }
+
+    .card {
+        width: 33.33%;
+    }
 }

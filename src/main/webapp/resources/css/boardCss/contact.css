@@ -18,6 +18,8 @@ body {
 .contactMenu a, .contactMenu a:visited {
     text-decoration: none;
     color: inherit;
+    margin: 5px;
+    font-size: 1rem;
 }
 
 .contactMenu .on {
@@ -26,7 +28,8 @@ body {
 }
 
 .board {
-    width: 70%;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto 20px auto;
 }
 
@@ -54,7 +57,7 @@ body {
 }
 
 .boardTable td {
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 .boardTable td a {
@@ -63,16 +66,16 @@ body {
 }
 
 .boardTable th:nth-child(1), .boardTable td:nth-child(1) {
-    width: 30%;
+    width: 50%;
 }
 
 .boardTable th:nth-child(2), .boardTable td:nth-child(2) {
-    width: 10%;
+    width: 25%;
     text-align: center;
 }
 
 .boardTable th:nth-child(3), .boardTable td:nth-child(3) {
-    width: 10%;
+    width: 25%;
     text-align: center;
 }
 
@@ -91,7 +94,8 @@ body {
     column-gap: 10px;
     list-style: none;
     font-family: 'KBO', sans-serif;
-    font-size: 20px;
+    font-size: 1rem;
+    padding: 0;
 }
 
 .pageNumber ul li {
@@ -103,8 +107,52 @@ body {
     font-weight: 700;
     color: white;
 }
-.pageNumber ul li a:visited, .pageNumber ul li a{
+
+.pageNumber ul li a:visited, .pageNumber ul li a {
     text-decoration: none;
     color: inherit;
 }
 
+@media screen and (max-width: 1024px) {
+    .board {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .board {
+        width: 90%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 8px;
+    }
+
+    .boardTable td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .board {
+        width: 95%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 5px;
+    }
+
+    .boardTable td {
+        font-size: 10px;
+    }
+
+
+    .pageNumber ul {
+        font-size: 16px;
+    }
+}

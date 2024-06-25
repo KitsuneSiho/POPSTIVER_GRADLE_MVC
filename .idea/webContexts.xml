@@ -7,6 +7,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/contact.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/etc/map.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/etc" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/main/main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/main" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/myPage/join_information.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/myPage" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/myPage/myPage.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/myPage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/searchResult/festival_Details.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/searchResult" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/searchResult/posterInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/searchResult" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/test/festival_Details.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/page/test" />

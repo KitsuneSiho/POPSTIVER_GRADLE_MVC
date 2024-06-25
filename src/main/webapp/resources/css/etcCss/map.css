@@ -2,54 +2,49 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-}
-
-.mapApi{
-    display: flex;
-    justify-content: center;
-}
-
-.map{
-    width: 80%;
-    margin: 0 auto;
-
-}
-.map h3{
-    font-family: 'KBO',sans-serif;
-    color: white;
-    font-size: 40px;
-    margin-left: 1%;
-}
-.map #multiMap{
-    width: 1200px;
-    height: 600px;
-    margin: 2% auto;
-    border-radius: 10px;
-}
-
-body {
     font-family: Arial, sans-serif;
-    background-color: #000;
     color: #fff;
 }
+
 .container {
-    width: 800px;
+    width: 90%; /* 전체 너비의 90%로 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
     margin: 0 auto;
     padding: 20px;
     background-color: #333;
     border-radius: 10px;
 }
+
 .map {
-    margin-top: 20px;
+    width: 100%; /* 전체 너비로 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 20px auto;
+}
+
+.map h3 {
+    font-family: 'KBO', sans-serif;
+    color: white;
+    font-size: 40px;
+    margin-left: 1%;
+}
+
+.map #multiMap {
+    width: 100%; /* 전체 너비로 설정 */
+    height: 600px;
+    margin: 2% auto;
+    border-radius: 10px;
 }
 
 .searchList {
-    margin: 40px 0;
     padding-bottom: 100px;
+    width: 90%; /* 전체 너비의 90%로 설정 */
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto;
+    overflow: hidden; /* 넘치는 콘텐츠 처리 */
 }
 
 .searchList article {
-    width: 78%;
+    width: 100%; /* 전체 너비로 설정 */
     margin: 0 auto;
     overflow: hidden;
     display: block;
@@ -159,18 +154,44 @@ body {
 
 #currentLocationButton {
     position: absolute;
-    top: 20px; /* 원하는 위치로 조정 */
-    right: 20px; /* 원하는 위치로 조정 */
+    top: 20px;
+    right: 20px;
     background-color: #ffff33;
     border: none;
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    z-index: 10; /* 필요에 따라 z-index 설정 */
-    font-family: 'KBO',sans-serif;
+    z-index: 10;
+    font-family: 'KBO', sans-serif;
 }
 
 #currentLocationButton img {
     width: 45px;
     height: 45px;
+}
+
+/* 미디어 쿼리 추가 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* 패딩을 더 작게 설정 */
+    }
+
+    .map h3 {
+        font-size: 30px; /* 폰트 크기를 줄임 */
+    }
+
+    .map #multiMap {
+        height: 400px; /* 지도 높이를 줄임 */
+    }
+
+    .card {
+        width: 100%; /* 카드 너비를 전체로 설정 */
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .card img {
+        width: 120px; /* 이미지 크기를 조정 */
+        height: 120px;
+    }
 }
