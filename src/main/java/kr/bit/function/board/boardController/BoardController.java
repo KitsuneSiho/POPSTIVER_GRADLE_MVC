@@ -1,14 +1,13 @@
 package kr.bit.function.board.boardController;
 
 
-import kr.bit.function.board.boardDTO.BoardDTO;
+import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,38 +44,23 @@ public class BoardController {
     public String home() {
         return "page/test/festival_page";
     }
-    @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
-    public String insert(Model model) {
-        logger.info("festival_insert.jsp start");
-        String ret = null;
-        try{
-            boardService.insertAllDB();
-            ret = "DB SAVE COMPLETE";
-        }catch(Exception e){
-            ret = "DB SAVE FAILED"+e;
-        }
-        //위 처리에 따라 넣어진 메시지 값을 value로 하고
-        //'msg'라는 key값을 가진 model에 값을 넣는다.
-        model.addAttribute("msg",ret);
-        return "page/test/festival_insert";
-    }
 
     @RequestMapping(value = "/festival_Details/{festival_no}", method = RequestMethod.GET)
     public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
         try {
             // 특정 축제 정보
-            BoardDTO festival = boardService.selectOne(festivalNo);
+            FestivalBoardDTO festival = boardService.selectOne(festivalNo);
             model.addAttribute("festival", festival);
 
             // 모든 축제 정보
-            List<BoardDTO> allFestivals = boardService.selectAll();
+            List<FestivalBoardDTO> allFestivals = boardService.selectAll();
             model.addAttribute("allFestivals", allFestivals);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "page/test/festival_Details";
+        return "page/searchResult/festival_Details";
     }
 
 
