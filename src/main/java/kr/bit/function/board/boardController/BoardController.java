@@ -1,6 +1,5 @@
 package kr.bit.function.board.boardController;
 
-
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
