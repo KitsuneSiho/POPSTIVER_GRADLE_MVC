@@ -1,74 +1,65 @@
 $(document).ready(function() {
-    // 채팅 버튼 클릭 시 모달 열기
-    $("#chatButton").click(function() {
-        $("#chatModal").show();
-    });
+    let contextPath = 'http://localhost:8080';
+    let username = sessionStorage.getItem('loggedInNickname');
+    let stompClient = null;
 
-    // 채팅 모달 닫기
-    $(".closeChatModal").click(function() {
-        $("#chatModal").hide();
-    });
+    function connect() {
+        let socket = new SockJS(contextPath + '/chat-websocket');
+        stompClient = Stomp.over(socket);
 
-    // WebSocket 연결 설정
-    var contextPath = 'http://localhost:8080';
-    var socket = new SockJS(contextPath + '/chat-websocket?username=' + encodeURIComponent(username));
-    var stompClient = Stomp.over(socket);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
 
-    // 세션 스토리지에서 로그인한 사용자의 닉네임을 가져옴
-    var username = sessionStorage.getItem('loggedInNickname') ;
+            stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}));
 
-    stompClient.connect({}, function(frame) {
-        console.log('Connected: ' + frame);
-        console.log('Username: ' + username);  // 로그 추가
-
-        // 연결 시 사용자 이름 설정
-        stompClient.send("/app/chat.addUser",
-            {},
-            JSON.stringify({sender: username, type: 'JOIN'})
-        );
-
-        // 공개 메시지 구독
-        stompClient.subscribe('/topic/public', function(messageOutput) {
-            console.log("Received public message:", messageOutput.body);
-            showMessage(JSON.parse(messageOutput.body));
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                let message = JSON.parse(messageOutput.body);
+                console.log("Received message:", message);
+                if (message.receiver === username || (message.sender === username && message.receiver === 'admin')) {
+                    showMessage(message);
+                }
+            });
         });
-
-        // 개인 메시지 구독
-        stompClient.subscribe('/user/' + username + '/queue/private', function(messageOutput) {
-            console.log("Received private message:", messageOutput.body);
-            showMessage(JSON.parse(messageOutput.body));
-        });
-    });
-
-    // 메시지 전송
-    $("#sendChatButton").click(function() {
-        sendMessage();
-    });
+    }
 
     function sendMessage() {
-        var messageContent = $("#chatInput").val().trim();
+        let messageContent = $("#chatInput").val().trim();
         if (messageContent && stompClient) {
-            var chatMessage = {
+            let chatMessage = {
                 sender: username,
+                receiver: 'admin',
                 content: messageContent,
                 type: 'CHAT'
             };
 
-            // 공개 메시지 전송
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-
-            // 관리자에게 개인 메시지 전송
-            chatMessage.receiver = 'admin'; // 관리자 사용자 이름
-            stompClient.send("/app/chat.private", {}, JSON.stringify(chatMessage));
-
+            stompClient.send("/app/chat.message", {}, JSON.stringify(chatMessage));
             $("#chatInput").val("");
+            console.log("User sent message:", chatMessage);
         }
     }
 
     function showMessage(message) {
-        var messageElement = $("<div class='message'></div>");
+        let messageElement = $("<div class='message'></div>");
         messageElement.text(message.sender + ": " + message.content);
         $(".chatBox").append(messageElement);
         $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight);
     }
+
+    $("#sendChatButton").click(sendMessage);
+    $("#chatInput").keypress(function(e) {
+        if(e.which == 13) sendMessage();
+    });
+
+    $("#chatButton").click(function() {
+        $("#chatModal").show();
+        if (!stompClient) {
+            connect();
+        }
+    });
+
+    $(".closeChatModal").click(function() {
+        $("#chatModal").hide();
+    });
+
+    connect();
 });

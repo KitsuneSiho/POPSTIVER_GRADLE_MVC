@@ -134,13 +134,16 @@
     <div class="chat-section">
         <div class="chat-header">관리자 채팅 화면</div>
         <h2>Chat with: <span id="currentUser"></span></h2>
-        <div class="chatBox"></div>
+        <div class="chatBox" id="adminChatBox"></div>
         <div class="chat-input-container">
             <input type="text" id="adminChatInput" placeholder="메시지를 입력하세요..." />
             <button id="adminSendButton"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 </div>
-<script src="${root}/resources/js/chatAdmin.js"></script>
+<script>
+    let contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/resources/js/chatAdmin.js"></script>
 </body>
 </html>

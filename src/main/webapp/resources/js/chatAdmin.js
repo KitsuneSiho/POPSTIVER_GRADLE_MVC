@@ -1,104 +1,84 @@
-let adminStompClient = null;
-const adminUsername = '관리자';
-let currentRecipient = null;
-const userMessages = {};
+$(document).ready(function() {
+    let contextPath = 'http://localhost:8080';
+    let stompClient = null;
+    let currentRecipient = null;
+    let userList = [];
 
-function connectAdmin() {
-    const root = 'http://localhost:8080';
-    const socket = new SockJS(root + '/chat-websocket');
-    adminStompClient = Stomp.over(socket);
-    adminStompClient.connect({}, function (frame) {
-        console.log('관리자 연결됨: ' + frame);
-        console.log('Admin Username: ' + adminUsername);  // 로그 추가
+    function connect() {
+        let socket = new SockJS(contextPath + '/chat-websocket');
+        stompClient = Stomp.over(socket);
 
-        adminStompClient.subscribe('/topic/public', function (message) {
-            const msg = JSON.parse(message.body);
-            handleIncomingMessage(msg);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                let message = JSON.parse(messageOutput.body);
+                console.log("Received message:", message);
+
+                if (message.type === 'JOIN') {
+                    addUserToList(message.sender);
+                } else {
+                    showMessage(message);
+                }
+            });
+
+            // 관리자로 등록
+            stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: 'admin', type: 'JOIN'}));
         });
+    }
 
-        adminStompClient.subscribe('/user/queue/private', function (message) {
-            const msg = JSON.parse(message.body);
-            handleIncomingMessage(msg);
-        });
-        // 관리자 연결 시 사용자 이름 설정
-        adminStompClient.send("/app/chat.addUser",
-            {},
-            JSON.stringify({sender: adminUsername, type: 'JOIN'})
-        );
-    }, function (error) {
-        console.error('WebSocket connection error: ' + error);
-    });
-}
-
-function handleIncomingMessage(msg) {
-    console.log('Message received: ', msg);
-    if (msg.sender !== adminUsername) {
-        if (!userMessages[msg.sender]) {
-            userMessages[msg.sender] = [];
-            updateUserList(msg.sender);
-        }
-        userMessages[msg.sender].push(msg);
-        if (msg.sender === currentRecipient) {
-            showAdminMessage(msg);
+    function addUserToList(username) {
+        if (username !== 'admin' && !userList.includes(username)) {
+            userList.push(username);
+            updateUserList();
         }
     }
-}
 
-function showAdminMessage(message) {
-    const chatBox = document.querySelector('.chatBox');
-    const messageElement = document.createElement('div');
-    messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-function sendAdminMessage() {
-    const messageContent = document.getElementById('adminChatInput').value.trim();
-    if (messageContent && adminStompClient && currentRecipient) {
-        const chatMessage = {
-            sender: adminUsername,
-            content: messageContent,
-            receiver: currentRecipient,
-            type: 'CHAT'
-        };
-
-        adminStompClient.send("/app/chat.private", {}, JSON.stringify(chatMessage));
-        userMessages[currentRecipient].push(chatMessage);
-        showAdminMessage(chatMessage);
-        document.getElementById('adminChatInput').value = '';
-    } else {
-        alert('메시지를 보낼 사용자를 선택하세요.');
-    }
-}
-
-function updateUserList(username) {
-    const userList = document.getElementById('userList');
-    if (!userList.querySelector(`li[data-username='${username}']`)) {
-        const userElement = document.createElement('li');
-        userElement.textContent = username;
-        userElement.dataset.username = username;
-        userElement.addEventListener('click', () => {
-            currentRecipient = username;
-            document.getElementById('currentUser').textContent = username;
-            showUserMessages(username);
+    function updateUserList() {
+        let $userList = $("#userList");
+        $userList.empty();
+        userList.forEach(function(user) {
+            let $userItem = $("<li></li>").text(user);
+            $userItem.click(function() {
+                currentRecipient = user;
+                $("#currentUser").text(user);
+                $("#adminChatBox").empty();
+            });
+            $userList.append($userItem);
         });
-        userList.appendChild(userElement);
+        console.log("Updated user list:", userList);
     }
-}
 
-function showUserMessages(username) {
-    const chatBox = document.querySelector('.chatBox');
-    chatBox.innerHTML = '';
-    const messages = userMessages[username] || [];
-    messages.forEach(msg => {
-        const messageElement = document.createElement('div');
-        messageElement.innerHTML = `<b>${msg.sender}:</b> ${msg.content}`;
-        chatBox.appendChild(messageElement);
+    function sendMessage() {
+        let messageContent = $("#adminChatInput").val().trim();
+        if (messageContent && stompClient && currentRecipient) {
+            let chatMessage = {
+                sender: 'admin',
+                receiver: currentRecipient,
+                content: messageContent,
+                type: 'CHAT'
+            };
+
+            stompClient.send("/app/chat.message", {}, JSON.stringify(chatMessage));
+            $("#adminChatInput").val("");
+            console.log("Admin sent message:", chatMessage);
+        } else if (!currentRecipient) {
+            alert("채팅할 사용자를 선택해주세요.");
+        }
+    }
+
+
+    function showMessage(message) {
+        let messageElement = $("<div class='message'></div>");
+        messageElement.text(message.sender + ": " + message.content);
+        $("#adminChatBox").append(messageElement);
+        $("#adminChatBox").scrollTop($("#adminChatBox")[0].scrollHeight);
+    }
+
+    $("#adminSendButton").click(sendMessage);
+    $("#adminChatInput").keypress(function(e) {
+        if(e.which == 13) sendMessage();
     });
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-    connectAdmin();
-    document.getElementById('adminSendButton').addEventListener('click', sendAdminMessage);
+    connect();
 });
