@@ -26,27 +26,7 @@ public class FreeBoardController {
     // 자유 게시판 글 등록
     @PutMapping("/insertWrite")
     @ResponseBody
-    public String insertFreeWrite(@RequestBody CommunityDTO communityDTO,
-                                  @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
-
-        String provider = customOAuth2User.getProvider();
-        Object attribute = customOAuth2User.getAttributes();
-        String user_id = "";
-
-        switch (provider) {
-            case "google":
-                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
-                break;
-            case "kakao":
-                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
-                break;
-            case "naver":
-                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
-                break;
-        }
+    public String insertFreeWrite(@RequestBody CommunityDTO communityDTO) {
 
         try {
             System.out.println("제목:"+communityDTO.getBoard_title());
