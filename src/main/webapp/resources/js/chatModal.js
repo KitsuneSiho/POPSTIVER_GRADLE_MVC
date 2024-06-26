@@ -38,9 +38,21 @@ $(document).ready(function() {
         }
     }
 
+    function formatAMPM(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? '오후' : '오전';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0시를 12시로 변환
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        let strTime = ampm + ' ' + hours + ':' + minutes;
+        return strTime;
+    }
+
     function showMessage(message) {
         let messageElement = $("<div class='message'></div>");
-        messageElement.text(message.sender + ": " + message.content);
+        let timestamp = new Date(message.timestamp);
+        messageElement.text(`[${formatAMPM(timestamp)}] ${message.sender}: ${message.content}`);
         $(".chatBox").append(messageElement);
         $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight);
     }
