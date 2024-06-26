@@ -99,6 +99,11 @@ $(document).ready(function() {
         let messageElement = $("<div class='message'></div>");
         let timestamp = new Date(message.timestamp);
         messageElement.text(`[${formatAMPM(timestamp)}] ${message.sender}: ${message.content}`);
+        if (message.sender === 'admin') {
+            messageElement.addClass('sent');
+        } else {
+            messageElement.addClass('received');
+        }
         $("#adminChatBox").append(messageElement);
         $("#adminChatBox").scrollTop($("#adminChatBox")[0].scrollHeight);
     }

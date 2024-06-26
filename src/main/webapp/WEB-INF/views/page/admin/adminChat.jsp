@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,13 +85,21 @@
             background: #f9f9f9;
         }
 
-        .chatBox div {
+        .chatBox .message {
             margin-bottom: 10px;
             padding: 10px;
             border-radius: 10px;
-            background: #e1f5fe;
-            display: inline-block;
             max-width: 80%;
+        }
+
+        .chatBox .message.received {
+            background: #e1f5fe;
+            align-self: flex-start;
+        }
+
+        .chatBox .message.sent {
+            background: #c8e6c9;
+            align-self: flex-end;
         }
 
         .chat-input-container {
