@@ -33,6 +33,9 @@
 <div class="map">
     <h3>모든 행사 위치 (카카오 지도)</h3>
     <div class="dropdown-wrapper">
+        <button class="city-button" data-city="전체">전체</button>
+    </div>
+    <div class="dropdown-wrapper">
         <button class="city-button" data-city="서울특별시">서울특별시</button>
         <div class="dropdown-content">
             <label>
@@ -165,6 +168,7 @@
     <div class="dropdown-wrapper">
         <button class="city-button" data-city="세종특별자치시">세종특별자치시</button>
     </div>
+
     <div id="multiMap">
         <button id="currentLocationButton">내 위치로 돌아가기</button>
     </div>
@@ -273,18 +277,18 @@
     var popupMarkers = []; // 팝업 마커 배열
 
     var festivalMarkerImage = new kakao.maps.MarkerImage(
-        'http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_spot.png',
-        new kakao.maps.Size(24, 35),
+        'resources/img/free-icon-location-7976202.png',
+        new kakao.maps.Size(40, 40),
         {
-            offset: new kakao.maps.Point(13, 35)
+            offset: new kakao.maps.Point(25, 25)
         }
     );
 
     var popupMarkerImage = new kakao.maps.MarkerImage(
-        'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-        new kakao.maps.Size(24, 35),
+        'resources/img/free-icon-location-pin-3247289.png',
+        new kakao.maps.Size(40, 40),
         {
-            offset: new kakao.maps.Point(13, 35)
+            offset: new kakao.maps.Point(25, 25)
         }
     );
 
@@ -315,30 +319,30 @@
         getUserLocation(function(userLocation) {
             var multiMapOption = {
                 center: new kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-                level: 7
+                level: 4
             };
 
             var multiMap = new kakao.maps.Map(multiMapContainer, multiMapOption);
 
-            // 사용자 위치 마커 설정
-            var userMarkerImageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
-            var userMarkerImageSize = new kakao.maps.Size(24, 35);
-            var userMarkerImageOption = { offset: new kakao.maps.Point(13, 35) };
-            var userMarkerImage = new kakao.maps.MarkerImage(userMarkerImageSrc, userMarkerImageSize, userMarkerImageOption);
+// 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
+            var zoomControl = new kakao.maps.ZoomControl();
+            multiMap.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-            var userMarker = new kakao.maps.Marker({
+            var imageUrl = 'resources/img/8712569_pin_map_location_navigation_gps_icon.png'; // 상대 경로로 설정
+            var imageSize = new kakao.maps.Size(50, 50);
+            var imageOption = { offset: new kakao.maps.Point(25, 25) };
+
+
+// 중앙에 마커를 생성합니다
+            var centerMarker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-                image: userMarkerImage,
-                map: multiMap
+                image: new kakao.maps.MarkerImage(imageUrl, imageSize, imageOption)
             });
 
-            var content = '<div class="customoverlay">내 위치</div>';
-            var userOverlay = new kakao.maps.CustomOverlay({
-                content: content,
-                map: multiMap,
-                position: userMarker.getPosition(),
-                yAnchor: 1
-            });
+// 지도에 중앙 마커를 표시합니다
+            centerMarker.setMap(multiMap);
+
+
 
             // 지역 축제 데이터
             var festivals = [
@@ -383,6 +387,8 @@
                                 image: festivalMarkerImage,
                                 data: festival
                             });
+
+                            festivalMarkers.push(marker);
 
                             kakao.maps.event.addListener(marker, 'click', function() {
                                 var modal = document.getElementById('festivalModal');
@@ -493,12 +499,19 @@
                             // 선택된 버튼에 active 클래스 추가
                             button.classList.add('active');
 
+                            let isCenterSet = false;
                             // 선택된 도시와 구에 해당하는 축제만 표시
                             festivals.forEach(function(festival) {
                                 if (festival.dist === city && festival.subdist === selectedDistrict) {
                                     geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
                                         if (status === kakao.maps.services.Status.OK) {
                                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                            // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                            if (!isCenterSet) {
+                                                multiMap.setCenter(coords);
+                                                isCenterSet = true;
+                                            }
 
                                             var marker = new kakao.maps.Marker({
                                                 map: multiMap,
@@ -537,6 +550,12 @@
                                         if (status === kakao.maps.services.Status.OK) {
                                             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
+                                            // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                            if (!isCenterSet) {
+                                                multiMap.setCenter(coords);
+                                                isCenterSet = true;
+                                            }
+
                                             var marker = new kakao.maps.Marker({
                                                 map: multiMap,
                                                 position: coords,
@@ -567,14 +586,33 @@
                                 }
                             });
                         });
+                    } else if (city === '전체'){
+                        addMarkers(multiMap, geocoder, festivals);
+                        addPopupMarkers(multiMap, geocoder, popups);
                     }
                     else {
+                        // 모든 마커 숨기기 (보이지 않게 설정)
+                        festivalMarkers.forEach(function(marker) {
+                            marker.setMap(null);
+                        });
+                        // 팝업 모든 마커 숨기기 (보이지 않게 설정)
+                        popupMarkers.forEach(function(marker) {
+                            marker.setMap(null);
+                        });
+
+                        let isCenterSet = false;
                         // 서울특별시와 경기도를 제외한 버튼은 바로 해당 도시의 행사만 표시
                         festivals.forEach(function(festival) {
                             if (festival.dist === city) {
                                 geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
                                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                        // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                        if (!isCenterSet) {
+                                            multiMap.setCenter(coords);
+                                            isCenterSet = true;
+                                        }
 
                                         var marker = new kakao.maps.Marker({
                                             map: multiMap,
@@ -583,7 +621,7 @@
                                             data: festival // 축제 데이터를 마커에 연결
                                         });
 
-                                        markers.push(marker); // markers 배열에 추가
+                                        festivalMarkers.push(marker); // markers 배열에 추가
 
                                         (function(marker, festival) {
                                             // 마커 클릭 시 모달 창에 정보 표시
@@ -611,6 +649,12 @@
                                 geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
                                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                        // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                        if (!isCenterSet) {
+                                            multiMap.setCenter(coords);
+                                            isCenterSet = true;
+                                        }
 
                                         var marker = new kakao.maps.Marker({
                                             map: multiMap,
@@ -646,7 +690,7 @@
             });
             // 모달 창 닫기 기능
             var modal = document.getElementById('festivalModal');
-            var span = document.getElementsByClassName('close')[0];
+            var span = document.getElementsByClassName('festivalModalClose')[0];
             span.onclick = function() {
                 modal.style.display = "none";
             }
