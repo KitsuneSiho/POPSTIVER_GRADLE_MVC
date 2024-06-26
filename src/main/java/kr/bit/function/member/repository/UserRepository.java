@@ -1,7 +1,6 @@
 package kr.bit.function.member.repository;
 
 import kr.bit.function.member.entity.MemberEntity;
-import kr.bit.function.member.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+
 
 @Repository
 public class UserRepository {

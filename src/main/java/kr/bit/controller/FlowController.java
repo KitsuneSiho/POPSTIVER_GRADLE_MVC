@@ -17,10 +17,10 @@ public class FlowController {
     @GetMapping("/login")//로그인페이지
     public String login_page() { return "page/myPage/login"; }
 
-    @GetMapping("/contact")//연락처 페이지
-    public String contact_page() {
-        return "page/board/contact";
-    }
+//    @GetMapping("/contact")//연락처 페이지
+//    public String contact_page() {
+//        return "page/board/contact";
+//    }
 
     @GetMapping("/myPage")//마이페이지
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
@@ -121,5 +121,8 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
+
+
+
 
 }

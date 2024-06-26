@@ -53,8 +53,7 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/main", "/map", "/calendar", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
-                        .requestMatchers("/chat/**").permitAll() // WebSocket 연결과 관련된 요청 허용
-                        .requestMatchers("/ws/**").permitAll() // WebSocket 엔드포인트 허용
+                        .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
                         .requestMatchers("/admin/chat").permitAll() // 일단 관리자 채팅 페이지 설정
                         .anyRequest().authenticated()
                 )
