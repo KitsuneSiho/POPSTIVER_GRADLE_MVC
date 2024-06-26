@@ -14,9 +14,6 @@ public class FlowController {
         return "page/main/main";
     }
 
-//    @GetMapping("/main")//메인페이지
-//    public String main_page() { return "page/main/main"; }
-
     @GetMapping("/login")//로그인페이지
     public String login_page() { return "page/myPage/login"; }
 
@@ -29,7 +26,6 @@ public class FlowController {
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "page/myPage/myPage";
     }
-
 
     @GetMapping("bookmark")//관심행사페이지
     public String bookmark_page() {
@@ -91,8 +87,6 @@ public class FlowController {
         return "page/searchResult/openAdd";
     }
 
-
-
     @GetMapping("mainFestival")//페스티벌메인페이지(메인에서 페스티벌 눌렀을때)
     public String mainFestival_page() {
         return "page/main/mainFestival";
@@ -127,10 +121,5 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
-
-//    @GetMapping("searchResult")//검색결과페이지
-//    public String searchResult_page() {
-//        return "page/searchResult/searchResult";
-//    }
 
 }
