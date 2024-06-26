@@ -75,12 +75,14 @@
 <div id="searchModal" class="search-modal">
     <div class="mainTopSearch">
         <div class="mainTopSearchContainer">
-            <label>
-                <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-            </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
-                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-            </button>
+            <form action="${root}/main/search" method="GET">
+                <label>
+                    <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
+                </label>
+                    <button type="submit" class="searchButton">
+                        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+                    </button>
+            </form>
         </div>
     </div>
 </div>
