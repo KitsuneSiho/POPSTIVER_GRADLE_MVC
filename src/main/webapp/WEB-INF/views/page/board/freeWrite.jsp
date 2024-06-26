@@ -23,32 +23,9 @@
             src: url('${root}/resources/font/KBO.ttf');
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/freeWrite.js"></script>
 
-        $(document).ready(function() {
-            getUserInfoAndSetUserId();
-        });
-
-        function getUserInfoAndSetUserId() {
-            $.ajax({
-                type: "GET",
-                url: ${root} + "/member/getUserInfo",
-                success: function(response) {
-                    if (response && response.user_id && response.user_nickname) {
-                        // Set the user_id and user_nickname in the hidden input fields
-                        $("#user_id").val(response.user_id);
-                        $("#user_name").val(response.user_nickname);
-                    } else {
-                        console.error("사용자 정보를 가져오는 데 실패했습니다.");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
-                }
-            });
-        }
-    </script>
 </head>
 
 <body>
@@ -74,7 +51,7 @@
 
 
 <div class="business">
-    <form action="${root}/communityForm" method="post" enctype="multipart/form-data">
+    <form method="post" onsubmit="submitForm(event)">
         <ul class="businessList">
             <li>
                 <span>제목</span>
@@ -103,20 +80,10 @@
             <button type="reset">취소</button>
         </div>
     </form>
-    <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 
 
-    <div id="chatModal" class="chatModal">
-        <div class="chatModalContent">
-            <span class="closeChatModal">&times;</span>
-            <h2>1:1 채팅</h2>
-            <div class="chatBox">
-                <!-- Chat messages will go here -->
-            </div>
-            <label for="chatInput"></label><input type="text" id="chatInput" placeholder="메시지를 입력해주세요" />
-            <button id="sendChatButton">보내기</button>
-        </div>
-    </div>
+
+
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 

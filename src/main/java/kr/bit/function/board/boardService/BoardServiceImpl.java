@@ -312,23 +312,7 @@ public class BoardServiceImpl implements BoardService {
     //=====================================================================================//
     //                                     COMMUNITY                                       //
     //=====================================================================================//
-
-    @Override
-    public void insertCommunity(CommunityDTO communityDTO) throws Exception { // 데이터삽입
-        // Repository의 insert() 메소드를 불러와서(DB요청)
-        // PopupEntity 형의 데이터를 인자로 넣는다.
-        // PopupEntity 형의 데이터를 넣을 때 new를 통해 객체를 만들고
-        // 넣을 데이터로서 매개변수로 받은 PopupDTO의 데이터를 get 메소드를 통해
-        // 팝업 정보를 추출하여 데이터를 넣어준다
-        boardRepository.insertCommunityRepo(new CommunityEntity(
-                0,
-                communityDTO.getBoard_title(),
-                communityDTO.getBoard_content(),
-                communityDTO.getUser_id(),
-                communityDTO.getUser_name(),
-                1,
-                communityDTO.getBoard_attachment(),
-                null));
+    public void insertCommunity (CommunityDTO communityDTO) throws Exception{
 
     }
 }

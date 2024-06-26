@@ -5,9 +5,15 @@ import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
+import kr.bit.function.member.dto.CustomOAuth2User;
+import kr.bit.function.member.dto.GoogleResponse;
+import kr.bit.function.member.dto.KakaoResponse;
+import kr.bit.function.member.dto.NaverResponse;
+import kr.bit.function.member.entity.MemberEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BoardController {
@@ -136,31 +143,11 @@ public class BoardController {
     }
 
     //-------------------------------------------------------//
-    @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public String contact(Model model) {
-        logger.info("contact.jsp start");
-        try {
-            model.addAttribute("list",boardService.selectAllNotice());
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return "page/board/contact";
-    }
+
 
     //------------------------------------------------------//
     //                    COMMUNITY 자유게시판                //
     //------------------------------------------------------//
-    @PostMapping("/communityForm")
-    public String insertCommunity(@ModelAttribute CommunityDTO communityDTO, RedirectAttributes redirectAttributes) {
-        try {
-            System.out.println("제목:"+communityDTO.getBoard_title());
-            boardService.insertCommunity(communityDTO);
-            redirectAttributes.addFlashAttribute("message", "작성성공");
-            return "redirect:/free";
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "작성실패");
-            return "redirect:/free";
-        }
-    }
+
+
 }
