@@ -319,4 +319,5 @@ body {
     height: 100%;
     object-fit: cover;
     transform: translate(-50%, -50%);
+    opacity: 0.4;
 }
