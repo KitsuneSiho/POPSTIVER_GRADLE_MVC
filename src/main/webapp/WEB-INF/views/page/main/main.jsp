@@ -27,6 +27,12 @@
 
 <body>
 
+<div class="video-background">
+    <video autoplay muted loop id="bg-video">
+        <source src="${root}/resources/asset/동영상9.mp4" type="video/mp4">
+    </video>
+</div>
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="mainButton">
@@ -112,7 +118,6 @@
                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                     <p class="poster-caption">속초 포스터</p>
                 </div>
-
             </div>
         </div>
     </div>
@@ -194,6 +199,62 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sliders = document.querySelectorAll('.slide-container');
 
+        sliders.forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            const track = slider.querySelector('.slide-track');
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 3;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            // Clone items for infinite scroll
+            const items = track.children;
+            const itemCount = items.length;
+            for (let i = 0; i < itemCount; i++) {
+                const clone = items[i].cloneNode(true);
+                track.appendChild(clone);
+            }
+
+            // Set the width of the track
+            track.style.width = `${200 * itemCount * 2}%`;
+
+            // Infinite scroll
+            slider.addEventListener('scroll', () => {
+                if (slider.scrollLeft >= track.scrollWidth / 2) {
+                    slider.scrollLeft = 0;
+                } else if (slider.scrollLeft <= 0) {
+                    slider.scrollLeft = track.scrollWidth / 2;
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

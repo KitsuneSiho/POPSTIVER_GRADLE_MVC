@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    padding: 0;
     background-color: black;
+    padding: 0;
 }
 
 .mainTop {
@@ -9,60 +9,17 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    height: 100px;
-    position: relative;
-}
-
-.mainTopSearch {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-}
-
-.mainTopSearchContainer {
-    position: relative;
-    display: flex;
-    align-items: center;
+    height: 80px;
+    top: 0;
     width: 100%;
-}
-.mainTopSearchContainer label {
-    width: 100%;
-    display: flex;
-}
-
-.mainTopSearch input {
-    flex: 1;
-    padding: 10px 30px;
-    height: 28px;
-    font-size: 20px;
-    background-color: #2e2e2e;
-    border: none;
-    border-radius: 30px;
-    outline: none;
-    font-family: 'KBO', sans-serif;
-    color: white;
-}
-
-.mainTopSearch .searchButton {
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    background-color: #2e2e2e;
-    position: absolute;
-    right: 0;
+    background-color: black;
 }
 
 .mainTopLogo {
     font-family: 'Giants', sans-serif;
     color: #ffff33;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    width: 20%;
 }
 
 .mainTopLogo a, a:visited {
@@ -70,47 +27,90 @@ body {
     color: inherit;
 }
 
+.mainTopMenu {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.mainTopMenu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'KBO', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+.mainTopMenu li {
+    position: relative;
+    padding: 10px 20px;
+}
+
+.mainTopMenu li a {
+    text-decoration: none; /* Remove underline from menu links */
+    color: inherit;
+}
+
+.mainTopMenu li:hover > a {
+    color: #ffff33;
+    transition: color 0.3s ease;
+}
+
+.mainTopMenu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    font-size: 18px;
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 150px;
+    line-height: 1.8;
+}
+
+.mainTopMenu li:hover ul {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.mainTopMenu li ul li {
+    padding: 5px 15px;
+    text-align: center;
+}
+
 .mainTopButton {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 3%;
 }
 
 .loginButton,
-.menuButton {
+.logoutButton,
+.searchButton {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.logoutButton{
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.loginButton {
-    font-size: 25px;
-    margin-right: 10px;
+    font-size: 20px;
     color: white;
     font-family: 'KBO', sans-serif;
 }
 
-.logoutButton{
-    font-size: 25px;
-    margin-right: 10px;
-    color: white;
-    font-family: 'KBO', sans-serif;
+.searchButton img{
+    width: 32px;
+    height: 32px;
 }
 
 .userName{
-    color: white;
     font-family: 'KBO', sans-serif;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
+    color: white;
 }
 
 #loader {
@@ -143,5 +143,144 @@ body {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) translateX(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+    }
+}
+
+.search-modal {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 1000;
+    padding: 20px;
+    text-align: -webkit-center;
+}
+
+.mainTopSearch {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+.mainTopSearchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mainTopSearchContainer label {
+    width: 100%;
+    display: flex;
+}
+
+.mainTopSearch input {
+    flex: 1;
+    padding: 10px 30px;
+    height: 28px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    font-family: 'KBO', sans-serif;
+    color: black;
+}
+
+.mainTopSearch .searchButton {
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    right: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .mainTopLogo {
+        font-size: 20px;
+    }
+
+    .loginButton, .logoutButton {
+        font-size: 18px;
+    }
+
+    .mainTopMenu ul {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .mainTop {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .mainTopLogo {
+        margin-bottom: 10px;
+    }
+
+    .mainTopMenu ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mainTopButton {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainTopMenu ul {
+        font-size: 16px;
+    }
+
+    .loginButton, .logoutButton, .searchButton {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mainTopLogo {
+        font-size: 18px;
+    }
+
+    .mainTopMenu ul {
+        font-size: 14px;
+    }
+
+    .loginButton, .logoutButton, .searchButton {
+        font-size: 14px;
+    }
+
+    .mainTopButton {
+        flex-direction: column;
     }
 }

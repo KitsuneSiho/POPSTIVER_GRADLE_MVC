@@ -8,6 +8,8 @@ body {
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    /* Flex wrap added for responsiveness */
+    flex-wrap: wrap;
 }
 
 .mainButton .popupButton {
@@ -17,6 +19,9 @@ body {
     border: none;
     border-radius: 10px 0 0 10px;
     cursor: pointer;
+    /* Max width and margin for responsiveness */
+    max-width: 500px;
+    margin: 5px;
 }
 
 .mainButton .popupButton img {
@@ -25,6 +30,8 @@ body {
     border: none;
     border-radius: 10px 0 0 10px;
     cursor: pointer;
+    /* Max width for responsiveness */
+    max-width: 100%;
 }
 
 .mainButton .festivalButton {
@@ -34,6 +41,9 @@ body {
     border: none;
     border-radius: 0 10px 10px 0;
     cursor: pointer;
+    /* Max width and margin for responsiveness */
+    max-width: 500px;
+    margin: 5px;
 }
 
 .mainButton .festivalButton img {
@@ -42,6 +52,8 @@ body {
     border: none;
     border-radius: 0 10px 10px 0;
     cursor: pointer;
+    /* Max width for responsiveness */
+    max-width: 100%;
 }
 
 .mainPoster {
@@ -52,10 +64,11 @@ body {
 
 .mainPoster video {
     margin-top: 30px;
-    width: 65%;
     height: 450px;
     border-radius: 10px;
     border: none;
+    /* Width adjusted for responsiveness */
+    width: 90%;
 }
 
 .popular {
@@ -67,7 +80,7 @@ body {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin: 0 10% 0 10%;
+    margin: 0 5% 0 5%;
 }
 
 .popularText1 {
@@ -85,9 +98,10 @@ body {
 
 .popularPoster {
     overflow: hidden;
-    width: 80%;
     padding: 20px 0;
     margin: 0 auto;
+    /* Width adjusted for responsiveness */
+    width: 90%;
 }
 
 .popularPoster img {
@@ -111,6 +125,8 @@ body {
     height: 250px;
     border-radius: 10px;
     cursor: pointer;
+    /* Width adjusted for responsiveness */
+    object-fit: cover;
 }
 
 .poster-item .bookmark{
@@ -144,7 +160,7 @@ body {
     font-family: 'KBO', sans-serif;
     display: flex;
     align-items: baseline;
-    margin: 0 10% 0 10%;
+    margin: 0 5% 0 5%;
     justify-content: space-between;
 }
 
@@ -163,9 +179,10 @@ body {
 
 .openPoster {
     overflow: hidden;
-    width: 80%;
     padding: 20px 0;
     margin: 0 auto;
+    /* Width adjusted for responsiveness */
+    width: 90%;
 }
 
 .openPoster img {
@@ -188,6 +205,8 @@ body {
     height: 250px;
     border-radius: 10px;
     cursor: pointer;
+    /* Width adjusted for responsiveness */
+    object-fit: cover;
 }
 
 .open-item .bookmark{
@@ -198,7 +217,6 @@ body {
     right: 10px;
     cursor: pointer;
 }
-
 
 .open-caption {
     position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
@@ -219,7 +237,7 @@ body {
 
 .slide-track {
     display: flex;
-    animation: scroll 15s linear infinite;
+    animation: scroll 60s linear infinite;
 }
 
 .slide-track img {
@@ -231,6 +249,11 @@ body {
     cursor: pointer;
 }
 
+.slider {
+    width: 100%;
+    margin-top: 5px;
+}
+
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -240,4 +263,61 @@ body {
     }
 }
 
+/* Added media queries for responsiveness */
+@media (max-width: 768px) {
+    .popularText1, .openText1 {
+        font-size: 7vw;
+    }
 
+    .popularText2, .openText2 {
+        font-size: 5vw;
+    }
+
+    .poster-item img, .open-item img {
+        width: 140px;
+        height: 200px;
+    }
+
+    .poster-caption, .open-caption {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainButton .popupButton img,
+    .mainButton .festivalButton img {
+        height: 40px;
+    }
+
+    .poster-item img, .open-item img {
+        width: 120px;
+        height: 170px;
+    }
+
+    .poster-caption, .open-caption {
+        font-size: 0.8rem;
+    }
+}
+
+
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    opacity: 0.4;
+}

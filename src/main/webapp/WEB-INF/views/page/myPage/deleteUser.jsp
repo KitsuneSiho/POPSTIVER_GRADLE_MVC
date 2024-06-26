@@ -30,7 +30,7 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="myPage">
-    <a  href="">
+    <a  href="myPage">
         <h2>내 정보</h2>
     </a>
     <a href="bookmark">

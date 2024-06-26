@@ -1,111 +1,77 @@
-// chat.js
+$(document).ready(function() {
+    let contextPath = 'http://localhost:8080';
+    let username = sessionStorage.getItem('loggedInNickname');
+    let stompClient = null;
 
-let stompClient = null;
+    function connect() {
+        let socket = new SockJS(contextPath + '/chat-websocket');
+        stompClient = Stomp.over(socket);
 
-function connect() {
-    const socket = new SockJS('/ws/chat');
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
 
-        stompClient.subscribe('/topic/messages', function (message) {
-            showMessage(JSON.parse(message.body));
+            stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'}));
+
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                let message = JSON.parse(messageOutput.body);
+                console.log("Received message:", message);
+                if (message.receiver === username || (message.sender === username && message.receiver === 'admin')) {
+                    showMessage(message);
+                }
+            });
         });
-
-        stompClient.subscribe('/user/queue/private', function (message) {
-            showPrivateMessage(JSON.parse(message.body));
-        });
-    }, function (error) {
-        console.error('WebSocket connection error: ' + error);
-    });
-
-    socket.onopen = function() {
-        console.log('WebSocket connection opened.');
-    };
-    socket.onclose = function() {
-        console.log('WebSocket connection closed.');
-    };
-}
-
-function sendMessage() {
-    const content = document.getElementById('chatInput').value;
-    if (content.trim() !== "") {
-        const message = {
-            'sender': loggedInNickname,
-            'content': content,
-            'receiver': '관리자'
-        };
-
-        console.log('Sending message: ', message);
-
-        // 메시지를 서버로 전송
-        stompClient.send("/app/chat.send", {}, JSON.stringify(message));
-        stompClient.send("/app/chat.private", {}, JSON.stringify(message));
-
-        document.getElementById('chatInput').value = '';
     }
-}
 
+    function sendMessage() {
+        let messageContent = $("#chatInput").val().trim();
+        if (messageContent && stompClient) {
+            let chatMessage = {
+                sender: username,
+                receiver: 'admin',
+                content: messageContent,
+                type: 'CHAT'
+            };
 
-function showMessage(message) {
-    const chatBox = document.querySelector('.chatBox');
-    const messageElement = document.createElement('div');
-    messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+            stompClient.send("/app/chat.message", {}, JSON.stringify(chatMessage));
+            $("#chatInput").val("");
+            console.log("User sent message:", chatMessage);
+        }
+    }
 
-function showPrivateMessage(message) {
-    const chatBox = document.querySelector('.chatBox');
-    const messageElement = document.createElement('div');
-    messageElement.innerHTML = `<b>${message.sender}:</b> ${message.content}`;
-    chatBox.appendChild(messageElement);
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+    function formatAMPM(date) {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let ampm = hours >= 12 ? '오후' : '오전';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0시를 12시로 변환
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        let strTime = ampm + ' ' + hours + ':' + minutes;
+        return strTime;
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
+    function showMessage(message) {
+        let messageElement = $("<div class='message'></div>");
+        let timestamp = new Date(message.timestamp);
+        messageElement.text(`[${formatAMPM(timestamp)}] ${message.sender}: ${message.content}`);
+        $(".chatBox").append(messageElement);
+        $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight);
+    }
+
+    $("#sendChatButton").click(sendMessage);
+    $("#chatInput").keypress(function(e) {
+        if(e.which == 13) sendMessage();
+    });
+
+    $("#chatButton").click(function() {
+        $("#chatModal").show();
+        if (!stompClient) {
+            connect();
+        }
+    });
+
+    $(".closeChatModal").click(function() {
+        $("#chatModal").hide();
+    });
+
     connect();
-
-    const chatButton = document.getElementById('chatButton');
-    const chatModal = document.getElementById('chatModal');
-    const closeChatModal = document.querySelector('.closeChatModal');
-    const sendChatButton = document.getElementById('sendChatButton');
-    const chatInput = document.getElementById('chatInput');
-    const chatBox = document.querySelector('.chatBox');
-    const chatModalContent = document.querySelector('.chatModalContent');
-
-    chatButton.addEventListener('click', function() {
-        chatModal.style.display = 'block';
-    });
-
-    closeChatModal.addEventListener('click', function() {
-        chatModal.style.display = 'none';
-    });
-
-    // 채팅 메시지 보내기
-    sendChatButton.addEventListener('click', function() {
-        if (chatInput.value.trim()) {
-            // 전송할 메시지를 화면에 "나" 대신 실제 닉네임으로 표시
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${loggedInNickname} : ${chatInput.value}`;
-            chatBox.appendChild(messageElement);
-            chatInput.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // 실제 메시지를 서버로 전송
-            sendMessage();
-        }
-    });
-
-    // 모달 외부 클릭 시 모달 닫기
-    window.addEventListener('click', function(event) {
-        if (event.target === chatModal) {
-            chatModal.style.display = 'none';
-        }
-    });
-
-    // 모달 내부 클릭 시 이벤트 버블링 방지
-    chatModalContent.addEventListener('click', function(event) {
-        event.stopPropagation();
-    });
 });

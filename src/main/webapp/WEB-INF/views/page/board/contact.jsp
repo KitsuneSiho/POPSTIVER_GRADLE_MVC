@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:set var="root" value="${pageContext.request.contextPath }" />
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,21 +45,35 @@
 
 <div class="board">
     <table class="boardTable">
-        <thead>
         <tr>
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
         </tr>
-        </thead>
-        <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
+        <c:choose>
+            <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+            <c:when test="${empty list}">
+                <%-- 아래의 메시지를 출력한다. --%>
+                <tr>
+                    <td colspan=15>
+                        <spring:message code="common.listEmpty"/>
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
+                <c:forEach items="${list}" var="notice">
+                    <tr>
+                            <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
+                        <td><p><a href="notice_Details/${notice.notice_no}">${notice.notice_title}</a></p></td>
+                        <td ><p>관리자</p></td>
+                        <td ><p>${notice.notice_date}</p></td>
 
-        </tbody>
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
     </table>
 </div>
 <div class="pageNumber">
@@ -83,9 +97,21 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-
+<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const notice = [
+        <c:forEach var="notice" items="${allNotice}" varStatus="loop">
+        {
+            title: "${notice.notice_title}",
+            link: "${pageContext.request.contextPath}/notice_Details/${notice.notice_no}",
+            content: "${notice.notice_content}",
+            date: "${notice.notice_date}"
+        }<c:if test="${!loop.last}">, </c:if>
+        </c:forEach>
+    ];
+</script>
 </body>
 </html>

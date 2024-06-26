@@ -72,7 +72,7 @@
 
 <div class="updateButton">
     <button type="submit">등록하기</button>
-    <button type="reset">취소</button>
+    <button type="reset" onclick="window.location.href='free'">취소</button>
 </div>
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">

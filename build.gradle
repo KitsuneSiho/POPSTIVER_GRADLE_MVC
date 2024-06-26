@@ -82,6 +82,10 @@ dependencies {
     // JSON 처리 라이브러리 (이미 추가된 gson과 jackson)
     implementation 'org.json:json:20210307'
 
+
+    // Jackson-datatype
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1'
+
 }
 
 tasks.named('test') {

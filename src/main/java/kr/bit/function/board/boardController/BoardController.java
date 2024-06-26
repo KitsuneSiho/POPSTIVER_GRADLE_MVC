@@ -1,7 +1,8 @@
 package kr.bit.function.board.boardController;
 
 
-import kr.bit.function.board.boardDTO.BoardDTO;
+import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +40,8 @@ public class BoardController {
         //menu.jsp파일로 이동한다.
         return "page/test/festival_menu";
     }
+
+    //-----------------------FESTIVAL------------------------//
     //URL에 '/page'를 더 적으면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/festival_page", method = RequestMethod.GET)
     public String home() {
@@ -49,7 +52,7 @@ public class BoardController {
         logger.info("festival_insert.jsp start");
         String ret = null;
         try{
-            boardService.insertAllDB();
+            boardService.insertFestivalManual();
             ret = "DB SAVE COMPLETE";
         }catch(Exception e){
             ret = "DB SAVE FAILED"+e;
@@ -64,11 +67,11 @@ public class BoardController {
     public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
         try {
             // 특정 축제 정보
-            BoardDTO festival = boardService.selectOne(festivalNo);
+            FestivalBoardDTO festival = boardService.selectOneFestival(festivalNo);
             model.addAttribute("festival", festival);
 
             // 모든 축제 정보
-            List<BoardDTO> allFestivals = boardService.selectAll();
+            List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
         } catch (Exception e) {
@@ -87,10 +90,57 @@ public class BoardController {
             //위에서 선언한 service의 selectAll메소드 요청한다.
             //selectAll메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("list",boardService.selectAll());
+            model.addAttribute("list",boardService.selectAllFestival());
         }catch(Exception e){
             e.printStackTrace();
         }
         return "page/test/festival_view";
+    }
+//----------------------POPUP-------------------------------//
+    @RequestMapping(value = "/popup_view", method = RequestMethod.GET)
+    public String viewPopup(Model model) {
+        //log임
+        logger.info("popup_view.jsp start");
+        try{
+            //위에서 선언한 service의 selectAll메소드 요청한다.
+            //selectAll메소드를 통해 나온 리턴값을 value로 해서
+            //'list'란 key값으로 model에 담는다.
+            model.addAttribute("list",boardService.selectAllPopup());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/test/popup_view";
+    }
+
+    //-------------------------------------------------------//
+    //                        NOTICE                         //
+    @RequestMapping(value = "/notice_Details/{notice_no}", method = RequestMethod.GET)
+    public String noticeDetails(@PathVariable("notice_no") int noticeNo, Model model) {
+        try {
+
+            NoticeDTO notice = (NoticeDTO) boardService.selectOneNotice(noticeNo);
+            model.addAttribute("notice", notice);
+
+
+            List<NoticeDTO> allNotice = boardService.selectAllNotice();
+            model.addAttribute("allNotice", allNotice);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "page/board/notice_Details";
+    }
+
+    //-------------------------------------------------------//
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        logger.info("contact.jsp start");
+        try {
+            model.addAttribute("list",boardService.selectAllNotice());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/contact";
     }
 }

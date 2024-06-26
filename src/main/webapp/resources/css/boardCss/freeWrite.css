@@ -112,3 +112,50 @@ body {
 .updateButton button:hover {
     background-color: #ffff3388;
 }
+
+@media screen and (max-width: 1024px) {
+    .business {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .business {
+        width: 95%;
+    }
+
+    .businessList li {
+        flex-wrap: wrap;
+    }
+
+    .businessList li span {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .businessList input,
+    .businessList textarea{
+        font-size: 16px;
+    }
+
+    .businessList .image {
+        width: 50%;
+    }
+
+    .updateButton {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .updateButton button {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+}
