@@ -23,40 +23,6 @@
         <h1><a href="../main">POPSTIVER</a></h1>
     </div>
 
-    <div class="mainTopSearch">
-        <div class="mainTopSearchContainer">
-            <!-- 검색어 입력 폼 -->
-            <form action="${root}/main/search" method="GET">
-                <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
-                <button type="submit" class="searchButton">
-                    <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div class="mainTopButton">
-        <sec:authorize access="!isAuthenticated()">
-            <button class="loginButton" onclick="window.location.href='login'">
-                로그인
-            </button>
-        </sec:authorize>
-
-
-        <sec:authorize access="isAuthenticated()">
-            <button class="logoutButton" onclick="window.location.href='logout'">
-                로그아웃
-            </button>
-        </sec:authorize>
-
-        <button class="menuButton">
-            <img src="${root}/resources/asset/메인메뉴버튼.svg" alt="">
-        </button>
-    </div>
-
-</header>
-<div id="menuModal" class="modal">
-    <div class="modal-content">
     <div class="mainTopMenu">
         <ul>
             <li>
@@ -109,12 +75,14 @@
 <div id="searchModal" class="search-modal">
     <div class="mainTopSearch">
         <div class="mainTopSearchContainer">
-            <label>
-                <input type="text" placeholder="팝업스토어, 페스티벌 검색">
-            </label>
-            <button type="submit" class="searchButton" onclick="window.location.href='searchResult'">
-                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-            </button>
+            <form action="${root}/main/search" method="GET">
+                <label>
+                    <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
+                </label>
+                    <button type="submit" class="searchButton">
+                        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+                    </button>
+            </form>
         </div>
     </div>
 </div>
