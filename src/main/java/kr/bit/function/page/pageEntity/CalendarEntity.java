@@ -11,7 +11,6 @@ public class CalendarEntity {
 
     @Id
     private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String type;
+    private LocalDate start_date;
+    private LocalDate end_date;
 }
