@@ -74,6 +74,14 @@ dependencies {
 
     // Spring Security 태그 라이브러리
     implementation 'org.springframework.security:spring-security-taglibs:6.1.2' // 최신 버전으로 업데이트 필요
+
+
+    // RESTful 웹 서비스 기능을 위한 Spring Web 의존성
+    implementation 'org.springframework:spring-web:6.1.8'
+
+    // JSON 처리 라이브러리 (이미 추가된 gson과 jackson)
+    implementation 'org.json:json:20210307'
+
 }
 
 tasks.named('test') {
