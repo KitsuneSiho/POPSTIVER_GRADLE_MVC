@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardEntity.FestivalEntity;
+import kr.bit.function.board.boardEntity.NoticeEntity;
 import kr.bit.function.board.boardEntity.PopupEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -214,6 +215,61 @@ public class BoardRepository {
                 "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(), popupEntity.getPopup_start(),
                 popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+    }
+
+
+    //=====================================================================================//
+    //                                      NOTICE                                         //
+    //=====================================================================================//
+    public List<NoticeEntity> getNoticeRepo() throws Exception {
+        logger.info("getAllNotice"); //로그남기기
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+        List<NoticeEntity> result = jdbcTemplate.query("select * from notice;",  new RowMapper<NoticeEntity>() {
+            //콤마 뒤에 RowMapper 객체를 만든다.
+            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
+            //그리고 해당 결과를 results에 담는다.
+            @Override
+            public NoticeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                NoticeEntity noticeEntity = new NoticeEntity();
+                noticeEntity.setNotice_no(rs.getInt("notice_no"));
+                noticeEntity.setNotice_title(rs.getString("notice_title"));
+                noticeEntity.setNotice_content(rs.getString("notice_content"));
+                noticeEntity.setNotice_date(rs.getString("notice_date"));
+                return noticeEntity;
+            }
+        });
+        //데이터를 담은 List를 반환
+        return result;
+    }
+    /*
+     * 특정 게시물을 출력하기.
+     * @param notice_no : 게시글번호(notice_no)
+     * @return BoardEntity  형태의 데이터
+     */
+    public NoticeEntity getNoticeByNoticeNoRepo(int notice_no) throws Exception {
+        //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
+        //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
+        //전체 출력 메소드와 매우 흡사하다
+        List<NoticeEntity> result = jdbcTemplate.query(
+                "select * from notice where notice_no=?;", //쿼리문
+                new RowMapper<NoticeEntity>() {
+                    @Override
+                    public NoticeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        NoticeEntity noticeEntity = new NoticeEntity();
+                        noticeEntity.setNotice_no(rs.getInt("notice_no"));
+                        noticeEntity.setNotice_title(rs.getString("notice_title"));
+                        noticeEntity.setNotice_content(rs.getString("notice_content"));
+                        noticeEntity.setNotice_date(rs.getString("notice_date"));
+                        return noticeEntity;
+                    }
+                    //쿼리끝 ? 부분에 데이터를 넣는다
+                }, notice_no);
+        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
+        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
+        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
+        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+        return result.isEmpty() ? null : result.get(0);
+
     }
 
 

@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardController;
 
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,5 +109,37 @@ public class BoardController {
             e.printStackTrace();
         }
         return "page/test/popup_view";
+    }
+
+    //-------------------------------------------------------//
+    //                        NOTICE                         //
+    @RequestMapping(value = "/notice_Details/{notice_no}", method = RequestMethod.GET)
+    public String noticeDetails(@PathVariable("notice_no") int noticeNo, Model model) {
+        try {
+
+            NoticeDTO notice = (NoticeDTO) boardService.selectOneNotice(noticeNo);
+            model.addAttribute("notice", notice);
+
+
+            List<NoticeDTO> allNotice = boardService.selectAllNotice();
+            model.addAttribute("allNotice", allNotice);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "page/board/notice_Details";
+    }
+
+    //-------------------------------------------------------//
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        logger.info("contact.jsp start");
+        try {
+            model.addAttribute("list",boardService.selectAllNotice());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/contact";
     }
 }

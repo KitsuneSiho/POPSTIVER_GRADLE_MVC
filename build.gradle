@@ -74,6 +74,10 @@ dependencies {
 
     // Spring Security 태그 라이브러리
     implementation 'org.springframework.security:spring-security-taglibs:6.1.2' // 최신 버전으로 업데이트 필요
+
+    // Jackson-datatype
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1'
+
 }
 
 tasks.named('test') {
