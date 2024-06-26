@@ -18,12 +18,14 @@ public class FreeBoardService {
     }
     // 가입 시 사용자 정보 저장
     public void insertWrite(CommunityDTO communityDTO) {
-        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name, board_views, board_attachment) VALUES (?, ?, ?, ?, ?, ?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
         jdbcTemplate.update(sql, communityDTO.getBoard_title(),
                 communityDTO.getBoard_content(),
                 communityDTO.getUser_id(),
-                communityDTO.getUser_name()
+                communityDTO.getUser_name(),
+                communityDTO.getBoard_views(),
+                communityDTO.getBoard_attachment()
                  );
     }
 }

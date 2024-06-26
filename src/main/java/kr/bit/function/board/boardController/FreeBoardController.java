@@ -53,6 +53,8 @@ public class FreeBoardController {
             System.out.println("내용:"+communityDTO.getBoard_content());
             System.out.println("사용자아이디:"+communityDTO.getUser_id());
             System.out.println("사용자명:"+communityDTO.getUser_name());
+            System.out.println("조회수:"+communityDTO.getBoard_views());
+            System.out.println("사진:"+communityDTO.getBoard_attachment());
             boardService.insertWrite(communityDTO);
             return "redirect:/free";
         } catch (Exception e) {
