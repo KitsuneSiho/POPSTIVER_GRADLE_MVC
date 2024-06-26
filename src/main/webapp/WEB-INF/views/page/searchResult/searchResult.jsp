@@ -28,11 +28,15 @@
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
+
+
 <div class="searchList">
     <article>
         <c:set var="now" value="<%=new java.util.Date()%>" />
         <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd" />
-
+            <div class="searchResultTitle">
+                <h1>' ${param.keyword} ' 검색 결과</h1>
+            </div>
         <div class="searchListOpen" onclick="toggleSearchList(this)">
             <p>진행 중</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
@@ -44,7 +48,8 @@
                         <c:if test="${today >= result.start_date && today <= result.end_date}">
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />" />
+                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <h3><c:out value="${result.title}" /></h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -73,7 +78,8 @@
                         <c:if test="${today < result.start_date}">
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />" />
+                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <h3><c:out value="${result.title}" /></h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -102,7 +108,8 @@
                         <c:if test="${today > result.end_date}">
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />" />
+                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <h3><c:out value="${result.title}" /></h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
