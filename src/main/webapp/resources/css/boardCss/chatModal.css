@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 15px;
+    padding: 10px;
     cursor: pointer;
     z-index: 1000;
 }
@@ -16,10 +16,11 @@
 .chatModal {
     display: none;
     position: fixed;
-    z-index: 1;
-    right: 0;
-    bottom: 5%;
-    width: 20%;
+    z-index: 1001;
+    right: 20px;
+    bottom: 80px;
+    width: 300px;
+    max-width: calc(100% - 40px);
     height: auto;
     overflow: auto;
     font-family: 'KBO', sans-serif;
@@ -28,27 +29,26 @@
 
 .chatModalContent {
     background-color: #1e1e1e;
-    margin: 15% auto;
-    padding: 3%;
+    padding: 20px;
     border: none;
     border-radius: 10px;
-    width: 80%;
+    width: 100%;
+    box-sizing: border-box;
     position: relative;
-    animation: fadeIn 0.5s;
 }
 
 .closeChatModal {
     position: absolute;
     top: 10px;
-    right: 25px;
+    right: 15px;
     color: white;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
 }
 
 .chatBox {
-    height: 200px;
+    height: 300px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -58,6 +58,7 @@
 }
 
 #chatInput {
+    width: calc(100% - 70px);
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -65,10 +66,11 @@
     background-color: #3e3e3e;
     color: white;
     font-family: 'KBO', sans-serif;
-    width: 72%;
+    box-sizing: border-box;
 }
 
 #sendChatButton {
+    width: 60px;
     background-color: #ffff33;
     border: none;
     border-radius: 5px;
@@ -81,11 +83,46 @@
     background-color: #ffff3388;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .chatModal {
+        right: 10px;
+        bottom: 70px;
+        width: 280px;
     }
-    to {
-        opacity: 1;
+
+    .chatButton {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .chatButton img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .chatBox {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatModal {
+        right: 10px;
+        bottom: 60px;
+        width: calc(100% - 20px);
+        max-width: 300px;
+    }
+
+    .chatBox {
+        height: 200px;
+    }
+
+    #chatInput {
+        width: calc(100% - 65px);
+    }
+
+    #sendChatButton {
+        width: 55px;
     }
 }
