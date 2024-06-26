@@ -96,7 +96,7 @@
         right: 10px;
         bottom: 80px;
         width: calc(100% - 20px);
-        max-width: 300px;
+        max-width: 20%;
     }
 
     .chatButton {
@@ -120,7 +120,7 @@
     }
 
     #chatInput {
-        width: calc(100% - 50%);
+        width: calc(100% - 30%);
     }
 
     #sendChatButton {
