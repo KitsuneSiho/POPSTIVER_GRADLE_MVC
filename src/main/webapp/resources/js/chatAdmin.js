@@ -3,6 +3,7 @@ $(document).ready(function() {
     let stompClient = null;
     let currentRecipient = null;
     let userList = [];
+    let messageHistory = {}; // 사용자별 메시지 히스토리를 저장할 객체
 
     function connect() {
         let socket = new SockJS(contextPath + '/chat-websocket');
@@ -17,14 +18,24 @@ $(document).ready(function() {
 
                 if (message.type === 'JOIN') {
                     addUserToList(message.sender);
-                } else {
-                    showMessage(message);
+                } else if (message.receiver === 'admin' || message.sender === 'admin') {
+                    storeMessage(message);
+                    if (currentRecipient === message.sender || message.sender === 'admin') {
+                        showMessage(message);
+                    }
                 }
             });
 
-            // 관리자로 등록
             stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: 'admin', type: 'JOIN'}));
         });
+    }
+
+    function storeMessage(message) {
+        let user = message.sender === 'admin' ? message.receiver : message.sender;
+        if (!messageHistory[user]) {
+            messageHistory[user] = [];
+        }
+        messageHistory[user].push(message);
     }
 
     function addUserToList(username) {
@@ -42,11 +53,17 @@ $(document).ready(function() {
             $userItem.click(function() {
                 currentRecipient = user;
                 $("#currentUser").text(user);
-                $("#adminChatBox").empty();
+                displayChatHistory(user);
             });
             $userList.append($userItem);
         });
-        console.log("Updated user list:", userList);
+    }
+
+    function displayChatHistory(user) {
+        $("#adminChatBox").empty();
+        if (messageHistory[user]) {
+            messageHistory[user].forEach(showMessage);
+        }
     }
 
     function sendMessage() {
@@ -66,7 +83,6 @@ $(document).ready(function() {
             alert("채팅할 사용자를 선택해주세요.");
         }
     }
-
 
     function showMessage(message) {
         let messageElement = $("<div class='message'></div>");
