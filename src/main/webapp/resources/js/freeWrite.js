@@ -54,7 +54,6 @@ function submitForm(event) {
             "user_id": userId,
             "user_name": userName,
             "board_views" : views,
-            "board_attachment" : boardAttachment
         }),
 
         success: function (response) {

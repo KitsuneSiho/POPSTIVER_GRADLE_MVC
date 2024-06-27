@@ -26,6 +26,6 @@ public class FreeBoardService {
                 communityDTO.getUser_name(),
                 communityDTO.getBoard_views(),
                 communityDTO.getBoard_attachment()
-                 );
+        );
     }
 }
