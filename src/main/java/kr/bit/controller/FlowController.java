@@ -67,10 +67,10 @@ public class FlowController {
         return "page/board/togetherWrite";
     }
 
-    @GetMapping("free")//자유게시판페이지
-    public String free_page() {
-        return "page/board/free";
-    }
+//    @GetMapping("free")//자유게시판페이지
+//    public String free_page() {
+//        return "page/board/free";
+//    }
 
     @GetMapping("freeWrite")//자유게시판글작성페이지
     public String freeWrite_page() {

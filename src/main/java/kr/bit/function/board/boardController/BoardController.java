@@ -10,6 +10,7 @@ import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
+import kr.bit.function.member.entity.MemberEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -142,14 +146,18 @@ public class BoardController {
 
     //-------------------------------------------------------//
     //                        NOTICE                         //
-    //-------------------------------------------------------//
-
-    @RequestMapping(value = "/contact", method = RequestMethod.GET)
-    public String contact(Model model) {
-        logger.info("contact.jsp start");
+    @RequestMapping(value = "/notice_Details/{notice_no}", method = RequestMethod.GET)
+    public String noticeDetails(@PathVariable("notice_no") int noticeNo, Model model) {
         try {
-            model.addAttribute("list",boardService.selectAllNotice());
-        }catch(Exception e){
+
+            NoticeDTO notice = (NoticeDTO) boardService.selectOneNotice(noticeNo);
+            model.addAttribute("notice", notice);
+
+
+            List<NoticeDTO> allNotice = boardService.selectAllNotice();
+            model.addAttribute("allNotice", allNotice);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/board/contact";
@@ -195,6 +203,57 @@ public class BoardController {
         @ResponseBody
         public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                System.out.println("제목:"+communityDTO.getBoard_title());
+                System.out.println("내용:"+communityDTO.getBoard_content());
+                System.out.println("사용자아이디:"+communityDTO.getUser_id());
+                System.out.println("사용자명:"+communityDTO.getUser_name());
+                boardService.insertCommunity(communityDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    // 자유 게시판 글 등록
+
+    @RequestMapping(value = "/free", method = RequestMethod.GET)
+    public String communityBoardList(Model model){
+        try{
+            model.addAttribute("list", boardService.selectAllCommunity());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/free";
+    }
+
+    @RequestMapping(value = "/freeBoard")
+    @Controller
+    class InsertCommunityController{
+
+        @PutMapping("/insertWrite")
+        @ResponseBody
+        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
+                                      @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String user_id = "";

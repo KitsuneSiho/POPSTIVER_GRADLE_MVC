@@ -1,13 +1,13 @@
-$(document).ready(function () {
+$(document).ready(function() {
     getUserInfoAndSetUserId();
 });
 
 function getUserInfoAndSetUserId() {
-    $.ajax({
-        type: "GET",
-        url: "member/getUserInfo",
-        success: function (response) {
-            if (response && response.user_id && response.user_nickname) {
+$.ajax({
+type: "GET",
+url: "member/getUserInfo",
+success: function(response) {
+if (response && response.user_id && response.user_nickname) {
 // Set the user_id and user_nickname in the hidden input fields
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
@@ -54,18 +54,21 @@ function submitForm(event) {
             "user_id": userId,
             "user_name": userName,
             "board_views" : views,
+            "board_attachment" : boardAttachment
         }),
 
         success: function (response) {
 // 업데이트 성공 시 처리할 코드
-            alert("저장이 완료되었습니다!");
+alert("저장이 완료되었습니다!");
+window.location.href = "/free";
 // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },
         error: function (xhr, status, error) {
 // 실패 시 처리할 코드
-            alert("게시글 저장 중 오류가 발생했습니다.");
-        }
-    });
+alert("게시글 저장 중 오류가 발생했습니다.");
+window.location.href = "/free";
+}
+});
 
 
 }
