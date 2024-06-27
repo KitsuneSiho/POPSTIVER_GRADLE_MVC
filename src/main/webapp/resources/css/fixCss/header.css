@@ -43,7 +43,7 @@ body {
     background: none;
     border: 1px solid white;
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -53,6 +53,13 @@ body {
     transform: scale(1.05);
     background-color: white;
     color: black;
+}
+
+.topSearchButton{
+    background-color: #2e2e2e;
+    border-radius: 30px;
+    width: 10%;
+    cursor: pointer;
 }
 
 .mainTopLogo a, a:visited {
@@ -71,7 +78,7 @@ body {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
     color: white;
 }
@@ -140,16 +147,17 @@ body {
     cursor: pointer;
     font-size: 20px;
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 .searchButton img{
     width: 32px;
     height: 32px;
+    z-index: 100;
 }
 
 .userName{
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 
@@ -248,7 +256,7 @@ body {
     border: none;
     border-radius: 30px;
     outline: none;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: black;
 }
 

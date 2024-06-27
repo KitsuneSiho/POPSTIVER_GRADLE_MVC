@@ -11,7 +11,7 @@ body {
     justify-content: space-around;
     margin: 15px 0 20px;
     padding-bottom: 10px;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 
@@ -34,7 +34,7 @@ body {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
     border-radius: 5px;
     overflow: hidden;
@@ -89,7 +89,7 @@ body {
     border-radius: 5px;
     background-color: #ffff33;
     color: black;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -112,7 +112,7 @@ body {
     align-items: center;
     column-gap: 10px;
     list-style: none;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
 }
 

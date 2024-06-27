@@ -22,6 +22,10 @@
             src: url('${root}/resources/font/KBO.ttf');
         }
 
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
     </style>
 </head>
 

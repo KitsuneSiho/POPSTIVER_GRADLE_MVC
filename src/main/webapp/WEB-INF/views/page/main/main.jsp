@@ -21,6 +21,11 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
     </style>
 
 </head>
@@ -66,5 +71,13 @@
         <button>FESTIVAL 보러가기</button>
     </div>
 </div>
+
+<script>
+    document.querySelector('.scroll').addEventListener('click', function() {
+        const enterContainer = document.querySelector('.enterContainer');
+        enterContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+
 </body>
 </html>

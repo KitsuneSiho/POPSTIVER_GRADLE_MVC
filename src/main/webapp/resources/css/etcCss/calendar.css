@@ -6,7 +6,7 @@ body {
 
 .calenderTitle {
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     text-align: center;
     font-size: 25px;
     margin-top: 20px; /* 추가: 제목과의 간격 */
@@ -34,12 +34,12 @@ body {
 .fc-next-button {
     background-color: #ffff33 !important;
     color: black !important;
-    font-family: 'KBO', sans-serif !important;
+    font-family: 'Pre', sans-serif !important;
 }
 
 .fc-day a {
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
 }
 
@@ -57,7 +57,7 @@ body {
 }
 
 dialog {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     position: fixed;
     width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
     max-width: 400px; /* 추가: 최대 너비 설정 */
