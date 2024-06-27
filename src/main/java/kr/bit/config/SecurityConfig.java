@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/main", "/map", "/calendar", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_HOST") // 관리자 채팅 페이지 설정
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자페이지
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
