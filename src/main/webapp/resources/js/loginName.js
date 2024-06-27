@@ -19,7 +19,7 @@ function loginName() {
 
                 // 닉네임을 UI에 표시
                 $(".mainTopButton").prepend('<span class="userName">' +
-                    response.user_nickname + '님 ' + '환영합니다 😊 |  </span>');
+                    response.user_nickname + '님 ' + '환영합니다 😊  </span>');
             } else {
                 console.error("사용자 닉네임을 가져오는 데 실패했습니다.");
             }

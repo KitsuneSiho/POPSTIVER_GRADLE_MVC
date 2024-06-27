@@ -23,6 +23,10 @@
         <h1><a href="../main">POPSTIVER</a></h1>
     </div>
 
+    <button class="searchButton" id="searchButton">
+        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+    </button>
+
     <div class="mainTopMenu">
         <ul>
             <li>
@@ -54,6 +58,11 @@
         </ul>
     </div>
 
+    <div class="weather">
+        <p>날씨 위젯</p>
+    </div>
+
+
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
             <button class="loginButton" onclick="window.location.href='login'">
@@ -66,9 +75,7 @@
                 로그아웃
             </button>
         </sec:authorize>
-        <button class="searchButton" id="searchButton">
-            <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-        </button>
+
     </div>
 </header>
 

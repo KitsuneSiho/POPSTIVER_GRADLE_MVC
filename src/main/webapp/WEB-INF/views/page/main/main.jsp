@@ -27,234 +27,45 @@
 
 <body>
 
-<div class="video-background">
-    <video autoplay muted loop id="bg-video">
-        <source src="${root}/resources/asset/동영상9.mp4" type="video/mp4">
-    </video>
+<div class="img-background">
+    <img src="${root}/resources/asset/메인배경.jpg" id="bg-img" alt="">
 </div>
 
-<jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
-
-<div class="mainButton">
-    <button class="popupButton" onclick="window.location.href='mainPopup'">
-        <img src="${root}/resources/asset/POPUP메인버튼.png" alt="">
-    </button>
-    <button class="festivalButton" onclick="window.location.href='mainFestival'">
-        <img src="${root}/resources/asset/FESTIVAL메인버튼.png" alt="">
-    </button>
-</div>
-
-<div class="mainPoster">
-    <video width="1000px" height="400px" controls autoplay loop muted>
-        <source src="${root}/resources/asset/포스터이미지/워터밤영상.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="popular">
-    <div class="popularPosterText">
-        <p class="popularText1">인기</p>
-        <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
-    </div>
-    <div class="popularPoster">
-        <div class="slide-container">
-            <div class="slide-track">
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">서울 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">대구 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">대전 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">부산 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">속초 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">대구 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">대전 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">부산 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">속초 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">대구 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">부산 포스터</p>
-                </div>
-                <div class="poster-item">
-                    <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="poster-caption">속초 포스터</p>
-                </div>
-            </div>
+<div class="container">
+    <div class="popstiver">
+        <div class="title">
+            <h1><span>POP</span>UP</h1>
+            <h1>FE<span>STI</span>VAL</h1>
+            <h1>LO<span>VER</span></h1>
+        </div>
+        <div class="titleInfo">
+            <p>팝스티버는 POP-UP과 FESTIVAL 그리고 LOVER를 조합한 단어입니다.</p>
+            <p>팝스티버는 팝업 이벤트와 페스티벌을 사랑하는 이들을 위한 커뮤니티 입니다.</p>
+            <p>우리는 다양한 팝업 쇼와 페스티벌을 즐기며 함께 모여 새로운 경험을 나누고자 합니다.</p>
+            <p>우리와 함께 도시의 다채로운 문화를 즐기고 새로운 친구들을 만나보세요!</p>
+            <p>함께 즐기는 이들과 행복한 순간들을 만들어봐요</p>
         </div>
     </div>
-</div>
-
-
-<div class="open">
-    <div class="openPosterText">
-        <p class="openText1">오픈 예정</p>
-        <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
-    </div>
-    <div class="openPoster">
-        <div class="slide-container">
-            <div class="slide-track">
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼1</p>
-                </div>
-                <div class="open-item">
-                    <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                    <p class="open-caption">흠뻑쇼2</p>
-                </div>
-            </div>
-        </div>
+    <div class="scroll">
+        <p>SCROLL</p>
+        <img src="${root}/resources/asset/아래로.svg" alt="">
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/bookmarkToggle.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sliders = document.querySelectorAll('.slide-container');
 
-        sliders.forEach(slider => {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            const track = slider.querySelector('.slide-track');
 
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('active');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-            });
+<div class="enterContainer">
+    <div class="enterPopup" onclick="window.location.href='mainPopup'">
+        <img src="" alt="">
+        <p>팝업스토어알라라라라라라</p>
+        <button>POP-UP 보러가기</button>
+    </div>
+    <div class="enterFestival" onclick="window.location.href='mainFestival'">
+        <img src="" alt="">
+        <p>축제알라라라라라라</p>
+        <button>FESTIVAL 보러가기</button>
+    </div>
 
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 3;
-                slider.scrollLeft = scrollLeft - walk;
-            });
-
-            // Clone items for infinite scroll
-            const items = track.children;
-            const itemCount = items.length;
-            for (let i = 0; i < itemCount; i++) {
-                const clone = items[i].cloneNode(true);
-                track.appendChild(clone);
-            }
-
-            // Set the width of the track
-            track.style.width = `${200 * itemCount * 2}%`;
-
-            // Infinite scroll
-            slider.addEventListener('scroll', () => {
-                if (slider.scrollLeft >= track.scrollWidth / 2) {
-                    slider.scrollLeft = 0;
-                } else if (slider.scrollLeft <= 0) {
-                    slider.scrollLeft = track.scrollWidth / 2;
-                }
-            });
-        });
-    });
-</script>
+</div>
 </body>
 </html>

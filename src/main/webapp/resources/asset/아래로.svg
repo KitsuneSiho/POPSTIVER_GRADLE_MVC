@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="chevrons-down">
+        <path id="Path 3" d="M7 13L12 18L17 13" stroke="white" stroke-width="2"
+              stroke-linecap="round" />
+        <path id="Path 3_2" d="M7 7L12 12L17 7" stroke="white" stroke-width="2"
+              stroke-linecap="round" />
+    </g>
+</svg>
