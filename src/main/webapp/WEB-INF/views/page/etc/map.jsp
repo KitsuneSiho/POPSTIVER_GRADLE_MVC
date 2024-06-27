@@ -277,7 +277,7 @@
     var popupMarkers = []; // 팝업 마커 배열
 
     var festivalMarkerImage = new kakao.maps.MarkerImage(
-        'resources/img/free-icon-location-7976202.png',
+        '${root}/resources/asset/파랑마커.png',
         new kakao.maps.Size(40, 40),
         {
             offset: new kakao.maps.Point(25, 25)
@@ -285,7 +285,7 @@
     );
 
     var popupMarkerImage = new kakao.maps.MarkerImage(
-        'resources/img/free-icon-location-pin-3247289.png',
+        '${root}/resources/asset/노랑마커.png',
         new kakao.maps.Size(40, 40),
         {
             offset: new kakao.maps.Point(25, 25)
@@ -328,7 +328,7 @@
             var zoomControl = new kakao.maps.ZoomControl();
             multiMap.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-            var imageUrl = 'resources/img/8712569_pin_map_location_navigation_gps_icon.png'; // 상대 경로로 설정
+            var imageUrl = '${root}/resources/asset/내위치(빨강)마커.png'; // 상대 경로로 설정
             var imageSize = new kakao.maps.Size(50, 50);
             var imageOption = { offset: new kakao.maps.Point(25, 25) };
 
