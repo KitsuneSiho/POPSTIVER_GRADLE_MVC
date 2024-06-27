@@ -28,24 +28,28 @@
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-
-
 <div class="searchList">
     <article>
         <c:set var="now" value="<%=new java.util.Date()%>" />
         <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd" />
-            <div class="searchResultTitle">
-                <h1>' ${param.keyword} ' 검색 결과</h1>
-            </div>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+        <div class="searchResultTitle">
+            <h1>' ${param.keyword} ' 검색 결과</h1>
+        </div>
+
+        <c:set var="hasOngoing" value="false" />
+        <c:set var="hasUpcoming" value="false" />
+        <c:set var="hasEnded" value="false" />
+
+        <div class="searchListOpen" id="ongoingSection" onclick="toggleSearchList(this)">
             <p>진행 중</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="ongoingContent">
             <div class="carousel">
                 <div class="carousel-content" id="carousel-content">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today >= result.start_date && today <= result.end_date}">
+                            <c:set var="hasOngoing" value="true" />
                             <div class="card">
                                 <div class="card-content">
                                     <img src="<c:out value="${result.attachment}" />"  alt=""/>
@@ -67,15 +71,16 @@
             </div>
         </div>
 
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+        <div class="searchListOpen" id="upcomingSection" onclick="toggleSearchList(this)">
             <p>오픈 예정</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="upcomingContent">
             <div class="carousel">
                 <div class="carousel-content" id="carousel-content">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today < result.start_date}">
+                            <c:set var="hasUpcoming" value="true" />
                             <div class="card">
                                 <div class="card-content">
                                     <img src="<c:out value="${result.attachment}" />"  alt=""/>
@@ -97,15 +102,16 @@
             </div>
         </div>
 
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+        <div class="searchListOpen" id="endedSection" onclick="toggleSearchList(this)">
             <p>종료</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="endedContent">
             <div class="carousel">
                 <div class="carousel-content" id="carousel-content">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today > result.end_date}">
+                            <c:set var="hasEnded" value="true" />
                             <div class="card">
                                 <div class="card-content">
                                     <img src="<c:out value="${result.attachment}" />"  alt=""/>
@@ -130,6 +136,11 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+<script>
+    var hasOngoing = ${hasOngoing};
+    var hasUpcoming = ${hasUpcoming};
+    var hasEnded = ${hasEnded};
+</script>
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
