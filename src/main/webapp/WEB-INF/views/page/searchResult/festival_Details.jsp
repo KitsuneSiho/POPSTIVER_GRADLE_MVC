@@ -35,11 +35,11 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li><button>태그</button></li>
-            <li><button>태그</button></li>
-            <li><button>태그</button></li>
-            <li><button>태그</button></li>
-            <li><button>태그</button></li>
+            <c:if test="${not empty festival.festival_tag1}"><li><button class="tag-button">${festival.festival_tag1}</button></li></c:if>
+            <c:if test="${not empty festival.festival_tag2}"><li><button class="tag-button">${festival.festival_tag2}</button></li></c:if>
+            <c:if test="${not empty festival.festival_tag3}"><li><button class="tag-button">${festival.festival_tag3}</button></li></c:if>
+            <c:if test="${not empty festival.festival_tag4}"><li><button class="tag-button">${festival.festival_tag4}</button></li></c:if>
+            <c:if test="${not empty festival.festival_tag5}"><li><button class="tag-button">${festival.festival_tag5}</button></li></c:if>
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">

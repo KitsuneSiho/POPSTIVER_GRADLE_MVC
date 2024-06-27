@@ -3,24 +3,39 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String FLASK_URL = "http://localhost:8000/extract_tags";
 
     // 해당경로('프로젝트/보드이름')로 URL이동하면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/testfestival", method = RequestMethod.GET)
@@ -72,6 +87,21 @@ public class BoardController {
             // 모든 축제 정보
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
+
+
+            if (festival != null) {
+                // 파이썬 서버에 태그 추출 요청
+                JSONObject request = new JSONObject();
+                request.put("festival_id", festivalNo);
+                request.put("title", festival.getFestival_title());
+                request.put("content", festival.getFestival_content());
+
+                String response = restTemplate.postForObject(FLASK_URL, request.toString(), String.class);
+                JSONObject jsonResponse = new JSONObject(response);
+                JSONArray tags = jsonResponse.getJSONArray("tags");
+
+                model.addAttribute("tags", tags.toList());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,5 +171,57 @@ public class BoardController {
             e.printStackTrace();
         }
         return "page/board/contact";
+    }
+    @PostMapping("/process_tag")
+    public String processTag(@RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             Model model) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "application/json");
+
+            JSONObject request = new JSONObject();
+            request.put("title", title);
+            request.put("content", content);
+
+            HttpEntity<String> entity = new HttpEntity<>(request.toString(), headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(FLASK_URL, HttpMethod.POST, entity, String.class);
+
+            JSONObject responseBody = new JSONObject(response.getBody());
+            JSONArray tags = responseBody.getJSONArray("tags");
+
+            saveTagsToDb(title, content, tags);
+
+            model.addAttribute("tags", tags.toString());
+
+            Map<String, Object> festivalDetails = getFestivalDetails(title, content);
+            model.addAttribute("festival", festivalDetails);
+
+            return "redirect:/festival_details?tags=" + URLEncoder.encode(tags.toString(), StandardCharsets.UTF_8.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Error: " + e.getMessage());
+            return "page/test/tag_form";
+        }
+    }
+
+    private void saveTagsToDb(String title, String content, JSONArray tags) {
+        try {
+            String insertFestivalSql = "INSERT INTO festival (festival_title, festival_content, festival_tag1, festival_tag2, festival_tag3, festival_tag4, festival_tag5) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(insertFestivalSql, title, content,
+                    tags.length() > 0 ? tags.getString(0) : null,
+                    tags.length() > 1 ? tags.getString(1) : null,
+                    tags.length() > 2 ? tags.getString(2) : null,
+                    tags.length() > 3 ? tags.getString(3) : null,
+                    tags.length() > 4 ? tags.getString(4) : null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Map<String, Object> getFestivalDetails(String title, String content) {
+        String selectFestivalSql = "SELECT * FROM festival WHERE festival_title = ? AND festival_content = ?";
+        return jdbcTemplate.queryForMap(selectFestivalSql, title, content);
     }
 }
