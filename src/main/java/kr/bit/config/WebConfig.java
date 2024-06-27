@@ -45,4 +45,11 @@ public class WebConfig implements WebMvcConfigurer {
         messageConverter.setObjectMapper(mapper);
         return messageConverter;
     }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        return mapper;
+    }
 }

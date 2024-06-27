@@ -6,7 +6,7 @@ import java.util.Date;
 @Data
 public class UserEntity {
     private int userNo;       // user_no, primary key
-    private int userType;     // user_type
+    private String userType;     // user_type
     private String userId;    // user_id, unique
     private String userName;  // user_name
     private String userEmail; // user_email

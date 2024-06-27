@@ -6,7 +6,7 @@ import lombok.Data;
 public class MemberEntity {
 
     private int user_no;
-    private int user_type;
+    private String user_type;
     private String user_id;
     private String user_name;
     private String user_email;

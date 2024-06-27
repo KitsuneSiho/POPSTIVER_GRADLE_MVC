@@ -1,13 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 채팅</title>
+    <title>1:1 채팅 관리</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
@@ -136,23 +135,42 @@
     </style>
 </head>
 <body>
-<div class="chat-container">
-    <div class="user-list">
-        <ul id="userList"></ul>
-    </div>
-    <div class="chat-section">
-        <div class="chat-header">관리자 채팅 화면</div>
-        <h2>Chat with: <span id="currentUser"></span></h2>
-        <div class="chatBox" id="adminChatBox"></div>
-        <div class="chat-input-container">
-            <input type="text" id="adminChatInput" placeholder="메시지를 입력하세요..." />
-            <button id="adminSendButton"><i class="fas fa-paper-plane"></i></button>
-        </div>
+<div class="container-fluid">
+    <div class="row">
+        <!-- 사이드바 -->
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
+        </nav>
+
+        <!-- 메인 콘텐츠 -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+            <h2>1:1 채팅 관리</h2>
+            <!-- 1:1 채팅 관리 내용 -->
+            <div class="chat-container">
+                <div class="user-list">
+                    <ul id="userList"></ul>
+                </div>
+                <div class="chat-section">
+                    <div class="chat-header">관리자 채팅 화면</div>
+                    <h3>채팅 대상: <span id="currentUser"></span></h3>
+                    <div class="chatBox" id="adminChatBox"></div>
+                    <div class="chat-input-container">
+                        <input type="text" id="adminChatInput" placeholder="메시지를 입력하세요..." />
+                        <button id="adminSendButton"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+        </main>
     </div>
 </div>
 <script>
     let contextPath = '${pageContext.request.contextPath}';
 </script>
 <script src="${pageContext.request.contextPath}/resources/js/chatAdmin.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

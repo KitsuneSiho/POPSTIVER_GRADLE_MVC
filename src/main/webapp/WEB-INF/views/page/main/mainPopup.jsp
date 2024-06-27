@@ -26,20 +26,11 @@
 
 <body>
 
-<div class="video-background">
-    <video autoplay muted loop id="bg-video">
-        <source src="${root}/resources/asset/동영상8.mp4" type="video/mp4">
-    </video>
-</div>
-
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="mainButton">
-    <button class="popupButton" onclick="window.location.href='mainPopup'">
-        <img src="${root}/resources/asset/POPUP메인버튼.png" alt="">
-    </button>
     <button class="festivalButton" onclick="window.location.href='mainFestival'">
-        <img src="${root}/resources/asset/FESTIVAL메인버튼.png" alt="">
+        FESTIVAL 보러가기
     </button>
 </div>
 
@@ -47,6 +38,7 @@
     <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
 </div>
 
+<div class="main-content">
 <div class="popular">
     <div class="popularPosterText">
         <p class="popularText1">인기</p>
@@ -193,6 +185,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>

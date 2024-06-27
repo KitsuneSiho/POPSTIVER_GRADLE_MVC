@@ -239,6 +239,12 @@ body {
 }
 
 .dropdown-wrapper:after {
+    content: none; /* 기본적으로 화살표를 표시하지 않음 */
+}
+
+/* 서울특별시와 경기도 버튼에만 화살표 표시 */
+.dropdown-wrapper:has([data-city="서울특별시"]):after,
+.dropdown-wrapper:has([data-city="경기도"]):after {
     content: '';
     position: absolute;
     top: 50%;
