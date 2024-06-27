@@ -72,7 +72,7 @@ function submitForm(event) {
 
     $.ajax({
         method: "put",
-        url: "/festivalComment/insertComment",
+        url: "/comment/festivalInsert",
         contentType: 'application/json;charset=utf-8',
 // StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
         data: JSON.stringify({

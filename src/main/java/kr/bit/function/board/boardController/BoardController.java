@@ -4,20 +4,29 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.NoticeDTO;
+import kr.bit.function.board.boardDTO.PopupBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
+import kr.bit.function.board.boardService.FreeBoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
+import kr.bit.function.member.entity.MemberEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -88,6 +97,24 @@ public class BoardController {
         }
 
         return "page/searchResult/festival_Details";
+    }
+
+    @RequestMapping(value = "/popup_Details/{popup_no}", method = RequestMethod.GET)
+    public String popupDetails(@PathVariable("popup_no") int popupNo, Model model) {
+        try {
+            // 특정 축제 정보
+            PopupBoardDTO popup = boardService.selectOnePopup(popupNo);
+            model.addAttribute("popup", popup);
+
+            // 모든 축제 정보
+            List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
+            model.addAttribute("allPopups", allPopups);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "page/searchResult/popup_Details";
     }
 
 
