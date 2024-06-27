@@ -65,7 +65,6 @@
         <p>축제알라라라라라라</p>
         <button>FESTIVAL 보러가기</button>
     </div>
-
 </div>
 </body>
 </html>

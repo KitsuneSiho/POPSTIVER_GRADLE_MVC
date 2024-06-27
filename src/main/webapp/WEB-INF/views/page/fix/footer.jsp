@@ -13,11 +13,17 @@
     <title>POPSTIVER</title>
 </head>
 <body>
-<footer>
-    (주)POPSTIVER<br>
-    주소 : 서울 서초구 강남대로<br>
-    대표전화 : (02)123-4567 FAX : (02)123-4567<br>
-    abc@postiver.co.kr<br>
-    Copyright 2024. POPSTVIER Co.,Ltd. All rights reserved
-</footer>
+<div class="wrapper">
+    <div class="content">
+        <!-- 페이지의 실제 콘텐츠 -->
+    </div>
+    <footer class="footer">
+        (주)POPSTIVER<br>
+        주소 : 서울 서초구 강남대로<br>
+        대표전화 : (02)123-4567 FAX : (02)123-4567<br>
+        abc@postiver.co.kr<br>
+        Copyright 2024. POPSTVIER Co.,Ltd. All rights reserved
+    </footer>
+</div>
 </body>
+</html>

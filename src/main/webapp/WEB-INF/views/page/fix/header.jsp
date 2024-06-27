@@ -15,17 +15,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script> const root = "${root}"; </script>
     <script src="${root}/resources/js/loginName.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".mainTopLogo").hover(
+                function() {
+                    $(".logoButtons").stop().slideDown(300);
+                },
+                function() {
+                    $(".logoButtons").stop().slideUp(300);
+                }
+            );
+        });
+    </script>
 
 </head>
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
         <h1><a href="../main">POPSTIVER</a></h1>
+        <div class="logoButtons">
+            <button class="logoButton" onclick="window.location.href='mainPopup'">POP-UP</button>
+            <button class="logoButton" onclick="window.location.href='mainFestival'">FESTIVAL</button>
+        </div>
     </div>
 
-    <button class="searchButton" id="searchButton">
-        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-    </button>
+    <div class="topSearchButton">
+        <button class="searchButton" id="searchButton">
+            <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+        </button>
+    </div>
 
     <div class="mainTopMenu">
         <ul>
