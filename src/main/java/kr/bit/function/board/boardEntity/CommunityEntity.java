@@ -10,14 +10,14 @@ public class CommunityEntity {
     private String user_id;
     private String user_name;
     private String board_post_date;
-    private byte[] board_attachment;
+    private String board_attachment;
     private int board_views;
 
     public CommunityEntity(){
         super();
     }
 
-    public CommunityEntity(int board_no,String board_title, String board_content, String user_id, String user_name, int board_views, String board_post_date, byte[] board_attachment) {
+    public CommunityEntity(int board_no,String board_title, String board_content, String user_id, String user_name, int board_views, String board_post_date, String board_attachment) {
         super();
         this.board_no = board_no;
         this.board_title = board_title;

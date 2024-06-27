@@ -90,9 +90,9 @@
 
 
 
-<jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
-<script src="${root}/resources/js/chatModal.js"></script>
+    <script src="${root}/resources/js/chatModal.js"></script>
 </body>
 
 </html>
