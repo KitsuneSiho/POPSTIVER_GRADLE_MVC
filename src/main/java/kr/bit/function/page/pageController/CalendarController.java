@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,6 +35,24 @@ public class CalendarController {
     @ResponseBody
     public List<CalendarEntity> getEvents() {
         return calendarService.getEventsFromDB();
+    }
+
+    // Festival Details 매핑
+    @GetMapping("/festival_Details/{eventNo}")
+    public String festivalDetails(@PathVariable("eventNo") int eventNo, Model model) {
+        // 이벤트 번호에 맞는 축제 상세 정보 조회 로직
+        // 예시로 생성된 메시지를 모델에 추가
+        model.addAttribute("message", "축제 상세 정보 - Event No: " + eventNo);
+        return "festival_Details"; // festival_details.jsp 뷰로 이동
+    }
+
+    // Popup Details 매핑
+    @GetMapping("/popup_Details/{eventNo}")
+    public String popupDetails(@PathVariable("eventNo") int eventNo, Model model) {
+        // 이벤트 번호에 맞는 팝업 상세 정보 조회 로직
+        // 예시로 생성된 메시지를 모델에 추가
+        model.addAttribute("message", "팝업 상세 정보 - Event No: " + eventNo);
+        return "popup_Details"; // popup_details.jsp 뷰로 이동
     }
 }
 

@@ -29,6 +29,10 @@ body {
     border: 3px solid #ffff33;
 }
 
+#calendar .fc-daygrid-event-dot {
+    display: none;
+}
+
 .fc-today-button,
 .fc-prev-button,
 .fc-next-button {
@@ -54,6 +58,11 @@ body {
 .fc .fc-col-header-cell-cushion {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.more-link {
+    font-size: 50%;
+    color: white !important; /* "행사 더보기" 링크 글자 색상을 흰색으로 설정 */
 }
 
 
@@ -87,17 +96,17 @@ body {
 
 
 
-/* 추가: event_type에 따른 배경색 */
-/*.fc-event.event-type-1,*/
-/*.fc-event.event-type-2 {*/
-/*    background-color: blue !important;*/
-/*    border-color: blue !important;*/
-/*}*/
+ /*event_type에 따른 배경색 */
+.fc-event.event-type-1,
+.fc-event.event-type-2 {
+    background-color: blue !important;
+    border-color: blue !important;
+}
 
-/*.fc-event.event-type-3 {*/
-/*    background-color: yellow !important;*/
-/*    border-color: yellow !important;*/
-/*}*/
+.fc-event.event-type-3 {
+    background-color: yellow !important;
+    border-color: yellow !important;
+}
 
 
 dialog {

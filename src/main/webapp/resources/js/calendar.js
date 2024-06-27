@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
             .then(data => data.map(event => ({
                 title: event.title,
                 start: new Date(event.start_date),
-                url: event.url // URL 필드 추가
+                url: generateEventUrl(event.event_type, event.event_no) // URL 필드 생성
 
             })))
             .catch(error => {
@@ -22,6 +22,16 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
                 alert('Error fetching events. Please try again later.');
             });
     }
+    function generateEventUrl(eventType, eventNo) {
+        if (eventType === 1 || eventType === 2) {
+            return '/festival_Details/' + eventNo;
+        } else if (eventType === 3) {
+            return '/popup_Details/' + eventNo;
+        } else {
+            return '#'; // 예외 처리: 다른 event_type 값에 대한 처리가 필요하면 여기에 추가
+        }
+    }
+
 
     fetchEvents().then(events => {
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -31,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
             titleFormat: { year: 'numeric', month: 'long' },
             dayMaxEventRows: 6, // 날짜당 최대 6개의 이벤트 표시
             moreLinkContent:function(args) {
-                return '+' + args.num + ' 개 더보기'
+                return '더보기'
             }, //6개이상 행사 더보기
             eventClick: function (info) {
                 info.jsEvent.preventDefault();
