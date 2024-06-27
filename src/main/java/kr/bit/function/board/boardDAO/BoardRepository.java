@@ -291,7 +291,7 @@ public class BoardRepository {
                 communityEntity.setUser_name(rs.getString("user_name"));
                 communityEntity.setBoard_post_date(rs.getString("board_post_date"));
                 communityEntity.setBoard_views(rs.getInt("board_views"));
-                communityEntity.setBoard_attachment(rs.getBytes("board_attachment"));
+                communityEntity.setBoard_attachment(rs.getString("board_attachment"));
 
                 return communityEntity;
             }
@@ -321,7 +321,7 @@ public class BoardRepository {
                         communityEntity.setUser_name(rs.getString("user_name"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
                         communityEntity.setBoard_views(rs.getInt("board_views"));
-                        communityEntity.setBoard_attachment(rs.getBytes("board_attachment"));
+                        communityEntity.setBoard_attachment(rs.getString("board_attachment"));
 
                         return communityEntity;
                     }

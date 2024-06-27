@@ -44,13 +44,13 @@ method: "put",
 url: "freeBoard/insertWrite",
 contentType: 'application/json;charset=utf-8',
 // StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
-data: JSON.stringify({
-"board_title" : boardTitle,
-"board_content" : boardContent,
-"user_id" : userId,
-"user_name" : userName
-
-}),
+        data: JSON.stringify({
+            "board_title": boardTitle,
+            "board_content": boardContent,
+            "user_id": userId,
+            "user_name": userName,
+            "board_views" : views,
+        }),
 
 success: function(response) {
 // 업데이트 성공 시 처리할 코드
