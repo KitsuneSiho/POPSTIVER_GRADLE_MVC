@@ -19,7 +19,7 @@ body {
     color: white;
     background-color: black;
     border-radius: 5px;
-    overflow: hidden !important;
+    /*overflow: hidden !important;*/
     margin-top: 20px; /* 추가: 달력과의 간격 */
 }
 

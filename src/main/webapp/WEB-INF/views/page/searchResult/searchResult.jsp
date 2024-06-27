@@ -57,9 +57,17 @@
                             <c:set var="hasOngoing" value="true" />
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
+                                    <a href="${root}/festival_Details/${result.event_no}">
+                                        <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
+                                    </a>
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <h3><c:out value="${result.title}" /></h3>
+                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <h3>
+                                        <a href="${root}/festival_Details/${result.event_no}">
+                                            <c:out value="${result.title}" />
+                                        </a>
+                                    </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         <c:out value="${result.location}" />
@@ -88,9 +96,17 @@
                             <c:set var="hasUpcoming" value="true" />
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
+                                    <a href="${root}/festival_Details/${result.event_no}">
+                                        <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
+                                    </a>
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <h3><c:out value="${result.title}" /></h3>
+                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <h3>
+                                        <a href="${root}/festival_Details/${result.event_no}">
+                                            <c:out value="${result.title}" />
+                                        </a>
+                                    </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         <c:out value="${result.location}" />
@@ -119,9 +135,17 @@
                             <c:set var="hasEnded" value="true" />
                             <div class="card">
                                 <div class="card-content">
-                                    <img src="<c:out value="${result.attachment}" />"  alt=""/>
+                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
+                                    <a href="${root}/festival_Details/${result.event_no}">
+                                        <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
+                                    </a>
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <h3><c:out value="${result.title}" /></h3>
+                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <h3>
+                                        <a href="${root}/festival_Details/${result.event_no}">
+                                            <c:out value="${result.title}" />
+                                        </a>
+                                    </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         <c:out value="${result.location}" />
