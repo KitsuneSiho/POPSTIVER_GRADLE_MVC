@@ -50,6 +50,7 @@ contentType: 'application/json;charset=utf-8',
             "user_id": userId,
             "user_name": userName,
             "board_views" : views,
+            "board_attachment" : boardAttachment
         }),
 
 success: function(response) {

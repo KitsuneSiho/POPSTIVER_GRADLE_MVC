@@ -109,7 +109,6 @@ public class BoardController {
         return "page/searchResult/popup_Details";
     }
 
-
     @RequestMapping(value = "/festival_view", method = RequestMethod.GET)
     public String views(Model model) {
         //log임
@@ -124,7 +123,7 @@ public class BoardController {
         }
         return "page/test/festival_view";
     }
-//----------------------POPUP-------------------------------//
+    //----------------------POPUP-------------------------------//
     @RequestMapping(value = "/popup_view", method = RequestMethod.GET)
     public String viewPopup(Model model) {
         //log임
@@ -194,7 +193,7 @@ public class BoardController {
         @PutMapping("/insertWrite")
         @ResponseBody
         public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
-                                      @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String user_id = "";
@@ -202,15 +201,15 @@ public class BoardController {
             switch (provider) {
                 case "google":
                     GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                    user_id = googleResponse.getProviderId();
+                    user_id = "google" + googleResponse.getProviderId();
                     break;
                 case "kakao":
                     KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                    user_id = kakaoResponse.getProviderId();
+                    user_id = "kakao" + kakaoResponse.getProviderId();
                     break;
                 case "naver":
                     NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                    user_id = naverResponse.getProviderId();
+                    user_id = "naver" + naverResponse.getProviderId();
                     break;
             }
 
