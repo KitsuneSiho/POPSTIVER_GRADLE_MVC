@@ -370,7 +370,7 @@
                 {
                     title: "${popup.popup_title}",
                     location: "${popup.popup_location}",
-                    link: "${pageContext.request.contextPath}/festival_Details/${popup.popup_no}",
+                    link: "${pageContext.request.contextPath}/popup_Details/${popup.popup_no}",
                     dist: "${popup.popup_dist}",
                     subdist: "${popup.popup_subdist}",
                     start: "${popup.popup_start}",

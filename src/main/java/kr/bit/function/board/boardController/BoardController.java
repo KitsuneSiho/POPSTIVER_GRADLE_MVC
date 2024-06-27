@@ -4,6 +4,7 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
+import kr.bit.function.board.boardDTO.PopupBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.board.boardService.FreeBoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
@@ -92,6 +93,24 @@ public class BoardController {
         }
 
         return "page/searchResult/festival_Details";
+    }
+
+    @RequestMapping(value = "/popup_Details/{popup_no}", method = RequestMethod.GET)
+    public String popupDetails(@PathVariable("popup_no") int popupNo, Model model) {
+        try {
+            // 특정 축제 정보
+            PopupBoardDTO popup = boardService.selectOnePopup(popupNo);
+            model.addAttribute("popup", popup);
+
+            // 모든 축제 정보
+            List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
+            model.addAttribute("allPopups", allPopups);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "page/searchResult/popup_Details";
     }
 
 
