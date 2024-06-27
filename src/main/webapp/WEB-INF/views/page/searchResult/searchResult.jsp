@@ -58,13 +58,14 @@
                             <div class="card">
                                 <div class="card-content">
                                     <!-- 포스터 클릭 시 상세 페이지로 이동 -->
-                                    <a href="${root}/festival_Details/${result.event_no}">
+                                    <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
+
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
-                                        <a href="${root}/festival_Details/${result.event_no}">
+                                        <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
                                         </a>
                                     </h3>
@@ -97,13 +98,13 @@
                             <div class="card">
                                 <div class="card-content">
                                     <!-- 포스터 클릭 시 상세 페이지로 이동 -->
-                                    <a href="${root}/festival_Details/${result.event_no}">
+                                    <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
-                                        <a href="${root}/festival_Details/${result.event_no}">
+                                        <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
                                         </a>
                                     </h3>
@@ -136,13 +137,13 @@
                             <div class="card">
                                 <div class="card-content">
                                     <!-- 포스터 클릭 시 상세 페이지로 이동 -->
-                                    <a href="${root}/festival_Details/${result.event_no}">
+                                    <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
                                     <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
-                                        <a href="${root}/festival_Details/${result.event_no}">
+                                        <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
                                         </a>
                                     </h3>
