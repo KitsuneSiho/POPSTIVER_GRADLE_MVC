@@ -55,11 +55,13 @@ data: JSON.stringify({
 success: function(response) {
 // 업데이트 성공 시 처리할 코드
 alert("저장이 완료되었습니다!");
+window.location.href = "/free";
 // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
 },
 error: function(xhr, status, error) {
 // 실패 시 처리할 코드
 alert("게시글 저장 중 오류가 발생했습니다.");
+window.location.href = "/free";
 }
 });
 

@@ -49,11 +49,12 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deletePopup(int popup_no) throws Exception;
 
+
     //=====================================================================================//
     //                                   COMMUNITY BOARD                                   //
     //=====================================================================================//
-    public void insertCommunity (CommunityDTO communityDTO) throws Exception;
-
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception;
+    public List<CommunityDTO> selectAllCommunity() throws Exception;
     //=====================================================================================//
     //                                        NOTICE                                       //
     //=====================================================================================//
