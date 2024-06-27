@@ -30,6 +30,15 @@
         <td width=50><p align=center>조회수</p></td>
         <td width=50><p align=center>공식홈피</p></td>
         <td width=50><p align=center>공식SNS</p></td>
+        <td width=50><p align=center>태그1</p></td>
+        <td width=50><p align=center>태그2</p></td>
+        <td width=50><p align=center>태그3</p></td>
+        <td width=50><p align=center>태그4</p></td>
+        <td width=50><p align=center>태그5</p></td>
+
+
+
+
     </tr>
     <%-- JSTL의 choose태그 로 조건문 실행 --%>
     <%-- JSTL 태크안에 주석을 다니 실행이 안되서 주석은  --%>
@@ -69,6 +78,11 @@
                     <td width=50><p align=center>${f.views}</p></td>
                     <td width=50><p align=center>${f.brand_link}</p></td>
                     <td width=50><p align=center>${f.brand_sns}</p></td>
+                    <td width=50><p align=center>${f.festival_tag1}</p></td>
+                    <td width=50><p align=center>${f.festival_tag2}</p></td>
+                    <td width=50><p align=center>${f.festival_tag3}</p></td>
+                    <td width=50><p align=center>${f.festival_tag4}</p></td>
+                    <td width=50><p align=center>${f.festival_tag5}</p></td>
                 </tr>
             </c:forEach>
         </c:otherwise>

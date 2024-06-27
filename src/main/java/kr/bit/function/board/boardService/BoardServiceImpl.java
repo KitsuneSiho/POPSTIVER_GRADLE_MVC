@@ -38,12 +38,14 @@ public class BoardServiceImpl implements BoardService {
         this.insertFestival(new FestivalBoardDTO(0, "영등포페스티벌", "페스티벌에 어서 오셈", "서울시",
                 "서울시","영등포구","구로동", "2024-07-01", "2024-07-18",
                 "평일 오전9:00 ~ 오후4:00", null, "/resources/3412313.png",
-                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul",
+                 "tag1", "tag2", "tag3", "tag4", "tag5"));
 
         this.insertFestival(new FestivalBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
                 "서울시","송파구","잠실동", "2024-07-12", "2024-07-14",
                 "오후10:00", null, "/resources/42246264.png",
-                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
     }
 
@@ -71,7 +73,12 @@ public class BoardServiceImpl implements BoardService {
                 festivalBoardDTO.getLike_that(),
                 festivalBoardDTO.getViews(),
                 festivalBoardDTO.getBrand_link(),
-                festivalBoardDTO.getBrand_sns()
+                festivalBoardDTO.getBrand_sns(),
+                festivalBoardDTO.getFestival_tag1(),
+                festivalBoardDTO.getFestival_tag2(),
+                festivalBoardDTO.getFestival_tag3(),
+                festivalBoardDTO.getFestival_tag4(),
+                festivalBoardDTO.getFestival_tag5()
         ));
     }
 
@@ -90,7 +97,8 @@ public class BoardServiceImpl implements BoardService {
         assert festivalEntity != null; //ㅈㅁ
         return new FestivalBoardDTO(festivalEntity.getFestival_no(), festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(),
                 festivalEntity.getFestival_start(), festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_post_date(),
-                festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
+                festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns(),
+                festivalEntity.getFestival_tag1(), festivalEntity.getFestival_tag2(), festivalEntity.getFestival_tag3(), festivalEntity.getFestival_tag4(), festivalEntity.getFestival_tag5());
     }
 
     @Override
@@ -125,7 +133,12 @@ public class BoardServiceImpl implements BoardService {
                     boardEntities.get(i).getLike_that(),
                     boardEntities.get(i).getViews(),
                     boardEntities.get(i).getBrand_link(),
-                    boardEntities.get(i).getBrand_sns()
+                    boardEntities.get(i).getBrand_sns(),
+                    boardEntities.get(i).getFestival_tag1(),
+                    boardEntities.get(i).getFestival_tag2(),
+                    boardEntities.get(i).getFestival_tag3(),
+                    boardEntities.get(i).getFestival_tag4(),
+                    boardEntities.get(i).getFestival_tag5()
             ));
         }
         //그렇게 담겨진 리스트를 리턴한다.
@@ -147,10 +160,8 @@ public class BoardServiceImpl implements BoardService {
         //게시글 번호 바탕으로 게시글삭제
     }
 
-    //=====================================================================================//
-    //                                      POPUP                                          //
-    //=====================================================================================//
 
+    //--------------POPUP------------------------------------------------------------------------//
 
     @Override
     public void insertPopupManual() throws Exception {
@@ -271,48 +282,19 @@ public class BoardServiceImpl implements BoardService {
         // 게시글 번호 바탕으로 게시글 삭제
     }
 
-
-
-    //=====================================================================================//
-    //                                      NOTICE                                         //
-    //=====================================================================================//
     @Override
-    public List<NoticeDTO> selectAllNotice() throws Exception {
-        List<NoticeEntity> noticeEntities = null;
-        try {
-            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
-            // 리턴된 데이터를 Entities에 담는다.
-            noticeEntities = boardRepository.getNoticeRepo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // List<PopupDTO> 형의 변수를 하나 생성하고
-        List<NoticeDTO> noticeData = new ArrayList<>();
-        // for문을 써서 list 갯수 만큼 반복하면서,
-        for (int i = 0; i < noticeEntities.size(); i++) {
-            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
-            noticeData.add(new NoticeDTO(
-                    noticeEntities.get(i).getNotice_no(),
-                    noticeEntities.get(i).getNotice_title(),
-                    noticeEntities.get(i).getNotice_content(),
-                    noticeEntities.get(i).getNotice_date()
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception {
 
-            ));
-        }
-        // 그렇게 담겨진 리스트를 리턴한다.
-        return noticeData;
     }
 
+    @Override
+    public List<NoticeDTO> selectAllNotice() throws Exception {
+        return List.of();
+    }
 
     @Override
     public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
         return List.of();
     }
 
-    //=====================================================================================//
-    //                                     COMMUNITY                                       //
-    //=====================================================================================//
-    public void insertCommunity (CommunityDTO communityDTO) throws Exception{
-
-    }
 }

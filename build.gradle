@@ -79,9 +79,6 @@ dependencies {
     // RESTful 웹 서비스 기능을 위한 Spring Web 의존성
     implementation 'org.springframework:spring-web:6.1.8'
 
-    // JSON 처리 라이브러리 (이미 추가된 gson과 jackson)
-    implementation 'org.json:json:20210307'
-
 
     // Jackson-datatype
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1'

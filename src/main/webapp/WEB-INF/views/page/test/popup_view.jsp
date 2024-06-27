@@ -30,6 +30,12 @@
         <td width=50><p align=center>조회수</p></td>
         <td width=50><p align=center>공식홈피</p></td>
         <td width=50><p align=center>공식SNS</p></td>
+        <td width=50><p align=center>태그1</p></td>
+        <td width=50><p align=center>태그2</p></td>
+        <td width=50><p align=center>태그3</p></td>
+        <td width=50><p align=center>태그4</p></td>
+        <td width=50><p align=center>태그5</p></td>
+
     </tr>
     <c:choose>
         <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
@@ -62,6 +68,7 @@
                     <td width=50><p align=center>${p.views}</p></td>
                     <td width=50><p align=center>${p.brand_link}</p></td>
                     <td width=50><p align=center>${p.brand_sns}</p></td>
+
                 </tr>
             </c:forEach>
         </c:otherwise>
