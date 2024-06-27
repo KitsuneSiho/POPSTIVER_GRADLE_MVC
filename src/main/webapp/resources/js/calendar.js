@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
             .then(data => data.map(event => ({
                 title: event.title,
                 start: new Date(event.start_date),
-                url: generateEventUrl(event.event_type, event.event_no) // URL 필드 생성
+                url: generateEventUrl(event.event_type, event.event_no), // URL 필드 생성
+                className: `event-type-${event.event_type}` // 이벤트 타입에 따른 클래스 추가
 
             })))
             .catch(error => {
@@ -47,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
                 info.jsEvent.preventDefault();
                 window.location.href = info.event.url; // 클릭 시 URL로 이동
             },
+            eventDidMount: function(info) {
+                if (info.event.title.length > 18) { // 제목이 18자 이상일 경우
+                    info.el.querySelector('.fc-event-title').innerHTML = info.event.title.substring(0, 10) + '...';
+                }
+            }
 
         });
         calendar.render();
