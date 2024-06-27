@@ -5,7 +5,7 @@ body {
 }
 
 .loginTitle {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
     text-align: center;
     font-size: 25px;
@@ -17,7 +17,7 @@ body {
     width: 100%;
     margin: 3% auto;
     text-align: center;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 .naverLogin button,
@@ -63,7 +63,7 @@ body {
 .naverLogin button span,
 .kakaoLogin button span,
 .googleLogin button span {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 30px;
     position: absolute;
     left: 50%;

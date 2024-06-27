@@ -22,7 +22,7 @@ body {
 }
 
 .map h3 {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
     font-size: 40px;
     margin-left: 1%;
@@ -40,7 +40,6 @@ body {
     width: 90%; /* 전체 너비의 90%로 설정 */
     max-width: 1200px; /* 최대 너비 설정 */
     margin: 0 auto;
-    overflow: hidden; /* 넘치는 콘텐츠 처리 */
 }
 
 .searchList article {
@@ -162,7 +161,7 @@ body {
     padding: 10px;
     cursor: pointer;
     z-index: 10;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 #currentLocationButton img {
@@ -203,7 +202,7 @@ body {
     border-radius: 20px;
     border: 1px solid #2e2e2e;
     background-color: black;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     margin: 10px 0;
     color: white;
     cursor: pointer;
@@ -274,7 +273,7 @@ body {
     color: white;
     padding: 10px;
     border-radius: 5px;
-    font-family: 'KBO',sans-serif;
+    font-family: 'Pre',sans-serif;
     font-size: 16px;
 }
 
@@ -292,7 +291,7 @@ body {
     white-space: nowrap;
     padding: 5px;
     font-size: 20px;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 #currentLocationButton {
@@ -352,7 +351,7 @@ body {
 }
 
 .festivalModal-content h2 {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 30px;
     margin-bottom: 10px;
 }
@@ -360,7 +359,7 @@ body {
 .festivalModalAddress{
     display: flex;
     align-content: center;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 .festivalModal-content p {
     font-size: 18px;
@@ -373,7 +372,7 @@ body {
     display: inline-block;
     margin-top: 15px;
     font-size: 16px;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 .festivalModal-content a:visited{
