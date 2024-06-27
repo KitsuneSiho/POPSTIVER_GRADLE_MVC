@@ -1,5 +1,6 @@
 package kr.bit.function.board.boardService;
 
+import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
@@ -8,7 +9,9 @@ import java.util.List;
 
 public interface BoardService {
 
-    //--------------FSTIVAL BOARD-----------------------------------------------------------//
+    //=====================================================================================//
+    //                                      FESTIVAL                                       //
+    //=====================================================================================//
     public void insertFestivalManual() throws Exception; //페스티벌 보드 디비에 데이터 삽입
 
     //건내준 인자를 기반으로 데이터 삽입
@@ -26,7 +29,9 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deleteFestival(int festival_no) throws Exception;
 
-    //----------------POPUP BOARD----------------------------------------------------------------//
+    //=====================================================================================//
+    //                                        POPUP                                        //
+    //=====================================================================================//
     public void insertPopupManual() throws Exception; //팝업 보드 디비에 데이터 삽입
 
     //건내준 인자를 기반으로 데이터 삽입
@@ -44,10 +49,14 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deletePopup(int popup_no) throws Exception;
 
-    //----------------COMMUNITY BOARD-----------------------------------------------------------//
+    //=====================================================================================//
+    //                                   COMMUNITY BOARD                                   //
+    //=====================================================================================//
+    public void insertCommunity (CommunityDTO communityDTO) throws Exception;
 
-
-    //----------------NOTICE BOARD---------------------------------------------------------------//
+    //=====================================================================================//
+    //                                        NOTICE                                       //
+    //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
     public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;//특정공지내용출력
 }

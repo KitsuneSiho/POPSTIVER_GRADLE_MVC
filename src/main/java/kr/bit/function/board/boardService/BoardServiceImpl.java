@@ -1,9 +1,11 @@
 package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
+import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
 import kr.bit.function.board.boardEntity.NoticeEntity;
 import kr.bit.function.board.boardEntity.PopupEntity;
@@ -20,6 +22,11 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    //=====================================================================================//
+    //                                      FESTIVAL                                       //
+    //=====================================================================================//
+
 
     @Override
     public void insertFestivalManual() throws Exception{
@@ -140,7 +147,10 @@ public class BoardServiceImpl implements BoardService {
         //게시글 번호 바탕으로 게시글삭제
     }
 
-    //--------------POPUP------------------------------------------------------------------------//
+    //=====================================================================================//
+    //                                      POPUP                                          //
+    //=====================================================================================//
+
 
     @Override
     public void insertPopupManual() throws Exception {
@@ -297,5 +307,12 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
         return List.of();
+    }
+
+    //=====================================================================================//
+    //                                     COMMUNITY                                       //
+    //=====================================================================================//
+    public void insertCommunity (CommunityDTO communityDTO) throws Exception{
+
     }
 }

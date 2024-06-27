@@ -50,15 +50,15 @@ public class MemberController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
+                user_id = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
+                user_id = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
+                user_id = "naver" + naverResponse.getProviderId();
                 break;
         }
         // 회원 정보 저장
@@ -89,15 +89,15 @@ public class MemberController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
+                user_id = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
+                user_id = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
+                user_id = "naver" + naverResponse.getProviderId();
                 break;
         }
         System.out.println("수정할 아이디 : " + user_id);
@@ -116,15 +116,15 @@ public class MemberController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                userId = googleResponse.getProviderId();
+                userId = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                userId = kakaoResponse.getProviderId();
+                userId = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                userId = naverResponse.getProviderId();
+                userId = "naver" + naverResponse.getProviderId();
                 break;
         }
         System.out.println("토큰에서 받아온 사용자 아이디: " + userId);
@@ -142,16 +142,19 @@ public class MemberController {
 
             switch (provider) {
                 case "google":
-                    userId = new GoogleResponse((Map<String, Object>) attribute).getProviderId();
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    userId = "google" + googleResponse.getProviderId();
                     break;
                 case "kakao":
-                    userId = new KakaoResponse((Map<String, Object>) attribute).getProviderId();
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    userId = "kakao" + kakaoResponse.getProviderId();
                     break;
                 case "naver":
-                    userId = new NaverResponse((Map<String, Object>) attribute).getProviderId();
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    userId = "naver" + naverResponse.getProviderId();
                     break;
             }
-
+            System.out.println("토큰에서 받아온 탈퇴할 사용자 아이디: " + userId);
             if (userId != null) {
                 // DB에서 사용자 삭제
                 memberService.deleteUserByEmail(userId);
