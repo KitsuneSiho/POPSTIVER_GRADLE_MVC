@@ -1,15 +1,12 @@
 package kr.bit.function.page.pageController;
 
 
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.page.pageEntity.SearchResult;
 import kr.bit.function.page.pageService.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/main")  // "/main" 경로로 매핑되는 컨트롤러 클래스
-public class MainController {
+public class SearchController {
 
     @Autowired
     private SearchService searchService;
