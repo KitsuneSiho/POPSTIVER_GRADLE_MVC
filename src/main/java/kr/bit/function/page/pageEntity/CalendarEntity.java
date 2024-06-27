@@ -11,7 +11,8 @@ public class CalendarEntity {
 
     @Id
     private String title;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String type;
+    private String start_date;
+    private String end_date;
+    private String url; // 일정 제목 클릭시 이동할 url
+    private int event_type;
 }
