@@ -65,7 +65,7 @@
                 <c:forEach items="${list}" var="notice">
                     <tr>
                             <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
-                        <td><p><a href="notice_Details/${notice.notice_no}">${notice.notice_title}</a></p></td>
+                        <td><p><a href="contact/${notice.notice_no}">${notice.notice_title}</a></p></td>
                         <td ><p>관리자</p></td>
                         <td ><p>${notice.notice_date}</p></td>
 

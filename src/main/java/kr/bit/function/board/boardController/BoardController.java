@@ -4,13 +4,11 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
-import kr.bit.function.member.entity.MemberEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +16,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.member.dto.CustomOAuth2User;
-import kr.bit.function.member.dto.GoogleResponse;
-import kr.bit.function.member.dto.KakaoResponse;
-import kr.bit.function.member.dto.NaverResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -151,18 +136,20 @@ public class BoardController {
         return "page/board/contact";
     }
 
-    @RequestMapping(value = "/notice_Details/{notice_no}", method = RequestMethod.GET)
-    public String noticeDetails(@PathVariable("notice_no")int noticeNo, Model model) {
+    @RequestMapping(value = "/contact/{notice_no}", method = RequestMethod.GET)
+    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
+    public String selectOneNotice(@PathVariable("notice_no") int notice_no, Model model) {
         try {
-
-            NoticeDTO notice = (NoticeDTO) boardService.selectOneNotice(noticeNo);
-            model.addAttribute("notice", notice);
-
-        } catch (Exception e) {
+            //위에서 선언한 service의 selectOne()메소드 요청한다.
+            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
+            //selectOne메소드를 통해 나온 리턴값을 value로 해서
+            //'list'란 key값으로 model에 담는다.
+            model.addAttribute("notice",boardService.selectNoticeOne(notice_no));
+        }catch(Exception e) {
             e.printStackTrace();
         }
-
-        return "page/board/notice_Details";
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/noticeDetails";
     }
 
     //-------------------------------------------------------//

@@ -20,7 +20,7 @@ import java.util.List;
 @Repository
 public class BoardRepository {
     private static final Logger logger = LoggerFactory.getLogger(BoardRepository.class);
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate = null;
 
     //해당클래스의 로그를 가져옴
     @Autowired
@@ -253,25 +253,21 @@ public class BoardRepository {
      * @param notice_no : 게시글번호(notice_no)
      * @return BoardEntity  형태의 데이터
      */
-    public List<NoticeDTO> getNoticeOneRepo(int notice_no) throws Exception {
-        logger.info("getOneNotice"); //로그남기기
-        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
-        List<NoticeDTO> result = jdbcTemplate.query("select * from notice where notice_no=?;",  new RowMapper<NoticeDTO>() {
-            //콤마 뒤에 RowMapper 객체를 만든다.
-            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
-            //그리고 해당 결과를 results에 담는다.
-            @Override
-            public NoticeDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
-                NoticeDTO noticeDTO = new NoticeDTO();
-                noticeDTO.setNotice_no(rs.getInt("notice_no"));
-                noticeDTO.setNotice_title(rs.getString("notice_title"));
-                noticeDTO.setNotice_content(rs.getString("notice_content"));
-                noticeDTO.setNotice_date(rs.getString("notice_date"));
-                return noticeDTO;
-            }
-        },notice_no);
-        //데이터를 담은 List를 반환
-        return result;
+    public NoticeEntity getNoticeOneRepo(int notice_no) throws Exception{
+        List<NoticeEntity> result = jdbcTemplate.query(
+                "select * from notice where notice_no=?;",
+                new RowMapper<NoticeEntity>() {
+                    @Override
+                    public NoticeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        NoticeEntity noticeEntity = new NoticeEntity();
+                        noticeEntity.setNotice_no(rs.getInt("notice_no"));
+                        noticeEntity.setNotice_title(rs.getString("notice_title"));
+                        noticeEntity.setNotice_content(rs.getString("notice_content"));
+                        noticeEntity.setNotice_date(rs.getString("notice_date"));
+                        return noticeEntity;
+                    }
+                },notice_no);
+        return result.isEmpty() ? null : result.get(0);
     }
 
     //======================================================//

@@ -59,5 +59,5 @@ public interface BoardService {
     //                                        NOTICE                                       //
     //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
-    public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;//특정공지내용출력
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
 }

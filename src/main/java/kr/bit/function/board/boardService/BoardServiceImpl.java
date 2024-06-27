@@ -313,30 +313,14 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-    public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
-        List<NoticeDTO> noticeDTO = null;
-        try {
-            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
-            // 리턴된 데이터를 Entities에 담는다.
-            noticeDTO = boardRepository.getNoticeOneRepo(notice_no);
-        } catch (Exception e) {
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception{
+        NoticeEntity noticeEntity =null;
+        try{
+            noticeEntity = boardRepository.getNoticeOneRepo(notice_no);
+        }catch (Exception e){
             e.printStackTrace();
         }
-        // List<PopupDTO> 형의 변수를 하나 생성하고
-        List<NoticeDTO> noticeData = new ArrayList<>();
-        // for문을 써서 list 갯수 만큼 반복하면서,
-        for (int i = 0; i < noticeDTO.size(); i++) {
-            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
-            noticeData.add(new NoticeDTO(
-                    noticeDTO.get(i).getNotice_no(),
-                    noticeDTO.get(i).getNotice_title(),
-                    noticeDTO.get(i).getNotice_content(),
-                    noticeDTO.get(i).getNotice_date()
-
-            ));
-        }
-        // 그렇게 담겨진 리스트를 리턴한다.
-        return noticeData;
+        return new NoticeDTO(noticeEntity.getNotice_no(), noticeEntity.getNotice_title(), noticeEntity.getNotice_content(), noticeEntity.getNotice_date());
     }
 
     //=====================================================================================//
