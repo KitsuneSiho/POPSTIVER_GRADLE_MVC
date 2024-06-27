@@ -10,13 +10,9 @@ import java.util.List;
 @Mapper
 public interface CalendarMapper {
 
-    @Select("""
-        SELECT festival_title AS title, festival_start AS startDate, festival_end AS endDate, 'festival' AS type 
-        FROM festival 
-        UNION ALL 
-        SELECT popup_title AS title, popup_start AS startDate, popup_end AS endDate, 'popup' AS type
-        FROM popup
-        
-    """)
+    @Select("SELECT title, start_date, end_date, event_type " +
+            "FROM search_table ")
+
+
     List<CalendarEntity> findAll();
 }

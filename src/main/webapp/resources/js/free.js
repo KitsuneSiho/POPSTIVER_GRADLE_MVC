@@ -1,30 +1,5 @@
-
 const posts = [
-    { title: "안녕", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜비", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜밥", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "오오", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "롯데", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "이대호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "대~호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "붓싼갈메기", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "안녕", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜비", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜밥", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "오오", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "롯데", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "이대호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "대~호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "붓싼갈메기", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "안녕", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜비", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "뚜밥", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "오오", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "롯데", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "이대호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "대~호", author: "홍길동", date: "2024-06-12 15:12" },
-    { title: "붓싼갈메기", author: "홍길동", date: "2024-06-12 15:12" },
-
+    { board_title: "안녕", user_name: "홍길동", board_post_date: "2024-06-12 15:12" }
     // 더 많은 게시글을 여기 추가
 ];
 
@@ -41,7 +16,11 @@ function displayPosts(page) {
 
     pagePosts.forEach(post => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td><a href="#">${post.title}</a></td><td>${post.author}</td><td>${post.date}</td>`;
+        row.innerHTML = `
+            <td><p><a href="#">${post.board_title}</a></p></td>
+            <td><p>${post.user_name}</p></td>
+            <td><p>${post.board_post_date}</p></td>
+        `;
         boardBody.appendChild(row);
     });
 }
@@ -70,4 +49,3 @@ function setupPagination() {
 
 setupPagination();
 displayPosts(1);
-
