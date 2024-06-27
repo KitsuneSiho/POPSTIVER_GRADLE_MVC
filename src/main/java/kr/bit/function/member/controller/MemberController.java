@@ -166,16 +166,19 @@ public class MemberController {
 
             switch (provider) {
                 case "google":
-                    userId = new GoogleResponse((Map<String, Object>) attribute).getProviderId();
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    userId = "google" + googleResponse.getProviderId();
                     break;
                 case "kakao":
-                    userId = new KakaoResponse((Map<String, Object>) attribute).getProviderId();
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    userId = "kakao" + kakaoResponse.getProviderId();
                     break;
                 case "naver":
-                    userId = new NaverResponse((Map<String, Object>) attribute).getProviderId();
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    userId = "naver" + naverResponse.getProviderId();
                     break;
             }
-
+            System.out.println("토큰에서 받아온 탈퇴할 사용자 아이디: " + userId);
             if (userId != null) {
                 memberService.deleteUserByEmail(userId);
                 refreshTokenRepository.deleteRefreshTokensByUsername(userId);

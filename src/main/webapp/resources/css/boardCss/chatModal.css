@@ -19,7 +19,7 @@
     z-index: 1001;
     right: 20px;
     bottom: 80px;
-    width: 300px;
+    width: 400px; /* 기본 크기 증가 */
     max-width: calc(100% - 40px);
     height: auto;
     overflow: auto;
@@ -48,7 +48,7 @@
 }
 
 .chatBox {
-    height: 300px;
+    height: 400px; /* 기본 크기 증가 */
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -58,7 +58,7 @@
 }
 
 #chatInput {
-    width: calc(100% - 70px);
+    width: calc(100% - 80px); /* 너비 조정 */
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -70,7 +70,7 @@
 }
 
 #sendChatButton {
-    width: 60px;
+    width: 70px; /* 너비 조정 */
     background-color: #ffff33;
     border: none;
     border-radius: 5px;
@@ -84,11 +84,23 @@
 }
 
 /* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .chatModal {
+        right: 15px;
+        bottom: 70px;
+        width: 350px; /* 중간 크기 */
+    }
+
+    .chatBox {
+        height: 350px; /* 중간 크기 */
+    }
+}
+
 @media (max-width: 768px) {
     .chatModal {
         right: 10px;
         bottom: 70px;
-        width: 280px;
+        width: 300px; /* 작은 크기 */
     }
 
     .chatButton {
@@ -102,7 +114,7 @@
     }
 
     .chatBox {
-        height: 250px;
+        height: 300px; /* 작은 크기 */
     }
 }
 
@@ -111,18 +123,18 @@
         right: 10px;
         bottom: 60px;
         width: calc(100% - 20px);
-        max-width: 300px;
+        max-width: 300px; /* 최종 크기 */
     }
 
     .chatBox {
-        height: 200px;
+        height: 250px; /* 최종 크기 */
     }
 
     #chatInput {
-        width: calc(100% - 65px);
+        width: calc(100% - 65px); /* 너비 조정 */
     }
 
     #sendChatButton {
-        width: 55px;
+        width: 60px; /* 너비 조정 */
     }
 }

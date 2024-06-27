@@ -28,10 +28,9 @@ body {
 .business {
     font-family: 'KBO', sans-serif;
     color: white;
-    background-color: #333;
+    background: none;
     width: 80%;
     margin: 20px auto;
-    border-radius: 10px;
 }
 
 .business ul {
@@ -57,13 +56,14 @@ body {
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #555;
+    border-bottom: 1px solid #5e5e5e;
+    background: none;
     color: white;
     font-family: 'KBO', sans-serif;
     font-size: 18px;
     box-sizing: border-box;
     outline: none;
+    align-content: end;
 }
 
 .businessList .title,
