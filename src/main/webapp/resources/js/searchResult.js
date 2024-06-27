@@ -1,3 +1,20 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = [
+        { id: 'ongoingSection', contentId: 'ongoingContent', hasResults: hasOngoing },
+        { id: 'upcomingSection', contentId: 'upcomingContent', hasResults: hasUpcoming },
+        { id: 'endedSection', contentId: 'endedContent', hasResults: hasEnded }
+    ];
+
+    sections.forEach(section => {
+        if (section.hasResults) {
+            const sectionElement = document.getElementById(section.id);
+            const contentElement = document.getElementById(section.contentId);
+            contentElement.style.display = "block";
+            sectionElement.querySelector('img.arrow').classList.add("on");
+        }
+    });
+});
+
 function toggleSearchList(element) {
     var popupInfo = element.nextElementSibling;
     var arrow = element.querySelector('img.arrow');
