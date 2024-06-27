@@ -38,19 +38,24 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 throw new OAuth2AuthenticationException("Unsupported registration id: " + registrationId);
         }
 
-        String userId = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
+        String userId = (oAuth2Response.getProvider() + oAuth2Response.getProviderId()).replaceAll("\\s+", "");
         MemberEntity user = memberService.findById(userId);
 
         if (user == null) {
-            user = new MemberEntity();
-            user.setUser_id(userId);
-            user.setUser_email(oAuth2Response.getEmail());
-            user.setUser_name(oAuth2Response.getName());
-            user.setUser_type("ROLE_USER"); // Default to user type ROLE_USER
-            user.setUser_gender(oAuth2Response.getGender());
-            user.setUser_birth(oAuth2Response.getBirthYear() + oAuth2Response.getBirthday());
-            memberService.saveUser(user); // Save the new user to the database
-            System.out.println("New user saved: " + user);
+            // Save the user information in the session
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(userId);
+            userDTO.setName(oAuth2Response.getName());
+            userDTO.setUserType("ROLE_USER"); // Default to user type ROLE_USER
+            userDTO.setUserEmail(oAuth2Response.getEmail());
+            userDTO.setUserGender(oAuth2Response.getGender());
+            userDTO.setUserBirth(oAuth2Response.getBirthYear() + oAuth2Response.getBirthday());
+
+            // Store the userDTO in the session attribute
+            CustomOAuth2User customOAuth2User = new CustomOAuth2User(userDTO, oAuth2User.getAttributes());
+            customOAuth2User.setPendingRegistration(true);  // 사용자 등록이 필요함을 표시
+
+            return customOAuth2User;
         } else {
             user.setUser_email(oAuth2Response.getEmail());
             user.setUser_name(oAuth2Response.getName());
@@ -60,6 +65,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             System.out.println("Existing user updated: " + user);
         }
 
+        // Ensure the user_type is being read from the DB
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(user.getUser_id());
         userDTO.setName(user.getUser_name());

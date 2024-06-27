@@ -11,6 +11,8 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.web.SecurityFilterChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity

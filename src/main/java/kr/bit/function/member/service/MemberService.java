@@ -4,6 +4,7 @@ import kr.bit.function.member.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,17 +27,18 @@ public class MemberService {
         jdbcTemplate.update(sql, user.getUser_type(), user.getUser_nickname(), user.getUser_id());
     }
 
-//    public MemberEntity findById(String userId) {
-//        String sql = "SELECT * FROM user WHERE user_id = ?";
-//        return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(MemberEntity.class));
-//    }
-public MemberEntity findById(String userId) {
-    String trimmedUserId = userId.replaceAll("\\s+", "");
-    String sql = "SELECT * FROM user WHERE user_id = ?";
-    MemberEntity user = jdbcTemplate.queryForObject(sql, new Object[]{trimmedUserId}, new BeanPropertyRowMapper<>(MemberEntity.class));
-    System.out.println("User fetched from DB: " + user);
-    return user;
-}
+    public MemberEntity findById(String userId) {
+        String trimmedUserId = userId.replaceAll("\\s+", "");
+        String sql = "SELECT * FROM user WHERE user_id = ?";
+        try {
+            MemberEntity user = jdbcTemplate.queryForObject(sql, new Object[]{trimmedUserId}, new BeanPropertyRowMapper<>(MemberEntity.class));
+            System.out.println("User fetched from DB: " + user);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("User not found: " + e.getMessage());
+            return null;
+        }
+    }
 
     public void deleteUserByEmail(String userId) {
         String sql = "DELETE FROM user WHERE user_id = ?";
