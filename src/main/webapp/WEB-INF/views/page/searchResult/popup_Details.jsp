@@ -210,7 +210,7 @@
 
     var singleMap = new kakao.maps.Map(singleMapContainer, singleMapOption); // 지도를 생성합니다
 
-    geocoder.addressSearch("${festival.festival_location}", function(result, status) {
+    geocoder.addressSearch("${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}", function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
