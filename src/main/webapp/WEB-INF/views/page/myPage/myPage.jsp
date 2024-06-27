@@ -20,6 +20,11 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>

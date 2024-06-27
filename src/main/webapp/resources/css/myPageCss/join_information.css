@@ -11,7 +11,7 @@ body {
     justify-content: space-around;
     margin: 15px 0 20px;
     padding-bottom: 10px;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 
@@ -26,7 +26,7 @@ body {
 }
 
 .userInfo {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
     width: 80%;
     max-width: 800px;
@@ -59,7 +59,7 @@ body {
     border-bottom: 1px solid #5e5e5e;
     color: white;
     outline: none;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
     margin-top: 10px;
 }
@@ -72,7 +72,7 @@ body {
     border-radius: 5px;
     background-color: black;
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 18px;
     cursor: pointer;
 }
@@ -102,7 +102,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
     gap: 10px;
     margin-bottom: 20px;
@@ -115,7 +115,7 @@ body {
     border-radius: 5px;
     background-color: black;
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 18px;
     cursor: pointer;
 }
@@ -136,7 +136,7 @@ body {
     border: none;
     border-radius: 20px;
     background-color: #5e5e5e;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     margin: 10px 0;
     color: white;
     cursor: pointer;
@@ -155,7 +155,7 @@ body {
 }
 
 .infoModal-content {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -173,7 +173,7 @@ body {
 }
 
 .infoModal-content button {
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 16px;
