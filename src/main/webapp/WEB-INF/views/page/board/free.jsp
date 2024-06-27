@@ -63,11 +63,29 @@
         </tr>
         </thead>
         <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
+        <c:choose>
+            <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+            <c:when test="${empty list}">
+                <%-- 아래의 메시지를 출력한다. --%>
+                <tr>
+                    <td colspan=15>
+                        <spring:message code="common.listEmpty"/>
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
+                <c:forEach items="${list}" var="notice">
+                    <tr>
+                            <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
+                        <td><p><a href="notice_Details/${notice.notice_no}">${notice.notice_title}</a></p></td>
+                        <td ><p>관리자</p></td>
+                        <td ><p>${notice.notice_date}</p></td>
+
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
         </tbody>
     </table>
 </div>
