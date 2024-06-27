@@ -16,8 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,13 +33,12 @@ public class MemberController {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
-
     @PostMapping("/saveUser")
     public String saveUser(@RequestParam("user_email") String userEmail,
                            @RequestParam("user_name") String userName,
                            @RequestParam("user_birth") String userBirth,
                            @RequestParam("user_gender") String userGender,
-                           @RequestParam("user_type") int userType,
+                           @RequestParam("user_type") String userType,
                            @RequestParam("user_nickName") String userNickname,
                            @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
 
@@ -50,38 +49,33 @@ public class MemberController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
+                user_id = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
+                user_id = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
+                user_id = "naver" + naverResponse.getProviderId();
                 break;
         }
-        // 회원 정보 저장
+
         MemberEntity user = new MemberEntity();
-        user.setUser_type(userType); // user_type 필드 추가
+        user.setUser_type(userType);
         user.setUser_email(userEmail);
         user.setUser_name(userName);
         user.setUser_birth(userBirth);
         user.setUser_gender(userGender);
         user.setUser_id(user_id);
         user.setUser_nickname(userNickname);
-        System.out.println(user_id);
         memberService.saveUser(user);
 
-        // 저장 후에 어디로 이동할지 리다이렉트 경로를 반환
         return "redirect:/main";
     }
 
-    // 유저 정보 수정
-    @PutMapping("/updateUser")
-    @ResponseBody
-    public void updateUser(@RequestBody MemberEntity user, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
-
+    @GetMapping("/myPage")
+    public String myPage(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, Model model) {
         String provider = customOAuth2User.getProvider();
         Object attribute = customOAuth2User.getAttributes();
         String user_id = "";
@@ -89,50 +83,80 @@ public class MemberController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
+                user_id = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
+                user_id = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
+                user_id = "naver" + naverResponse.getProviderId();
                 break;
         }
-        System.out.println("수정할 아이디 : " + user_id);
-        System.out.println("수정된 이메일 : " + user.getUser_email());
-        memberService.updateUserInfo(user_id, user.getUser_email(), user.getUser_nickname());
+
+        MemberEntity user = memberService.findById(user_id);
+        model.addAttribute("user", user);
+
+        return "page/myPage/myPage";
     }
 
-    // 내 정보 페이지에서 사용자 정보 가져오는 것
+    @PutMapping("/updateUser")
+    @ResponseBody
+    public ResponseEntity<String> updateUser(@RequestBody MemberEntity updatedUser, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        String provider = customOAuth2User.getProvider();
+        Object attribute = customOAuth2User.getAttributes();
+        String user_id = "";
+
+        switch (provider) {
+            case "google":
+                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                user_id = "google" + googleResponse.getProviderId();
+                break;
+            case "kakao":
+                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                user_id = "kakao" + kakaoResponse.getProviderId();
+                break;
+            case "naver":
+                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                user_id = "naver" + naverResponse.getProviderId();
+                break;
+        }
+
+        MemberEntity existingUser = memberService.findById(user_id);
+        if (existingUser != null) {
+            existingUser.setUser_type(updatedUser.getUser_type());
+            existingUser.setUser_nickname(updatedUser.getUser_nickname());
+            memberService.updateUserInfo(existingUser);
+            return ResponseEntity.ok("User information updated successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
     @GetMapping("/getUserInfo")
     @ResponseBody
     public MemberEntity getUserInfo(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
-        // 세션에서 로그인한 사용자의 정보를 가져옴
         String provider = customOAuth2User.getProvider();
         Object attribute = customOAuth2User.getAttributes();
         String userId = "";
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                userId = googleResponse.getProviderId();
+                userId = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                userId = kakaoResponse.getProviderId();
+                userId = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                userId = naverResponse.getProviderId();
+                userId = "naver" + naverResponse.getProviderId();
                 break;
         }
-        System.out.println("토큰에서 받아온 사용자 아이디: " + userId);
-        MemberEntity user = memberService.findById(userId); // 아이디를 기준으로 사용자 정보 조회
-        return user;
+        return memberService.findById(userId);
     }
 
-    // 사용자 삭제
     @DeleteMapping("/deleteUser")
     public ResponseEntity<String> deleteUser(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         if (customOAuth2User != null) {
@@ -153,21 +177,11 @@ public class MemberController {
             }
 
             if (userId != null) {
-                // DB에서 사용자 삭제
                 memberService.deleteUserByEmail(userId);
-
-                // Refresh 토큰 삭제
                 refreshTokenRepository.deleteRefreshTokensByUsername(userId);
-
-                // 세션 무효화
                 session.invalidate();
-
-                // 모든 쿠키 삭제
                 clearAllCookies(request, response);
-
-                // 인증 정보 제거
                 SecurityContextHolder.clearContext();
-
                 return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
             }
         }

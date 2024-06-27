@@ -26,22 +26,8 @@ public class CustomOAuth2User implements OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        // userType에 따라 역할을 할당합니다.
         String userType = userDTO.getUserType();
-        switch (userType) {
-            case 1:
-                authorities.add(new SimpleGrantedAuthority("ROLE_HOST"));
-                break;
-            case 2:
-                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-                break;
-            case 3:
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                break;
-            default:
-                // 예외를 던져 잘못된 userType을 처리
-                throw new IllegalArgumentException("Invalid userType: " + userType);
-        }
+        authorities.add(new SimpleGrantedAuthority(userType));
         return authorities;
     }
 

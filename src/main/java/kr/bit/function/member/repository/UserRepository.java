@@ -35,7 +35,7 @@ public class UserRepository {
         public MemberEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
             MemberEntity user = new MemberEntity();
             user.setUser_no(rs.getInt("user_no"));
-            user.setUser_type(rs.getInt("user_type"));
+            user.setUser_type(rs.getString("user_type"));
             user.setUser_id(rs.getString("user_id"));
             user.setUser_name(rs.getString("user_name"));
             user.setUser_email(rs.getString("user_email"));

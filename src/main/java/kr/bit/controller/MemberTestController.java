@@ -29,15 +29,15 @@ public class MemberTestController {
         switch (provider) {
             case "google":
                 GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = googleResponse.getProviderId();
+                user_id = "google" + googleResponse.getProviderId();
                 break;
             case "kakao":
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = kakaoResponse.getProviderId();
+                user_id = "kakao" + kakaoResponse.getProviderId();
                 break;
             case "naver":
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = naverResponse.getProviderId();
+                user_id = "naver" + naverResponse.getProviderId();
                 break;
         }
 

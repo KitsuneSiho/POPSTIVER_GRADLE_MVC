@@ -1,10 +1,6 @@
 package kr.bit.config;
 
-import kr.bit.function.member.oauth2.CustomAuthorizationRequestResolver;
-import kr.bit.function.member.oauth2.CustomClientRegistrationRepo;
-import kr.bit.function.member.oauth2.CustomLogoutSuccessHandler;
-import kr.bit.function.member.oauth2.CustomOAuth2AuthorizedClientService;
-import kr.bit.function.member.oauth2.SocialClientRegistration;
+import kr.bit.function.member.oauth2.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -54,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/main", "/map", "/calendar", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
-                        .requestMatchers("/admin/chat").permitAll() // 일단 관리자 채팅 페이지 설정
+                        .requestMatchers("/admin/**").hasAuthority("ROLE_HOST") // 관리자 채팅 페이지 설정
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -62,6 +58,7 @@ public class SecurityConfig {
                         .clientRegistrationRepository(customClientRegistrationRepo.clientRegistrationRepository())
                         .authorizedClientService(customOAuth2AuthorizedClientService.oAuth2AuthorizedClientService(jdbcTemplate, customClientRegistrationRepo.clientRegistrationRepository()))
                         .defaultSuccessUrl("/login_success", true) // 로그인 성공 후 리디렉션할 URL 설정
+                        .successHandler(new CustomAuthenticationSuccessHandler()) // Custom 성공 핸들러 등록
                         .authorizationEndpoint(authorization ->
                                 authorization.authorizationRequestResolver(
                                         new CustomAuthorizationRequestResolver(customClientRegistrationRepo.clientRegistrationRepository())
