@@ -22,7 +22,6 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${root}/resources/js/myPage.js"></script>
 </head>
 
 <body>
@@ -45,10 +44,10 @@
             <li>
                 <span>회원 유형</span><br>
                 <div class="userType">
-                <input type="radio" id="host" name="user_type" value="1" ${user.user_type == 1 ? 'checked' : ''}>
-                <label for="host">주최자</label>
-                <input type="radio" id="user" name="user_type" value="2" ${user.user_type == 2 ? 'checked' : ''}>
-                <label for="user">사용자</label>
+                    <input type="radio" id="host" name="user_type" value="ROLE_HOST" <c:if test="${user.user_type == 'ROLE_HOST'}">checked</c:if>>
+                    <label for="host">주최자</label>
+                    <input type="radio" id="user" name="user_type" value="ROLE_USER" <c:if test="${user.user_type == 'ROLE_USER'}">checked</c:if>>
+                    <label for="user">사용자</label>
                 </div>
             </li>
             <li>
@@ -60,7 +59,7 @@
             <li>
                 <span>닉네임</span><br>
                 <label>
-                    <input type="text" name="user_nickName" value="${user.user_nickName}">
+                    <input type="text" id="user_nickName" name="user_nickName" value="${user.user_nickname}">
                 </label>
             </li>
             <li>
@@ -78,15 +77,14 @@
             <li>
                 <span>성별</span><br>
                 <div class="userGender">
-                <input type="radio" id="male" name="user_gender" value="male" ${user.user_gender == 'male' ? 'checked' : ''}>
-                <label for="male">남</label>
-                <input type="radio" id="female" name="user_gender" value="female" ${user.user_gender == 'female' ? 'checked' : ''}>
-                <label for="female">여</label>
+                    <input type="radio" id="male" name="user_gender" value="male" <c:if test="${user.user_gender == 'male'}">checked</c:if>>
+                    <label for="male">남</label>
+                    <input type="radio" id="female" name="user_gender" value="female" <c:if test="${user.user_gender == 'female'}">checked</c:if>>
+                    <label for="female">여</label>
                 </div>
             </li>
         </ul>
     </div>
-
 
     <div class="updateButton">
         <button type="button" id="editButton" onclick="enableEdit()">수정하기</button>
@@ -103,6 +101,7 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-</body>
 
+<script src="${root}/resources/js/myPage.js"></script>
+</body>
 </html>

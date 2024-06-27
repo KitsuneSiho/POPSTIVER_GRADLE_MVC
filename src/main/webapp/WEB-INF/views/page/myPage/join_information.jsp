@@ -47,10 +47,10 @@
             <li>
                 <span>회원 유형</span><br>
                 <div class="userType">
-                <input type="radio" id="host" name="user_type" value="1">
-                <label for="host">주최자</label>
-                <input type="radio" id="user" name="user_type" value="2" checked>
-                <label for="user">사용자</label>
+                    <input type="radio" id="host" name="user_type" value="ROLE_HOST">
+                    <label for="host">주최자</label>
+                    <input type="radio" id="user" name="user_type" value="ROLE_USER" checked>
+                    <label for="user">사용자</label>
                 </div>
             </li>
             <li>
