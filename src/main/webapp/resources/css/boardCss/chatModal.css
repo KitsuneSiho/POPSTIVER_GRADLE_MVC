@@ -23,7 +23,7 @@
     max-width: calc(100% - 40px);
     height: auto;
     overflow: auto;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 
@@ -65,7 +65,7 @@
     margin-bottom: 10px;
     background-color: #3e3e3e;
     color: white;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     box-sizing: border-box;
 }
 
@@ -76,7 +76,7 @@
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
 }
 
 #sendChatButton:hover {

@@ -21,15 +21,20 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
     </style>
 
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
-<div class="calenderTitle">
+<div class="calendarTitle">
     <h1>행사 일정</h1>
 </div>
 
-<div id='calender'></div>
+<div id='calendar'></div>
 <dialog>
     <button class="close-button">&times;</button>
     <div>제목 테스트</div>
