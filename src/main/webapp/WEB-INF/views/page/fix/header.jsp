@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="topSearchButton">
+    <div class="topSearchButton" id="searchButton">
         <button class="searchButton" id="searchButton">
             <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
         </button>

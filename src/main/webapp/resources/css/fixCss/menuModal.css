@@ -14,7 +14,7 @@
     display: flex;
     justify-content: space-around; /* 항목들을 가로로 배치하고 간격 맞춤 */
     list-style: none;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 30px;
     line-height: 1.8;
     padding: 0;

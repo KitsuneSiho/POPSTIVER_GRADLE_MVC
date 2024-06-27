@@ -21,6 +21,11 @@
             font-family: KBO;
             src: url('${root}/resources/font/KBO.ttf');
         }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
 </head>

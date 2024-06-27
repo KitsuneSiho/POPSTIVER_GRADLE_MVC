@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 추가한 스타일 */
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 400px;
+            width: 400px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -22,7 +31,9 @@
             <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
             <h2>성별 통계</h2>
             <!-- 성별 통계 내용 -->
-            <canvas id="genderChart"></canvas>
+            <div class="chart-container">
+                <canvas id="genderChart"></canvas>
+            </div>
             <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
@@ -51,6 +62,7 @@
             data: genderData,
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         position: 'top',

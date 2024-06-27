@@ -11,7 +11,7 @@ body {
     justify-content: space-around;
     margin: 15px 0 20px;
     padding-bottom: 10px;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 
@@ -31,7 +31,7 @@ body {
     width: 80%;
     margin: 0 auto;
     overflow: hidden;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     color: white;
 }
 .noticeDetails h1{
@@ -65,7 +65,7 @@ body {
     border-radius: 5px;
     background-color: #ffff33;
     color: black;
-    font-family: 'KBO', sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
