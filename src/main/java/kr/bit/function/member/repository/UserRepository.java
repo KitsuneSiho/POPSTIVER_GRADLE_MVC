@@ -17,8 +17,7 @@ public class UserRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UserRepository(JdbcTemplate jdbcTemplate) {  this.jdbcTemplate = jdbcTemplate;
     }
 
     public MemberEntity findByUserId(String userId) {

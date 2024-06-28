@@ -4,12 +4,15 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.tagext.Tag;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
 import kr.bit.function.member.entity.MemberEntity;
+import kr.bit.function.member.entity.UserTagEntity;
 import kr.bit.function.member.repository.RefreshTokenRepository;
+import kr.bit.function.member.repository.UserTagRepository;
 import kr.bit.function.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/member")
@@ -33,6 +38,7 @@ public class MemberController {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
+
     @PostMapping("/saveUser")
     public String saveUser(@RequestParam("user_email") String userEmail,
                            @RequestParam("user_name") String userName,
@@ -40,6 +46,7 @@ public class MemberController {
                            @RequestParam("user_gender") String userGender,
                            @RequestParam("user_type") String userType,
                            @RequestParam("user_nickName") String userNickname,
+                           @RequestParam("tags") String tags, // 추가
                            @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
 
         String provider = customOAuth2User.getProvider();
@@ -203,3 +210,6 @@ public class MemberController {
         }
     }
 }
+
+//태그
+
