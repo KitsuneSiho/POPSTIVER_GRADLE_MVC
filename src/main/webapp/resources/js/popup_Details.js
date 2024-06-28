@@ -39,9 +39,11 @@ function getUserInfoAndSetUserId() {
         $("#user_name").val(response.user_nickname);
 
         var userName = response.user_nickname;
+        var userType = response.user_type;
 
+        console.log(userType);
         // 삭제 버튼 표시 여부 업데이트
-        updateDeleteButtonVisibility(userName);
+        updateDeleteButtonVisibility(userName, userType);
 
       } else {
         console.error("사용자 정보를 가져오는 데 실패했습니다.");
@@ -53,12 +55,12 @@ function getUserInfoAndSetUserId() {
   });
 }
 
-function updateDeleteButtonVisibility(userName) {
+function updateDeleteButtonVisibility(userName, userType) {
   $('.delete').each(function () {
     var commentWriter = $(this).data('comment-writer'); // 댓글 작성자 가져오기
 
     // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
-    if (commentWriter === userName) {
+    if (commentWriter === userName || userType === 'ROLE_ADMIN') {
       $(this).show(); // 삭제 버튼 표시
     } else {
       $(this).hide(); // 삭제 버튼 숨김
