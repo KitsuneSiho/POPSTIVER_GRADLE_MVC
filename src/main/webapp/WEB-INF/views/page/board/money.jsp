@@ -75,7 +75,7 @@
         <li>
             <span>행사 내용</span>
             <label class="infoTextarea">
-                <textarea name="temp_content" placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10"></textarea>
+                <textarea name="temp_content" placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10" style="resize: none"></textarea>
             </label>
         </li>
         <li>
