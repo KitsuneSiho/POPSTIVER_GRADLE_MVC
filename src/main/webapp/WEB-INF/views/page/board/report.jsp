@@ -9,8 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<%--    <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">--%>
-<%--    c태그 페이지네이션이 안먹어서 일단 주석처리--%>
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">
+
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
     <style>
