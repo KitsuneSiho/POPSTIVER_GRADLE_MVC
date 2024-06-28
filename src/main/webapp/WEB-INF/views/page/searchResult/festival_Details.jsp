@@ -118,72 +118,65 @@
         <div class="detailInfoMap">
             <div id="singleMap"></div>
         </div>
-    <div class="detailInfoReview">
-        <p class="detailInfoReviewTitle">후기</p>
-        <p>댓글 1,234개</p>
-        <form method="post" onsubmit="submitForm(event)">
+        <div class="detailInfoReview">
+            <p class="detailInfoReviewTitle">후기</p>
+            <!-- 후기 개수 표시 -->
+            <p>댓글 ${allComments.size()}개</p>
+            <form method="post" onsubmit="submitForm(event)">
 
-            <input type="hidden" name="festival_no" value="${festival.festival_no}">
-            <input type="hidden" name="event_type" value="${festival.event_type}">
-            <input type="hidden" id="user_name" name="user_name" value="">
-            <input type="hidden" id="user_id" name="user_id" value="">
-            <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
-            <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
-            <div class="stars" id="starRating">
-                <span class="star" data-value="1">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="5">&#9733;</span>
-            </div>
-            <input type="hidden" name="star_rate" id="star_rate">
-            <button type="submit">등록</button>
-        </p>
-        <div class="detailInfoReviewTable">
-            <table>
-                <tr>
-                    <td>
-                        <div class="comment-header">
-                            <div class="name">제니</div>
-                            <div class="date">2024.06.01 오전 8:00</div>
-                        </div>
-                    </td>
-                    <td rowspan="3">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="댓글 이미지" class="comment-img">
-                    </td>
-                    <td>
-                        <div class="comment-text">안녕하세요 제니입니다.
-                        </div>
-                    </td>
-                    <td>
-                        <div class="stars">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                            <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="delete">
-                            <img src="${root}/resources/asset/삭제버튼.svg" alt="">
-                        </div>
-                    </td>
+                <input type="hidden" name="festival_no" value="${festival.festival_no}">
+                <input type="hidden" name="event_type" value="${festival.event_type}">
+                <input type="hidden" id="user_name" name="user_name" value="">
+                <input type="hidden" id="user_id" name="user_id" value="">
+                <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
+                <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                <div class="stars" id="starRating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" name="star_rate" id="star_rate">
+                <button type="submit">등록</button>
+            </form>
+           <div class="detailInfoReviewTable">
+               <table>
+                   <!-- 댓글을 반복하여 출력 -->
+                   <c:forEach var="comment" items="${allComments}">
+                       <tr>
+                           <td>
+                               <div class="comment-header">
+                                   <div class="name">${comment.comment_writer}</div>
+                                   <div class="date">${comment.visit_date}</div>
+                               </div>
+                           </td>
+                           <td>
+                               <div class="comment-text">${comment.comment_content}</div>
+                           </td>
+                           <td>
+                               <div class="star_rate">
 
-                </tr>
-
-
-            </table>
-
-        </div>
+                               </div>
+                           </td><td>
+                           <div class="star_rate">
+                               <c:forEach var="i" begin="1" end="5">
+                                   <span class="star ${i <= comment.star_rate ? 'selected' : ''}">&#9733;</span>
+                               </c:forEach>
+                           </div>
+                           <td>
+                               <div class="delete" onclick="deleteComment(${comment.comment_no})">
+                                   <img src="${root}/resources/asset/삭제버튼.svg" alt="">
+                               </div>
+                           </td>
+                       </tr>
+                   </c:forEach>
+               </table>
+           </div>
 
     </div>
     </div>
 </div>
-
-
-
-
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>

@@ -4,6 +4,7 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardService.BoardService;
+import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
@@ -30,6 +31,8 @@ public class BoardController {
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    @Autowired
+    private CommentService commentService;
 
 
     // 해당경로('프로젝트/보드이름')로 URL이동하면 해당 컨트롤러 메소드로 매핑된다.
@@ -87,6 +90,10 @@ public class BoardController {
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
+            // 모든 후기
+            List<FestivalCommentDTO> allComments = boardService.selectFestivalComment(festivalNo);
+            model.addAttribute("allComments", allComments);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,6 +111,11 @@ public class BoardController {
             // 모든 축제 정보
             List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
             model.addAttribute("allPopups", allPopups);
+
+            // 모든 후기
+            List<PopupCommentDTO> allComments = boardService.selectPopupComment(popupNo);
+            model.addAttribute("allComments", allComments);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,27 +223,7 @@ public class BoardController {
 
         @PutMapping("/insertWrite")
         @ResponseBody
-        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
-                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
-            String provider = customOAuth2User.getProvider();
-            Object attribute = customOAuth2User.getAttributes();
-            String user_id = "";
-
-            switch (provider) {
-                case "google":
-                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                    user_id = "google" + googleResponse.getProviderId();
-                    break;
-                case "kakao":
-                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                    user_id = "kakao" + kakaoResponse.getProviderId();
-                    break;
-                case "naver":
-                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                    user_id = "naver" + naverResponse.getProviderId();
-                    break;
-            }
-
+        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO){
             try {
                 System.out.println("제목:"+communityDTO.getBoard_title());
                 System.out.println("내용:"+communityDTO.getBoard_content());

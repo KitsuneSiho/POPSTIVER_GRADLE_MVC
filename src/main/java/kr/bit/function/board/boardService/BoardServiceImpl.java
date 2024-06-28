@@ -4,6 +4,7 @@ import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public BoardServiceImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     //=====================================================================================//
     //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
@@ -137,6 +144,41 @@ public class BoardServiceImpl implements BoardService {
         }
         //그렇게 담겨진 리스트를 리턴한다.
         return festivalData;
+    }
+
+    @Override
+    public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception {
+        // List<FestivalCommentEntity> 형태의 변수를 하나 만든다.
+        List<FestivalCommentEntity> festivalCommentEntities = null;
+        try {
+            // 레파지토리의 getFestivalComments() 메소드를 불러와서(DB 요청)
+            // 리턴된 데이터를 festivalCommentEntities에 담는다.
+            festivalCommentEntities = boardRepository.getFestivalComments(festival_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // List<FestivalCommentDTO>형의 변수를 하나 생성하고
+        List<FestivalCommentDTO> festivalCommentDTOs = new ArrayList<FestivalCommentDTO>();
+
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for(int i=0;i < festivalCommentEntities.size();i++) {
+            // festivalCommentEntities에 담겼던 모든 데이터들을 다시 FestivalCommentDTO 객체를 생성해서 거기에 담아 festivalCommentDTOs 리스트에 담는다.
+            festivalCommentDTOs.add(new FestivalCommentDTO(
+                    festivalCommentEntities.get(i).getComment_no(),
+                    festivalCommentEntities.get(i).getEvent_type(),
+                    festivalCommentEntities.get(i).getComment_writer(),
+                    festivalCommentEntities.get(i).getComment_date(),
+                    festivalCommentEntities.get(i).getVisit_date(),
+                    festivalCommentEntities.get(i).getComment_content(),
+                    festivalCommentEntities.get(i).getFestival_no(),
+                    festivalCommentEntities.get(i).getComment_attachment(),
+                    festivalCommentEntities.get(i).getStar_rate()
+            ));
+        }
+
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return festivalCommentDTOs;
     }
 
     @Override
@@ -292,6 +334,41 @@ public class BoardServiceImpl implements BoardService {
         // 게시글 번호 바탕으로 게시글 삭제
     }
 
+
+    @Override
+    public List<PopupCommentDTO> selectPopupComment(int popup_no) throws Exception {
+        // List<FestivalCommentEntity> 형태의 변수를 하나 만든다.
+        List<PopupCommentEntity> popupCommentEntities = null;
+        try {
+            // 레파지토리의 getFestivalComments() 메소드를 불러와서(DB 요청)
+            // 리턴된 데이터를 festivalCommentEntities에 담는다.
+            popupCommentEntities = boardRepository.getPopupComments(popup_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // List<FestivalCommentDTO>형의 변수를 하나 생성하고
+        List<PopupCommentDTO> popupCommentDTOs = new ArrayList<PopupCommentDTO>();
+
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for(int i=0;i < popupCommentEntities.size();i++) {
+            // festivalCommentEntities에 담겼던 모든 데이터들을 다시 FestivalCommentDTO 객체를 생성해서 거기에 담아 festivalCommentDTOs 리스트에 담는다.
+            popupCommentDTOs.add(new PopupCommentDTO(
+                    popupCommentEntities.get(i).getComment_no(),
+                    popupCommentEntities.get(i).getEvent_type(),
+                    popupCommentEntities.get(i).getComment_writer(),
+                    popupCommentEntities.get(i).getComment_date(),
+                    popupCommentEntities.get(i).getVisit_date(),
+                    popupCommentEntities.get(i).getComment_content(),
+                    popupCommentEntities.get(i).getPopup_no(),
+                    popupCommentEntities.get(i).getComment_attachment(),
+                    popupCommentEntities.get(i).getStar_rate()
+            ));
+        }
+
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return popupCommentDTOs;
+    }
 
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
