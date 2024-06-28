@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
 
@@ -187,14 +186,24 @@ public class MemberController {
                     userId = "naver" + naverResponse.getProviderId();
                     break;
             }
-            System.out.println("토큰에서 받아온 탈퇴할 사용자 아이디: " + userId);
+            System.out.println("탈퇴 요청을 받은 사용자 ID: " + userId);
+
             if (userId != null) {
-                memberService.deleteUserByEmail(userId);
-                refreshTokenRepository.deleteRefreshTokensByUsername(userId);
-                session.invalidate();
-                clearAllCookies(request, response);
-                SecurityContextHolder.clearContext();
-                return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+                try {
+                    // 사용자와 연관된 모든 데이터 삭제
+                    memberService.deleteRelatedData(userId);
+
+                    // 사용자 삭제
+                    memberService.deleteUserByEmail(userId);
+                    refreshTokenRepository.deleteRefreshTokensByUsername(userId);
+                    session.invalidate();
+                    clearAllCookies(request, response);
+                    SecurityContextHolder.clearContext();
+                    return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 탈퇴 중 오류가 발생했습니다.");
+                }
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다.");
@@ -211,6 +220,4 @@ public class MemberController {
             }
         }
     }
-
-
 }
