@@ -47,7 +47,7 @@
     <div class="popular">
         <div class="popularPosterText">
             <p class="popularText1">인기</p>
-            <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
+            <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
         </div>
         <div class="popularPoster">
             <div class="slide-container">
@@ -121,7 +121,7 @@
     <div class="open">
         <div class="openPosterText">
             <p class="openText1">오픈 예정</p>
-            <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
+            <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
         </div>
         <div class="openPoster">
             <div class="slide-container">

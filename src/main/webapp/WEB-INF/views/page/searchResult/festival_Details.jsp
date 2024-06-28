@@ -153,41 +153,37 @@
                 <button type="submit">등록</button>
                 </div>
             </form>
-           <div class="detailInfoReviewTable">
-               <table>
-                   <!-- 댓글을 반복하여 출력 -->
-                   <c:forEach var="comment" items="${allComments}">
-                       <tr>
-                           <td>
-                               <div class="comment-header">
-                                   <div class="name">${comment.comment_writer}</div>
-                                   <div class="date">${comment.visit_date}</div>
-                               </div>
-                           </td>
-                           <td>
-                               <div class="comment-text">${comment.comment_content}</div>
-                           </td>
-                           <td>
-                               <div class="star_rate">
+            <div class="detailInfoReviewTable">
+                <table>
+                    <!-- 댓글을 반복하여 출력 -->
+                    <c:forEach var="comment" items="${allComments}">
+                        <tr>
+                            <td>
+                                <div class="comment-header">
+                                    <div class="name">${comment.comment_writer}</div>
+                                    <div class="date">${comment.visit_date}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="comment-text">${comment.comment_content}</div>
+                            </td>
+                            <td class="star_rate">
+                                <c:forEach var="i" begin="1" end="5">
+                                    <span class="star ${i <= comment.star_rate ? 'selected' : ''}">&#9733;</span>
+                                </c:forEach>
+                            </td>
+                            <td>
+                                <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
+                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </div>
 
-                               </div>
-                           </td><td>
-                           <div class="star_rate">
-                               <c:forEach var="i" begin="1" end="5">
-                                   <span class="star ${i <= comment.star_rate ? 'selected' : ''}">&#9733;</span>
-                               </c:forEach>
-                           </div>
-                           <td>
-                            <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
-                               <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
-                            </div>
-                           </td>
-                       </tr>
-                   </c:forEach>
-               </table>
-           </div>
 
-    </div>
+        </div>
     </div>
 </div>
 

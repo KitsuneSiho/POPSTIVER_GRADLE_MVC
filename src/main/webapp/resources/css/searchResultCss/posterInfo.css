@@ -152,17 +152,27 @@ body {
 .detailInfoReview button:hover{
     background-color: #ffff3388;
 }
-.detailInfoReviewTable table{
+.detailInfoReviewTable table {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
 }
-.detailInfoReviewTable table td{
+
+.detailInfoReviewTable table td {
     padding: 10px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
 }
-.detailInfoReviewTable table tr{
-    border-bottom: 1px solid #2e2e2e;
+
+.detailInfoReviewTable table td.star_rate {
+    justify-content: flex-end; /* 별점 셀을 오른쪽 끝으로 정렬 */
 }
+
+.detailInfoReviewTable table tr {
+    border-bottom: 1px solid #7e7e7e;
+}
+
 .comment-header {
     align-items: center;
     margin-bottom: 10px;
@@ -277,7 +287,7 @@ body {
 }
 
 .star {
-    font-size: 30px;
+    font-size: 25px;
     color: #ddd; /* 기본 색상 */
     cursor: pointer;
 }
