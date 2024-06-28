@@ -45,6 +45,12 @@ public class MemberService {
         jdbcTemplate.update(sql, userId);
     }
 
+    public void deleteRelatedData(String userId) {
+        // 관련 데이터 삭제 예제 (community 테이블)
+        String deleteCommunitySql = "DELETE FROM community WHERE user_id = ?";
+        jdbcTemplate.update(deleteCommunitySql, userId);
+    }
+
     public boolean existsById(String userId) {
         String sql = "SELECT COUNT(*) FROM user WHERE user_id = ?";
         Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
