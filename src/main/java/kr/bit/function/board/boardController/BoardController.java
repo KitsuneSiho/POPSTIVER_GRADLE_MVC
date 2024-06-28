@@ -62,7 +62,6 @@ public class BoardController {
     public String home() {
         return "page/test/festival_page";
     }
-
     @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
     public String insert(Model model) {
         logger.info("festival_insert.jsp start");

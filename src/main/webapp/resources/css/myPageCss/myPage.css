@@ -229,3 +229,34 @@ body {
         font-size: 1rem;
     }
 }
+
+.nickname-container {
+    display: flex;
+    align-items: center;
+}
+
+.nickname-container input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.nickname-container button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.nickname-container button:hover{
+    background-color: #ffff3388;
+}
+
+#nicknameCheckResult {
+    display: block;
+    margin-top: 5px;
+}
