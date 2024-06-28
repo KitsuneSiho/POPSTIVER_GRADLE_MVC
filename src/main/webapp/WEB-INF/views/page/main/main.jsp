@@ -33,7 +33,7 @@
 <body>
 
 <div class="img-background">
-    <img src="${root}/resources/asset/메인배경.jpg" id="bg-img" alt="">
+    <img src="${root}/resources/asset/메인배경.png" id="bg-img" alt="">
 </div>
 
 <div class="container">
