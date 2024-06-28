@@ -161,7 +161,7 @@ body {
     padding: 10px;
 }
 .detailInfoReviewTable table tr{
-    border-bottom: 2px solid yellow;
+    border-bottom: 1px solid #2e2e2e;
 }
 .comment-header {
     align-items: center;
