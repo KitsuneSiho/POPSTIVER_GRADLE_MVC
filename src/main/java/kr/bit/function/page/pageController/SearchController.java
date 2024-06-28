@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/main")  // "/main" 경로로 매핑되는 컨트롤러 클래스
-public class MainController {
+public class SearchController {
 
     @Autowired
     private SearchService searchService;

@@ -31,7 +31,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //=====================================================================================//
-    //                                      FESTIVAL                                       //
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
     //=====================================================================================//
 
 
@@ -155,7 +155,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //=====================================================================================//
-    //                                      POPUP                                          //
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
 
 
@@ -282,7 +282,7 @@ public class BoardServiceImpl implements BoardService {
 
 
     //=====================================================================================//
-    //                                      NOTICE                                         //
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     @Override
     public List<NoticeDTO> selectAllNotice() throws Exception {
@@ -324,7 +324,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //=====================================================================================//
-    //                                     COMMUNITY                                       //
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
     //자유게시판 삽입
     @Override
@@ -361,5 +361,42 @@ public class BoardServiceImpl implements BoardService {
         }
         // 그렇게 담겨진 리스트를 리턴한다.
         return communityData;
+
     }
+
+    @Override
+    public CommunityDTO selectCommunityOne(int board_no) throws Exception{
+        CommunityEntity communityEntity =null;
+        try{
+            communityEntity = boardRepository.getCommunityOneRepo(board_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new CommunityDTO(
+                communityEntity.getBoard_no(),
+                communityEntity.getBoard_title(),
+                communityEntity.getBoard_content(),
+                communityEntity.getUser_id(),
+                communityEntity.getUser_name(),
+                communityEntity.getBoard_views(),
+                communityEntity.getBoard_attachment(),
+                communityEntity.getBoard_post_date());
+
+    }
+
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+
+
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
 }
