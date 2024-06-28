@@ -223,7 +223,7 @@
                 position: coords
             });
         } else {
-            alert('주소를 찾을 수 없습니다.');
+            alert('해당 행사의 주소는 상세페이지를 참고해주세요!');
         }
     });
 </script>
