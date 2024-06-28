@@ -54,11 +54,13 @@ public interface BoardService {
     //=====================================================================================//
     //                                   COMMUNITY BOARD                                   //
     //=====================================================================================//
-    public void insertCommunity(CommunityDTO communityDTO) throws Exception;
+    public List<NoticeDTO> insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectAllCommunity() throws Exception;
     //=====================================================================================//
     //                                        NOTICE                                       //
     //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
+
+    List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;
 }

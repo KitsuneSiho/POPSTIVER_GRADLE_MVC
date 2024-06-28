@@ -58,11 +58,11 @@ public class BoardRepository {
                 festivalEntity.setViews(rs.getInt("views"));
                 festivalEntity.setBrand_link(rs.getString("brand_link"));
                 festivalEntity.setBrand_sns(rs.getString("brand_sns"));
-                festivalEntity.setBrand_sns(rs.getString("festival_tag1"));
-                festivalEntity.setBrand_sns(rs.getString("festival_tag2"));
-                festivalEntity.setBrand_sns(rs.getString("festival_tag3"));
-                festivalEntity.setBrand_sns(rs.getString("festival_tag4"));
-                festivalEntity.setBrand_sns(rs.getString("festival_tag5"));
+                festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
 
                 return festivalEntity;
             }
@@ -169,6 +169,12 @@ public class BoardRepository {
                 popupEntity.setViews(rs.getInt("views"));
                 popupEntity.setBrand_link(rs.getString("brand_link"));
                 popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+
                 return popupEntity;
             }
         });
@@ -207,6 +213,12 @@ public class BoardRepository {
                         popupEntity.setViews(rs.getInt("views"));
                         popupEntity.setBrand_link(rs.getString("brand_link"));
                         popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                        popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                        popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                        popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                        popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                        popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+
                         return popupEntity;
                     }
                     //쿼리끝 ? 부분에 데이터를 넣는다
@@ -232,9 +244,11 @@ public class BoardRepository {
         //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
-                "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns, popup_tag1, popup_tag2, popup_tag3,popup_tag4, popup_tag5) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(), popupEntity.getPopup_start(),
-                popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+                popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns(),
+                popupEntity.getPopup_tag1(), popupEntity.getPopup_tag2(), popupEntity.getPopup_tag3(), popupEntity.getPopup_tag4(), popupEntity.getPopup_tag5()
+        );
     }
 
 

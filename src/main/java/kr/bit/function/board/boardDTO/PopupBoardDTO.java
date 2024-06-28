@@ -18,6 +18,11 @@ public class PopupBoardDTO {
     private int views; // 조회수
     private String brand_link; // 공식홈피링크
     private String brand_sns; // SNS링크
+    private String popup_tag1;
+    private String popup_tag2;
+    private String popup_tag3;
+    private String popup_tag4;
+    private String popup_tag5;
 
     // 빈 생성자
     public PopupBoardDTO() {
@@ -28,7 +33,8 @@ public class PopupBoardDTO {
     public PopupBoardDTO(int popup_no, String popup_title, String popup_content, String host, String popup_dist,
                          String popup_subdist, String popup_location, String popup_start, String popup_end,
                          String open_time, String popup_post_date, String popup_attachment,
-                         int event_type, int like_that, int views, String brand_link, String brand_sns) {
+                         int event_type, int like_that, int views, String brand_link, String brand_sns,
+                         String popup_tag1, String popup_tag2, String popup_tag3, String popup_tag4, String popup_tag5) {
         super();
         this.popup_no = popup_no;
         this.popup_title = popup_title;
@@ -47,6 +53,12 @@ public class PopupBoardDTO {
         this.views = views;
         this.brand_link = brand_link;
         this.brand_sns = brand_sns;
+        this.popup_tag1 = popup_tag1;
+        this.popup_tag2 = popup_tag2;
+        this.popup_tag3 = popup_tag3;
+        this.popup_tag4 = popup_tag4;
+        this.popup_tag5 = popup_tag5;
+
     }
 
     public int getPopup_no() {
@@ -184,4 +196,36 @@ public class PopupBoardDTO {
     public void setBrand_sns(String brand_sns) {
         this.brand_sns = brand_sns;
     }
+
+    public String getPopup_tag1() {
+        return popup_tag1;
+    }
+    public void setPopup_tag1(String popup_tag1) {
+        this.popup_tag1 = popup_tag1;
+    }
+    public String getPopup_tag2() {
+        return popup_tag2;
+    }
+    public void setPopup_tag2(String popup_tag2) {
+        this.popup_tag2 = popup_tag2;
+    }
+    public String getPopup_tag3() {
+        return popup_tag3;
+    }
+    public void setPopup_tag3(String popup_tag3) {
+        this.popup_tag3 = popup_tag3;
+    }
+    public String getPopup_tag4() {
+        return popup_tag4;
+    }
+    public void setPopup_tag4(String popup_tag4) {
+        this.popup_tag4 = popup_tag4;
+    }
+    public String getPopup_tag5() {
+        return popup_tag5;
+    }
+    public void setPopup_tag5(String popup_tag5) {
+        this.popup_tag5 = popup_tag5;
+    }
+
 }

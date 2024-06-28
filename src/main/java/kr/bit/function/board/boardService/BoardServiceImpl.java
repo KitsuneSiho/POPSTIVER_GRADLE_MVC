@@ -5,9 +5,7 @@ import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
-import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.NoticeEntity;
 import kr.bit.function.board.boardEntity.PopupEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -172,15 +170,17 @@ public class BoardServiceImpl implements BoardService {
         // PopupDto에 넣을 때 new를 통해 이름, 학번, 각 성적 데이터를 가진 객체를 만들어서 넣는다.
         // 이건 예시이고 JSP에서 게시글을 삽입할 때 해당 부분을 인자로 구현하면 편할 것이다.
 
-        this.insertPopup(new PopupBoardDTO(0, "영등포팝업", "팝업에 어서 오셈", "서울시",
-                "서울시", "영등포구", "구로동", "2024-07-01", "2024-07-18",
+        this.insertFestival(new FestivalBoardDTO(0, "영등포페스티벌", "페스티벌에 어서 오셈", "서울시",
+                "서울시","영등포구","구로동", "2024-07-01", "2024-07-18",
                 "평일 오전9:00 ~ 오후4:00", null, "/resources/3412313.png",
-                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
-        this.insertPopup(new PopupBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
-                "서울시", "송파구", "잠실동", "2024-07-12", "2024-07-14",
+        this.insertFestival(new FestivalBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
+                "서울시","송파구","잠실동", "2024-07-12", "2024-07-14",
                 "오후10:00", null, "/resources/42246264.png",
-                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
     }
 
@@ -208,7 +208,12 @@ public class BoardServiceImpl implements BoardService {
                 popupBoardDTO.getLike_that(),
                 popupBoardDTO.getViews(),
                 popupBoardDTO.getBrand_link(),
-                popupBoardDTO.getBrand_sns()
+                popupBoardDTO.getBrand_sns(),
+                popupBoardDTO.getPopup_tag1(),
+                popupBoardDTO.getPopup_tag2(),
+                popupBoardDTO.getPopup_tag3(),
+                popupBoardDTO.getPopup_tag4(),
+                popupBoardDTO.getPopup_tag5()
         ));
     }
 
@@ -227,7 +232,9 @@ public class BoardServiceImpl implements BoardService {
         assert popupEntity != null;
         return new PopupBoardDTO(popupEntity.getPopup_no(), popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(),
                 popupEntity.getPopup_start(), popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_post_date(),
-                popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+                popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns(),
+                popupEntity.getPopup_tag1(), popupEntity.getPopup_tag2(), popupEntity.getPopup_tag3(), popupEntity.getPopup_tag4(), popupEntity.getPopup_tag5()
+        );
     }
 
     @Override
@@ -262,7 +269,12 @@ public class BoardServiceImpl implements BoardService {
                     popupEntities.get(i).getLike_that(),
                     popupEntities.get(i).getViews(),
                     popupEntities.get(i).getBrand_link(),
-                    popupEntities.get(i).getBrand_sns()
+                    popupEntities.get(i).getBrand_sns(),
+                    popupEntities.get(i).getPopup_tag1(),
+                    popupEntities.get(i).getPopup_tag2(),
+                    popupEntities.get(i).getPopup_tag3(),
+                    popupEntities.get(i).getPopup_tag4(),
+                    popupEntities.get(i).getPopup_tag5()
             ));
         }
         // 그렇게 담겨진 리스트를 리턴한다.
@@ -285,88 +297,28 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertCommunity(CommunityDTO communityDTO) throws Exception {
-
-
-    //=====================================================================================//
-    //                                      NOTICE                                         //
-    //=====================================================================================//
-    @Override
-    public List<NoticeDTO> selectAllNotice() throws Exception {
-        List<NoticeEntity> noticeEntities = null;
-        try {
-            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
-            // 리턴된 데이터를 Entities에 담는다.
-            noticeEntities = boardRepository.getNoticeRepo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // List<PopupDTO> 형의 변수를 하나 생성하고
-        List<NoticeDTO> noticeData = new ArrayList<>();
-        // for문을 써서 list 갯수 만큼 반복하면서,
-        for (int i = 0; i < noticeEntities.size(); i++) {
-            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
-            noticeData.add(new NoticeDTO(
-                    noticeEntities.get(i).getNotice_no(),
-                    noticeEntities.get(i).getNotice_title(),
-                    noticeEntities.get(i).getNotice_content(),
-                    noticeEntities.get(i).getNotice_date()
-
-            ));
-        }
-        // 그렇게 담겨진 리스트를 리턴한다.
-        return noticeData;
+    public List<NoticeDTO> insertCommunity(CommunityDTO communityDTO) throws Exception {
+        return List.of();
     }
 
-
-    @Override
-    public NoticeDTO selectNoticeOne(int notice_no) throws Exception{
-        NoticeEntity noticeEntity =null;
-        try{
-            noticeEntity = boardRepository.getNoticeOneRepo(notice_no);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return new NoticeDTO(noticeEntity.getNotice_no(), noticeEntity.getNotice_title(), noticeEntity.getNotice_content(), noticeEntity.getNotice_date());
-    }
-
-    //=====================================================================================//
-    //                                     COMMUNITY                                       //
-    //=====================================================================================//
-    //자유게시판 삽입
-    @Override
-    public void insertCommunity(CommunityDTO communityDTO) throws Exception {
-        boardRepository.insertCommunityRepo(communityDTO);
-    }
-    //자유게시판 출력
     @Override
     public List<CommunityDTO> selectAllCommunity() throws Exception {
-        List<CommunityEntity> communityEntities = null;
-        try {
-            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
-            // 리턴된 데이터를 Entities에 담는다.
-            communityEntities = boardRepository.getCommunityRepo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // List<PopupDTO> 형의 변수를 하나 생성하고
-        List<CommunityDTO> communityData = new ArrayList<>();
-        // for문을 써서 list 갯수 만큼 반복하면서,
-        for (int i = 0; i < communityEntities.size(); i++) {
-            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
-            communityData.add(new CommunityDTO(
-                    communityEntities.get(i).getBoard_no(),
-                    communityEntities.get(i).getBoard_title(),
-                    communityEntities.get(i).getBoard_content(),
-                    communityEntities.get(i).getUser_id(),
-                    communityEntities.get(i).getUser_name(),
-                    communityEntities.get(i).getBoard_views(),
-                    communityEntities.get(i).getBoard_post_date(),
-                    communityEntities.get(i).getBoard_attachment()
-
-            ));
-        }
-        // 그렇게 담겨진 리스트를 리턴한다.
-        return communityData;
+        return List.of();
     }
-}
+
+    @Override
+        public List<NoticeDTO> selectAllNotice() throws Exception {
+            return List.of();
+        }
+
+    @Override
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception {
+        return null;
+    }
+
+    @Override
+        public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
+            return List.of();
+        }
+
+    }

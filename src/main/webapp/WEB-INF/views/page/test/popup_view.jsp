@@ -68,6 +68,11 @@
                     <td width=50><p align=center>${p.views}</p></td>
                     <td width=50><p align=center>${p.brand_link}</p></td>
                     <td width=50><p align=center>${p.brand_sns}</p></td>
+                            <td width=50><p align=center>${p.popup_tag1}</p></td>
+                            <td width=50><p align=center>${p.popup_tag2}</p></td>
+                            <td width=50><p align=center>${p.popup_tag3}</p></td>
+                            <td width=50><p align=center>${p.popup_tag4}</p></td>
+                            <td width=50><p align=center>${p.popup_tag5}</p></td>
 
                 </tr>
             </c:forEach>
