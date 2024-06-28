@@ -3,10 +3,7 @@ package kr.bit.function.board.boardDAO;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardDTO.TemporaryPostDTO;
-import kr.bit.function.board.boardEntity.CommunityEntity;
-import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.NoticeEntity;
-import kr.bit.function.board.boardEntity.PopupEntity;
+import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +124,34 @@ public class BoardRepository {
                 "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(), festivalEntity.getFestival_start(),
                 festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
+    }
+
+    public List<FestivalCommentEntity> getFestivalComments(int festival_no) throws Exception {
+        List<FestivalCommentEntity> result = jdbcTemplate.query(
+                "select * from festival_comment where festival_no=?;", //쿼리문
+                new RowMapper<FestivalCommentEntity>() {
+                    @Override
+                    public FestivalCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        FestivalCommentEntity festivalCommentEntity = new FestivalCommentEntity();
+                        festivalCommentEntity.setComment_no(rs.getInt("comment_no"));
+                        festivalCommentEntity.setEvent_type(rs.getInt("event_type"));
+                        festivalCommentEntity.setComment_writer(rs.getString("comment_writer"));
+                        festivalCommentEntity.setComment_date(rs.getString("comment_date"));
+                        festivalCommentEntity.setVisit_date(rs.getString("visit_date"));
+                        festivalCommentEntity.setComment_content(rs.getString("comment_content"));
+                        festivalCommentEntity.setFestival_no(rs.getInt("festival_no"));
+                        festivalCommentEntity.setComment_attachment(rs.getString("comment_attachment"));
+                        festivalCommentEntity.setStar_rate(rs.getInt("star_rate"));
+
+                        return festivalCommentEntity;
+                    }
+                    //쿼리끝 ? 부분에 데이터를 넣는다
+                }, festival_no);
+        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
+        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
+        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
+        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+        return result;
     }
 
     //=====================================================================================//

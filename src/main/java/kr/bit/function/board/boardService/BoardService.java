@@ -26,6 +26,10 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deleteFestival(int festival_no) throws Exception;
 
+    // 해당 게시글 번호를 가진 댓글 전체 출력
+    public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception;
+
+
     //=====================================================================================//
     //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//

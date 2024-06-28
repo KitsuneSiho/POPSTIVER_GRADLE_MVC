@@ -2,11 +2,9 @@ package kr.bit.function.board.boardController;
 
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
-import kr.bit.function.board.boardDTO.TemporaryPostDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardService.BoardService;
+import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
@@ -33,6 +31,8 @@ public class BoardController {
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    @Autowired
+    private CommentService commentService;
 
 
     // 해당경로('프로젝트/보드이름')로 URL이동하면 해당 컨트롤러 메소드로 매핑된다.
@@ -89,6 +89,10 @@ public class BoardController {
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
+            // 모든 후기
+            List<FestivalCommentDTO> allComments = boardService.selectFestivalComment(festivalNo);
+            model.addAttribute("allComments", allComments);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,6 +110,11 @@ public class BoardController {
             // 모든 축제 정보
             List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
             model.addAttribute("allPopups", allPopups);
+
+            // 모든 후기
+            List<PopupCommentDTO> allComments = commentService.selectPopupComment(popupNo);
+            model.addAttribute("allComments", allComments);
+
 
         } catch (Exception e) {
             e.printStackTrace();

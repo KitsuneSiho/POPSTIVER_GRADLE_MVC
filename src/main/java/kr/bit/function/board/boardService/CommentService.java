@@ -3,8 +3,11 @@ package kr.bit.function.board.boardService;
 import kr.bit.function.board.boardDTO.FestivalCommentDTO;
 import kr.bit.function.board.boardDTO.PopupCommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 
 @Repository
@@ -41,4 +44,5 @@ public class CommentService {
                 popupCommentDTO.getStar_rate()
         );
     }
+
 }
