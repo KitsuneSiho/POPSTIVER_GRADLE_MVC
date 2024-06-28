@@ -2,6 +2,7 @@ package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
+import kr.bit.function.board.boardDTO.TemporaryPostDTO;
 import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
 import kr.bit.function.board.boardEntity.NoticeEntity;
@@ -28,7 +29,9 @@ public class BoardRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    //-----------------FESTIVAL TABLE-------------------------------------//
+    //=====================================================================================//
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
+    //=====================================================================================//
 
     //festival 테이블 출력
     public List<FestivalEntity> getFestivalRepo() throws Exception {
@@ -126,7 +129,9 @@ public class BoardRepository {
                 festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
     }
 
-    //----------------------------POPUP TABLE--------------------------------------//
+    //=====================================================================================//
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
+    //=====================================================================================//
 
     //popup 테이블 출력
     public List<PopupEntity> getPopupRepo() throws Exception {
@@ -226,12 +231,12 @@ public class BoardRepository {
 
 
     //=====================================================================================//
-    //                                 NOTICE  공지게시판                                    //
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     public List<NoticeEntity> getNoticeRepo() throws Exception {
         logger.info("getAllNotice"); //로그남기기
         //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
-        List<NoticeEntity> result = jdbcTemplate.query("select * from notice;",  new RowMapper<NoticeEntity>() {
+        List<NoticeEntity> result = jdbcTemplate.query("select * from notice  ORDER BY notice_date DESC;",  new RowMapper<NoticeEntity>() {
             //콤마 뒤에 RowMapper 객체를 만든다.
             //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
             //그리고 해당 결과를 results에 담는다.
@@ -270,14 +275,14 @@ public class BoardRepository {
         return result.isEmpty() ? null : result.get(0);
     }
 
-    //======================================================//
-    //                    COMMUNITY 자유게시판                //
-    //======================================================//
+    //=====================================================================================//
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
+    //=====================================================================================//
 
     public List<CommunityEntity> getCommunityRepo() throws Exception {
         logger.info("getAllCommunity"); //로그남기기
         //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
-        List<CommunityEntity> result = jdbcTemplate.query("select * from community;",  new RowMapper<CommunityEntity>() {
+        List<CommunityEntity> result = jdbcTemplate.query("select * from community ORDER BY board_post_date DESC;",  new RowMapper<CommunityEntity>() {
             //콤마 뒤에 RowMapper 객체를 만든다.
             //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
             //그리고 해당 결과를 results에 담는다.
@@ -304,36 +309,28 @@ public class BoardRepository {
      * @param notice_no : 게시글번호(notice_no)
      * @return BoardEntity  형태의 데이터
      */
-    public CommunityEntity getCommunityByCommunityNoRepo(int board_no) throws Exception {
-        //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
-        //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
-        //전체 출력 메소드와 매우 흡사하다
+    /*
+     * 특정 게시물을 출력하기.
+     * @param notice_no : 게시글번호(notice_no)
+     * @return BoardEntity  형태의 데이터
+     */
+    public CommunityEntity getCommunityOneRepo(int board_no) throws Exception{
         List<CommunityEntity> result = jdbcTemplate.query(
-                "select * from community where board_no=?;", //쿼리문
+                "select * from community where board_no=?;",
                 new RowMapper<CommunityEntity>() {
                     @Override
                     public CommunityEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
                         CommunityEntity communityEntity = new CommunityEntity();
-                        communityEntity.setBoard_no(rs.getInt("board_no"));
                         communityEntity.setBoard_title(rs.getString("board_title"));
                         communityEntity.setBoard_content(rs.getString("board_content"));
-                        communityEntity.setUser_id(rs.getString("user_id"));
-                        communityEntity.setUser_name(rs.getString("user_name"));
+                        communityEntity.setUser_name(rs.getNString("user_name"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
-                        communityEntity.setBoard_views(rs.getInt("board_views"));
-                        communityEntity.setBoard_attachment(rs.getString("board_attachment"));
-
                         return communityEntity;
                     }
-                    //쿼리끝 ? 부분에 데이터를 넣는다
-                }, board_no);
-        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
-        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
-        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
-        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+                },board_no);
         return result.isEmpty() ? null : result.get(0);
-
     }
+
     public void insertCommunityRepo(CommunityDTO communityDTO) {
         String sql = "INSERT INTO community (board_title, board_content, user_id, user_name) VALUES (?, ?, ?, ?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
@@ -343,5 +340,31 @@ public class BoardRepository {
                 communityDTO.getUser_name()
                  );
     }
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+    public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end) VALUES (?,?,?,?,?,?)";
+        // board_view 값은 일단 하드코딩으로 1로 지정
+        jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
+                temporaryPostDTO.getTemp_content(),
+                temporaryPostDTO.getTemp_host(),
+                temporaryPostDTO.getTemp_location(),
+                temporaryPostDTO.getTemp_start(),
+                temporaryPostDTO.getTemp_end()
+        );
+    }
+    
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
 
 }
+
+//커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결

@@ -10,8 +10,8 @@ import java.util.List;
 @Mapper
 public interface CalendarMapper {
 
-    @Select("SELECT title, start_date, end_date, event_type " +
-            "FROM search_table ")
+    @Select("SELECT event_no, title, start_date, end_date, event_type " +
+            "FROM search_table2 ")
 
 
     List<CalendarEntity> findAll();

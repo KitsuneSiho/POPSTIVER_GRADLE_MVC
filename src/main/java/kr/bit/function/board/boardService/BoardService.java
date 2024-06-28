@@ -1,16 +1,13 @@
 package kr.bit.function.board.boardService;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 
 import java.util.List;
 
 public interface BoardService {
 
     //=====================================================================================//
-    //                                      FESTIVAL                                       //
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
     //=====================================================================================//
     public void insertFestivalManual() throws Exception; //페스티벌 보드 디비에 데이터 삽입
 
@@ -30,7 +27,7 @@ public interface BoardService {
     public void deleteFestival(int festival_no) throws Exception;
 
     //=====================================================================================//
-    //                                        POPUP                                        //
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
     public void insertPopupManual() throws Exception; //팝업 보드 디비에 데이터 삽입
 
@@ -51,13 +48,29 @@ public interface BoardService {
 
 
     //=====================================================================================//
-    //                                   COMMUNITY BOARD                                   //
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
     public void insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectAllCommunity() throws Exception;
+    public CommunityDTO selectCommunityOne(int board_no) throws Exception;
     //=====================================================================================//
-    //                                        NOTICE                                       //
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception;
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
+
+
 }

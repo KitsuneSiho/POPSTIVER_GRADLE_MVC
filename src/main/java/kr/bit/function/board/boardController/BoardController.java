@@ -5,6 +5,7 @@ import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.TemporaryPostDTO;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
@@ -33,6 +34,7 @@ public class BoardController {
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
+
     // 해당경로('프로젝트/보드이름')로 URL이동하면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/testfestival", method = RequestMethod.GET)
     public String festival() {
@@ -51,7 +53,10 @@ public class BoardController {
         return "page/test/festival_menu";
     }
 
-    //-----------------------FESTIVAL------------------------//
+    //=====================================================================================//
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
+    //=====================================================================================//
+
     //URL에 '/page'를 더 적으면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/festival_page", method = RequestMethod.GET)
     public String home() {
@@ -123,7 +128,10 @@ public class BoardController {
         }
         return "page/test/festival_view";
     }
-    //----------------------POPUP-------------------------------//
+    //=====================================================================================//
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
+    //=====================================================================================//
+
     @RequestMapping(value = "/popup_view", method = RequestMethod.GET)
     public String viewPopup(Model model) {
         //log임
@@ -139,9 +147,9 @@ public class BoardController {
         return "page/test/popup_view";
     }
 
-    //-------------------------------------------------------//
-    //                        NOTICE                         //
-    //-------------------------------------------------------//
+    //=====================================================================================//
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
+    //=====================================================================================//
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {
@@ -170,20 +178,33 @@ public class BoardController {
         return "page/board/noticeDetails";
     }
 
-    //-------------------------------------------------------//
+    //=====================================================================================//
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
+    //=====================================================================================//
 
-
-    //------------------------------------------------------//
-    //                    COMMUNITY 자유게시판                //
-    //------------------------------------------------------//
     @RequestMapping(value = "/free", method = RequestMethod.GET)
     public String communityBoardList(Model model){
         try{
-            model.addAttribute("list", boardService.selectAllCommunity());
+            model.addAttribute("community_list", boardService.selectAllCommunity());
         }catch (Exception e){
             e.printStackTrace();
         }
         return "page/board/free";
+    }
+    @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
+    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
+    public String selectCommunityOne(@PathVariable("board_no") int board_no, Model model) {
+        try {
+            //위에서 선언한 service의 selectOne()메소드 요청한다.
+            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
+            //selectOne메소드를 통해 나온 리턴값을 value로 해서
+            //'list'란 key값으로 model에 담는다.
+            model.addAttribute("community",boardService.selectCommunityOne(board_no));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/communityDetails";
     }
 
     @RequestMapping(value = "/freeBoard")
@@ -206,6 +227,56 @@ public class BoardController {
         }
     }
     // 자유 게시판 글 등록
+
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+    @RequestMapping(value = "/money")
+    @Controller
+    class InsertBusinessController{
+
+        @PutMapping("/register")
+        @ResponseBody
+        public void registerBusiness(@RequestBody TemporaryPostDTO temporaryPostDTO,
+                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertBusiness(temporaryPostDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
 
 
 
