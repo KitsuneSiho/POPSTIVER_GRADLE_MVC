@@ -67,23 +67,13 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li><img src="${root}/resources/asset/조회수.svg" alt="">
-                <p>123</p></li>
+            <li><button>${festival.festival_tag1}</button></li>
+            <li><button>${festival.festival_tag2}</button></li>
+            <li><button>${festival.festival_tag3}</button></li>
+            <li><button>${festival.festival_tag4}</button></li>
+            <li><button>${festival.festival_tag5}</button></li>
+
+            <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
@@ -148,7 +138,7 @@
             </div>
             <input type="hidden" name="star_rate" id="star_rate">
             <button type="submit">등록</button>
-        </form>
+        </p>
         <div class="detailInfoReviewTable">
             <table>
                 <tr>

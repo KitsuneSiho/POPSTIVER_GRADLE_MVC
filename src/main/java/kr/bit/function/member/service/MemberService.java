@@ -45,9 +45,22 @@ public class MemberService {
         jdbcTemplate.update(sql, userId);
     }
 
+    public void deleteRelatedData(String userId) {
+        // 관련 데이터 삭제 예제 (community 테이블)
+        String deleteCommunitySql = "DELETE FROM community WHERE user_id = ?";
+        jdbcTemplate.update(deleteCommunitySql, userId);
+    }
+
     public boolean existsById(String userId) {
         String sql = "SELECT COUNT(*) FROM user WHERE user_id = ?";
         Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+        return count != null && count > 0;
+    }
+
+    // 닉네임 중복 확인 메서드 추가
+    public boolean existsByNickname(String nickname) {
+        String sql = "SELECT COUNT(*) FROM user WHERE user_nickname = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{nickname}, Integer.class);
         return count != null && count > 0;
     }
 }

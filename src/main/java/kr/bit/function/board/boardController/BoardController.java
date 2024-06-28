@@ -2,9 +2,7 @@ package kr.bit.function.board.boardController;
 
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
@@ -61,6 +59,7 @@ public class BoardController {
     public String home() {
         return "page/test/festival_page";
     }
+
     @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
     public String insert(Model model) {
         logger.info("festival_insert.jsp start");
@@ -250,13 +249,93 @@ public class BoardController {
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
+    @RequestMapping(value = "/money")
+    @Controller
+    class InsertBusinessController{
 
+        @PutMapping("/register")
+        @ResponseBody
+        public void registerBusiness(@RequestBody TemporaryPostDTO temporaryPostDTO,
+                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertBusiness(temporaryPostDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
 
+    @RequestMapping(value = "/report")
+    @Controller
+    class InsertReportController{
+
+        @PutMapping("/reportWrite")
+        @ResponseBody
+        public void registerReport(@RequestBody ReportDTO reportDTO,
+                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertReport(reportDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public String report(Model model) {
+        try {
+            model.addAttribute("report_list",boardService.selectReportAll());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/report";
+    }
 
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
