@@ -2,10 +2,9 @@ package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardEntity.CommunityEntity;
-import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.NoticeEntity;
-import kr.bit.function.board.boardEntity.PopupEntity;
+import kr.bit.function.board.boardDTO.ReportDTO;
+import kr.bit.function.board.boardDTO.TemporaryPostDTO;
+import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -369,13 +368,67 @@ public class BoardRepository {
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
-    
+    public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end) VALUES (?,?,?,?,?,?)";
+        // board_view 값은 일단 하드코딩으로 1로 지정
+        jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
+                temporaryPostDTO.getTemp_content(),
+                temporaryPostDTO.getTemp_host(),
+                temporaryPostDTO.getTemp_location(),
+                temporaryPostDTO.getTemp_start(),
+                temporaryPostDTO.getTemp_end()
+        );
+    }
     
 
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
+    public void insertReportRepo(ReportDTO reportDTO) {
+        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns) VALUES (?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, reportDTO.getReport_title(),
+                reportDTO.getReport_content(),
+                reportDTO.getReport_host(),
+                reportDTO.getReport_location(),
+                reportDTO.getReport_start(),
+                reportDTO.getReport_end(),
+                reportDTO.getBrand_link(),
+                reportDTO.getBrand_sns()
+        );
+    }
 
+    public List<ReportEntity> getReportRepo() throws Exception {
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+        List<ReportEntity> result = jdbcTemplate.query("select * from report ORDER BY report_post_date DESC;",  new RowMapper<ReportEntity>() {
+            //콤마 뒤에 RowMapper 객체를 만든다.
+            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
+            //그리고 해당 결과를 results에 담는다.
+            @Override
+            public ReportEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                ReportEntity reportEntity = new ReportEntity();
+                reportEntity.setReport_no(rs.getInt("report_no"));
+                reportEntity.setReport_title(rs.getString("report_title"));
+                reportEntity.setReport_content(rs.getString("report_content"));
+                reportEntity.setReport_host(rs.getString("report_host"));
+                reportEntity.setReport_dist(rs.getString("report_dist"));
+                reportEntity.setReport_subdist(rs.getString("report_subdist"));
+                reportEntity.setReport_location(rs.getString("report_location"));
+                reportEntity.setReport_start(rs.getString("report_start"));
+                reportEntity.setReport_end(rs.getString("report_end"));
+                reportEntity.setOpen_time(rs.getString("open_time"));
+                reportEntity.setReport_attachment(rs.getString("report_attachment"));
+                reportEntity.setEvent_type(rs.getInt("event_type"));
+                reportEntity.setBrand_link(rs.getString("brand_link"));
+                reportEntity.setBrand_sns(rs.getString("brand_sns"));
+                reportEntity.setReport_post_date(rs.getString("report_post_date"));
+                reportEntity.setUser_id(rs.getString("user_id"));
+                reportEntity.setUser_name(rs.getString("user_name"));
+                return reportEntity;
+            }
+        });
+        //데이터를 담은 List를 반환
+        return result;
+    }
 
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //

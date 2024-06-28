@@ -15,7 +15,7 @@ public class ReportDTO {
     private int event_type;
     private String brand_link;
     private String brand_sns;
-    private String report_date;
+    private String report_post_date;
     private String user_id;
     private String user_name;
 
@@ -37,6 +37,7 @@ public class ReportDTO {
                      int event_type,
                      String brand_link,
                      String brand_sns,
+                     String report_post_date,
                      String user_id,
                      String user_name) {
         super();
@@ -54,6 +55,7 @@ public class ReportDTO {
         this.event_type = event_type;
         this.brand_link = brand_link;
         this.brand_sns = brand_sns;
+        this.report_post_date = report_post_date;
         this.user_id = user_id;
         this.user_name = user_name;
     }
@@ -170,12 +172,12 @@ public class ReportDTO {
         this.brand_sns = brand_sns;
     }
 
-    public String getReport_date() {
-        return report_date;
+    public String getReport_post_date() {
+        return report_post_date;
     }
 
-    public void setReport_date(String report_date) {
-        this.report_date = report_date;
+    public void setReport_post_date(String report_post_date) {
+        this.report_post_date = report_post_date;
     }
 
     public String getUser_id() {

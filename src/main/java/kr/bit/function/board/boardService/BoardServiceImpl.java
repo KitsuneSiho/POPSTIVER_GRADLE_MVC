@@ -1,16 +1,9 @@
 package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
-import kr.bit.function.board.boardEntity.CommunityEntity;
-import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.NoticeEntity;
-import kr.bit.function.board.boardEntity.PopupEntity;
+import kr.bit.function.board.boardDTO.*;
+import kr.bit.function.board.boardEntity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,12 +16,6 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
-
-    private final JdbcTemplate jdbcTemplate;
-
-    public BoardServiceImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     //=====================================================================================//
     //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
@@ -45,12 +32,14 @@ public class BoardServiceImpl implements BoardService {
         this.insertFestival(new FestivalBoardDTO(0, "영등포페스티벌", "페스티벌에 어서 오셈", "서울시",
                 "서울시","영등포구","구로동", "2024-07-01", "2024-07-18",
                 "평일 오전9:00 ~ 오후4:00", null, "/resources/3412313.png",
-                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul",
+                 "tag1", "tag2", "tag3", "tag4", "tag5"));
 
         this.insertFestival(new FestivalBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
                 "서울시","송파구","잠실동", "2024-07-12", "2024-07-14",
                 "오후10:00", null, "/resources/42246264.png",
-                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
     }
 
@@ -78,7 +67,12 @@ public class BoardServiceImpl implements BoardService {
                 festivalBoardDTO.getLike_that(),
                 festivalBoardDTO.getViews(),
                 festivalBoardDTO.getBrand_link(),
-                festivalBoardDTO.getBrand_sns()
+                festivalBoardDTO.getBrand_sns(),
+                festivalBoardDTO.getFestival_tag1(),
+                festivalBoardDTO.getFestival_tag2(),
+                festivalBoardDTO.getFestival_tag3(),
+                festivalBoardDTO.getFestival_tag4(),
+                festivalBoardDTO.getFestival_tag5()
         ));
     }
 
@@ -97,7 +91,8 @@ public class BoardServiceImpl implements BoardService {
         assert festivalEntity != null; //ㅈㅁ
         return new FestivalBoardDTO(festivalEntity.getFestival_no(), festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(),
                 festivalEntity.getFestival_start(), festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_post_date(),
-                festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
+                festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns(),
+                festivalEntity.getFestival_tag1(), festivalEntity.getFestival_tag2(), festivalEntity.getFestival_tag3(), festivalEntity.getFestival_tag4(), festivalEntity.getFestival_tag5());
     }
 
     @Override
@@ -132,7 +127,12 @@ public class BoardServiceImpl implements BoardService {
                     boardEntities.get(i).getLike_that(),
                     boardEntities.get(i).getViews(),
                     boardEntities.get(i).getBrand_link(),
-                    boardEntities.get(i).getBrand_sns()
+                    boardEntities.get(i).getBrand_sns(),
+                    boardEntities.get(i).getFestival_tag1(),
+                    boardEntities.get(i).getFestival_tag2(),
+                    boardEntities.get(i).getFestival_tag3(),
+                    boardEntities.get(i).getFestival_tag4(),
+                    boardEntities.get(i).getFestival_tag5()
             ));
         }
         //그렇게 담겨진 리스트를 리턴한다.
@@ -166,15 +166,17 @@ public class BoardServiceImpl implements BoardService {
         // PopupDto에 넣을 때 new를 통해 이름, 학번, 각 성적 데이터를 가진 객체를 만들어서 넣는다.
         // 이건 예시이고 JSP에서 게시글을 삽입할 때 해당 부분을 인자로 구현하면 편할 것이다.
 
-        this.insertPopup(new PopupBoardDTO(0, "영등포팝업", "팝업에 어서 오셈", "서울시",
-                "서울시", "영등포구", "구로동", "2024-07-01", "2024-07-18",
+        this.insertFestival(new FestivalBoardDTO(0, "영등포페스티벌", "페스티벌에 어서 오셈", "서울시",
+                "서울시","영등포구","구로동", "2024-07-01", "2024-07-18",
                 "평일 오전9:00 ~ 오후4:00", null, "/resources/3412313.png",
-                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 567, 1039, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
-        this.insertPopup(new PopupBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
-                "서울시", "송파구", "잠실동", "2024-07-12", "2024-07-14",
+        this.insertFestival(new FestivalBoardDTO(0, "한강불꽃축제", "국내최대불꽃축제!", "서울시",
+                "서울시","송파구","잠실동", "2024-07-12", "2024-07-14",
                 "오후10:00", null, "/resources/42246264.png",
-                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul"));
+                2, 2055, 32144, "www.seoul.go.kr", "www.instagram.Seoul",
+                "tag1", "tag2", "tag3", "tag4", "tag5"));
 
     }
 
@@ -202,7 +204,12 @@ public class BoardServiceImpl implements BoardService {
                 popupBoardDTO.getLike_that(),
                 popupBoardDTO.getViews(),
                 popupBoardDTO.getBrand_link(),
-                popupBoardDTO.getBrand_sns()
+                popupBoardDTO.getBrand_sns(),
+                popupBoardDTO.getPopup_tag1(),
+                popupBoardDTO.getPopup_tag2(),
+                popupBoardDTO.getPopup_tag3(),
+                popupBoardDTO.getPopup_tag4(),
+                popupBoardDTO.getPopup_tag5()
         ));
     }
 
@@ -221,7 +228,9 @@ public class BoardServiceImpl implements BoardService {
         assert popupEntity != null;
         return new PopupBoardDTO(popupEntity.getPopup_no(), popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(),
                 popupEntity.getPopup_start(), popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_post_date(),
-                popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+                popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns(),
+                popupEntity.getPopup_tag1(), popupEntity.getPopup_tag2(), popupEntity.getPopup_tag3(), popupEntity.getPopup_tag4(), popupEntity.getPopup_tag5()
+        );
     }
 
     @Override
@@ -256,7 +265,12 @@ public class BoardServiceImpl implements BoardService {
                     popupEntities.get(i).getLike_that(),
                     popupEntities.get(i).getViews(),
                     popupEntities.get(i).getBrand_link(),
-                    popupEntities.get(i).getBrand_sns()
+                    popupEntities.get(i).getBrand_sns(),
+                    popupEntities.get(i).getPopup_tag1(),
+                    popupEntities.get(i).getPopup_tag2(),
+                    popupEntities.get(i).getPopup_tag3(),
+                    popupEntities.get(i).getPopup_tag4(),
+                    popupEntities.get(i).getPopup_tag5()
             ));
         }
         // 그렇게 담겨진 리스트를 리턴한다.
@@ -277,8 +291,6 @@ public class BoardServiceImpl implements BoardService {
     public void deletePopup(int popup_no) throws Exception {
         // 게시글 번호 바탕으로 게시글 삭제
     }
-
-
 
 
     //=====================================================================================//
@@ -383,17 +395,65 @@ public class BoardServiceImpl implements BoardService {
                 communityEntity.getBoard_post_date());
 
     }
-
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
 
+    //주최자 등록
+    @Override
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception {
+        boardRepository.insertBusinessRepo(temporaryPostDTO);
+    }
 
 
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
+    @Override
+    public void insertReport(ReportDTO reportDTO) throws Exception {
+        boardRepository.insertReportRepo(reportDTO);
+    }
 
+    //리포트 목록 출력
+    @Override
+    public List<ReportDTO> selectReportAll() throws Exception {
+        List<ReportEntity> reportEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            reportEntities = boardRepository.getReportRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<ReportDTO> reportData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < reportEntities.size(); i++) {
+            // ReportEntities에 담겼던 모든 데이터들을 다시 ReportDTO 객체를 생성해서 거기에 담아 reportData 리스트에 담는다.
+            reportData.add(new ReportDTO(
+                    reportEntities.get(i).getReport_no(),
+                    reportEntities.get(i).getReport_title(),
+                    reportEntities.get(i).getReport_content(),
+                    reportEntities.get(i).getReport_host(),
+                    reportEntities.get(i).getReport_dist(),
+                    reportEntities.get(i).getReport_subdist(),
+                    reportEntities.get(i).getReport_location(),
+                    reportEntities.get(i).getReport_start(),
+                    reportEntities.get(i).getReport_end(),
+                    reportEntities.get(i).getOpen_time(),
+                    reportEntities.get(i).getReport_attachment(),
+                    reportEntities.get(i).getEvent_type(),
+                    reportEntities.get(i).getBrand_link(),
+                    reportEntities.get(i).getBrand_sns(),
+                    reportEntities.get(i).getReport_post_date(),
+                    reportEntities.get(i).getUser_id(),
+                    reportEntities.get(i).getUser_name()
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return reportData;
+
+    }
 
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //

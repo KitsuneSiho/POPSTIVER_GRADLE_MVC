@@ -1,9 +1,6 @@
 package kr.bit.function.board.boardService;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 
 import java.util.List;
 
@@ -64,12 +61,13 @@ public interface BoardService {
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
-
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception;
 
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
-
+    public void insertReport(ReportDTO reportDTO) throws Exception;
+    public List<ReportDTO> selectReportAll() throws Exception;
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//

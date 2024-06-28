@@ -1,13 +1,15 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/boardCss/reportDetails.css">
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/reportWrite.css">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
     <style>
@@ -26,68 +28,90 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/reportWrite.js"></script>
 </head>
+
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="${root}/contact">
+    <a href="contact">
         <h2>공지사항</h2>
     </a>
-    <a href="${root}/money">
+    <a href="money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a class="on" href="${root}/report">
+    <a class="on" href="report">
         <h2>제보하기</h2>
     </a>
-    <a href="${root}/together">
+    <a href="together">
         <h2>동행구하기</h2>
     </a>
-    <a href="${root}/free">
+    <a href="free">
         <h2>자유게시판</h2>
     </a>
 </div>
-<%-- JSTL의 choose태그 로 조건문 실행 --%>
-<div class="notice">
-    <div class="noticeDetails">
-        <%-- 코드를 출력한다????? --%>
-        <%-- list를 출력한다.  --%>
-        <c:choose>
-            <%-- 만약 model데 담긴 list의 값이 비어있다면 --%>
-            <c:when test="${empty notice}">
-                <%-- 아래의 메시지를 출력한다. --%>
-                <h1>본 요청은 정상적이지 않으며, 해킹의 가능성이 있어 당신의 IP는 경찰에 고발조치 되었습니다.</h1>
 
-            </c:when>
-            <%-- 그렇지 않으면  --%>
-            <c:otherwise>
-                <%-- 아래 내용을 출력한다. --%>
-                <h1>${notice.notice_title}</h1>
-                <div class="writerDate">
-                    <p>작성자 : 관리자</p>
-                    <p>${notice.notice_date}</p>
-                </div>
-                <div class="noticeText">
-                    <p>${notice.notice_content}</p>
-                </div>
-                <div class="type">
-                    <p>유형 : </p>
-                </div>
-                <div class="address">
-                    <p>주소 : </p>
-                </div>
-                <div class="date">
-                    <p>행사기간 : </p>
-                </div>
-            </c:otherwise>
-        </c:choose>
-        <div class="listButton">
-            <button onclick="window.location.href='${root}/contact'">목록</button>
-        </div>
+    <div class="business">
+        <ul class="businessList">
+            <li>
+                <span>제목</span>
+                <label class="title">
+                    <input type="text" name="report_title" placeholder="30자 이내로 입력해주세요">
+                </label>
+            </li>
+            <li>
+                <span>유형</span>
+                <input type="radio" id="culture" name="event_type" value="1" checked>
+                <label for="festival">문화·전통체험</label>
+                <input type="radio" id="festival" name="event_type" value="2">
+                <label for="festival">지역 페스티벌</label>
+                <input type="radio" id="popup-store" name="event_type" value="3">
+                <label for="popup-store">팝업 스토어</label>
+            </li>
+            <li>
+                <span>행사 내용</span>
+                <label class="infoTextarea">
+                    <textarea name="report_content" placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10"></textarea>
+                </label>
+            </li>
+            <li>
+                <span>주소</span>
+                <label class="addressLabel">
+                    <input type="text" name="report_location">
+                </label>
+                <button class="searchAddress" type="button">주소 검색</button>
+            </li>
+            <li>
+                <span>행사기간</span>
+                <label class="dateLabel">
+                    <input type="date" class="date" name="report_start">
+                </label>
+                <p>부터</p>
+                <label class="dateLabel">
+                    <input type="date" class="date" name="report_end">
+                </label>
+                <p>까지</p>
+            </li>
+            <li>
+                <span>주최하는 곳</span>
+                <input type="text" class="host" name="report_host">
+            </li>
+            <li>
+                <span>링크</span>
+                <p>공식홈페이지</p>
+                <input type="text" class="brand_link" name="brand_link">
+                <p>SNS</p>
+                <input type="text" class="brand_sns" name="brand_sns">
 
+            </li>
+        </ul>
     </div>
 
-</div>
+    <div class="listButton">
+        <button onclick="window.location.href='${root}/report'">목록으로</button>
+    </div>
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 
@@ -102,9 +126,7 @@
         <button id="sendChatButton">보내기</button>
     </div>
 </div>
-
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
