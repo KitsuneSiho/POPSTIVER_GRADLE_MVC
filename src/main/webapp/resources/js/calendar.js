@@ -20,7 +20,9 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
             })))
             .catch(error => {
                 console.error('Error fetching events:', error);
-                alert('Error fetching events. Please try again later.');
+                if (confirm('로그인 후 이용해주세요.')) {
+                    window.location.href = '/login'; // 로그인 화면으로 매핑
+                }
             });
     }
     function generateEventUrl(eventType, eventNo) {
