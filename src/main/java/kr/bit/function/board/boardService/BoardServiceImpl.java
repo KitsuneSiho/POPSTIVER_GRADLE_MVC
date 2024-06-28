@@ -292,16 +292,6 @@ public class BoardServiceImpl implements BoardService {
         // 게시글 번호 바탕으로 게시글 삭제
     }
 
-    @Override
-    public List<NoticeDTO> insertCommunity(CommunityDTO communityDTO) throws Exception {
-        return List.of();
-    }
-
-    @Override
-    public List<CommunityDTO> selectAllCommunity() throws Exception {
-        return List.of();
-    }
-
 
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
@@ -364,6 +354,20 @@ public class BoardServiceImpl implements BoardService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<CommunityDTO> communityData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < communityEntities.size(); i++) {
+            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
+            communityData.add(new CommunityDTO(
+                    communityEntities.get(i).getBoard_no(),
+                    communityEntities.get(i).getBoard_title(),
+                    communityEntities.get(i).getBoard_content(),
+                    communityEntities.get(i).getUser_id(),
+                    communityEntities.get(i).getUser_name(),
+                    communityEntities.get(i).getBoard_views(),
+                    communityEntities.get(i).getBoard_post_date(),
+                    communityEntities.get(i).getBoard_attachment()
 
             ));
         }
@@ -391,7 +395,6 @@ public class BoardServiceImpl implements BoardService {
                 communityEntity.getBoard_post_date());
 
     }
-
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
