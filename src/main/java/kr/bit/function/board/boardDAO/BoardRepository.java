@@ -52,6 +52,12 @@ public class BoardRepository {
                 festivalEntity.setViews(rs.getInt("views"));
                 festivalEntity.setBrand_link(rs.getString("brand_link"));
                 festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                festivalEntity.setBrand_sns(rs.getString("festival_tag1"));
+                festivalEntity.setBrand_sns(rs.getString("festival_tag2"));
+                festivalEntity.setBrand_sns(rs.getString("festival_tag3"));
+                festivalEntity.setBrand_sns(rs.getString("festival_tag4"));
+                festivalEntity.setBrand_sns(rs.getString("festival_tag5"));
+
                 return festivalEntity;
             }
         });
@@ -90,6 +96,11 @@ public class BoardRepository {
                         festivalEntity.setViews(rs.getInt("views"));
                         festivalEntity.setBrand_link(rs.getString("brand_link"));
                         festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                        festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                        festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                        festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                        festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                        festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
                         return festivalEntity;
                     }
                     //쿼리끝 ? 부분에 데이터를 넣는다
@@ -115,9 +126,11 @@ public class BoardRepository {
         //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
-                "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns, festival_tag1,festival_tag2,festival_tag3,festival_tag4,festival_tag5) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(), festivalEntity.getFestival_start(),
-                festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
+                festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns(),
+                festivalEntity.getFestival_tag1(), festivalEntity.getFestival_tag1(),festivalEntity.getFestival_tag2(),festivalEntity.getFestival_tag3(),festivalEntity.getFestival_tag4(),festivalEntity.getFestival_tag5()
+        );
     }
 
     //----------------------------POPUP TABLE--------------------------------------//

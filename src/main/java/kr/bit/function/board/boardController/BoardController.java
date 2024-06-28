@@ -87,13 +87,6 @@ public class BoardController {
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
-            // 디버깅용 로그
-            logger.info("Festival Details: " + festival);
-            logger.info("Tag 1: " + festival.getFestival_tag1());
-            logger.info("Tag 2: " + festival.getFestival_tag2());
-            logger.info("Tag 3: " + festival.getFestival_tag3());
-            logger.info("Tag 4: " + festival.getFestival_tag4());
-            logger.info("Tag 5: " + festival.getFestival_tag5());
 
         } catch (Exception e) {
             e.printStackTrace();
