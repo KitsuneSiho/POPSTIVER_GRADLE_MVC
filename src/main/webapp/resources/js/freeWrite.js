@@ -48,9 +48,7 @@ contentType: 'application/json;charset=utf-8',
             "board_title": boardTitle,
             "board_content": boardContent,
             "user_id": userId,
-            "user_name": userName,
-            "board_views" : views,
-            "board_attachment" : boardAttachment
+            "user_name": userName
         }),
 
 success: function(response) {
