@@ -141,40 +141,36 @@
             </form>
             <div class="detailInfoReviewTable">
                 <table>
-                    <tr>
-                        <td>
-                            <div class="comment-header">
-                                <div class="name">제니</div>
-                                <div class="date">2024.06.01 오전 8:00</div>
-                            </div>
-                        </td>
-                        <td rowspan="3">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="댓글 이미지" class="comment-img">
-                        </td>
-                        <td>
-                            <div class="comment-text">안녕하세요 제니입니다.
-                            </div>
-                        </td>
-                        <td>
-                            <div class="stars">
-                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                                <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                                <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="delete">
-                                <img src="${root}/resources/asset/삭제버튼.svg" alt="">
-                            </div>
-                        </td>
+                    <!-- 댓글을 반복하여 출력 -->
+                    <c:forEach var="comment" items="${allComments}">
+                        <tr>
+                            <td>
+                                <div class="comment-header">
+                                    <div class="name">${comment.comment_writer}</div>
+                                    <div class="date">${comment.visit_date}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="comment-text">${comment.comment_content}</div>
+                            </td>
+                            <td>
+                                <div class="star_rate">
 
-                    </tr>
-
-
+                                </div>
+                            </td><td>
+                            <div class="star_rate">
+                                <c:forEach var="i" begin="1" end="5">
+                                    <span class="star ${i <= comment.star_rate ? 'selected' : ''}">&#9733;</span>
+                                </c:forEach>
+                            </div>
+                            <td>
+                                <div class="delete" onclick="deleteComment(${comment.comment_no})">
+                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="">
+                                </div>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </table>
-
             </div>
 
         </div>
