@@ -79,11 +79,11 @@
                     <li><a href="${root}/free">자유게시판</a></li>
                 </ul>
             </li>
-<%--        <sec:authorize access="isAuthenticated()">--%>
-<%--            <li>--%>
-<%--                <a href="${root}/adminMain">관리자</a>--%>
-<%--            </li>--%>
-<%--        </sec:authorize>--%>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li>
+                <a href="${root}/admin">관리자</a>
+            </li>
+        </sec:authorize>
         </ul>
     </div>
 
