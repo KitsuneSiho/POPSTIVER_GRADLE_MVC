@@ -22,6 +22,8 @@ $(document).ready(function() {
                     storeMessage(message);
                     if (currentRecipient === message.sender || message.sender === 'admin') {
                         showMessage(message);
+                    } else {
+                        incrementUnreadCount(message.sender);
                     }
                 }
             });
@@ -33,9 +35,18 @@ $(document).ready(function() {
     function storeMessage(message) {
         let user = message.sender === 'admin' ? message.receiver : message.sender;
         if (!messageHistory[user]) {
-            messageHistory[user] = [];
+            messageHistory[user] = { messages: [], unreadCount: 0 };
         }
-        messageHistory[user].push(message);
+        messageHistory[user].messages.push(message);
+    }
+
+    function incrementUnreadCount(user) {
+        if (messageHistory[user]) {
+            messageHistory[user].unreadCount += 1;
+        } else {
+            messageHistory[user] = { messages: [], unreadCount: 1 };
+        }
+        updateUserList();
     }
 
     function addUserToList(username) {
@@ -49,11 +60,14 @@ $(document).ready(function() {
         let $userList = $("#userList");
         $userList.empty();
         userList.forEach(function(user) {
-            let $userItem = $("<li></li>").text(user);
+            let unreadCount = messageHistory[user] ? messageHistory[user].unreadCount : 0;
+            let $userItem = $("<li></li>").html(user + (unreadCount > 0 ? ` <span class="badge badge-pill badge-primary">${unreadCount}</span>` : ""));
             $userItem.click(function() {
                 currentRecipient = user;
                 $("#currentUser").text(user);
                 displayChatHistory(user);
+                messageHistory[user].unreadCount = 0; // 안 읽은 메시지 수 초기화
+                updateUserList();
             });
             $userList.append($userItem);
         });
@@ -62,7 +76,7 @@ $(document).ready(function() {
     function displayChatHistory(user) {
         $("#adminChatBox").empty();
         if (messageHistory[user]) {
-            messageHistory[user].forEach(showMessage);
+            messageHistory[user].messages.forEach(showMessage);
         }
     }
 
