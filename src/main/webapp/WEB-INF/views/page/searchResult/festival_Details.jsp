@@ -26,6 +26,31 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
+
+        .stars {
+            display: inline-block;
+        }
+
+        .star {
+            font-size: 24px;
+            color: #ddd; /* 기본 색상 */
+            cursor: pointer;
+        }
+
+        .star.selected {
+            color: #f5a623; /* 선택된 별 색상 */
+        }
+
+        .star:hover,
+        .star:hover ~ .star {
+            color: #ddd; /* 기본 색상으로 초기화 */
+        }
+
+        .star:hover,
+        .star:hover ~ .star,
+        .star:hover ~ .star {
+            color: #f5a623; /* 마우스를 올린 별과 그 이전의 별 색상 */
+        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -69,23 +94,13 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li><img src="${root}/resources/asset/조회수.svg" alt="">
-                <p>123</p></li>
+            <li><button>${festival.festival_tag1}</button></li>
+            <li><button>${festival.festival_tag2}</button></li>
+            <li><button>${festival.festival_tag3}</button></li>
+            <li><button>${festival.festival_tag4}</button></li>
+            <li><button>${festival.festival_tag5}</button></li>
+
+            <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->

@@ -67,21 +67,11 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
-            <li>
-                <button>태그</button>
-            </li>
+            <li><button>${popup.popup_tag1}</button></li>
+            <li><button>${popup.popup_tag2}</button></li>
+            <li><button>${popup.popup_tag3}</button></li>
+            <li><button>${popup.popup_tag4}</button></li>
+            <li><button>${popup.popup_tag5}</button></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt="">
                 <p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
