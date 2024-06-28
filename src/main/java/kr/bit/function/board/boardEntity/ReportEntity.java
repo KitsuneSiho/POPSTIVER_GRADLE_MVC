@@ -15,7 +15,7 @@ public class ReportEntity {
     private int event_type;
     private String brand_link;
     private String brand_sns;
-    private String report_date;
+    private String report_post_date;
     private String user_id;
     private String user_name;
 
@@ -24,21 +24,22 @@ public class ReportEntity {
     }
 
     public ReportEntity(int report_no,
-                        String report_title,
-                        String report_content,
-                        String report_host,
-                        String report_dist,
-                        String report_subdist,
-                        String report_location,
-                        String report_start,
-                        String report_end,
-                        String open_time,
-                        String report_attachment,
-                        int event_type,
-                        String brand_link,
-                        String brand_sns,
-                        String user_id,
-                        String user_name) {
+                     String report_title,
+                     String report_content,
+                     String report_host,
+                     String report_dist,
+                     String report_subdist,
+                     String report_location,
+                     String report_start,
+                     String report_end,
+                     String open_time,
+                     String report_attachment,
+                     int event_type,
+                     String brand_link,
+                     String brand_sns,
+                     String report_post_date,
+                     String user_id,
+                     String user_name) {
         super();
         this.report_no = report_no;
         this.report_title = report_title;
@@ -54,6 +55,7 @@ public class ReportEntity {
         this.event_type = event_type;
         this.brand_link = brand_link;
         this.brand_sns = brand_sns;
+        this.report_post_date = report_post_date;
         this.user_id = user_id;
         this.user_name = user_name;
     }
@@ -170,12 +172,12 @@ public class ReportEntity {
         this.brand_sns = brand_sns;
     }
 
-    public String getReport_date() {
-        return report_date;
+    public String getReport_post_date() {
+        return report_post_date;
     }
 
-    public void setReport_date(String report_date) {
-        this.report_date = report_date;
+    public void setReport_post_date(String report_post_date) {
+        this.report_post_date = report_post_date;
     }
 
     public String getUser_id() {

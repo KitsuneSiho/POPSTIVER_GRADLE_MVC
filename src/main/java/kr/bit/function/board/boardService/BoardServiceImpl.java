@@ -2,10 +2,7 @@ package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
-import kr.bit.function.board.boardEntity.CommunityEntity;
-import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.NoticeEntity;
-import kr.bit.function.board.boardEntity.PopupEntity;
+import kr.bit.function.board.boardEntity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -395,7 +392,51 @@ public class BoardServiceImpl implements BoardService {
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
+    @Override
+    public void insertReport(ReportDTO reportDTO) throws Exception {
+        boardRepository.insertReportRepo(reportDTO);
+    }
 
+    //리포트 목록 출력
+    @Override
+    public List<ReportDTO> selectReportAll() throws Exception {
+        List<ReportEntity> reportEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            reportEntities = boardRepository.getReportRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<ReportDTO> reportData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < reportEntities.size(); i++) {
+            // ReportEntities에 담겼던 모든 데이터들을 다시 ReportDTO 객체를 생성해서 거기에 담아 reportData 리스트에 담는다.
+            reportData.add(new ReportDTO(
+                    reportEntities.get(i).getReport_no(),
+                    reportEntities.get(i).getReport_title(),
+                    reportEntities.get(i).getReport_content(),
+                    reportEntities.get(i).getReport_host(),
+                    reportEntities.get(i).getReport_dist(),
+                    reportEntities.get(i).getReport_subdist(),
+                    reportEntities.get(i).getReport_location(),
+                    reportEntities.get(i).getReport_start(),
+                    reportEntities.get(i).getReport_end(),
+                    reportEntities.get(i).getOpen_time(),
+                    reportEntities.get(i).getReport_attachment(),
+                    reportEntities.get(i).getEvent_type(),
+                    reportEntities.get(i).getBrand_link(),
+                    reportEntities.get(i).getBrand_sns(),
+                    reportEntities.get(i).getReport_post_date(),
+                    reportEntities.get(i).getUser_id(),
+                    reportEntities.get(i).getUser_name()
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return reportData;
+
+    }
 
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
