@@ -37,12 +37,33 @@ function getUserInfoAndSetUserId() {
 // Set the user_id and user_nickname in the hidden input fields
         $("#user_id").val(response.user_id);
         $("#user_name").val(response.user_nickname);
+
+        var userName = response.user_nickname;
+        var userType = response.user_type;
+
+        console.log(userType);
+        // 삭제 버튼 표시 여부 업데이트
+        updateDeleteButtonVisibility(userName, userType);
+
       } else {
         console.error("사용자 정보를 가져오는 데 실패했습니다.");
       }
     },
     error: function (xhr, status, error) {
       console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
+    }
+  });
+}
+
+function updateDeleteButtonVisibility(userName, userType) {
+  $('.delete').each(function () {
+    var commentWriter = $(this).data('comment-writer'); // 댓글 작성자 가져오기
+
+    // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
+    if (commentWriter === userName || userType === 'ROLE_ADMIN') {
+      $(this).show(); // 삭제 버튼 표시
+    } else {
+      $(this).hide(); // 삭제 버튼 숨김
     }
   });
 }
@@ -98,4 +119,24 @@ function submitForm(event) {
 
 }
 
-
+function deleteComment(comment_no) {
+  if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+    $.ajax({
+      method: "delete",
+      url: "/comment/popup/" + comment_no,
+      success: function(response) {
+        console.log(comment_no);
+        // If deletion is successful, you might want to update the UI accordingly
+        alert('댓글이 성공적으로 삭제되었습니다.');
+        // Refresh the comment section or remove the deleted comment row
+        // Example: $(`tr[data-comment-no='${commentNo}']`).remove();
+        location.reload(); // Refresh the page (or update the UI as per your requirement)
+      },
+      error: function(xhr, status, error) {
+        console.log(comment_no);
+        alert('댓글 삭제에 실패했습니다.');
+        console.error('Failed to delete comment:', error);
+      }
+    });
+  }
+}

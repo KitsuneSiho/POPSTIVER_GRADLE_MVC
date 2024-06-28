@@ -54,7 +54,7 @@ body {
 }
 
 .boardTable td {
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .boardTable td a {
@@ -63,16 +63,16 @@ body {
 }
 
 .boardTable th:nth-child(1), .boardTable td:nth-child(1) {
-    width: 30%;
+    width: 50%;
 }
 
 .boardTable th:nth-child(2), .boardTable td:nth-child(2) {
-    width: 10%;
+    width: 15%;
     text-align: center;
 }
 
 .boardTable th:nth-child(3), .boardTable td:nth-child(3) {
-    width: 10%;
+    width: 15%;
     text-align: center;
 }
 

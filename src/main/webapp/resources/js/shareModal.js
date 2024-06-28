@@ -36,8 +36,20 @@ function copyToClipboard(elementId) {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        alert('링크가 복사되었습니다: ' + copyText);
+        showCustomAlert('링크가 복사되었습니다: ' + copyText);
     } else {
-        alert('복사할 내용을 찾을 수 없습니다.');
+        showCustomAlert('복사할 내용을 찾을 수 없습니다.');
     }
+}
+
+function showCustomAlert(message) {
+    const customAlertModal = document.getElementById('customAlertModal');
+    const customAlertMessage = document.getElementById('customAlertMessage');
+    customAlertMessage.textContent = message;
+    customAlertModal.style.display = 'block';
+}
+
+function closeCustomAlert() {
+    const customAlertModal = document.getElementById('customAlertModal');
+    customAlertModal.style.display = 'none';
 }

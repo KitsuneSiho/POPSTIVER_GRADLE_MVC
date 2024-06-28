@@ -22,6 +22,11 @@ public class PopupDTO {
     private int views;
     private String brand_link;
     private String brand_sns;
+    private String popup_tag1;
+    private String popup_tag2;
+    private String popup_tag3;
+    private String popup_tag4;
+    private String popup_tag5;
 
     // 기본 생성자
     public PopupDTO() {
@@ -32,7 +37,8 @@ public class PopupDTO {
     public PopupDTO(int popup_no, String popup_title, String popup_content, String host, String popup_location,
                        String popup_dist, String popup_subdist,
                        String popup_start, String popup_end, String open_time, String popup_post_date,
-                       String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns) {
+                       String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns,
+                       String popup_tag1, String popup_tag2, String popup_tag3, String popup_tag4, String popup_tag5) {
         super();
         this.popup_no = popup_no;
         this.popup_title = popup_title;
@@ -51,6 +57,11 @@ public class PopupDTO {
         this.views = views;
         this.brand_link = brand_link;
         this.brand_sns = brand_sns;
+        this.popup_tag1 = popup_tag1;
+        this.popup_tag2 = popup_tag2;
+        this.popup_tag3 = popup_tag3;
+        this.popup_tag4 = popup_tag4;
+        this.popup_tag5 = popup_tag5;
     }
 
 }

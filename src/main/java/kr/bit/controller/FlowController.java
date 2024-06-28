@@ -47,11 +47,11 @@ public class FlowController {
         return "page/board/money";
     }
 
-    @GetMapping("report")//제보하기게시판페이지
-    public String report_page() {
-        return "page/board/report";
-    }
-
+//    @GetMapping("report")//제보하기게시판페이지
+//    public String report_page() {
+//        return "page/board/report";
+//    }
+//
     @GetMapping("reportWrite")//제보하기게시판글작성페이지
     public String reportWrite_page() {
         return "page/board/reportWrite";
