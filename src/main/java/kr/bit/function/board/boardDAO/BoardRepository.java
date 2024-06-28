@@ -59,6 +59,12 @@ public class BoardRepository {
                 festivalEntity.setViews(rs.getInt("views"));
                 festivalEntity.setBrand_link(rs.getString("brand_link"));
                 festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
+
                 return festivalEntity;
             }
         });
@@ -97,6 +103,11 @@ public class BoardRepository {
                         festivalEntity.setViews(rs.getInt("views"));
                         festivalEntity.setBrand_link(rs.getString("brand_link"));
                         festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                        festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                        festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                        festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                        festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                        festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
                         return festivalEntity;
                     }
                     //쿼리끝 ? 부분에 데이터를 넣는다
@@ -122,9 +133,11 @@ public class BoardRepository {
         //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
-                "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                "insert into festival(festival_title, festival_content, host, festival_dist, festival_subdist, festival_location, festival_start, festival_end, open_time, festival_attachment, event_type, like_that, views, brand_link, brand_sns, festival_tag1,festival_tag2,festival_tag3,festival_tag4,festival_tag5) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , festivalEntity.getFestival_title(), festivalEntity.getFestival_content(), festivalEntity.getHost(), festivalEntity.getFestival_dist(), festivalEntity.getFestival_subdist(), festivalEntity.getFestival_location(), festivalEntity.getFestival_start(),
-                festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns());
+                festivalEntity.getFestival_end(), festivalEntity.getOpen_time(), festivalEntity.getFestival_attachment(), festivalEntity.getEvent_type(), festivalEntity.getLike_that(), festivalEntity.getViews(), festivalEntity.getBrand_link(), festivalEntity.getBrand_sns(),
+                festivalEntity.getFestival_tag1(), festivalEntity.getFestival_tag1(),festivalEntity.getFestival_tag2(),festivalEntity.getFestival_tag3(),festivalEntity.getFestival_tag4(),festivalEntity.getFestival_tag5()
+        );
     }
 
     //=====================================================================================//
@@ -159,6 +172,12 @@ public class BoardRepository {
                 popupEntity.setViews(rs.getInt("views"));
                 popupEntity.setBrand_link(rs.getString("brand_link"));
                 popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+
                 return popupEntity;
             }
         });
@@ -197,6 +216,12 @@ public class BoardRepository {
                         popupEntity.setViews(rs.getInt("views"));
                         popupEntity.setBrand_link(rs.getString("brand_link"));
                         popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                        popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                        popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                        popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                        popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                        popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+
                         return popupEntity;
                     }
                     //쿼리끝 ? 부분에 데이터를 넣는다
@@ -222,9 +247,11 @@ public class BoardRepository {
         //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
         //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
         return jdbcTemplate.update(
-                "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
+                "insert into popup(popup_title, popup_content, host, popup_dist, popup_subdist, popup_location, popup_start, popup_end, open_time, popup_attachment, event_type, like_that, views, brand_link, brand_sns, popup_tag1, popup_tag2, popup_tag3,popup_tag4, popup_tag5) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
                 , popupEntity.getPopup_title(), popupEntity.getPopup_content(), popupEntity.getHost(), popupEntity.getPopup_dist(), popupEntity.getPopup_subdist(), popupEntity.getPopup_location(), popupEntity.getPopup_start(),
-                popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
+                popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns(),
+                popupEntity.getPopup_tag1(), popupEntity.getPopup_tag2(), popupEntity.getPopup_tag3(), popupEntity.getPopup_tag4(), popupEntity.getPopup_tag5()
+        );
     }
 
 
