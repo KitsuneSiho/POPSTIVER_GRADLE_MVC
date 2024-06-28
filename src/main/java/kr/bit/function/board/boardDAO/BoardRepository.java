@@ -1,5 +1,7 @@
 package kr.bit.function.board.boardDAO;
 
+import kr.bit.function.board.boardDTO.CommunityDTO;
+import kr.bit.function.board.boardDTO.NoticeDTO;
 import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
 import kr.bit.function.board.boardEntity.NoticeEntity;
@@ -18,9 +20,13 @@ import java.util.List;
 @Repository
 public class BoardRepository {
     private static final Logger logger = LoggerFactory.getLogger(BoardRepository.class);
+    private JdbcTemplate jdbcTemplate = null;
+
     //해당클래스의 로그를 가져옴
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    public BoardRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     //-----------------FESTIVAL TABLE-------------------------------------//
 
@@ -260,12 +266,9 @@ public class BoardRepository {
      * @param notice_no : 게시글번호(notice_no)
      * @return BoardEntity  형태의 데이터
      */
-    public NoticeEntity getNoticeByNoticeNoRepo(int notice_no) throws Exception {
-        //generic이 BoardEntity 인 list를 선언하고  jdbc template 실행결과를 담는다.
-        //특이한 점은 데이터를 하나 뽑는데도 list로 선언한다.
-        //전체 출력 메소드와 매우 흡사하다
+    public NoticeEntity getNoticeOneRepo(int notice_no) throws Exception{
         List<NoticeEntity> result = jdbcTemplate.query(
-                "select * from notice where notice_no=?;", //쿼리문
+                "select * from notice where notice_no=?;",
                 new RowMapper<NoticeEntity>() {
                     @Override
                     public NoticeEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -276,14 +279,8 @@ public class BoardRepository {
                         noticeEntity.setNotice_date(rs.getString("notice_date"));
                         return noticeEntity;
                     }
-                    //쿼리끝 ? 부분에 데이터를 넣는다
-                }, notice_no);
-        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
-        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
-        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
-        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+                },notice_no);
         return result.isEmpty() ? null : result.get(0);
-
     }
 
     //======================================================//
@@ -307,7 +304,7 @@ public class BoardRepository {
                 communityEntity.setUser_name(rs.getString("user_name"));
                 communityEntity.setBoard_post_date(rs.getString("board_post_date"));
                 communityEntity.setBoard_views(rs.getInt("board_views"));
-                communityEntity.setBoard_attachment(rs.getBytes("board_attachment"));
+                communityEntity.setBoard_attachment(rs.getString("board_attachment"));
 
                 return communityEntity;
             }
@@ -337,7 +334,7 @@ public class BoardRepository {
                         communityEntity.setUser_name(rs.getString("user_name"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
                         communityEntity.setBoard_views(rs.getInt("board_views"));
-                        communityEntity.setBoard_attachment(rs.getBytes("board_attachment"));
+                        communityEntity.setBoard_attachment(rs.getString("board_attachment"));
 
                         return communityEntity;
                     }
@@ -350,22 +347,14 @@ public class BoardRepository {
         return result.isEmpty() ? null : result.get(0);
 
     }
-    public int insertCommunityRepo(CommunityEntity communityEntity) throws Exception{
-        //메소드 불러올 때 로그를 남김
-        logger.info("Community Board insert");
-        //쿼리문을 적고 실행하고 리턴한다.(insert는 update)
-        //sql : 데이터들을 넣음
-        //insert 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
-        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
-        //BoardEntity 형의 객체에 들어있는 데이터를 get메소드로 가져온다.
-        return jdbcTemplate.update(
-                "insert into community(board_title, board_content, user_id, user_name, board_views, board_attachment) values (?,?,?,?,?,?);",
-                communityEntity.getBoard_title(),
-                communityEntity.getBoard_content(),
-                communityEntity.getUser_id(),
-                communityEntity.getUser_name(),
-                communityEntity.getBoard_views(),
-                communityEntity.getBoard_attachment());
+    public void insertCommunityRepo(CommunityDTO communityDTO) {
+        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name) VALUES (?, ?, ?, ?)";
+        // board_view 값은 일단 하드코딩으로 1로 지정
+        jdbcTemplate.update(sql, communityDTO.getBoard_title(),
+                communityDTO.getBoard_content(),
+                communityDTO.getUser_id(),
+                communityDTO.getUser_name()
+                 );
     }
 
 }

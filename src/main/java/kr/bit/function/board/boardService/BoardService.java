@@ -50,14 +50,15 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deletePopup(int popup_no) throws Exception;
 
+
     //=====================================================================================//
     //                                   COMMUNITY BOARD                                   //
     //=====================================================================================//
-    public void insertCommunity (CommunityDTO communityDTO) throws Exception;
-
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception;
+    public List<CommunityDTO> selectAllCommunity() throws Exception;
     //=====================================================================================//
     //                                        NOTICE                                       //
     //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
-    public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;//특정공지내용출력
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
 }

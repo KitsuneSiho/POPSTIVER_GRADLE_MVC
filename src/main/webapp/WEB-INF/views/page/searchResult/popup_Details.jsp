@@ -54,26 +54,36 @@
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${root}/resources/js/festival_Details.js"></script>
+    <script src="${root}/resources/js/popup_Details.js"></script>
 </head>
 <body>
 
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 
 <div class="mainPoster">
-    <img src="${festival.festival_attachment}" alt="">
+    <img src="${popup.popup_attachment}" alt="">
 </div>
 
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li><button>${festival.festival_tag1}</button></li>
-            <li><button>${festival.festival_tag2}</button></li>
-            <li><button>${festival.festival_tag3}</button></li>
-            <li><button>${festival.festival_tag4}</button></li>
-            <li><button>${festival.festival_tag5}</button></li>
-
-            <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
+            <li>
+                <button>태그</button>
+            </li>
+            <li>
+                <button>태그</button>
+            </li>
+            <li>
+                <button>태그</button>
+            </li>
+            <li>
+                <button>태그</button>
+            </li>
+            <li>
+                <button>태그</button>
+            </li>
+            <li><img src="${root}/resources/asset/조회수.svg" alt="">
+                <p>123</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
@@ -81,7 +91,7 @@
                     <div class="share-modal-content">
                         <div class="brandWebsite">
                             <p>브랜드 홈페이지</p>
-                            <a id="brandWebsiteLink" href="${festival.brand_link}" target="_blank">${festival.brand_link}</a>
+                            <a id="brandWebsiteLink" href="${popup.brand_link}" target="_blank">${popup.brand_link}</a>
                             <button onclick="copyToClipboard('brandWebsiteLink')">
                                 <img src="${root}/resources/asset/복사버튼.svg" alt="">
                             </button>
@@ -89,7 +99,7 @@
 
                         <div class="brandSns">
                             <p>브랜드 SNS</p>
-                            <a id="brandSNSLink" href="${festival.brand_sns}" target="_blank">${festival.brand_sns}</a>
+                            <a id="brandSNSLink" href="${popup.brand_sns}" target="_blank">${popup.brand_sns}</a>
                             <button onclick="copyToClipboard('brandSNSLink')">
                                 <img src="${root}/resources/asset/복사버튼.svg" alt="">
                             </button>
@@ -98,86 +108,86 @@
                 </div>
             </li>
         </ul>
-        <h1 class="title">${festival.festival_title}</h1>
-        <p class="detailDate">${festival.festival_start} ~ ${festival.festival_end}</p>
+        <h1 class="title">${popup.popup_title}</h1>
+        <p class="detailDate">${popup.popup_start} ~ ${popup.popup_end}</p>
         <p class="detailAddress">
             <img src="${root}/resources/asset/위치표시.svg" alt="">
-            ${festival.festival_location}
+            ${popup.popup_location}
         </p>
 
         <div class="detailInfoTime">
             <p class="detailInfoTimeTitle">운영시간</p>
             <p class="detailInfoTimeInfo">
-            <p>${festival.open_time}</p>
+            <p>${popup.open_time}</p>
         </div>
         <p class="detailIntroduceTitle">팝업스토어, 페스티벌 소개</p>
         <div class="detailIntroduce">
-            <p>${festival.festival_content}</p>
+            <p>${popup.popup_content}</p>
         </div>
         <p class="detailInfoMapTitle">행사 위치 (카카오 지도)</p>
         <div class="detailInfoMap">
             <div id="singleMap"></div>
         </div>
-    <div class="detailInfoReview">
-        <p class="detailInfoReviewTitle">후기</p>
-        <p>댓글 1,234개</p>
-        <form method="post" onsubmit="submitForm(event)">
+        <div class="detailInfoReview">
+            <p class="detailInfoReviewTitle">후기</p>
+            <p>댓글 1,234개</p>
+            <form method="post" onsubmit="submitForm(event)">
 
-            <input type="hidden" name="festival_no" value="${festival.festival_no}">
-            <input type="hidden" name="event_type" value="${festival.event_type}">
-            <input type="hidden" id="user_name" name="user_name" value="">
-            <input type="hidden" id="user_id" name="user_id" value="">
-            <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
-            <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
-            <div class="stars" id="starRating">
-                <span class="star" data-value="1">&#9733;</span>
-                <span class="star" data-value="2">&#9733;</span>
-                <span class="star" data-value="3">&#9733;</span>
-                <span class="star" data-value="4">&#9733;</span>
-                <span class="star" data-value="5">&#9733;</span>
+                <input type="hidden" name="popup_no" value="${popup.popup_no}">
+                <input type="hidden" name="event_type" value="${popup.event_type}">
+                <input type="hidden" id="user_name" name="user_name" value="">
+                <input type="hidden" id="user_id" name="user_id" value="">
+                <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
+                <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                <div class="stars" id="starRating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                <input type="hidden" name="star_rate" id="star_rate">
+                <button type="submit">등록</button>
+            </form>
+            <div class="detailInfoReviewTable">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="comment-header">
+                                <div class="name">제니</div>
+                                <div class="date">2024.06.01 오전 8:00</div>
+                            </div>
+                        </td>
+                        <td rowspan="3">
+                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="댓글 이미지" class="comment-img">
+                        </td>
+                        <td>
+                            <div class="comment-text">안녕하세요 제니입니다.
+                            </div>
+                        </td>
+                        <td>
+                            <div class="stars">
+                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
+                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
+                                <img src="${root}/resources/asset/별점채워진별.svg" alt="">
+                                <img src="${root}/resources/asset/별점빈별.svg" alt="">
+                                <img src="${root}/resources/asset/별점빈별.svg" alt="">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="delete">
+                                <img src="${root}/resources/asset/삭제버튼.svg" alt="">
+                            </div>
+                        </td>
+
+                    </tr>
+
+
+                </table>
+
             </div>
-            <input type="hidden" name="star_rate" id="star_rate">
-            <button type="submit">등록</button>
-        </p>
-        <div class="detailInfoReviewTable">
-            <table>
-                <tr>
-                    <td>
-                        <div class="comment-header">
-                            <div class="name">제니</div>
-                            <div class="date">2024.06.01 오전 8:00</div>
-                        </div>
-                    </td>
-                    <td rowspan="3">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="댓글 이미지" class="comment-img">
-                    </td>
-                    <td>
-                        <div class="comment-text">안녕하세요 제니입니다.
-                        </div>
-                    </td>
-                    <td>
-                        <div class="stars">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점채워진별.svg" alt="">
-                            <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                            <img src="${root}/resources/asset/별점빈별.svg" alt="">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="delete">
-                            <img src="${root}/resources/asset/삭제버튼.svg" alt="">
-                        </div>
-                    </td>
-
-                </tr>
-
-
-            </table>
 
         </div>
-
-    </div>
     </div>
 </div>
 
@@ -200,7 +210,7 @@
 
     var singleMap = new kakao.maps.Map(singleMapContainer, singleMapOption); // 지도를 생성합니다
 
-    geocoder.addressSearch("${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}", function(result, status) {
+    geocoder.addressSearch("${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}", function(result, status) {
         if (status === kakao.maps.services.Status.OK) {
             const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 

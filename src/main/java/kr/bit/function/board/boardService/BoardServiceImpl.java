@@ -160,8 +160,10 @@ public class BoardServiceImpl implements BoardService {
         //게시글 번호 바탕으로 게시글삭제
     }
 
+    //=====================================================================================//
+    //                                      POPUP                                          //
+    //=====================================================================================//
 
-    //--------------POPUP------------------------------------------------------------------------//
 
     @Override
     public void insertPopupManual() throws Exception {
@@ -285,16 +287,86 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void insertCommunity(CommunityDTO communityDTO) throws Exception {
 
-    }
 
+    //=====================================================================================//
+    //                                      NOTICE                                         //
+    //=====================================================================================//
     @Override
     public List<NoticeDTO> selectAllNotice() throws Exception {
-        return List.of();
+        List<NoticeEntity> noticeEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            noticeEntities = boardRepository.getNoticeRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<NoticeDTO> noticeData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < noticeEntities.size(); i++) {
+            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
+            noticeData.add(new NoticeDTO(
+                    noticeEntities.get(i).getNotice_no(),
+                    noticeEntities.get(i).getNotice_title(),
+                    noticeEntities.get(i).getNotice_content(),
+                    noticeEntities.get(i).getNotice_date()
+
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return noticeData;
     }
+
 
     @Override
-    public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
-        return List.of();
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception{
+        NoticeEntity noticeEntity =null;
+        try{
+            noticeEntity = boardRepository.getNoticeOneRepo(notice_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new NoticeDTO(noticeEntity.getNotice_no(), noticeEntity.getNotice_title(), noticeEntity.getNotice_content(), noticeEntity.getNotice_date());
     }
 
+    //=====================================================================================//
+    //                                     COMMUNITY                                       //
+    //=====================================================================================//
+    //자유게시판 삽입
+    @Override
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception {
+        boardRepository.insertCommunityRepo(communityDTO);
+    }
+    //자유게시판 출력
+    @Override
+    public List<CommunityDTO> selectAllCommunity() throws Exception {
+        List<CommunityEntity> communityEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            communityEntities = boardRepository.getCommunityRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<CommunityDTO> communityData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < communityEntities.size(); i++) {
+            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
+            communityData.add(new CommunityDTO(
+                    communityEntities.get(i).getBoard_no(),
+                    communityEntities.get(i).getBoard_title(),
+                    communityEntities.get(i).getBoard_content(),
+                    communityEntities.get(i).getUser_id(),
+                    communityEntities.get(i).getUser_name(),
+                    communityEntities.get(i).getBoard_views(),
+                    communityEntities.get(i).getBoard_post_date(),
+                    communityEntities.get(i).getBoard_attachment()
+
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return communityData;
+    }
 }
