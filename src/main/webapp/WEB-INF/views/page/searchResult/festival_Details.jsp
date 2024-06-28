@@ -178,9 +178,9 @@
                                </c:forEach>
                            </div>
                            <td>
-                               <div class="delete" onclick="deleteComment(${comment.comment_no})">
-                                   <img src="${root}/resources/asset/삭제버튼.svg" alt="">
-                               </div>
+                            <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
+                               <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
+                            </div>
                            </td>
                        </tr>
                    </c:forEach>
