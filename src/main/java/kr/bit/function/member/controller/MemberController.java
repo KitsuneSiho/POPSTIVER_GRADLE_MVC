@@ -27,152 +27,129 @@ import java.util.Map;
 @Controller
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
 
-    @Autowired
-    private RefreshTokenRepository refreshTokenRepository;
+        @Autowired
+        private MemberService memberService;
 
-    @PostMapping("/saveUser")
-    public String saveUser(@RequestParam("user_email") String userEmail,
-                           @RequestParam("user_name") String userName,
-                           @RequestParam("user_birth") String userBirth,
-                           @RequestParam("user_gender") String userGender,
-                           @RequestParam("user_type") String userType,
-                           @RequestParam("user_nickName") String userNickname,
-                           @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        @Autowired
+        private RefreshTokenRepository refreshTokenRepository;
 
-        String provider = customOAuth2User.getProvider();
-        Object attribute = customOAuth2User.getAttributes();
-        String user_id = "";
+        @PostMapping("/saveUser")
+        public String saveUser(@RequestParam("user_email") String userEmail,
+                               @RequestParam("user_name") String userName,
+                               @RequestParam("user_birth") String userBirth,
+                               @RequestParam("user_gender") String userGender,
+                               @RequestParam("user_type") String userType,
+                               @RequestParam("user_nickName") String userNickname,
+                               @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
 
-        switch (provider) {
-            case "google":
-                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = "google" + googleResponse.getProviderId();
-                break;
-            case "kakao":
-                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = "kakao" + kakaoResponse.getProviderId();
-                break;
-            case "naver":
-                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = "naver" + naverResponse.getProviderId();
-                break;
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            MemberEntity user = new MemberEntity();
+            user.setUser_type(userType);
+            user.setUser_email(userEmail);
+            user.setUser_name(userName);
+            user.setUser_birth(userBirth);
+            user.setUser_gender(userGender);
+            user.setUser_id(user_id);
+            user.setUser_nickname(userNickname);
+            memberService.saveUser(user);
+
+            return "redirect:/main";
         }
 
-        MemberEntity user = new MemberEntity();
-        user.setUser_type(userType);
-        user.setUser_email(userEmail);
-        user.setUser_name(userName);
-        user.setUser_birth(userBirth);
-        user.setUser_gender(userGender);
-        user.setUser_id(user_id);
-        user.setUser_nickname(userNickname);
-        memberService.saveUser(user);
+        @GetMapping("/myPage")
+        public String myPage(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, Model model) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
 
-        return "redirect:/main";
-    }
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
 
-    @GetMapping("/myPage")
-    public String myPage(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, Model model) {
-        String provider = customOAuth2User.getProvider();
-        Object attribute = customOAuth2User.getAttributes();
-        String user_id = "";
+            MemberEntity user = memberService.findById(user_id);
+            model.addAttribute("user", user);
 
-        switch (provider) {
-            case "google":
-                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = "google" + googleResponse.getProviderId();
-                break;
-            case "kakao":
-                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = "kakao" + kakaoResponse.getProviderId();
-                break;
-            case "naver":
-                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = "naver" + naverResponse.getProviderId();
-                break;
+            return "page/myPage/myPage";
         }
 
-        MemberEntity user = memberService.findById(user_id);
-        model.addAttribute("user", user);
+        @PutMapping("/updateUser")
+        @ResponseBody
+        public ResponseEntity<String> updateUser(@RequestBody MemberEntity updatedUser, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
 
-        return "page/myPage/myPage";
-    }
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
 
-    @PutMapping("/updateUser")
-    @ResponseBody
-    public ResponseEntity<String> updateUser(@RequestBody MemberEntity updatedUser, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
-        String provider = customOAuth2User.getProvider();
-        Object attribute = customOAuth2User.getAttributes();
-        String user_id = "";
-
-        switch (provider) {
-            case "google":
-                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                user_id = "google" + googleResponse.getProviderId();
-                break;
-            case "kakao":
-                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                user_id = "kakao" + kakaoResponse.getProviderId();
-                break;
-            case "naver":
-                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                user_id = "naver" + naverResponse.getProviderId();
-                break;
+            MemberEntity existingUser = memberService.findById(user_id);
+            if (existingUser != null) {
+                existingUser.setUser_type(updatedUser.getUser_type());
+                existingUser.setUser_nickname(updatedUser.getUser_nickname());
+                memberService.updateUserInfo(existingUser);
+                return ResponseEntity.ok("User information updated successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            }
         }
 
-        MemberEntity existingUser = memberService.findById(user_id);
-        if (existingUser != null) {
-            existingUser.setUser_type(updatedUser.getUser_type());
-            existingUser.setUser_nickname(updatedUser.getUser_nickname());
-            memberService.updateUserInfo(existingUser);
-            return ResponseEntity.ok("User information updated successfully.");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        // 닉네임 중복 확인 엔드포인트 추가
+        @PostMapping("/checkNickname")
+        @ResponseBody
+        public ResponseEntity<Map<String, Boolean>> checkNickname(@RequestParam("nickname") String nickname) {
+            boolean isAvailable = !memberService.existsByNickname(nickname);
+            Map<String, Boolean> response = Map.of("available", isAvailable);
+            return ResponseEntity.ok(response);
         }
-    }
 
-    // 닉네임 중복 확인 엔드포인트 추가
-    @PostMapping("/checkNickname")
-    @ResponseBody
-    public ResponseEntity<Map<String, Boolean>> checkNickname(@RequestParam("nickname") String nickname) {
-        boolean isAvailable = !memberService.existsByNickname(nickname);
-        Map<String, Boolean> response = Map.of("available", isAvailable);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/getUserInfo")
-    @ResponseBody
-    public MemberEntity getUserInfo(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
-        String provider = customOAuth2User.getProvider();
-        Object attribute = customOAuth2User.getAttributes();
-        String userId = "";
-        switch (provider) {
-            case "google":
-                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                userId = "google" + googleResponse.getProviderId();
-                break;
-            case "kakao":
-                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                userId = "kakao" + kakaoResponse.getProviderId();
-                break;
-            case "naver":
-                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                userId = "naver" + naverResponse.getProviderId();
-                break;
-        }
-        return memberService.findById(userId);
-    }
-
-    @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUser(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-        if (customOAuth2User != null) {
+        @GetMapping("/getUserInfo")
+        @ResponseBody
+        public MemberEntity getUserInfo(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String userId = "";
-
             switch (provider) {
                 case "google":
                     GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
@@ -187,30 +164,64 @@ public class MemberController {
                     userId = "naver" + naverResponse.getProviderId();
                     break;
             }
-            System.out.println("토큰에서 받아온 탈퇴할 사용자 아이디: " + userId);
-            if (userId != null) {
-                memberService.deleteUserByEmail(userId);
-                refreshTokenRepository.deleteRefreshTokensByUsername(userId);
-                session.invalidate();
-                clearAllCookies(request, response);
-                SecurityContextHolder.clearContext();
-                return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+            return memberService.findById(userId);
+        }
+
+        @DeleteMapping("/deleteUser")
+        public ResponseEntity<String> deleteUser(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+            if (customOAuth2User != null) {
+                String provider = customOAuth2User.getProvider();
+                Object attribute = customOAuth2User.getAttributes();
+                String userId = "";
+
+                switch (provider) {
+                    case "google":
+                        GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                        userId = "google" + googleResponse.getProviderId();
+                        break;
+                    case "kakao":
+                        KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                        userId = "kakao" + kakaoResponse.getProviderId();
+                        break;
+                    case "naver":
+                        NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                        userId = "naver" + naverResponse.getProviderId();
+                        break;
+                }
+
+                // 디버깅용 로그 추가
+                System.out.println("탈퇴 요청을 받은 사용자 ID: " + userId);
+
+                if (userId != null) {
+                    try {
+                        memberService.deleteUserByEmail(userId);
+                        refreshTokenRepository.deleteRefreshTokensByUsername(userId);
+                        session.invalidate();
+                        clearAllCookies(request, response);
+                        SecurityContextHolder.clearContext();
+                        return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+                    } catch (Exception e) {
+                        // 예외 발생 시 로그 출력
+                        e.printStackTrace();
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 탈퇴 중 오류가 발생했습니다.");
+                    }
+                }
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다.");
+        }
+
+
+        private void clearAllCookies(HttpServletRequest request, HttpServletResponse response) {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    cookie.setValue(null);
+                    cookie.setMaxAge(0);
+                    cookie.setPath("/");
+                    response.addCookie(cookie);
+                }
             }
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다.");
+
+
     }
-
-    private void clearAllCookies(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                cookie.setValue(null);
-                cookie.setMaxAge(0);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-            }
-        }
-    }
-
-
-}

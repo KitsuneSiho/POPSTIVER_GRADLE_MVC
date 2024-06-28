@@ -45,6 +45,7 @@ body {
 
 .detailInfoTitle ul img{
     margin: 0 20px;
+    cursor: pointer;
 }
 .detailInfoTitle ul p{
     font-size: 20px;
