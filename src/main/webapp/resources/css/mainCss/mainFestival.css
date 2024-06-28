@@ -25,7 +25,7 @@ body {
 }
 
 .popupButton{
-    border: 2px solid white;
+    border: 2px solid #ffff33;
     background: none;
     padding: 1%;
     font-family: 'Pre', sans-serif;
@@ -37,7 +37,7 @@ body {
 
 .popupButton:hover{
     transform: scale(1.05);
-    background-color: white;
+    background-color: #ffff33;
     color: black;
 }
 

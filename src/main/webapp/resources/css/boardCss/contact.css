@@ -41,17 +41,17 @@ body {
     color: white;
     border-radius: 5px;
     overflow: hidden;
-    background-color: #1e1e1e;
+    background: none;
 }
 
 .boardTable th, .boardTable td {
-    border: 1px solid #4e4e4e;
+    border: 1px solid #2e2e2e;
     padding: 10px;
     text-align: left;
 }
 
 .boardTable th {
-    background-color: #3e3e3e;
+    background: none;
     color: #ffff33;
     text-align: center;
 }
