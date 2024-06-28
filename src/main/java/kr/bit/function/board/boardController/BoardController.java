@@ -5,6 +5,7 @@ import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
 import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.TemporaryPostDTO;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
@@ -250,7 +251,41 @@ public class BoardController {
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
+    @RequestMapping(value = "/money")
+    @Controller
+    class InsertBusinessController{
 
+        @PutMapping("/register")
+        @ResponseBody
+        public void registerBusiness(@RequestBody TemporaryPostDTO temporaryPostDTO,
+                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertBusiness(temporaryPostDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     //=====================================================================================//

@@ -2,6 +2,7 @@ package kr.bit.function.board.boardDAO;
 
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.NoticeDTO;
+import kr.bit.function.board.boardDTO.TemporaryPostDTO;
 import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
 import kr.bit.function.board.boardEntity.NoticeEntity;
@@ -342,7 +343,17 @@ public class BoardRepository {
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
-    
+    public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end) VALUES (?,?,?,?,?,?)";
+        // board_view 값은 일단 하드코딩으로 1로 지정
+        jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
+                temporaryPostDTO.getTemp_content(),
+                temporaryPostDTO.getTemp_host(),
+                temporaryPostDTO.getTemp_location(),
+                temporaryPostDTO.getTemp_start(),
+                temporaryPostDTO.getTemp_end()
+        );
+    }
     
 
     //=====================================================================================//

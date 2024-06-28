@@ -1,10 +1,7 @@
 package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.CommunityEntity;
 import kr.bit.function.board.boardEntity.FestivalEntity;
 import kr.bit.function.board.boardEntity.NoticeEntity;
@@ -388,6 +385,11 @@ public class BoardServiceImpl implements BoardService {
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
 
+    //주최자 등록
+    @Override
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception {
+        boardRepository.insertBusinessRepo(temporaryPostDTO);
+    }
 
 
     //=====================================================================================//
