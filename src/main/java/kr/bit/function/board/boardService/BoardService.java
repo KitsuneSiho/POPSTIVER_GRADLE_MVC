@@ -30,6 +30,7 @@ public interface BoardService {
     public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception;
 
 
+
     //=====================================================================================//
     //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//

@@ -4,6 +4,7 @@ import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,12 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
+
+    private final JdbcTemplate jdbcTemplate;
+
+    public BoardServiceImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     //=====================================================================================//
     //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //

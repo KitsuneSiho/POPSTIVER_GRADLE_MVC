@@ -120,7 +120,7 @@
         </div>
         <div class="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
-            <p>댓글 1,234개</p>
+            <p>댓글 ${allComments.size()}개</p>
             <form method="post" onsubmit="submitForm(event)">
 
                 <input type="hidden" name="popup_no" value="${popup.popup_no}">
