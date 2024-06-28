@@ -26,13 +26,19 @@
                 }
             );
         });
+
+        function redirectRandom() {
+            const urls = ['mainPopup', 'mainFestival'];
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            window.location.href = root + '/' + urls[randomIndex];
+        }
     </script>
 
 </head>
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="../main">POPSTIVER</a></h1>
+        <h1><a href="#" onclick="redirectRandom()">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='mainPopup'">POP-UP</button>
             <button class="logoButton" onclick="window.location.href='mainFestival'">FESTIVAL</button>
@@ -80,7 +86,6 @@
         <p>날씨 위젯</p>
     </div>
 
-
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
             <button class="loginButton" onclick="window.location.href='login'">
@@ -93,21 +98,19 @@
                 로그아웃
             </button>
         </sec:authorize>
-
     </div>
 </header>
 
 <div id="searchModal" class="search-modal">
     <div class="mainTopSearch">
-            <form class="mainTopSearchContainer" action="${root}/main/search" method="GET">
-                <label>
-                    <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
-                </label>
-
-                    <button type="submit" class="searchButton">
-                        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-                    </button>
-            </form>
+        <form class="mainTopSearchContainer" action="${root}/main/search" method="GET">
+            <label>
+                <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
+            </label>
+            <button type="submit" class="searchButton">
+                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+            </button>
+        </form>
     </div>
 </div>
 
