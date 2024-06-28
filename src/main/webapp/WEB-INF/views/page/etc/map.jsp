@@ -338,13 +338,13 @@
             var imageOption = { offset: new kakao.maps.Point(25, 25) };
 
 
-// 중앙에 마커를 생성합니다
+            // 중앙에 마커를 생성합니다
             var centerMarker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-                image: new kakao.maps.MarkerImage(imageUrl, imageSize, imageOption)
+                image: new kakao.maps.MarkerImage(imageUrl, imageSize, imageOption),
             });
 
-// 지도에 중앙 마커를 표시합니다
+            // 지도에 중앙 마커를 표시합니다
             centerMarker.setMap(multiMap);
 
 
@@ -709,6 +709,7 @@
             document.getElementById('currentLocationButton').addEventListener('click', function() {
                 getUserLocation(function(newUserLocation) {
                     multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
+                    multiMap.setLevel(4);
                 });
             });
         });
