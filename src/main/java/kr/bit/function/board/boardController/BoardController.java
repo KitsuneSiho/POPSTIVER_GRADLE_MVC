@@ -4,6 +4,7 @@ package kr.bit.function.board.boardController;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.CommunityDTO;
 import kr.bit.function.board.boardDTO.FestivalBoardDTO;
+import kr.bit.function.board.boardDTO.PopupBoardDTO;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
@@ -90,6 +91,23 @@ public class BoardController {
         return "page/searchResult/festival_Details";
     }
 
+    @RequestMapping(value = "/popup_Details/{popup_no}", method = RequestMethod.GET)
+    public String popupDetails(@PathVariable("popup_no") int popupNo, Model model) {
+        try {
+            // 특정 축제 정보
+            PopupBoardDTO popup = boardService.selectOnePopup(popupNo);
+            model.addAttribute("popup", popup);
+
+            // 모든 축제 정보
+            List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
+            model.addAttribute("allPopups", allPopups);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "page/searchResult/popup_Details";
+    }
 
     @RequestMapping(value = "/festival_view", method = RequestMethod.GET)
     public String views(Model model) {
@@ -105,7 +123,7 @@ public class BoardController {
         }
         return "page/test/festival_view";
     }
-//----------------------POPUP-------------------------------//
+    //----------------------POPUP-------------------------------//
     @RequestMapping(value = "/popup_view", method = RequestMethod.GET)
     public String viewPopup(Model model) {
         //log임
@@ -175,7 +193,7 @@ public class BoardController {
         @PutMapping("/insertWrite")
         @ResponseBody
         public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
-                                      @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String user_id = "";
@@ -183,15 +201,15 @@ public class BoardController {
             switch (provider) {
                 case "google":
                     GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
-                    user_id = googleResponse.getProviderId();
+                    user_id = "google" + googleResponse.getProviderId();
                     break;
                 case "kakao":
                     KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
-                    user_id = kakaoResponse.getProviderId();
+                    user_id = "kakao" + kakaoResponse.getProviderId();
                     break;
                 case "naver":
                     NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
-                    user_id = naverResponse.getProviderId();
+                    user_id = "naver" + naverResponse.getProviderId();
                     break;
             }
 
