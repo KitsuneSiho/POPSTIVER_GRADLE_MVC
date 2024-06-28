@@ -6,6 +6,8 @@ const forbiddenWords = [
     '시발', '병신', '존나', '좆', '새끼', 'ㅅㅂ', 'ㅄ', 'ㅈㄴ', 'ㄷㅊ', '애미', '니미', '니애미', '꺼져', '닥쳐', '미친', '개새끼'
 ]; // 금지어 목록
 
+let isNicknameAvailable = false;
+
 function containsForbiddenWord(input) {
     for (let i = 0; i < forbiddenWords.length; i++) {
         if (input.includes(forbiddenWords[i])) {
@@ -44,6 +46,10 @@ function validateForm() {
     if (containsForbiddenWord(userNickName)) {
         alert('닉네임에 금지된 단어가 포함되어 있습니다.');
         document.getElementById('user_nickName').focus();
+        return false;
+    }
+    if (!isNicknameAvailable) {
+        alert('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.');
         return false;
     }
     if (userBirth === '') {
@@ -103,13 +109,16 @@ function checkNickname() {
             if (response.available) {
                 document.getElementById('nicknameCheckResult').textContent = '사용 가능한 닉네임입니다.';
                 document.getElementById('nicknameCheckResult').style.color = 'green';
+                isNicknameAvailable = true;
             } else {
                 document.getElementById('nicknameCheckResult').textContent = '이미 사용 중인 닉네임입니다.';
                 document.getElementById('nicknameCheckResult').style.color = 'red';
+                isNicknameAvailable = false;
             }
         },
         error: function() {
             alert('닉네임 중복 확인 중 오류가 발생했습니다.');
+            isNicknameAvailable = false;
         }
     });
 }
