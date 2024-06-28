@@ -254,6 +254,33 @@ public class BoardRepository {
                 popupEntity.getPopup_end(), popupEntity.getOpen_time(), popupEntity.getPopup_attachment(), popupEntity.getEvent_type(), popupEntity.getLike_that(), popupEntity.getViews(), popupEntity.getBrand_link(), popupEntity.getBrand_sns());
     }
 
+    public List<PopupCommentEntity> getPopupComments(int popup_no) throws Exception {
+        List<PopupCommentEntity> result = jdbcTemplate.query(
+                "select * from popup_comment where popup_no=?;", //쿼리문
+                new RowMapper<PopupCommentEntity>() {
+                    @Override
+                    public PopupCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        PopupCommentEntity popupCommentEntity = new PopupCommentEntity();
+                        popupCommentEntity.setComment_no(rs.getInt("comment_no"));
+                        popupCommentEntity.setEvent_type(rs.getInt("event_type"));
+                        popupCommentEntity.setComment_writer(rs.getString("comment_writer"));
+                        popupCommentEntity.setComment_date(rs.getString("comment_date"));
+                        popupCommentEntity.setVisit_date(rs.getString("visit_date"));
+                        popupCommentEntity.setComment_content(rs.getString("comment_content"));
+                        popupCommentEntity.setPopup_no(rs.getInt("popup_no"));
+                        popupCommentEntity.setComment_attachment(rs.getString("comment_attachment"));
+                        popupCommentEntity.setStar_rate(rs.getInt("star_rate"));
+
+                        return popupCommentEntity;
+                    }
+                    //쿼리끝 ? 부분에 데이터를 넣는다
+                }, popup_no);
+        //데이터를 담은 list를 반환 시 조건을 걸어서 조건에 맞게 보낸다
+        //삼항 연산자로 isEmpty()인지 아닌지 판단해서 리턴하도록 한다!
+        //empty면 null값이 반환되고, 아니면  results.get(0)이 반환된다.
+        //즉, 메소드에서 정의한 리턴 형(BoardEntity )에 맞게 데이터가 리턴 될 수 있다.
+        return result;
+    }
 
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //

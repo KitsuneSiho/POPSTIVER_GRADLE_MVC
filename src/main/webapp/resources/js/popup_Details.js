@@ -98,4 +98,24 @@ function submitForm(event) {
 
 }
 
-
+function deleteComment(comment_no) {
+  if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+    $.ajax({
+      method: "delete",
+      url: "/comment/popup/" + comment_no,
+      success: function(response) {
+        console.log(comment_no);
+        // If deletion is successful, you might want to update the UI accordingly
+        alert('댓글이 성공적으로 삭제되었습니다.');
+        // Refresh the comment section or remove the deleted comment row
+        // Example: $(`tr[data-comment-no='${commentNo}']`).remove();
+        location.reload(); // Refresh the page (or update the UI as per your requirement)
+      },
+      error: function(xhr, status, error) {
+        console.log(comment_no);
+        alert('댓글 삭제에 실패했습니다.');
+        console.error('Failed to delete comment:', error);
+      }
+    });
+  }
+}

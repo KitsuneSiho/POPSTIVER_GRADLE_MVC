@@ -112,7 +112,7 @@ public class BoardController {
             model.addAttribute("allPopups", allPopups);
 
             // 모든 후기
-            List<PopupCommentDTO> allComments = commentService.selectPopupComment(popupNo);
+            List<PopupCommentDTO> allComments = boardService.selectPopupComment(popupNo);
             model.addAttribute("allComments", allComments);
 
 

@@ -45,4 +45,16 @@ public class CommentService {
         );
     }
 
+    // 댓글 삭제
+    public void deleteFestivalComment(int comment_no) {
+        String sql = "DELETE FROM festival_comment WHERE comment_no = ?";
+        jdbcTemplate.update(sql, comment_no);
+    }
+
+    // 댓글 삭제
+    public void deletePopupComment(int comment_no) {
+        String sql = "DELETE FROM popup_comment WHERE comment_no = ?";
+        jdbcTemplate.update(sql, comment_no);
+    }
+
 }
