@@ -26,8 +26,30 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
+
+        .nickname-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .nickname-container input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .nickname-container button {
+            white-space: nowrap;
+            margin-top: 5px;
+
+        }
+
+        #nicknameCheckResult {
+            display: block;
+            margin-top: 5px;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/formValidation.js"></script>
 </head>
 
 <body>
@@ -45,7 +67,7 @@
     </a>
 </div>
 
-<form action="${pageContext.request.contextPath}/member/saveUser" method="post">
+<form action="${pageContext.request.contextPath}/member/saveUser" method="post" onsubmit="return validateForm()">
     <div class="userInfo">
         <ul class="info">
             <li>
@@ -60,34 +82,36 @@
             <li>
                 <span>이름</span><br>
                 <label>
-                    <input type="text" name="user_name" value="${name}">
+                    <input type="text" name="user_name" value="${name}" id="user_name" readonly>
                 </label>
             </li>
             <li>
                 <span>닉네임</span><br>
-                <label>
-                    <input type="text" name="user_nickName" value="${nickName}">
-                </label>
+                <div class="nickname-container">
+                    <input type="text" name="user_nickName" value="${nickName}" id="user_nickName">
+                    <button type="button" onclick="checkNickname()">중복 확인</button>
+                </div>
+                <span id="nicknameCheckResult"></span>
             </li>
             <li>
                 <span>이메일</span><br>
                 <label>
-                    <input type="text" name="user_email" value="${email}">
+                    <input type="text" name="user_email" value="${email}" id="user_email" readonly>
                 </label>
             </li>
             <li>
                 <span>생일</span><br>
                 <label>
-                    <input type="text" name="user_birth" value="${birthYear}${birthday}">
+                    <input type="text" name="user_birth" id="user_birth" placeholder="YYYYMMDD" maxlength="8">
                 </label>
             </li>
             <li>
                 <span>성별</span><br>
                 <div class="userGender">
-                <input type="radio" id="male" name="user_gender" value="male" ${gender == 'M' ? 'checked' : ''}>
-                <label for="male">남</label>
-                <input type="radio" id="female" name="user_gender" value="female" ${gender == 'F' ? 'checked' : ''}>
-                <label for="female">여</label>
+                    <input type="radio" id="male" name="user_gender" value="male" ${gender == 'M' ? 'checked' : ''}>
+                    <label for="male">남</label>
+                    <input type="radio" id="female" name="user_gender" value="female" ${gender == 'F' ? 'checked' : ''}>
+                    <label for="female">여</label>
                 </div>
             </li>
             <li>
@@ -108,8 +132,6 @@
         </ul>
     </div>
 
-
-
     <div class="updateButton">
         <button type="submit">가입하기</button>
         <button type="reset">취소</button>
@@ -125,31 +147,7 @@
     </div>
 </div>
 
-
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script>
-    function showModal() {
-        document.getElementById('myModal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('myModal').style.display = 'none';
-
-    }
-
-    // 모달 외부 클릭 시 모달 닫기
-    window.onclick = function(event) {
-        const modal = document.getElementById('myModal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    }
-
-    // 페이지가 열리면 모달 실행
-    window.onload = function() {
-        showModal();
-    }
-</script>
 </body>
 
 </html>

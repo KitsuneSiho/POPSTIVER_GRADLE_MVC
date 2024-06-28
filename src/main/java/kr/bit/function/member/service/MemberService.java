@@ -50,4 +50,11 @@ public class MemberService {
         Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
         return count != null && count > 0;
     }
+
+    // 닉네임 중복 확인 메서드 추가
+    public boolean existsByNickname(String nickname) {
+        String sql = "SELECT COUNT(*) FROM user WHERE user_nickname = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{nickname}, Integer.class);
+        return count != null && count > 0;
+    }
 }

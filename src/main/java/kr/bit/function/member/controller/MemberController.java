@@ -202,4 +202,13 @@ public class MemberController {
             }
         }
     }
+
+    // 닉네임 중복 확인 엔드포인트 추가
+    @PostMapping("/checkNickname")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkNickname(@RequestParam("nickname") String nickname) {
+        boolean isAvailable = !memberService.existsByNickname(nickname);
+        Map<String, Boolean> response = Map.of("available", isAvailable);
+        return ResponseEntity.ok(response);
+    }
 }
