@@ -31,13 +31,13 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a class="on" href="${root}/contact">
+    <a href="${root}/contact">
         <h2>공지사항</h2>
     </a>
     <a href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="${root}/report">
+    <a class="on" href="${root}/report">
         <h2>제보하기</h2>
     </a>
     <a href="${root}/together">
