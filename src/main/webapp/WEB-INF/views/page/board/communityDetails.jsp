@@ -54,7 +54,7 @@
 <%-- list를 출력한다.  --%>
 <c:choose>
     <%-- 만약 model데 담긴 list의 값이 비어있다면 --%>
-    <c:when test="${empty notice}">
+    <c:when test="${empty community}">
         <%-- 아래의 메시지를 출력한다. --%>
         <h1>본 요청은 정상적이지 않으며, 해킹의 가능성이 있어 당신의 IP는 경찰에 고발조치 되었습니다.</h1>
 
@@ -62,13 +62,13 @@
     <%-- 그렇지 않으면  --%>
     <c:otherwise>
         <%-- 아래 내용을 출력한다. --%>
-        <h1>${notice.notice_title}</h1>
+        <h1>${community.board_title}</h1>
         <div class="writerDate">
-            <p>작성자 : ${notice.notice_title}</p>
-            <p>${notice.notice_date}</p>
+            <p>작성자 : ${community.user_name}</p>
+            <p>${community.board_post_date}</p>
         </div>
         <div class="noticeText">
-            <p>${notice.notice_content}</p>
+            <p>${community.board_content}</p>
         </div>
     </c:otherwise>
 </c:choose>

@@ -70,7 +70,7 @@
         <tbody id="boardBody">
         <c:choose>
             <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
-            <c:when test="${empty list}">
+            <c:when test="${empty community_list}">
                 <%-- 아래의 메시지를 출력한다. --%>
                 <tr>
                     <td colspan=15>
@@ -80,9 +80,9 @@
             </c:when>
             <c:otherwise>
                 <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
-                <c:forEach items="${list}" var="community">
+                <c:forEach items="${community_list}" var="community">
                     <tr>
-                        <td><p><a href="communityDetails/${community.board_no}">${community.board_title}</a></p></td>
+                        <td><p><a href="free/${community.board_no}">${community.board_title}</a></p></td>
                         <td ><p>${community.user_name}</p></td>
                         <td ><p>${community.board_post_date}</p></td>
 
