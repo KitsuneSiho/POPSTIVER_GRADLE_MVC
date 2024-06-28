@@ -26,31 +26,6 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .stars {
-            display: inline-block;
-        }
-
-        .star {
-            font-size: 24px;
-            color: #ddd; /* 기본 색상 */
-            cursor: pointer;
-        }
-
-        .star.selected {
-            color: #f5a623; /* 선택된 별 색상 */
-        }
-
-        .star:hover,
-        .star:hover ~ .star {
-            color: #ddd; /* 기본 색상으로 초기화 */
-        }
-
-        .star:hover,
-        .star:hover ~ .star,
-        .star:hover ~ .star {
-            color: #f5a623; /* 마우스를 올린 별과 그 이전의 별 색상 */
-        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -163,8 +138,10 @@
                 <input type="hidden" name="event_type" value="${festival.event_type}">
                 <input type="hidden" id="user_name" name="user_name" value="">
                 <input type="hidden" id="user_id" name="user_id" value="">
-                <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
-                <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                <div class="commentArea">
+                    <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                    <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
+
                 <div class="stars" id="starRating">
                     <span class="star" data-value="1">&#9733;</span>
                     <span class="star" data-value="2">&#9733;</span>
@@ -174,6 +151,7 @@
                 </div>
                 <input type="hidden" name="star_rate" id="star_rate">
                 <button type="submit">등록</button>
+                </div>
             </form>
            <div class="detailInfoReviewTable">
                <table>

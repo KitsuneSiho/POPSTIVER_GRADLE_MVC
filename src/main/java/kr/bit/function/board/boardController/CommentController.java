@@ -4,11 +4,10 @@ import kr.bit.function.board.boardDTO.FestivalCommentDTO;
 import kr.bit.function.board.boardDTO.PopupCommentDTO;
 import kr.bit.function.board.boardService.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/comment")
 @Controller
@@ -53,4 +52,27 @@ public class CommentController {
             e.printStackTrace();
         }
     }
+
+    // 댓글 삭제
+    @DeleteMapping("/festival/{comment_no}")
+    public ResponseEntity<String> deleteFestivalComment(@PathVariable("comment_no") int comment_no) {
+        try {
+            commentService.deleteFestivalComment(comment_no); // 서비스 레이어를 호출하여 댓글 삭제
+            return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
+        }
+    }
+
+    // 댓글 삭제
+    @DeleteMapping("/popup/{comment_no}")
+    public ResponseEntity<String> deletePopupComment(@PathVariable("comment_no") int comment_no) {
+        try {
+            commentService.deletePopupComment(comment_no); // 서비스 레이어를 호출하여 댓글 삭제
+            return ResponseEntity.ok("댓글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
+        }
+    }
 }
+

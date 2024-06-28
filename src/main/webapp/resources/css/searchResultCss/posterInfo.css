@@ -333,3 +333,29 @@ body {
     font-size: 1rem;
     cursor: pointer;
 }
+
+.commentArea{
+    display: flex;
+    align-content: center;
+}
+.commentArea .commentDate{
+    width: 20%;
+    border: none;
+    background-color: black;
+    border-right: 1px solid #5e5e5e;
+    color: white;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px;
+}
+.commentArea .commentContent{
+    width: 50%;
+    border: none;
+    background-color: black;
+    color: white;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px;
+}
