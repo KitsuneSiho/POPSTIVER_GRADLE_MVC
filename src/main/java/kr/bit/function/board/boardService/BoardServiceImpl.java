@@ -1,13 +1,10 @@
 package kr.bit.function.board.boardService;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
-import kr.bit.function.board.boardEntity.FestivalEntity;
-import kr.bit.function.board.boardEntity.PopupEntity;
+import kr.bit.function.board.boardDTO.*;
+import kr.bit.function.board.boardEntity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,8 +18,14 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
+    private final JdbcTemplate jdbcTemplate;
+
+    public BoardServiceImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     //=====================================================================================//
-    //                                      FESTIVAL                                       //
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
     //=====================================================================================//
 
 
@@ -144,6 +147,41 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception {
+        // List<FestivalCommentEntity> 형태의 변수를 하나 만든다.
+        List<FestivalCommentEntity> festivalCommentEntities = null;
+        try {
+            // 레파지토리의 getFestivalComments() 메소드를 불러와서(DB 요청)
+            // 리턴된 데이터를 festivalCommentEntities에 담는다.
+            festivalCommentEntities = boardRepository.getFestivalComments(festival_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // List<FestivalCommentDTO>형의 변수를 하나 생성하고
+        List<FestivalCommentDTO> festivalCommentDTOs = new ArrayList<FestivalCommentDTO>();
+
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for(int i=0;i < festivalCommentEntities.size();i++) {
+            // festivalCommentEntities에 담겼던 모든 데이터들을 다시 FestivalCommentDTO 객체를 생성해서 거기에 담아 festivalCommentDTOs 리스트에 담는다.
+            festivalCommentDTOs.add(new FestivalCommentDTO(
+                    festivalCommentEntities.get(i).getComment_no(),
+                    festivalCommentEntities.get(i).getEvent_type(),
+                    festivalCommentEntities.get(i).getComment_writer(),
+                    festivalCommentEntities.get(i).getComment_date(),
+                    festivalCommentEntities.get(i).getVisit_date(),
+                    festivalCommentEntities.get(i).getComment_content(),
+                    festivalCommentEntities.get(i).getFestival_no(),
+                    festivalCommentEntities.get(i).getComment_attachment(),
+                    festivalCommentEntities.get(i).getStar_rate()
+            ));
+        }
+
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return festivalCommentDTOs;
+    }
+
+    @Override
     public List<FestivalBoardDTO> selectAllFestivalByLocation(String festival_dist) throws Exception { //위치정보기반검색(시)
         return null;
     }
@@ -159,7 +197,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     //=====================================================================================//
-    //                                      POPUP                                          //
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
 
 
@@ -296,29 +334,206 @@ public class BoardServiceImpl implements BoardService {
         // 게시글 번호 바탕으로 게시글 삭제
     }
 
+
     @Override
-    public List<NoticeDTO> insertCommunity(CommunityDTO communityDTO) throws Exception {
-        return List.of();
+    public List<PopupCommentDTO> selectPopupComment(int popup_no) throws Exception {
+        // List<FestivalCommentEntity> 형태의 변수를 하나 만든다.
+        List<PopupCommentEntity> popupCommentEntities = null;
+        try {
+            // 레파지토리의 getFestivalComments() 메소드를 불러와서(DB 요청)
+            // 리턴된 데이터를 festivalCommentEntities에 담는다.
+            popupCommentEntities = boardRepository.getPopupComments(popup_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // List<FestivalCommentDTO>형의 변수를 하나 생성하고
+        List<PopupCommentDTO> popupCommentDTOs = new ArrayList<PopupCommentDTO>();
+
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for(int i=0;i < popupCommentEntities.size();i++) {
+            // festivalCommentEntities에 담겼던 모든 데이터들을 다시 FestivalCommentDTO 객체를 생성해서 거기에 담아 festivalCommentDTOs 리스트에 담는다.
+            popupCommentDTOs.add(new PopupCommentDTO(
+                    popupCommentEntities.get(i).getComment_no(),
+                    popupCommentEntities.get(i).getEvent_type(),
+                    popupCommentEntities.get(i).getComment_writer(),
+                    popupCommentEntities.get(i).getComment_date(),
+                    popupCommentEntities.get(i).getVisit_date(),
+                    popupCommentEntities.get(i).getComment_content(),
+                    popupCommentEntities.get(i).getPopup_no(),
+                    popupCommentEntities.get(i).getComment_attachment(),
+                    popupCommentEntities.get(i).getStar_rate()
+            ));
+        }
+
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return popupCommentDTOs;
     }
 
+    //=====================================================================================//
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
+    //=====================================================================================//
+    @Override
+    public List<NoticeDTO> selectAllNotice() throws Exception {
+        List<NoticeEntity> noticeEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            noticeEntities = boardRepository.getNoticeRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<NoticeDTO> noticeData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < noticeEntities.size(); i++) {
+            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
+            noticeData.add(new NoticeDTO(
+                    noticeEntities.get(i).getNotice_no(),
+                    noticeEntities.get(i).getNotice_title(),
+                    noticeEntities.get(i).getNotice_content(),
+                    noticeEntities.get(i).getNotice_date()
+
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return noticeData;
+    }
+
+
+    @Override
+    public NoticeDTO selectNoticeOne(int notice_no) throws Exception{
+        NoticeEntity noticeEntity =null;
+        try{
+            noticeEntity = boardRepository.getNoticeOneRepo(notice_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new NoticeDTO(noticeEntity.getNotice_no(), noticeEntity.getNotice_title(), noticeEntity.getNotice_content(), noticeEntity.getNotice_date());
+    }
+
+    //=====================================================================================//
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
+    //=====================================================================================//
+    //자유게시판 삽입
+    @Override
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception {
+        boardRepository.insertCommunityRepo(communityDTO);
+    }
+    //자유게시판 출력
     @Override
     public List<CommunityDTO> selectAllCommunity() throws Exception {
-        return List.of();
-    }
-
-    @Override
-        public List<NoticeDTO> selectAllNotice() throws Exception {
-            return List.of();
+        List<CommunityEntity> communityEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            communityEntities = boardRepository.getCommunityRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<CommunityDTO> communityData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < communityEntities.size(); i++) {
+            // popupEntities에 담겼던 모든 데이터들을 다시 PopupDTO 객체를 생성해서 거기에 담아 popupData 리스트에 담는다.
+            communityData.add(new CommunityDTO(
+                    communityEntities.get(i).getBoard_no(),
+                    communityEntities.get(i).getBoard_title(),
+                    communityEntities.get(i).getBoard_content(),
+                    communityEntities.get(i).getUser_id(),
+                    communityEntities.get(i).getUser_name(),
+                    communityEntities.get(i).getBoard_views(),
+                    communityEntities.get(i).getBoard_post_date(),
+                    communityEntities.get(i).getBoard_attachment()
 
-    @Override
-    public NoticeDTO selectNoticeOne(int notice_no) throws Exception {
-        return null;
-    }
-
-    @Override
-        public List<NoticeDTO> selectOneNotice(int notice_no) throws Exception {
-            return List.of();
+            ));
         }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return communityData;
 
     }
+
+    @Override
+    public CommunityDTO selectCommunityOne(int board_no) throws Exception{
+        CommunityEntity communityEntity =null;
+        try{
+            communityEntity = boardRepository.getCommunityOneRepo(board_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new CommunityDTO(
+                communityEntity.getBoard_no(),
+                communityEntity.getBoard_title(),
+                communityEntity.getBoard_content(),
+                communityEntity.getUser_id(),
+                communityEntity.getUser_name(),
+                communityEntity.getBoard_views(),
+                communityEntity.getBoard_attachment(),
+                communityEntity.getBoard_post_date());
+
+    }
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+
+    //주최자 등록
+    @Override
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception {
+        boardRepository.insertBusinessRepo(temporaryPostDTO);
+    }
+
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+    @Override
+    public void insertReport(ReportDTO reportDTO) throws Exception {
+        boardRepository.insertReportRepo(reportDTO);
+    }
+
+    //리포트 목록 출력
+    @Override
+    public List<ReportDTO> selectReportAll() throws Exception {
+        List<ReportEntity> reportEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            reportEntities = boardRepository.getReportRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<ReportDTO> reportData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < reportEntities.size(); i++) {
+            // ReportEntities에 담겼던 모든 데이터들을 다시 ReportDTO 객체를 생성해서 거기에 담아 reportData 리스트에 담는다.
+            reportData.add(new ReportDTO(
+                    reportEntities.get(i).getReport_no(),
+                    reportEntities.get(i).getReport_title(),
+                    reportEntities.get(i).getReport_content(),
+                    reportEntities.get(i).getReport_host(),
+                    reportEntities.get(i).getReport_dist(),
+                    reportEntities.get(i).getReport_subdist(),
+                    reportEntities.get(i).getReport_location(),
+                    reportEntities.get(i).getReport_start(),
+                    reportEntities.get(i).getReport_end(),
+                    reportEntities.get(i).getOpen_time(),
+                    reportEntities.get(i).getReport_attachment(),
+                    reportEntities.get(i).getEvent_type(),
+                    reportEntities.get(i).getBrand_link(),
+                    reportEntities.get(i).getBrand_sns(),
+                    reportEntities.get(i).getReport_post_date(),
+                    reportEntities.get(i).getUser_id(),
+                    reportEntities.get(i).getUser_name()
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return reportData;
+
+    }
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
+}

@@ -53,6 +53,7 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
 
         .user-list ul li:hover {

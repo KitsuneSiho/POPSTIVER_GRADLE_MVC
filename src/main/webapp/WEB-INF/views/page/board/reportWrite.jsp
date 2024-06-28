@@ -28,6 +28,8 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/reportWrite.js"></script>
 </head>
 
 <body>
@@ -51,49 +53,59 @@
     </a>
 </div>
 
-
+<form method="post" onsubmit="submitForm(event)">
 <div class="business">
     <ul class="businessList">
         <li>
             <span>제목</span>
             <label class="title">
-                <input type="text" placeholder="30자 이내로 입력해주세요">
+                <input type="text" name="report_title" placeholder="30자 이내로 입력해주세요">
             </label>
         </li>
         <li>
             <span>유형</span>
-            <input type="radio" id="festival" name="type" value="지역 페스티벌">
+            <input type="radio" id="culture" name="event_type" value="1" checked>
+            <label for="festival">문화·전통체험</label>
+            <input type="radio" id="festival" name="event_type" value="2">
             <label for="festival">지역 페스티벌</label>
-            <input type="radio" id="popup-store" name="type" value="팝업 스토어" checked>
+            <input type="radio" id="popup-store" name="event_type" value="3">
             <label for="popup-store">팝업 스토어</label>
         </li>
         <li>
             <span>행사 내용</span>
             <label class="infoTextarea">
-                <textarea placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10"></textarea>
+                <textarea name="report_content" placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10" style="resize: none"></textarea>
             </label>
         </li>
         <li>
             <span>주소</span>
             <label class="addressLabel">
-                <input type="text">
+                <input type="text" name="report_location">
             </label>
             <button class="searchAddress" type="button">주소 검색</button>
         </li>
         <li>
             <span>행사기간</span>
             <label class="dateLabel">
-                <input type="date" class="date">
+                <input type="date" class="date" name="report_start">
             </label>
             <p>부터</p>
             <label class="dateLabel">
-                <input type="date" class="date">
+                <input type="date" class="date" name="report_end">
             </label>
             <p>까지</p>
         </li>
         <li>
-            <span>사진</span>
-            <input type="image" class="image" alt="">
+            <span>주최하는 곳</span>
+            <input type="text" class="host" name="report_host">
+        </li>
+        <li>
+            <span>링크</span>
+            <p>공식홈페이지</p>
+            <input type="text" class="brand_link" name="brand_link">
+            <p>SNS</p>
+            <input type="text" class="brand_sns" name="brand_sns">
+
         </li>
     </ul>
 </div>
@@ -102,7 +114,7 @@
     <button type="submit">제보하기</button>
     <button type="reset" onclick="window.location.href='report'">취소</button>
 </div>
-
+</form>
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 
 <div id="chatModal" class="chatModal">

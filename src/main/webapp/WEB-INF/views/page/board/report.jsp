@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">
+
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
     <style>
@@ -61,11 +62,31 @@
         </tr>
         </thead>
         <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
+        <c:choose>
+            <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+            <c:when test="${empty report}">
+                <%-- 아래의 메시지를 출력한다. --%>
+                <tr>
+                    <td colspan=15>
+                        <h1>비 정상적인 접근이 감지되었습니다. 해킹이 의심되므로 당신의 IP는 경찰에 고발조치 되었습니다.</h1>
+                        <br><br>
+                        <h3>SWAT 중무장 경찰팀이 당신의 집으로 방문할 예정입니다.</h3>
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
+                <c:forEach items="${report_list}" var="report">
+                    <tr>
+                            <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
+                        <td><p><a href="contact/${report.report_no}">${report.report_title}</a></p></td>
+                        <td ><p>${report.user_name}</p></td>
+                        <td ><p>${report.report_post_date}</p></td>
+
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
         </tbody>
     </table>
 </div>

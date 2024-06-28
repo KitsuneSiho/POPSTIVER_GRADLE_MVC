@@ -46,7 +46,7 @@ public class MemberTestController {
 
         if (userExists) {
             // 사용자 아이디가 존재하면 메인 페이지로 리다이렉트
-            return "redirect:/main";
+            return "redirect:/mainPopup";
         } else {
             return "redirect:/join_information";
         }

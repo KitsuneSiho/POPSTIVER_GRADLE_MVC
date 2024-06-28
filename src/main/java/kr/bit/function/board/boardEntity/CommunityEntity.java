@@ -17,7 +17,7 @@ public class CommunityEntity {
         super();
     }
 
-    public CommunityEntity(int board_no,String board_title, String board_content, String user_id, String user_name, int board_views, String board_post_date, String board_attachment) {
+    public CommunityEntity(int board_no,String board_title, String board_content, String user_id, String user_name, String board_post_date, String board_attachment, int board_views) {
         super();
         this.board_no = board_no;
         this.board_title = board_title;

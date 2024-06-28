@@ -230,3 +230,73 @@ body {
         font-size: 18px;
     }
 }
+
+.nickname-container {
+    display: flex;
+    align-items: center;
+}
+
+.nickname-container input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.nickname-container button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.nickname-container button:hover{
+    background-color: #ffff3388;
+}
+
+#nicknameCheckResult {
+    display: block;
+    margin-top: 5px;
+}
+
+
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert-content {
+    font-family: 'Pre', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1.5rem;
+}
+
+.custom-alert-close {
+    font-family: 'Pre', sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}

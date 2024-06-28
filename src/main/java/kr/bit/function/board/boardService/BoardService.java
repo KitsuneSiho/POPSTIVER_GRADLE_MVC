@@ -1,16 +1,13 @@
 package kr.bit.function.board.boardService;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 
 import java.util.List;
 
 public interface BoardService {
 
     //=====================================================================================//
-    //                                      FESTIVAL                                       //
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
     //=====================================================================================//
     public void insertFestivalManual() throws Exception; //페스티벌 보드 디비에 데이터 삽입
 
@@ -29,9 +26,13 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deleteFestival(int festival_no) throws Exception;
 
+    // 해당 게시글 번호를 가진 댓글 전체 출력
+    public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception;
+
+
 
     //=====================================================================================//
-    //                                        POPUP                                        //
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
     public void insertPopupManual() throws Exception; //팝업 보드 디비에 데이터 삽입
 
@@ -50,17 +51,34 @@ public interface BoardService {
     //게시물번호 기반으로 데이터삭제
     public void deletePopup(int popup_no) throws Exception;
 
+    // 해당 게시글 번호를 가진 댓글 전체 출력
+    public List<PopupCommentDTO> selectPopupComment(int popup_no) throws Exception;
 
     //=====================================================================================//
-    //                                   COMMUNITY BOARD                                   //
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
-    public List<NoticeDTO> insertCommunity(CommunityDTO communityDTO) throws Exception;
+    public void insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectAllCommunity() throws Exception;
+    public CommunityDTO selectCommunityOne(int board_no) throws Exception;
     //=====================================================================================//
-    //                                        NOTICE                                       //
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+    public void insertBusiness(TemporaryPostDTO temporaryPostDTO) throws Exception;
 
-    List<NoticeDTO> selectOneNotice(int notice_no) throws Exception;
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+    public void insertReport(ReportDTO reportDTO) throws Exception;
+    public List<ReportDTO> selectReportAll() throws Exception;
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
+
+
 }

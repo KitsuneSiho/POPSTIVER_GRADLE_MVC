@@ -26,13 +26,19 @@
                 }
             );
         });
+
+        function redirectRandom() {
+            const urls = ['mainPopup', 'mainFestival'];
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            window.location.href = root + '/' + urls[randomIndex];
+        }
     </script>
 
 </head>
 <body>
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="../main">POPSTIVER</a></h1>
+        <h1><a href="#" onclick="redirectRandom()">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='mainPopup'">POP-UP</button>
             <button class="logoButton" onclick="window.location.href='mainFestival'">FESTIVAL</button>
@@ -48,10 +54,10 @@
     <div class="mainTopMenu">
         <ul>
             <li>
-                <a href="myPage">마이페이지</a>
+                <a href="${root}/myPage">마이페이지</a>
                 <ul>
-                    <li><a href="myPage">내 정보</a></li>
-                    <li><a href="deleteUser">회원 탈퇴</a></li>
+                    <li><a href="${root}/myPage">내 정보</a></li>
+                    <li><a href="${root}/deleteUser">회원 탈퇴</a></li>
                 </ul>
             </li>
             <li>
@@ -73,13 +79,17 @@
                     <li><a href="${root}/free">자유게시판</a></li>
                 </ul>
             </li>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li>
+                <a href="${root}/admin">관리자</a>
+            </li>
+        </sec:authorize>
         </ul>
     </div>
 
     <div class="weather">
         <p>날씨 위젯</p>
     </div>
-
 
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
@@ -93,21 +103,19 @@
                 로그아웃
             </button>
         </sec:authorize>
-
     </div>
 </header>
 
 <div id="searchModal" class="search-modal">
     <div class="mainTopSearch">
-            <form class="mainTopSearchContainer" action="${root}/main/search" method="GET">
-                <label>
-                    <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
-                </label>
-
-                    <button type="submit" class="searchButton">
-                        <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
-                    </button>
-            </form>
+        <form class="mainTopSearchContainer" action="${root}/main/search" method="GET">
+            <label>
+                <input type="text" name="keyword" placeholder="팝업스토어, 페스티벌 검색">
+            </label>
+            <button type="submit" class="searchButton">
+                <img src="${root}/resources/asset/메인검색창검색버튼.svg" alt="">
+            </button>
+        </form>
     </div>
 </div>
 

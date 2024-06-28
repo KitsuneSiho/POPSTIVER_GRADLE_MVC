@@ -51,8 +51,10 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/main", "/map", "/calendar", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
+                        .requestMatchers("/comment/**").permitAll() // 댓글 기능
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자페이지
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

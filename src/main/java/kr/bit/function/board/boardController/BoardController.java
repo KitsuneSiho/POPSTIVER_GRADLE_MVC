@@ -2,10 +2,9 @@ package kr.bit.function.board.boardController;
 
 
 import kr.bit.function.board.boardDAO.BoardRepository;
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.FestivalBoardDTO;
-import kr.bit.function.board.boardDTO.PopupBoardDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardService.BoardService;
+import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
@@ -32,6 +31,9 @@ public class BoardController {
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+    @Autowired
+    private CommentService commentService;
+
 
     // 해당경로('프로젝트/보드이름')로 URL이동하면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/testfestival", method = RequestMethod.GET)
@@ -51,13 +53,15 @@ public class BoardController {
         return "page/test/festival_menu";
     }
 
-    //-----------------------FESTIVAL------------------------//
+    //=====================================================================================//
+    //                               🎇🎇 FESTIVAL 축제 🎇🎇                               //
+    //=====================================================================================//
+
     //URL에 '/page'를 더 적으면 해당 컨트롤러 메소드로 매핑된다.
     @RequestMapping(value = "/festival_page", method = RequestMethod.GET)
     public String home() {
         return "page/test/festival_page";
     }
-
     @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
     public String insert(Model model) {
         logger.info("festival_insert.jsp start");
@@ -85,6 +89,10 @@ public class BoardController {
             List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
             model.addAttribute("allFestivals", allFestivals);
 
+            // 모든 후기
+            List<FestivalCommentDTO> allComments = boardService.selectFestivalComment(festivalNo);
+            model.addAttribute("allComments", allComments);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,6 +110,11 @@ public class BoardController {
             // 모든 축제 정보
             List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
             model.addAttribute("allPopups", allPopups);
+
+            // 모든 후기
+            List<PopupCommentDTO> allComments = boardService.selectPopupComment(popupNo);
+            model.addAttribute("allComments", allComments);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +137,10 @@ public class BoardController {
         }
         return "page/test/festival_view";
     }
-//----------------------POPUP-------------------------------//
+    //=====================================================================================//
+    //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
+    //=====================================================================================//
+
     @RequestMapping(value = "/popup_view", method = RequestMethod.GET)
     public String viewPopup(Model model) {
         //log임
@@ -140,9 +156,9 @@ public class BoardController {
         return "page/test/popup_view";
     }
 
-    //-------------------------------------------------------//
-    //                        NOTICE                         //
-    //-------------------------------------------------------//
+    //=====================================================================================//
+    //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
+    //=====================================================================================//
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {
@@ -171,20 +187,33 @@ public class BoardController {
         return "page/board/noticeDetails";
     }
 
-    //-------------------------------------------------------//
+    //=====================================================================================//
+    //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
+    //=====================================================================================//
 
-
-    //------------------------------------------------------//
-    //                    COMMUNITY 자유게시판                //
-    //------------------------------------------------------//
     @RequestMapping(value = "/free", method = RequestMethod.GET)
     public String communityBoardList(Model model){
         try{
-            model.addAttribute("list", boardService.selectAllCommunity());
+            model.addAttribute("community_list", boardService.selectAllCommunity());
         }catch (Exception e){
             e.printStackTrace();
         }
         return "page/board/free";
+    }
+    @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
+    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
+    public String selectCommunityOne(@PathVariable("board_no") int board_no, Model model) {
+        try {
+            //위에서 선언한 service의 selectOne()메소드 요청한다.
+            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
+            //selectOne메소드를 통해 나온 리턴값을 value로 해서
+            //'list'란 key값으로 model에 담는다.
+            model.addAttribute("community",boardService.selectCommunityOne(board_no));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/communityDetails";
     }
 
     @RequestMapping(value = "/freeBoard")
@@ -193,7 +222,31 @@ public class BoardController {
 
         @PutMapping("/insertWrite")
         @ResponseBody
-        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO,
+        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO){
+            try {
+                System.out.println("제목:"+communityDTO.getBoard_title());
+                System.out.println("내용:"+communityDTO.getBoard_content());
+                System.out.println("사용자아이디:"+communityDTO.getUser_id());
+                System.out.println("사용자명:"+communityDTO.getUser_name());
+                boardService.insertCommunity(communityDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    // 자유 게시판 글 등록
+
+    //=====================================================================================//
+    //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
+    //=====================================================================================//
+    @RequestMapping(value = "/money")
+    @Controller
+    class InsertBusinessController{
+
+        @PutMapping("/register")
+        @ResponseBody
+        public void registerBusiness(@RequestBody TemporaryPostDTO temporaryPostDTO,
                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
@@ -215,18 +268,70 @@ public class BoardController {
             }
 
             try {
-                System.out.println("제목:"+communityDTO.getBoard_title());
-                System.out.println("내용:"+communityDTO.getBoard_content());
-                System.out.println("사용자아이디:"+communityDTO.getUser_id());
-                System.out.println("사용자명:"+communityDTO.getUser_name());
-                boardService.insertCommunity(communityDTO);
+                boardService.insertBusiness(temporaryPostDTO);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    // 자유 게시판 글 등록
+
+
+    //=====================================================================================//
+    //                             📤📤 REPORT  제보게시판 📤📤                             //
+    //=====================================================================================//
+
+    @RequestMapping(value = "/report")
+    @Controller
+    class InsertReportController{
+
+        @PutMapping("/reportWrite")
+        @ResponseBody
+        public void registerReport(@RequestBody ReportDTO reportDTO,
+                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertReport(reportDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    public String report(Model model) {
+        try {
+            model.addAttribute("report_list",boardService.selectReportAll());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/report";
+    }
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
 
 
 

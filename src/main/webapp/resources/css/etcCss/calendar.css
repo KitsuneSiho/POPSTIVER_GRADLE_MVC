@@ -15,18 +15,21 @@ body {
 #calendar {
     width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
     max-width: 80%; /* 추가: 최대 너비 설정 */
-    margin: 0 auto;
     color: white;
     background-color: black;
     border-radius: 5px;
-    overflow: hidden !important;
-    margin-top: 20px; /* 추가: 달력과의 간격 */
+    /*overflow: hidden !important;*/
+    /* 추가: 달력과의 간격 */
+    margin: 20px auto 0;
 }
 
 #calendar table {
-    border-radius: 5px;
-    background-color: #2e2e2e;
-    border: 3px solid #ffff33;
+    background: none;
+    border: 1px solid #2e2e2e;
+}
+
+#calendar .fc-daygrid-event-dot {
+    display: none;
 }
 
 .fc-today-button,
@@ -51,6 +54,11 @@ body {
     color: #ff0000;
 }
 
+.fc-day-sat .fc-event-title,
+.fc-day-sun .fc-event-title { /* 주말 일정제목 색깔*/
+    color: white !important;
+}
+
 .fc .fc-col-header-cell-cushion {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -58,11 +66,32 @@ body {
 
 
 .fc-event {
-    font-size: 50%; /* 일정 글자 크기 절반으로 줄임 */
+    max-width: 95%; /* 이벤트 요소의 최대 너비를 설정 */
 }
 
 .fc-event-title {
-    font-size: 50%; /* 이벤트 제목 글자 크기 절반으로 줄임 */
+    color: white !important;
+    font-size: 70%; /* 이벤트 제목 글자 크기  */
+    /*white-space: nowrap; !*이벤트 제목이 긴 경우 줄 바꿈 없이 한 줄에 모두 표시*!*/
+    /*overflow: hidden; !*요소의 내용이 넘칠 경우, 넘치는 부분을 숨김*!*/
+    /*text-overflow: ellipsis; !*텍스트가 넘치는 경우 마지막 부분을 생략 부호(ellipsis, ...)로 표시*!*/
+    /*max-width: 80%; !* 이벤트 요소의 최대 너비를 설정 *!*/
+    /*padding: 1px 3px; !* 내부 여백을 조금 추가하여 가독성 향상 *!*/
+    /*제목 간추리는 설정은 js파일도 같이 엮여있음*/
+}
+
+/* 더 긴 제목을 표시하기 위해 이벤트 높이 조정 */
+/*.fc-daygrid-event {*/
+/*    min-height: 20px; !* 최소 높이 설정 *!*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+
+/* "더보기" 링크 스타일 수정 */
+.fc-more-link {
+    font-size: 50%;
+    color: white !important;
 }
 
 .fc-more-popover {
@@ -78,26 +107,22 @@ body {
 .fc-popover-header {
     background-color: black !important; /* 팝업창 헤더 배경색을 검정색으로 설정 */
     color: white !important; /* 팝업창 헤더 텍스트 색상을 흰색으로 설정 */
+    font-family: 'Pre', sans-serif;
 }
 
-.more-link {
-    font-size: 50%; /* "더보기" 링크 글자 크기 절반으로 줄임 */
-    color: white; /* "더보기" 링크 글자 색상을 흰색으로 설정 */
+ /*event_type에 따른 배경색 */
+.fc-event.event-type-1,
+.fc-event.event-type-2 {
+    background-color: rgba(80, 80, 217, 0.73) !important;
+    border-color: rgba(80, 80, 217, 0.73) !important;
+}
+
+.fc-event.event-type-3 {
+    background-color: rgba(253, 253, 136, 0.73) !important;
+    border-color: rgba(253, 253, 136, 0.73) !important;
 }
 
 
-
-/* 추가: event_type에 따른 배경색 */
-/*.fc-event.event-type-1,*/
-/*.fc-event.event-type-2 {*/
-/*    background-color: blue !important;*/
-/*    border-color: blue !important;*/
-/*}*/
-
-/*.fc-event.event-type-3 {*/
-/*    background-color: yellow !important;*/
-/*    border-color: yellow !important;*/
-/*}*/
 
 
 dialog {

@@ -25,6 +25,7 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -63,9 +64,11 @@
             </li>
             <li>
                 <span>닉네임</span><br>
-                <label>
+                <div class="nickname-container">
                     <input type="text" id="user_nickName" name="user_nickName" value="${user.user_nickname}">
-                </label>
+                    <button type="button" onclick="checkNickname()">중복 확인</button>
+                </div>
+                <span id="nicknameCheckResult"></span>
             </li>
             <li>
                 <span>이메일</span><br>

@@ -14,8 +14,8 @@ import java.util.List;
 @Mapper
 public interface SearchMapper {
 
-    @Select("SELECT event_type, title, content, location, attachment, start_date, end_date " +
-            "FROM search_table " +
+    @Select("SELECT event_no, event_type, title, content, location, attachment, start_date, end_date " +
+            "FROM search_table2 " +
             "WHERE (title LIKE CONCAT('%', #{keyword}, '%') " +
             "OR content LIKE CONCAT('%', #{keyword}, '%') " +
             "OR location LIKE CONCAT('%', #{keyword}, '%')) ")
