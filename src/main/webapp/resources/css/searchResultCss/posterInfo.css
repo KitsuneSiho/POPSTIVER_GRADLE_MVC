@@ -12,8 +12,8 @@ body {
 
 .mainPoster img {
     margin-top: 30px;
-    width: 100%;
-    height: 500px;
+    max-width: 80%; /* 최대 너비 설정 */
+    height: auto; /* 높이 자동 조정 */
     border: none;
 }
 .detailInfo{
@@ -111,20 +111,33 @@ body {
     border-bottom: 3px solid #ffff33;
     color: white;
 }
-.detailInfoReview input{
-    flex: 1;
-    margin-left: 5%;
+
+.detailInfoReview .visit_date{
+
     padding: 10px 20px;
-    width: 70%;
+    width: 15%;
     height: 28px;
     font-size: 20px;
-    background-color: #2e2e2e;
-    border: 3px solid #ffff33;
-    border-radius: 30px;
+    background: none;
+    border: none;
+    border-right: 1px solid #2e2e2e;
     outline: none;
     font-family: 'Pre', sans-serif;
     color: white;
 }
+.detailInfoReview .comment_content{
+    flex: 1;
+    padding: 10px 20px;
+    width: 50%;
+    height: 28px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
 .detailInfoReview button{
     width: 90px;
     height: 40px;
@@ -135,6 +148,9 @@ body {
     border-radius: 20px;
     font-size: 20px;
     cursor: pointer;
+}
+.detailInfoReview button:hover{
+    background-color: #ffff3388;
 }
 .detailInfoReviewTable table{
     width: 100%;
@@ -171,15 +187,57 @@ body {
     background-color: #2e2e2e;
     border-radius: 10px;
     z-index: 1000;
-    font-family: 'Pre',sans-serif;
+    font-family: 'Pre', sans-serif;
     font-size: 20px;
     width: max-content; /* 내용에 맞게 너비 조절 */
     margin-top: 5%;
 }
-.share-modal p{
+
+.share-modal p {
     color: #ffff33;
     margin-left: 2%;
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+}
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    margin-left: 2%;
+    min-height: 40px; /* 컨테이너의 최소 높이를 설정 */
+}
+
+.link-wrapper {
+    flex: 1; /* 링크를 포함하는 컨테이너가 가능한 공간을 차지하도록 설정 */
+    display: flex;
+    align-items: center;
+    min-height: 40px; /* 최소 높이 설정 */
+}
+
+.link-wrapper a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px; /* 링크의 최대 너비 설정 */
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.link-container button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* 버튼을 컨테이너의 중앙에 정렬 */
+    justify-content: center; /* 버튼을 수평으로 중앙에 정렬 */
+    height: 40px; /* 버튼의 높이를 고정 */
 }
 
 
@@ -207,4 +265,71 @@ body {
     background-color: #2e2e2e !important;
 }
 
+.reviewWrite {
+    display: flex;
+    align-content: center;
+}
 
+
+.stars {
+    display: inline-block;
+    margin-left: 2%;
+}
+
+.star {
+    font-size: 30px;
+    color: #ddd; /* 기본 색상 */
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffff33; /* 선택된 별 색상 */
+}
+
+/* 호버 효과 수정 */
+.star ~ .star:hover {
+    color: #ddd; /* 호버한 별의 왼쪽 별들은 기본 색상 유지 */
+}
+
+.star:hover,
+.star ~ .star:hover {
+    color: #ffff33; /* 호버한 별과 그 오른쪽 별들 색상 변경 */
+}
+
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert-content {
+    font-family: 'Pre', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1.5rem;
+}
+
+.custom-alert-close {
+    font-family: 'Pre', sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}

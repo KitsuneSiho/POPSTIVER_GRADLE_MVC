@@ -70,13 +70,35 @@
         <p>축제알라라라라라라</p>
         <button>FESTIVAL 보러가기</button>
     </div>
+    <div class="scroll-up">
+        <p>SCROLL</p>
+        <img src="${root}/resources/asset/아래로.svg" alt="">
+    </div>
 </div>
+
 
 <script>
     document.querySelector('.scroll').addEventListener('click', function() {
         const enterContainer = document.querySelector('.enterContainer');
         enterContainer.scrollIntoView({ behavior: 'smooth' });
     });
+
+    document.querySelector('.scroll-up').addEventListener('click', function() {
+        const container = document.querySelector('.container');
+        container.scrollIntoView({ behavior: 'smooth' });
+
+        // 애니메이션 재실행
+        resetAnimations();
+    });
+
+    function resetAnimations() {
+        const elements = document.querySelectorAll('.title h1, .titleInfo p, .scroll');
+        elements.forEach(el => {
+            el.style.animation = 'none';
+            el.offsetHeight; // 리플로우 강제
+            el.style.animation = null;
+        });
+    }
 </script>
 
 </body>

@@ -57,7 +57,7 @@ body {
 }
 
 .boardTable td {
-    font-size: 0.9rem;
+    font-size: 20px;
 }
 
 .boardTable td a {
@@ -70,7 +70,7 @@ body {
 }
 
 .boardTable th:nth-child(2), .boardTable td:nth-child(2) {
-    width: 25%;
+    width: 15%;
     text-align: center;
 }
 

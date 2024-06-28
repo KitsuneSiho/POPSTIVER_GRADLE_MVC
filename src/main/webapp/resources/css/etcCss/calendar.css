@@ -15,18 +15,17 @@ body {
 #calendar {
     width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
     max-width: 80%; /* 추가: 최대 너비 설정 */
-    margin: 0 auto;
     color: white;
     background-color: black;
     border-radius: 5px;
     /*overflow: hidden !important;*/
-    margin-top: 20px; /* 추가: 달력과의 간격 */
+    /* 추가: 달력과의 간격 */
+    margin: 20px auto 0;
 }
 
 #calendar table {
-    border-radius: 5px;
-    background-color: #2e2e2e;
-    border: 3px solid #ffff33;
+    background: none;
+    border: 1px solid #2e2e2e;
 }
 
 #calendar .fc-daygrid-event-dot {
@@ -108,6 +107,7 @@ body {
 .fc-popover-header {
     background-color: black !important; /* 팝업창 헤더 배경색을 검정색으로 설정 */
     color: white !important; /* 팝업창 헤더 텍스트 색상을 흰색으로 설정 */
+    font-family: 'Pre', sans-serif;
 }
 
  /*event_type에 따른 배경색 */

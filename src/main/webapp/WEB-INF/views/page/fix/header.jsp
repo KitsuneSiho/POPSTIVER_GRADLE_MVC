@@ -54,10 +54,10 @@
     <div class="mainTopMenu">
         <ul>
             <li>
-                <a href="myPage">마이페이지</a>
+                <a href="${root}/myPage">마이페이지</a>
                 <ul>
-                    <li><a href="myPage">내 정보</a></li>
-                    <li><a href="deleteUser">회원 탈퇴</a></li>
+                    <li><a href="${root}/myPage">내 정보</a></li>
+                    <li><a href="${root}/deleteUser">회원 탈퇴</a></li>
                 </ul>
             </li>
             <li>
