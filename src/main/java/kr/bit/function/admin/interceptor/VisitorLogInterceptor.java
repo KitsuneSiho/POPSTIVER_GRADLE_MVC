@@ -51,7 +51,7 @@ public class VisitorLogInterceptor implements HandlerInterceptor {
             if (!visitCache.containsKey(key) || currentTime - visitCache.get(key) > THRESHOLD) {
                 visitCache.put(key, currentTime);
 
-                System.out.println("VisitorLogInterceptor - IP: " + ipAddress + ", User-Agent: " + userAgent + ", Page: " + pageVisited);
+//                System.out.println("VisitorLogInterceptor - IP: " + ipAddress + ", User-Agent: " + userAgent + ", Page: " + pageVisited);
 
                 visitorLogService.logVisit(ipAddress, userAgent, pageVisited);
             }

@@ -12,7 +12,7 @@ public class VisitorLogServiceImpl implements VisitorLogService {
 
     @Override
     public void logVisit(String ipAddress, String userAgent, String pageVisited) {
-        System.out.println("Logging visit - IP: " + ipAddress + ", User-Agent: " + userAgent + ", Page: " + pageVisited);
+//        System.out.println("Logging visit - IP: " + ipAddress + ", User-Agent: " + userAgent + ", Page: " + pageVisited);
         visitorLogDao.insertVisitorLog(ipAddress, userAgent, pageVisited);
     }
 }
