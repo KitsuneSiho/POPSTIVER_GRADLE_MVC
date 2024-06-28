@@ -37,12 +37,31 @@ function getUserInfoAndSetUserId() {
 // Set the user_id and user_nickname in the hidden input fields
         $("#user_id").val(response.user_id);
         $("#user_name").val(response.user_nickname);
+
+        var userName = response.user_nickname;
+
+        // 삭제 버튼 표시 여부 업데이트
+        updateDeleteButtonVisibility(userName);
+
       } else {
         console.error("사용자 정보를 가져오는 데 실패했습니다.");
       }
     },
     error: function (xhr, status, error) {
       console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
+    }
+  });
+}
+
+function updateDeleteButtonVisibility(userName) {
+  $('.delete').each(function () {
+    var commentWriter = $(this).data('comment-writer'); // 댓글 작성자 가져오기
+
+    // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
+    if (commentWriter === userName) {
+      $(this).show(); // 삭제 버튼 표시
+    } else {
+      $(this).hide(); // 삭제 버튼 숨김
     }
   });
 }
