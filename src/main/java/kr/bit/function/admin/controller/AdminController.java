@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.bit.function.admin.dao.GenderStatsDao;
 import kr.bit.function.admin.dao.SnsStatsDao;
 import kr.bit.function.admin.dao.UserListDao;
+import kr.bit.function.admin.service.BusinessContentsService;
 import kr.bit.function.admin.service.VisitorStatsService;
 import kr.bit.function.member.entity.MemberEntity;
+import kr.bit.function.admin.model.businessContents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private VisitorStatsService visitorStatsService;
+
+    @Autowired
+    private BusinessContentsService businessContentsService;
 
     @GetMapping("/admin")
     public String admin_main() {
@@ -87,5 +92,12 @@ public class AdminController {
     @GetMapping("/recentReviews")
     public String getRecentReviews() {
         return "page/admin/recentReviews";
+    }
+
+    @GetMapping("/businessContents")
+    public String getBusinessContents(Model model) {
+        List<businessContents> posts = businessContentsService.getAllBusinessContents();
+        model.addAttribute("posts", posts);
+        return "page/admin/businessContents";
     }
 }

@@ -33,6 +33,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="<c:url value='/businessContents' />">
+                비즈니스 문의 글 관리
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="<c:url value='/chatManagement' />">
                 1:1 채팅 관리
             </a>
