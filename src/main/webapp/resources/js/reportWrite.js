@@ -38,6 +38,8 @@ function submitForm(event) {
     var reportHost = $("input[name='report_host']").val();
     var reportBrandLink = $("input[name='brand_link']").val();
     var reportBrandSns = $("input[name='brand_sns']").val();
+    var userId = $("input[name='user_id']").val();
+    var userName = $("input[name='user_name']").val();
 
     $.ajax({
         method: "put",
@@ -53,19 +55,21 @@ function submitForm(event) {
             "report_end" : reportEnd,
             "report_host" : reportHost,
             "brand_link" : reportBrandLink,
-            "brand_sns" : reportBrandSns
+            "brand_sns" : reportBrandSns,
+            "user_id": userId,
+            "user_name":userName
         }),
 
         success: function (response) {
 // 업데이트 성공 시 처리할 코드
             alert("제보가 완료되었습니다!");
-            window.location.href = "/report";
+            window.location.href = "/reportList";
 // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },
         error: function (xhr, status, error) {
 // 실패 시 처리할 코드
             alert("제보에 실패하였습니다.");
-            window.location.href = "/report";
+            window.location.href = "/reportList";
         }
     });
 

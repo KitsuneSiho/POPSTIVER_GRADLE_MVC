@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<%--    <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">--%>
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">
 <%--    c태그 페이지네이션이 안먹어서 일단 주석처리--%>
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
@@ -64,7 +64,7 @@
         <tbody id="boardBody">
         <c:choose>
             <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
-            <c:when test="${empty report}">
+            <c:when test="${empty report_list}">
                 <%-- 아래의 메시지를 출력한다. --%>
                 <tr>
                     <td colspan=15>
@@ -92,7 +92,7 @@
 </div>
 
 <div class="write">
-    <button class="writeButton" onclick="window.location.href='reportWrite'">
+    <button class="writeButton" onclick="window.location.href='reportRegister'">
         <img src="${root}/resources/asset/글쓰기.svg" alt="">
         제보하기</button>
 </div>
@@ -121,7 +121,7 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
-<script src="${root}/resources/js/report.js"></script>
+<%--<script src="${root}/resources/js/report.js"></script>--%>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

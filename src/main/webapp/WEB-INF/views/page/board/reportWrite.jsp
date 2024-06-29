@@ -105,6 +105,8 @@
             <input type="text" class="brand_link" name="brand_link">
             <p>SNS</p>
             <input type="text" class="brand_sns" name="brand_sns">
+            <input type="hidden" id="user_id" name="user_id" value="">
+            <input type="hidden" id="user_name" name="user_name" value="">
 
         </li>
     </ul>

@@ -319,7 +319,7 @@ public class BoardController {
 
     }
 
-    @RequestMapping(value = "/report", method = RequestMethod.GET)
+    @RequestMapping(value = "/reportList", method = RequestMethod.GET)
     public String report(Model model) {
         try {
             model.addAttribute("report_list",boardService.selectReportAll());
@@ -327,6 +327,11 @@ public class BoardController {
             e.printStackTrace();
         }
         return "page/board/report";
+    }
+
+    @RequestMapping(value = "/reportWrite", method = RequestMethod.GET)
+    public String reportWrite(){
+        return "page/board/reportWrite";
     }
 
     //=====================================================================================//

@@ -440,7 +440,7 @@ public class BoardRepository {
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
     public void insertReportRepo(ReportDTO reportDTO) {
-        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns, report_post_date,user_id, user_name) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, reportDTO.getReport_title(),
                 reportDTO.getReport_content(),
                 reportDTO.getReport_host(),
@@ -448,7 +448,10 @@ public class BoardRepository {
                 reportDTO.getReport_start(),
                 reportDTO.getReport_end(),
                 reportDTO.getBrand_link(),
-                reportDTO.getBrand_sns()
+                reportDTO.getBrand_sns(),
+                reportDTO.getReport_post_date(),
+                reportDTO.getUser_id(),
+                reportDTO.getUser_name()
         );
     }
 
@@ -488,7 +491,29 @@ public class BoardRepository {
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
-
+    //동행데시판 모두 불러오기
+    public List<CompanionEntity> getCompanionRepo() throws Exception {
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+        List<CompanionEntity> result = jdbcTemplate.query("select * from companion ORDER BY comp_post_date DESC;",  new RowMapper<CompanionEntity>() {
+            //콤마 뒤에 RowMapper 객체를 만든다.
+            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
+            //그리고 해당 결과를 results에 담는다.
+            @Override
+            public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CompanionEntity companionEntity= new CompanionEntity();
+                companionEntity.setComp_no(rs.getInt("comp_no"));
+                companionEntity.setComp_title(rs.getString("comp title"));
+                companionEntity.setComp_content(rs.getString("comp_content"));
+                companionEntity.setUser_name(rs.getString("user_name"));
+                companionEntity.setUser_id(rs.getString("user_id"));
+                companionEntity.setComp_post_date(rs.getString("comp_post_date"));
+                companionEntity.setComp_views(rs.getInt("comp_views"));
+                return companionEntity;
+            }
+        });
+        //데이터를 담은 List를 반환
+        return result;
+    }
 }
 
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결

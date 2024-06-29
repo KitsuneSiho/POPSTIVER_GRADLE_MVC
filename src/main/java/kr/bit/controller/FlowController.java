@@ -52,10 +52,10 @@ public class FlowController {
 //        return "page/board/report";
 //    }
 //
-//    @GetMapping("reportWrite")//제보하기게시판글작성페이지
-//    public String reportWrite_page() {
-//        return "page/board/reportWrite";
-//    }
+    @GetMapping("reportRegisterForm")//제보하기게시판글작성페이지
+    public String reportWrite_page() {
+        return "page/board/reportWrite";
+    }
 
     @GetMapping("together")//동행구하기게시판페이지
     public String together_page() {
