@@ -4,76 +4,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Contents</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
         }
-        .container-fluid {
-            padding: 0;
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
         .main-content {
             padding: 20px;
         }
-        .table-wrapper {
-            overflow-x: auto;
-        }
         h2 {
             text-align: center;
-            background: #2c3e50;
+            background: var(--secondary-color);
             color: #fff;
             padding: 20px 0;
-            margin: 0;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-            white-space: nowrap;
-        }
-        .table th {
-            background-color: #f8f9fa;
+            margin: 0 0 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .search-box {
+            background: #fff;
             padding: 20px;
-            text-align: center;
-            background: #ecf0f1;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         .search-box input[type="text"] {
-            width: 300px;
+            width: 70%;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 4px;
             margin-right: 10px;
         }
         .search-box button {
             padding: 10px 20px;
             border: none;
-            background: #3498db;
+            background: var(--primary-color);
             color: #fff;
             border-radius: 4px;
             cursor: pointer;
+            transition: background 0.3s ease;
         }
         .search-box button:hover {
             background: #2980b9;
         }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: var(--primary-color);
+            /*color: #fff;*/
+        }
+        .card-body {
+            padding: 15px;
+        }
+        .details-btn {
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        .pagination {
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .search-box input[type="text"] {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .search-box button {
+                width: 100%;
+            }
+        }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $("#search").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#businessContentsTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -92,55 +105,62 @@
                     <input type="text" id="search" placeholder="Search for contents...">
                     <button><i class="fas fa-search"></i> Search</button>
                 </div>
-                <div class="table-wrapper">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th>Content</th>
-                            <th>Host</th>
-                            <th>District</th>
-                            <th>Subdistrict</th>
-                            <th>Location</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Open Time</th>
-                            <th>Attachment</th>
-                            <th>Event Type</th>
-                            <th>Brand Link</th>
-                            <th>Brand SNS</th>
-                        </tr>
-                        </thead>
-                        <tbody id="businessContentsTable">
-                        <c:forEach var="post" items="${posts}">
-                            <tr>
-                                <td>${post.tempNo}</td>
-                                <td>${post.tempTitle}</td>
-                                <td>${post.tempContent}</td>
-                                <td>${post.tempHost}</td>
-                                <td>${post.tempDist}</td>
-                                <td>${post.tempSubdist}</td>
-                                <td>${post.tempLocation}</td>
-                                <td>${post.tempStart}</td>
-                                <td>${post.tempEnd}</td>
-                                <td>${post.openTime}</td>
-                                <td>${post.tempAttachment}</td>
-                                <td>${post.eventType}</td>
-                                <td>${post.brandLink}</td>
-                                <td>${post.brandSns}</td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                <div id="businessContentsCards">
+                    <c:forEach var="post" items="${posts}" varStatus="status">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">
+                                    <span class="mr-2">${post.tempNo}</span>
+                                        ${post.tempTitle}
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Host:</strong> ${post.tempHost}</p>
+                                <p><strong>Location:</strong> ${post.tempLocation}</p>
+                                <p><strong>Date:</strong> ${post.tempStart} - ${post.tempEnd}</p>
+                                <a class="details-btn" data-toggle="collapse" href="#details${status.index}">
+                                    Show Details <i class="fas fa-chevron-down"></i>
+                                </a>
+                                <div class="collapse mt-3" id="details${status.index}">
+                                    <p><strong>Content:</strong> ${post.tempContent}</p>
+                                    <p><strong>District:</strong> ${post.tempDist}</p>
+                                    <p><strong>Subdistrict:</strong> ${post.tempSubdist}</p>
+                                    <p><strong>Open Time:</strong> ${post.openTime}</p>
+                                    <p><strong>Attachment:</strong> ${post.tempAttachment}</p>
+                                    <p><strong>Event Type:</strong> ${post.eventType}</p>
+                                    <p><strong>Brand Link:</strong> ${post.brandLink}</p>
+                                    <p><strong>Brand SNS:</strong> ${post.brandSns}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    </ul>
+                </nav>
             </div>
             <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#search").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#businessContentsCards .card").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 </html>

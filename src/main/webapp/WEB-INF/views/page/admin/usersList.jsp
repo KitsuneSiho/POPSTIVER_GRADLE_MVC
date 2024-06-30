@@ -4,13 +4,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 리스트</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
     <style>
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f9fa;
         }
         .sidebar {
             background-color: #343a40;
@@ -22,12 +24,34 @@
         .sidebar a:hover {
             background-color: #495057;
         }
+        main {
+            padding: 20px;
+        }
         .table {
-            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
         }
         .delete-button {
-            color: red;
+            color: #dc3545;
             cursor: pointer;
+            transition: 0.3s;
+        }
+        .delete-button:hover {
+            color: #c82333;
+        }
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            border-radius: 8px 8px 0 0;
         }
     </style>
 </head>
@@ -35,58 +59,61 @@
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
-        <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
         </nav>
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
-            <h2 class="mt-4">회원 리스트</h2>
-            <div class="container">
-                <!-- 회원 리스트 내용 -->
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                        <tr>
-                            <th>User No</th>
-                            <th>User Type</th>
-                            <th>User ID</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th>Birth</th>
-                            <th>Gender</th>
-                            <th>Nickname</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="user" items="${usersList}">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h2 class="mb-0">회원 리스트</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
-                                <td>${user.user_no}</td>
-                                <td>${user.user_type}</td>
-                                <td>${user.user_id}</td>
-                                <td>${user.user_name}</td>
-                                <td>${user.user_email}</td>
-                                <td>${user.user_birth}</td>
-                                <td>${user.user_gender}</td>
-                                <td>${user.user_nickname}</td>
-                                <td>
-                                    <i class="fas fa-trash delete-button" data-user-id="${user.user_id}"></i>
-                                </td>
+                                <th>User No</th>
+                                <th>User Type</th>
+                                <th>User ID</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Birth</th>
+                                <th>Gender</th>
+                                <th>Nickname</th>
+                                <th>Actions</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="user" items="${usersList}">
+                                <tr>
+                                    <td>${user.user_no}</td>
+                                    <td>${user.user_type}</td>
+                                    <td>${user.user_id}</td>
+                                    <td>${user.user_name}</td>
+                                    <td>${user.user_email}</td>
+                                    <td>${user.user_birth}</td>
+                                    <td>${user.user_gender}</td>
+                                    <td>${user.user_nickname}</td>
+                                    <td>
+                                        <i class="fas fa-trash delete-button" data-user-id="${user.user_id}"></i>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.delete-button').on('click', function () {
