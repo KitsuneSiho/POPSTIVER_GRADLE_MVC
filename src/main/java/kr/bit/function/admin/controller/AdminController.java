@@ -2,8 +2,7 @@ package kr.bit.function.admin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import kr.bit.function.admin.dao.GenderStatsDao;
-import kr.bit.function.admin.dao.SnsStatsDao;
+import kr.bit.function.admin.dao.MemberStatsDAO;
 import kr.bit.function.admin.dao.UserListDao;
 import kr.bit.function.admin.dao.VisitorStatisticsDAO;
 import kr.bit.function.admin.model.VisitorStatistic;
@@ -30,10 +29,7 @@ public class AdminController {
     private UserListDao userDao;
 
     @Autowired
-    private GenderStatsDao genderStatsDao;
-
-    @Autowired
-    private SnsStatsDao snsStatsDao;
+    private MemberStatsDAO memberStatsDAO;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -56,20 +52,18 @@ public class AdminController {
         return "page/admin/usersList";
     }
 
-    @GetMapping("/genderStats")
-    public String getGenderStats(Model model) throws JsonProcessingException {
-        List<Map<String, Object>> genderStats = genderStatsDao.getGenderStats();
-        String genderStatsJson = objectMapper.writeValueAsString(genderStats);
-        model.addAttribute("genderStatsJson", genderStatsJson);
-        return "page/admin/genderStats";
-    }
+    @GetMapping("/memberStats")
+    public String getMemberStats(Model model) throws JsonProcessingException {
+        List<Map<String, Object>> genderStats = memberStatsDAO.getGenderStats();
+        List<Map<String, Object>> snsStats = memberStatsDAO.getSnsStats();
 
-    @GetMapping("/snsJoinedStats")
-    public String getSnsStats(Model model) throws JsonProcessingException {
-        List<Map<String, Object>> snsStats = snsStatsDao.getSnsStats();
+        String genderStatsJson = objectMapper.writeValueAsString(genderStats);
         String snsStatsJson = objectMapper.writeValueAsString(snsStats);
+
+        model.addAttribute("genderStatsJson", genderStatsJson);
         model.addAttribute("snsStatsJson", snsStatsJson);
-        return "page/admin/snsJoinedStats";
+
+        return "page/admin/memberStats";
     }
 
     @GetMapping("/likedPostsStats")

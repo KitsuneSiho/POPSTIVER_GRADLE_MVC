@@ -14,44 +14,46 @@
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #f8f9fa;
         }
-        .sidebar {
-            background-color: #343a40;
-            color: #fff;
-        }
-        .sidebar a {
-            color: #fff;
-        }
-        .sidebar a:hover {
-            background-color: #495057;
-        }
+
         main {
             padding: 20px;
         }
-        .table {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .table thead {
-            background-color: #007bff;
-            color: #fff;
+        .card-header {
+            background-color: #4a6fdc;
+            /*color: white;*/
+            border-radius: 15px 15px 0 0;
+            padding: 15px 20px;
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            border-top: none;
+        }
+        .table td {
+            vertical-align: middle;
         }
         .delete-button {
             color: #dc3545;
             cursor: pointer;
-            transition: 0.3s;
+            transition: color 0.3s;
         }
         .delete-button:hover {
-            color: #c82333;
+            color: #a71d2a;
         }
-        .card {
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            border-radius: 8px 8px 0 0;
+        .table-responsive {
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -59,7 +61,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block sidebar">
             <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
         </nav>
 
@@ -70,15 +72,15 @@
                 <div class="card-header">
                     <h2 class="mb-0">회원 리스트</h2>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>User No</th>
-                                <th>User Type</th>
-                                <th>User ID</th>
-                                <th>User Name</th>
+                                <th>No</th>
+                                <th>Type</th>
+                                <th>ID</th>
+                                <th>Name</th>
                                 <th>Email</th>
                                 <th>Birth</th>
                                 <th>Gender</th>

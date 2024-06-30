@@ -20,7 +20,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<c:url value='/genderStats' />">
+            <a class="nav-link" href="<c:url value='/memberStats' />">
                 <i class="fas fa-venus-mars"></i> 회원 통계
             </a>
         </li>
@@ -47,11 +47,6 @@
         <li class="nav-item">
             <a class="nav-link" href="<c:url value='/chatManagement' />">
                 <i class="fas fa-comments"></i> 1:1 채팅 관리
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="<c:url value='/snsJoinedStats' />">
-                <i class="fas fa-share-alt"></i> SNS 가입 통계
             </a>
         </li>
         <li class="nav-item">

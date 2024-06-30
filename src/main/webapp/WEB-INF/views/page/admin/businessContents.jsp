@@ -23,6 +23,8 @@
         }
         .main-content {
             padding: 20px;
+            margin-bottom: 50px;
+
         }
         h2 {
             text-align: center;
