@@ -17,16 +17,16 @@
 <header>
     <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
 </header>
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="row flex-grow-1">
         <!-- 사이드바 -->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="main-content">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+            <div class="container">
                 <h2>회원 통계</h2>
                 <div class="total-members">
                     <div class="stat-label">총 회원 수</div>
