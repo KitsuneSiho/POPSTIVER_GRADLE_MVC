@@ -15,23 +15,35 @@
             background-color: #f8f9fa;
         }
 
-        main {
+        .main-content {
             padding: 20px;
+            margin-bottom: 50px;
+
         }
+
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
+
         .card-header {
             background-color: #4a6fdc;
-            /*color: white;*/
             border-radius: 15px 15px 0 0;
             padding: 15px 20px;
         }
-        .table {
-            margin-bottom: 0;
+
+        .table-responsive {
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
         }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
         .table th {
             background-color: #f8f9fa;
             font-weight: 600;
@@ -40,35 +52,68 @@
             letter-spacing: 0.05em;
             border-top: none;
         }
+
         .table td {
-            vertical-align: middle;
+            font-size: 0.9rem;
         }
+
         .delete-button {
             color: #dc3545;
             cursor: pointer;
             transition: color 0.3s;
         }
+
         .delete-button:hover {
             color: #a71d2a;
         }
-        .table-responsive {
-            border-radius: 0 0 15px 15px;
-            overflow: hidden;
+
+        .search-box {
+            margin-bottom: 20px;
         }
+
+        .search-box input {
+            width: calc(100% - 55px);
+            display: inline-block;
+        }
+
+        .search-box button {
+            width: 45px;
+            display: inline-block;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+
+        .navbar {
+            z-index: 1030; /* Ensure the navbar is above the sidebar */
+        }
+
+
     </style>
 </head>
 <body>
+<!-- 헤더 -->
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
-        <nav class="col-md-2 d-none d-md-block sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
-            <div class="card mt-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+            <!-- 검색 박스 -->
+            <div class="search-box">
+                <input type="text" class="form-control" id="search-input" placeholder="Search for users...">
+                <button class="btn btn-primary" id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- 회원 리스트 카드 -->
+            <div class="card">
                 <div class="card-header">
                     <h2 class="mb-0">회원 리스트</h2>
                 </div>
@@ -109,10 +154,40 @@
                     </div>
                 </div>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+
+            <!-- 페이지네이션 -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <c:if test="${currentPage > 1}">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=${currentPage - 1}&size=15" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:forEach begin="1" end="${totalPages}" var="i">
+                        <li class="page-item ${currentPage == i ? 'active' : ''}">
+                            <a class="page-link" href="?page=${i}&size=15">${i}</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="${currentPage < totalPages}">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=${currentPage + 1}&size=15" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
         </main>
     </div>
+
+    <!-- 푸터 -->
+    <footer class="mt-auto">
+        <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+    </footer>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
@@ -135,6 +210,18 @@
                     }
                 });
             }
+        });
+
+        $('#search-button').on('click', function () {
+            var query = $('#search-input').val().toLowerCase();
+            $('tbody tr').each(function () {
+                var rowText = $(this).text().toLowerCase();
+                $(this).toggle(rowText.indexOf(query) !== -1);
+            });
+        });
+
+        $('#search-input').on('keyup', function () {
+            $('#search-button').click();
         });
     });
 </script>

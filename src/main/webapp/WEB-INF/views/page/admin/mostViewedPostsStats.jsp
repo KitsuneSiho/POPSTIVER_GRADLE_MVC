@@ -16,9 +16,15 @@
             height: 400px;
             width: 80%;
         }
+        .navbar {
+            z-index: 1030; /* Ensure the navbar is above the sidebar */
+        }
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
@@ -28,15 +34,17 @@
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
             <h2 class="mt-4">조회수 많은 게시글 통계</h2>
             <div class="chart-container">
                 <canvas id="mostViewedPostsChart"></canvas>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var ctx = document.getElementById('mostViewedPostsChart').getContext('2d');

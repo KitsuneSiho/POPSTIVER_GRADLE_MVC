@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -46,9 +47,19 @@ public class AdminController {
     }
 
     @GetMapping("/usersList")
-    public String getUsersList(Model model) {
-        List<MemberEntity> usersList = userDao.getAllUsers();
+    public String getUsersList(
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "size", defaultValue = "15") int size,
+            Model model) {
+        int offset = (page - 1) * size;
+        List<MemberEntity> usersList = userDao.getUsers(offset, size);
+        int totalUsers = userDao.getTotalUsers();
+
         model.addAttribute("usersList", usersList);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (int) Math.ceil((double) totalUsers / size));
+        model.addAttribute("totalUsers", totalUsers);
+
         return "page/admin/usersList";
     }
 
@@ -56,12 +67,18 @@ public class AdminController {
     public String getMemberStats(Model model) throws JsonProcessingException {
         List<Map<String, Object>> genderStats = memberStatsDAO.getGenderStats();
         List<Map<String, Object>> snsStats = memberStatsDAO.getSnsStats();
+        List<Map<String, Object>> ageStats = memberStatsDAO.getAgeGroupStats();
+        List<Map<String, Object>> tagStats = memberStatsDAO.getPopularTags();
 
         String genderStatsJson = objectMapper.writeValueAsString(genderStats);
         String snsStatsJson = objectMapper.writeValueAsString(snsStats);
+        String ageStatsJson = objectMapper.writeValueAsString(ageStats);
+        String tagStatsJson = objectMapper.writeValueAsString(tagStats);
 
         model.addAttribute("genderStatsJson", genderStatsJson);
         model.addAttribute("snsStatsJson", snsStatsJson);
+        model.addAttribute("ageStatsJson", ageStatsJson);
+        model.addAttribute("tagStatsJson", tagStatsJson);
 
         return "page/admin/memberStats";
     }

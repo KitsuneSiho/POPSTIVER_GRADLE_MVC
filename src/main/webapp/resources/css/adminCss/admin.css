@@ -56,3 +56,6 @@ body {
     margin-left: 250px;
     padding: 20px;
 }
+.navbar {
+    z-index: 1030; /* Ensure the navbar is above the sidebar */
+}

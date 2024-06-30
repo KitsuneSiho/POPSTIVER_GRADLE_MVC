@@ -131,9 +131,15 @@
         #adminSendButton:hover {
             background: #0056b3;
         }
+        .navbar {
+            z-index: 1030; /* Ensure the navbar is above the sidebar */
+        }
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
@@ -142,8 +148,7 @@
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
             <h2>1:1 채팅 관리</h2>
             <!-- 1:1 채팅 관리 내용 -->
             <div class="chat-container">
@@ -160,10 +165,13 @@
                     </div>
                 </div>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
 <script>
     let contextPath = '${pageContext.request.contextPath}';
 </script>

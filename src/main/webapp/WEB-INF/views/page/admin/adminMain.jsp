@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
 </head>
 <body>
+<!-- 헤더 -->
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
@@ -19,7 +23,6 @@
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
             <h2 class="mt-4">Dashboard</h2>
             <div class="container mt-4">
                 <!-- 대시보드 내용 -->
@@ -74,6 +77,10 @@
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

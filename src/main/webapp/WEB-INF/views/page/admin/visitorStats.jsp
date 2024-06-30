@@ -116,6 +116,9 @@
         #slider {
             margin: 20px;
         }
+        .navbar {
+            z-index: 1030; /* Ensure the navbar is above the sidebar */
+        }
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -211,6 +214,9 @@
     </script>
 </head>
 <body>
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
@@ -220,8 +226,6 @@
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
-
             <div class="stats-summary">
                 <div class="stat-card">
                     <h3>총 방문자 수</h3>
@@ -251,10 +255,13 @@
                 <div id="curve_chart" style="width: 100%; height: 500px;"></div>
                 <div id="slider"></div>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

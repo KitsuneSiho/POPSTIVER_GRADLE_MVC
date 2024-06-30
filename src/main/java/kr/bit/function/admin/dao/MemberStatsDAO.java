@@ -51,4 +51,39 @@ public class MemberStatsDAO {
             }
         });
     }
+
+    public List<Map<String, Object>> getAgeGroupStats() {
+        String sql = "SELECT CASE " +
+                "    WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(user_birth, '%Y%m%d'), CURDATE()) < 20 THEN '10대 이하' " +
+                "    WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(user_birth, '%Y%m%d'), CURDATE()) BETWEEN 20 AND 29 THEN '20대' " +
+                "    WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(user_birth, '%Y%m%d'), CURDATE()) BETWEEN 30 AND 39 THEN '30대' " +
+                "    WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(user_birth, '%Y%m%d'), CURDATE()) BETWEEN 40 AND 49 THEN '40대' " +
+                "    WHEN TIMESTAMPDIFF(YEAR, STR_TO_DATE(user_birth, '%Y%m%d'), CURDATE()) BETWEEN 50 AND 59 THEN '50대' " +
+                "    ELSE '60대 이상' " +
+                "END AS age_group, COUNT(*) AS count " +
+                "FROM user " +
+                "GROUP BY age_group " +
+                "ORDER BY FIELD(age_group, '10대 이하', '20대', '30대', '40대', '50대', '60대 이상')";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("age_group", rs.getString("age_group"));
+            map.put("count", rs.getInt("count"));
+            return map;
+        });
+    }
+
+    public List<Map<String, Object>> getPopularTags() {
+        String sql = "SELECT t.tag_name, COUNT(ut.tag_no) AS count " +
+                "FROM user_tag ut " +
+                "JOIN tag t ON ut.tag_no = t.tag_no " +
+                "GROUP BY t.tag_name " +
+                "ORDER BY count DESC " +
+                "LIMIT 10";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("tag_name", rs.getString("tag_name"));
+            map.put("count", rs.getInt("count"));
+            return map;
+        });
+    }
 }
