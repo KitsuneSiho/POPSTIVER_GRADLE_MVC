@@ -26,7 +26,7 @@ public class MemberService {
 
     }
 
-    public void saveUser(MemberEntity user,  String tags) {
+    public void saveUser(MemberEntity user, String tags) {
         String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender, user_nickname) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getUser_type(), user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_birth(), user.getUser_gender(), user.getUser_nickname());
 
@@ -60,6 +60,9 @@ public class MemberService {
     }
 
     public void deleteUserByEmail(String userId) {
+        // 사용자와 관련된 태그 삭제
+        userTagRepository.deleteByUserId(userId);
+        // 사용자 삭제
         String sql = "DELETE FROM user WHERE user_id = ?";
         jdbcTemplate.update(sql, userId);
     }

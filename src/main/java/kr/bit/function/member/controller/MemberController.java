@@ -10,6 +10,7 @@ import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
 import kr.bit.function.member.entity.MemberEntity;
+import kr.bit.function.member.entity.TagEntity;
 import kr.bit.function.member.entity.UserTagEntity;
 import kr.bit.function.member.repository.RefreshTokenRepository;
 import kr.bit.function.member.repository.TagRepository;
@@ -114,13 +115,36 @@ public class MemberController {
                 break;
         }
 
+        // 사용자 정보 모델에 추가
+        MemberEntity user = memberService.findById(user_id);
+        if (user != null) {
+            model.addAttribute("user", user);
+        } else {
+            model.addAttribute("errorMessage", "사용자 정보를 불러오지 못했습니다.");
+        }
+
+        // 태그 목록을 모델에 추가
+        List<TagEntity> tags = tagRepository.findAllTags();
+        if (tags.isEmpty()) {
+            model.addAttribute("errorMessage", "태그를 불러오지 못했습니다. 관리자에게 문의하세요.");
+        } else {
+            model.addAttribute("tags", tags);
+        }
+
+        // 사용자 선택 태그 목록을 모델에 추가
+        List<UserTagEntity> userTags = userTagRepository.findByUserId(user_id);
+        List<Integer> selectedTagIds = userTags.stream().map(UserTagEntity::getTag_no).collect(Collectors.toList());
+        model.addAttribute("selectedTagIds", selectedTagIds);
+
 
         return "page/myPage/myPage";
     }
 
     @PutMapping("/updateUser")
     @ResponseBody
-    public ResponseEntity<String> updateUser(@RequestBody MemberEntity updatedUser, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+    public ResponseEntity<String> updateUser(@RequestBody Map<String, Object> payload, @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        String user_nickName = (String) payload.get("user_nickName");
+        String tags = (String) payload.get("tags");
         String provider = customOAuth2User.getProvider();
         Object attribute = customOAuth2User.getAttributes();
         String user_id = "";
@@ -142,12 +166,15 @@ public class MemberController {
 
         MemberEntity existingUser = memberService.findById(user_id);
         if (existingUser != null) {
-            existingUser.setUser_type(updatedUser.getUser_type());
-            existingUser.setUser_nickname(updatedUser.getUser_nickname());
+            existingUser.setUser_nickname(user_nickName);
             memberService.updateUserInfo(existingUser);
 
-
-
+            // 태그 업데이트 로직 추가
+            List<Integer> tagList = Arrays.stream(tags.split(","))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            userTagRepository.deleteByUserId(user_id); // 기존 태그 삭제
+            userTagRepository.saveUserTags(user_id, tagList); // 새로운 태그 저장
 
             return ResponseEntity.ok("User information updated successfully.");
         } else {

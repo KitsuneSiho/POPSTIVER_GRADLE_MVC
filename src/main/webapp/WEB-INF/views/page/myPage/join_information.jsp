@@ -137,9 +137,7 @@
                     </c:forEach>
                 </div>
                 <input type="hidden" name="tags" id="tags">
-
             </li>
-
         </ul>
     </div>
 
