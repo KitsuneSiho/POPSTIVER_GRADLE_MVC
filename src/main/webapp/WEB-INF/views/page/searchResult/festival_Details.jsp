@@ -74,7 +74,7 @@
             <li><button>${festival.festival_tag5}</button></li>
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
-            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
+            <li><img src="${root}/resources/asset/아니좋아요.svg" class="bookmark" alt="" onclick="toggleLike(${festival.festival_no}, 1)"></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
                 <div id="shareModal" class="share-modal">
@@ -125,8 +125,10 @@
 
             <input type="hidden" name="festival_no" value="${festival.festival_no}">
             <input type="hidden" name="event_type" value="${festival.event_type}">
-            <input type="hidden" id="user_name" name="user_name" value="">
-            <input type="hidden" id="user_id" name="user_id" value="">
+            <input type="hidden" id="user_name" value="${sessionScope.user_name}">
+            <input type="hidden" id="user_id" value="${sessionScope.user_id}">
+            <!--<input type="hidden" id="user_name" name="user_name" value="">
+            <input type="hidden" id="user_id" name="user_id" value=""> -->
             <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
             <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
             <div class="stars" id="starRating">
@@ -188,6 +190,7 @@
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 <script src="${root}/resources/js/shareModal.js"></script>
+<script src="${root}/resources/js/like.js"></script>
 <script>
     var geocoder = new kakao.maps.services.Geocoder();
 
