@@ -79,7 +79,7 @@
                 <c:forEach items="${report_list}" var="report">
                     <tr>
                             <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
-                        <td><p><a href="contact/${report.report_no}">${report.report_title}</a></p></td>
+                        <td><p><a href="report/${report.report_no}">${report.report_title}</a></p></td>
                         <td ><p>${report.user_name}</p></td>
                         <td ><p>${report.report_post_date}</p></td>
 
@@ -92,7 +92,7 @@
 </div>
 
 <div class="write">
-    <button class="writeButton" onclick="window.location.href='reportRegister'">
+    <button class="writeButton" onclick="window.location.href='reportWrite'">
         <img src="${root}/resources/asset/글쓰기.svg" alt="">
         제보하기</button>
 </div>

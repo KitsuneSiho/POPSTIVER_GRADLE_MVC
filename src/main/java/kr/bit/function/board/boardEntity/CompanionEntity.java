@@ -9,6 +9,9 @@ public class CompanionEntity {
     private String comp_content;
     private String user_name;
     private String user_id;
+    private String comp_date;
+    private String comp_link;
+    private String event_type;
     private String comp_post_date;
     private int comp_views;
     public CompanionEntity() {
@@ -18,6 +21,9 @@ public class CompanionEntity {
                            String comp_content,
                            String user_name,
                            String user_id,
+                           String comp_date,
+                           String comp_link,
+                           String event_type,
                            String comp_post_date,
                            int comp_views) {
         super();
@@ -26,6 +32,9 @@ public class CompanionEntity {
         this.comp_content = comp_content;
         this.user_name = user_name;
         this.user_id = user_id;
+        this.comp_date = comp_date;
+        this.comp_link = comp_link;
+        this.event_type = event_type;
         this.comp_post_date = comp_post_date;
         this.comp_views = comp_views;
 

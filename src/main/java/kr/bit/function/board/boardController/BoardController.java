@@ -82,11 +82,11 @@ public class BoardController {
     public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
         try {
             // 특정 축제 정보
-            FestivalBoardDTO festival = boardService.selectOneFestival(festivalNo);
+            FestivalBoardDTO festival = boardService.selectFestivalOne(festivalNo);
             model.addAttribute("festival", festival);
 
             // 모든 축제 정보
-            List<FestivalBoardDTO> allFestivals = boardService.selectAllFestival();
+            List<FestivalBoardDTO> allFestivals = boardService.selectFestivalAll();
             model.addAttribute("allFestivals", allFestivals);
 
             // 모든 후기
@@ -104,11 +104,11 @@ public class BoardController {
     public String popupDetails(@PathVariable("popup_no") int popupNo, Model model) {
         try {
             // 특정 축제 정보
-            PopupBoardDTO popup = boardService.selectOnePopup(popupNo);
+            PopupBoardDTO popup = boardService.selectPopupOne(popupNo);
             model.addAttribute("popup", popup);
 
             // 모든 축제 정보
-            List<PopupBoardDTO> allPopups = boardService.selectAllPopup();
+            List<PopupBoardDTO> allPopups = boardService.selectPopupAll();
             model.addAttribute("allPopups", allPopups);
 
             // 모든 후기
@@ -131,7 +131,7 @@ public class BoardController {
             //위에서 선언한 service의 selectAll메소드 요청한다.
             //selectAll메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("list",boardService.selectAllFestival());
+            model.addAttribute("list",boardService.selectFestivalAll());
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -149,7 +149,7 @@ public class BoardController {
             //위에서 선언한 service의 selectAll메소드 요청한다.
             //selectAll메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("list",boardService.selectAllPopup());
+            model.addAttribute("list",boardService.selectPopupAll());
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -164,7 +164,7 @@ public class BoardController {
     public String contact(Model model) {
         logger.info("contact.jsp start");
         try {
-            model.addAttribute("list",boardService.selectAllNotice());
+            model.addAttribute("list",boardService.selectNoticeAll());
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -194,7 +194,7 @@ public class BoardController {
     @RequestMapping(value = "/free", method = RequestMethod.GET)
     public String communityBoardList(Model model){
         try{
-            model.addAttribute("community_list", boardService.selectAllCommunity());
+            model.addAttribute("community_list", boardService.selectCommunityAll());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -285,7 +285,7 @@ public class BoardController {
     @Controller
     class InsertReportController{
 
-        @PutMapping("/reportWrite")
+        @PutMapping("/insertWrite")
         @ResponseBody
         public void registerReport(@RequestBody ReportDTO reportDTO,
                                      @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
@@ -318,7 +318,7 @@ public class BoardController {
 
     }
 
-    @RequestMapping(value = "/reportList", method = RequestMethod.GET)
+    @RequestMapping(value = "/report", method = RequestMethod.GET)
     public String report(Model model) {
         try {
             model.addAttribute("report_list",boardService.selectReportAll());
@@ -328,15 +328,87 @@ public class BoardController {
         return "page/board/report";
     }
 
-    @RequestMapping(value = "/reportWrite", method = RequestMethod.GET)
-    public String reportWrite(){
-        return "page/board/reportWrite";
+    @RequestMapping(value = "/report/{report_no}", method = RequestMethod.GET)
+    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
+    public String selectReportOne(@PathVariable("report_no") int report_no, Model model) {
+        try {
+            //위에서 선언한 service의 selectOne()메소드 요청한다.
+            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
+            //selectOne메소드를 통해 나온 리턴값을 value로 해서
+
+            model.addAttribute("report_detail",boardService.selectReportOne(report_no));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/reportDetails";
     }
 
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
+    @RequestMapping(value = "/together/{comp_no}", method = RequestMethod.GET)
+    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
+    public String selectCompanionOne(@PathVariable("comp_no") int comp_no, Model model) {
+        try {
+            //위에서 선언한 service의 selectOne()메소드 요청한다.
+            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
+            //selectOne메소드를 통해 나온 리턴값을 value로 해서
 
+            model.addAttribute("together",boardService.selectCompanionOne(comp_no));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/togetherDetails";
+    }
+
+    @RequestMapping(value = "/together")
+    @Controller
+    class InsertCompanionController{
+
+        @PutMapping("/insertWrite")
+        @ResponseBody
+        public void registerTogether(@RequestBody CompanionDTO companionDTO,
+                                   @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertCompanion(companionDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @RequestMapping(value = "/together", method = RequestMethod.GET)
+    public String together(Model model) {
+        try {
+            model.addAttribute("comp_list",boardService.selectCompanionAll());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "page/board/together";
+    }
 
 
 

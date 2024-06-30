@@ -84,7 +84,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public FestivalBoardDTO selectOneFestival(int festival_no) throws Exception { //페스티벌 게시글 번호로 찾기
+    public FestivalBoardDTO selectFestivalOne(int festival_no) throws Exception { //페스티벌 게시글 번호로 찾기
         //FestivalEntity형의 변수를 하나 만들고
         FestivalEntity festivalEntity = null;
         try {
@@ -103,7 +103,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<FestivalBoardDTO> selectAllFestival() throws Exception { //전체데이터조회
+    public List<FestivalBoardDTO> selectFestivalAll() throws Exception { //전체데이터조회
         //List<BoardEntity>형태의 변수를 하나 만든다.
         List<FestivalEntity> boardEntities = null;
         try {
@@ -256,7 +256,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public PopupBoardDTO selectOnePopup(int popup_no) throws Exception { // 팝업 게시글 번호로 찾기
+    public PopupBoardDTO selectPopupOne(int popup_no) throws Exception { // 팝업 게시글 번호로 찾기
         // PopupEntity 형의 변수를 하나 만들고
         PopupEntity popupEntity = null;
         try {
@@ -276,7 +276,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<PopupBoardDTO> selectAllPopup() throws Exception { // 전체 데이터 조회
+    public List<PopupBoardDTO> selectPopupAll() throws Exception { // 전체 데이터 조회
         // List<PopupEntity> 형태의 변수를 하나 만든다.
         List<PopupEntity> popupEntities = null;
         try {
@@ -320,7 +320,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<PopupBoardDTO> selectAllPopupByLocation(String popup_dist) throws Exception { // 위치 정보 기반 검색(시)
+    public List<PopupBoardDTO> selectPopupByLocation(String popup_dist) throws Exception { // 위치 정보 기반 검색(시)
         return null;
     }
 
@@ -374,7 +374,7 @@ public class BoardServiceImpl implements BoardService {
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     @Override
-    public List<NoticeDTO> selectAllNotice() throws Exception {
+    public List<NoticeDTO> selectNoticeAll() throws Exception {
         List<NoticeEntity> noticeEntities = null;
         try {
             // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
@@ -422,7 +422,7 @@ public class BoardServiceImpl implements BoardService {
     }
     //자유게시판 출력
     @Override
-    public List<CommunityDTO> selectAllCommunity() throws Exception {
+    public List<CommunityDTO> selectCommunityAll() throws Exception {
         List<CommunityEntity> communityEntities = null;
         try {
             // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
@@ -532,8 +532,102 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
+    @Override
+    public ReportDTO selectReportOne(int report_no) throws Exception{
+        ReportEntity reportEntity =null;
+        try{
+            reportEntity = boardRepository.getReportOneRepo(report_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new ReportDTO(
+                reportEntity.getReport_no(),
+                reportEntity.getReport_title(),
+                reportEntity.getReport_content(),
+                reportEntity.getReport_host(),
+                reportEntity.getReport_dist(),
+                reportEntity.getReport_subdist(),
+                reportEntity.getReport_location(),
+                reportEntity.getReport_start(),
+                reportEntity.getReport_end(),
+                reportEntity.getOpen_time(),
+                reportEntity.getReport_attachment(),
+                reportEntity.getEvent_type(),
+                reportEntity.getBrand_link(),
+                reportEntity.getBrand_sns(),
+                reportEntity.getReport_post_date(),
+                reportEntity.getUser_id(),
+                reportEntity.getUser_name());
+
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
 
+
+
+
+
+
+
+    @Override
+    public void insertCompanion(CompanionDTO companionDTO) throws Exception {
+        boardRepository.insertCompanionRepo(companionDTO);
+    }
+    @Override
+    public List<CompanionDTO> selectCompanionAll() throws Exception {
+        List<CompanionEntity> companionEntities = null;
+        try {
+            // 레포지토리의 getAllPopups() 메소드를 불러와서(DB요청)
+            // 리턴된 데이터를 Entities에 담는다.
+            companionEntities = boardRepository.getCompanionRepo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // List<PopupDTO> 형의 변수를 하나 생성하고
+        List<CompanionDTO> companionData = new ArrayList<>();
+        // for문을 써서 list 갯수 만큼 반복하면서,
+        for (int i = 0; i < companionEntities.size(); i++) {
+            // ReportEntities에 담겼던 모든 데이터들을 다시 ReportDTO 객체를 생성해서 거기에 담아 companionData 리스트에 담는다.
+            companionData.add(new CompanionDTO(
+                    companionEntities.get(i).getComp_no(),
+                    companionEntities.get(i).getComp_title(),
+                    companionEntities.get(i).getComp_content(),
+                    companionEntities.get(i).getUser_name(),
+                    companionEntities.get(i).getUser_id(),
+                    companionEntities.get(i).getComp_date(),
+                    companionEntities.get(i).getComp_link(),
+                    companionEntities.get(i).getEvent_type(),
+                    companionEntities.get(i).getComp_post_date(),
+                    companionEntities.get(i).getComp_views()
+
+            ));
+        }
+        // 그렇게 담겨진 리스트를 리턴한다.
+        return companionData;
+
+    }
+
+    @Override
+    public CompanionDTO selectCompanionOne(int comp_no) throws Exception{
+        CompanionEntity companionEntity =null;
+        try{
+            companionEntity = boardRepository.getCompanionOneRepo(comp_no);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return new CompanionDTO(
+                companionEntity.getComp_no(),
+                companionEntity.getComp_title(),
+                companionEntity.getComp_content(),
+                companionEntity.getUser_name(),
+                companionEntity.getUser_id(),
+                companionEntity.getComp_date(),
+                companionEntity.getComp_link(),
+                companionEntity.getEvent_type(),
+                companionEntity.getComp_post_date(),
+                companionEntity.getComp_views());
+
+    }
 }

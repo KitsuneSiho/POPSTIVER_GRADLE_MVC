@@ -15,9 +15,9 @@ public interface BoardService {
     public void insertFestival (FestivalBoardDTO festivalBoardDTO) throws Exception;
 
     //해당 게시물 번호에 맞는 게시물들 출력
-    public FestivalBoardDTO selectOneFestival(int festival_no) throws Exception;
+    public FestivalBoardDTO selectFestivalOne(int festival_no) throws Exception;
     //데이터 전체 출력
-    public List<FestivalBoardDTO> selectAllFestival() throws Exception;
+    public List<FestivalBoardDTO> selectFestivalAll() throws Exception;
     //해당 위치를 가진 데이터 전체 출력
     public List<FestivalBoardDTO> selectAllFestivalByLocation(String festival_dist) throws Exception;
 
@@ -40,11 +40,11 @@ public interface BoardService {
     public void insertPopup (PopupBoardDTO popupBoardDTO) throws Exception;
 
     //해당 게시물 번호에 맞는 게시물들 출력
-    public PopupBoardDTO selectOnePopup(int popup_no) throws Exception;
+    public PopupBoardDTO selectPopupOne(int popup_no) throws Exception;
     //데이터 전체 출력
-    public List<PopupBoardDTO> selectAllPopup() throws Exception;
+    public List<PopupBoardDTO> selectPopupAll() throws Exception;
     //해당 위치를 가진 데이터 전체 출력
-    public List<PopupBoardDTO> selectAllPopupByLocation(String popup_location) throws Exception;
+    public List<PopupBoardDTO> selectPopupByLocation(String popup_location) throws Exception;
 
     //해당 게시글번호를 가진 데이터를 수정
     public void updatePopup (int popup_no, PopupBoardDTO popupBoardDTO) throws Exception;
@@ -58,12 +58,12 @@ public interface BoardService {
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
     public void insertCommunity(CommunityDTO communityDTO) throws Exception;
-    public List<CommunityDTO> selectAllCommunity() throws Exception;
+    public List<CommunityDTO> selectCommunityAll() throws Exception;
     public CommunityDTO selectCommunityOne(int board_no) throws Exception;
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
-    public List<NoticeDTO> selectAllNotice() throws Exception;//공지출력
+    public List<NoticeDTO> selectNoticeAll() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
@@ -75,10 +75,13 @@ public interface BoardService {
     //=====================================================================================//
     public void insertReport(ReportDTO reportDTO) throws Exception;
     public List<ReportDTO> selectReportAll() throws Exception;
+    public ReportDTO selectReportOne(int report_no) throws Exception;
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
-
+    public void insertCompanion(CompanionDTO companionDTO) throws Exception;
+    public List<CompanionDTO> selectCompanionAll() throws Exception;
+    public CompanionDTO selectCompanionOne(int comp_no) throws Exception;
 
 
 }

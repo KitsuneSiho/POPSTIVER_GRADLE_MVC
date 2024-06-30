@@ -1,9 +1,6 @@
 package kr.bit.function.board.boardDAO;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.ReportDTO;
-import kr.bit.function.board.boardDTO.TemporaryPostDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -419,14 +416,15 @@ public class BoardRepository {
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
     public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
-        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end, event_type) VALUES (?,?,?,?,?,?,?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
         jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
                 temporaryPostDTO.getTemp_content(),
                 temporaryPostDTO.getTemp_host(),
                 temporaryPostDTO.getTemp_location(),
                 temporaryPostDTO.getTemp_start(),
-                temporaryPostDTO.getTemp_end()
+                temporaryPostDTO.getTemp_end(),
+                temporaryPostDTO.getEvent_type()
         );
     }
     
@@ -435,7 +433,7 @@ public class BoardRepository {
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
     public void insertReportRepo(ReportDTO reportDTO) {
-        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns, report_post_date,user_id, user_name) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns,user_id, user_name, event_type) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, reportDTO.getReport_title(),
                 reportDTO.getReport_content(),
                 reportDTO.getReport_host(),
@@ -444,9 +442,9 @@ public class BoardRepository {
                 reportDTO.getReport_end(),
                 reportDTO.getBrand_link(),
                 reportDTO.getBrand_sns(),
-                reportDTO.getReport_post_date(),
                 reportDTO.getUser_id(),
-                reportDTO.getUser_name()
+                reportDTO.getUser_name(),
+                reportDTO.getEvent_type()
         );
     }
 
@@ -532,10 +530,13 @@ public class BoardRepository {
             public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
                 CompanionEntity companionEntity= new CompanionEntity();
                 companionEntity.setComp_no(rs.getInt("comp_no"));
-                companionEntity.setComp_title(rs.getString("comp title"));
+                companionEntity.setComp_title(rs.getString("comp_title"));
                 companionEntity.setComp_content(rs.getString("comp_content"));
                 companionEntity.setUser_name(rs.getString("user_name"));
                 companionEntity.setUser_id(rs.getString("user_id"));
+                companionEntity.setComp_date(rs.getString("comp_date"));
+                companionEntity.setComp_link(rs.getString("comp_link"));
+                companionEntity.setEvent_type(rs.getString("event_type"));
                 companionEntity.setComp_post_date(rs.getString("comp_post_date"));
                 companionEntity.setComp_views(rs.getInt("comp_views"));
                 return companionEntity;
@@ -543,6 +544,42 @@ public class BoardRepository {
         });
         //데이터를 담은 List를 반환
         return result;
+    }
+
+    public CompanionEntity getCompanionOneRepo(int comp_no) throws Exception{
+        List<CompanionEntity> result = jdbcTemplate.query(
+                "select * from companion where comp_no=?;",
+                new RowMapper<CompanionEntity>() {
+                    @Override
+                    public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        CompanionEntity companionEntity = new CompanionEntity();
+                        companionEntity.setComp_no(rs.getInt("comp_no"));
+                        companionEntity.setComp_title(rs.getString("comp_title"));
+                        companionEntity.setComp_content(rs.getString("comp_content"));
+                        companionEntity.setUser_name(rs.getString("user_name"));
+                        companionEntity.setUser_id(rs.getString("user_id"));
+                        companionEntity.setComp_date(rs.getString("comp_date"));
+                        companionEntity.setComp_link(rs.getString("comp_link"));
+                        companionEntity.setEvent_type(rs.getString("event_type"));
+                        companionEntity.setComp_post_date(rs.getString("comp_post_date"));
+                        companionEntity.setComp_views(rs.getInt("comp_views"));
+                        return companionEntity;
+                    }
+                },comp_no);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public void insertCompanionRepo(CompanionDTO companionDTO) {
+        String sql = "INSERT INTO companion (comp_title, comp_content, user_name, user_id, comp_date, comp_link,event_type, comp_views) VALUES (?,?,?,?,?,?,?,1)";
+        jdbcTemplate.update(sql, companionDTO.getComp_title(),
+                companionDTO.getComp_content(),
+                companionDTO.getUser_name(),
+                companionDTO.getUser_id(),
+                companionDTO.getComp_date(),
+                companionDTO.getComp_link(),
+                companionDTO.getEvent_type()
+
+        );
     }
 
 
