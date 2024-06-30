@@ -1,21 +1,166 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>방문자 통계</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<c:url value='/css/styles.css' />">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #ecf0f1;
+            --card-bg-color: #ffffff;
+            --text-color: #34495e;
+            --accent-color: #e74c3c;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .main-content {
+            padding: 2rem;
+        }
         .chart-container {
-            position: relative;
-            margin: auto;
-            height: 400px;
-            width: 600px;
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: var(--card-bg-color);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .chart-actions button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .chart-actions button:hover {
+            background-color: #2980b9;
+        }
+        .stats-summary {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 0.5rem;
+            flex: 1 1 200px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .stat-card h3 {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card p {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            .chart-container {
+                padding: 1rem;
+            }
+            .stat-card {
+                flex: 1 1 100%;
+            }
         }
     </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('number', 'Visits');
+            data.addRows([
+                <c:forEach var="stat" items="${statistics}">
+                ['${stat.visitDate}', ${stat.visitCount}],
+                </c:forEach>
+            ]);
+
+            var options = {
+                title: '웹사이트 방문자 통계',
+                curveType: 'function',
+                legend: { position: 'none' },
+                hAxis: {
+                    title: '날짜',
+                    gridlines: {color: '#f3f3f3'},
+                    textStyle: {color: '#666'}
+                },
+                vAxis: {
+                    title: '방문 수',
+                    minValue: 0,
+                    ticks: ${tickValues},
+                    gridlines: {color: '#f3f3f3'},
+                    textStyle: {color: '#666'}
+                },
+                colors: ['#3498db'],
+                backgroundColor: 'transparent',
+                chartArea: {width: '85%', height: '80%'},
+                animation: {
+                    startup: true,
+                    duration: 1000,
+                    easing: 'out',
+                },
+                lineWidth: 3,
+                pointSize: 6,
+                pointShape: 'circle',
+                tooltip: {isHtml: true}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 <div class="container-fluid">
@@ -26,67 +171,41 @@
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
             <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
-            <h2>방문자 통계</h2>
-            <!-- 방문자 통계 내용 -->
+
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <h3>총 방문자 수</h3>
+                    <p>${totalVisits}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>일일 평균 방문자 수</h3>
+                    <p>${averageDailyVisits}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>최다 방문일</h3>
+                    <p>${peakVisitDate}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>최다 방문자 수</h3>
+                    <p>${peakVisitCount}</p>
+                </div>
+            </div>
+
             <div class="chart-container">
-                <canvas id="visitorChart"></canvas>
+                <div class="chart-header">
+                    <h2>방문자 통계</h2>
+                    <div class="chart-actions">
+                        <button onclick="location.reload()"><i class="fas fa-sync-alt"></i> 새로고침</button>
+                    </div>
+                </div>
+                <div id="curve_chart" style="width: 100%; height: 500px;"></div>
             </div>
             <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('visitorChart').getContext('2d');
-
-        // JSON 형식의 visitorStats 데이터를 가져옴
-        var visitorStats = JSON.parse('${visitorStatsJson}');
-
-        var labels = visitorStats.map(stat => stat.month);
-        var data = visitorStats.map(stat => stat.total_visits);
-
-        var visitorData = {
-            labels: labels,
-            datasets: [{
-                label: '방문자 수',
-                data: data,
-                backgroundColor: '#36A2EB',
-                borderColor: '#36A2EB',
-                fill: false,
-            }]
-        };
-
-        var visitorChart = new Chart(ctx, {
-            type: 'line',
-            data: visitorData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: '월'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: '방문자 수'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-    });
-</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
