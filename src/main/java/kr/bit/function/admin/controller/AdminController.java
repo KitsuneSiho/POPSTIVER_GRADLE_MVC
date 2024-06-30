@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -122,8 +123,11 @@ public class AdminController {
                 }
             }
 
+            // 평균 방문자 수 소수점 첫째 자리까지 포맷
+            DecimalFormat df = new DecimalFormat("#.0");
+            model.addAttribute("averageDailyVisits", df.format(averageDailyVisits));
+
             model.addAttribute("totalVisits", totalVisits);
-            model.addAttribute("averageDailyVisits", averageDailyVisits);
             model.addAttribute("peakVisitDate", peakVisitDate);
             model.addAttribute("peakVisitCount", peakVisitCount);
             model.addAttribute("statistics", statistics);
