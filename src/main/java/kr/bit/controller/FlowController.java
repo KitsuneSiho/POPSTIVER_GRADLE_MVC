@@ -24,9 +24,8 @@ public class FlowController {
 
     @GetMapping("/myPage")//마이페이지
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        return "page/myPage/myPage";
+        return "forward:/member/myPage";
     }
-
     @GetMapping("bookmark")//관심행사페이지
     public String bookmark_page() {
         return "page/myPage/bookmark";
