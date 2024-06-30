@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.text.DecimalFormat;
@@ -42,7 +41,67 @@ public class AdminController {
     private DataSource dataSource;
 
     @GetMapping("/admin")
-    public String admin_main() {
+    public String adminDashboard(Model model) throws JsonProcessingException {
+        // 유저 통계
+        int totalUsers = userDao.getTotalUsers();
+        int newSignups = userDao.getNewSignups(); // 새로운 가입자 수 가져오는 메서드
+        int previousTotalUsers = userDao.getTotalUsersFromPreviousWeek();
+        DecimalFormat df = new DecimalFormat("#.#");
+        double signupGrowthRate = ((double) (newSignups) / (previousTotalUsers + totalUsers)) * 100;
+
+        // 비즈니스 문의 수
+        int businessInquiries = businessContentsService.getAllBusinessContents().size();
+
+        // 방문자 통계
+        try (Connection connection = dataSource.getConnection()) {
+            VisitorStatisticsDAO dao = new VisitorStatisticsDAO(connection);
+            List<VisitorStatistic> statistics = dao.getVisitorStatistics();
+
+            int totalVisits = 0;
+            double averageDailyVisits = 0.0;
+            String peakVisitDate = "";
+            int peakVisitCount = 0;
+
+            if (!statistics.isEmpty()) {
+                totalVisits = statistics.stream().mapToInt(VisitorStatistic::getVisitCount).sum();
+                averageDailyVisits = (double) totalVisits / statistics.size();
+
+                VisitorStatistic peakVisit = statistics.stream()
+                        .max((s1, s2) -> Integer.compare(s1.getVisitCount(), s2.getVisitCount()))
+                        .orElse(null);
+                if (peakVisit != null) {
+                    peakVisitDate = new SimpleDateFormat("yyyy-MM-dd").format(peakVisit.getVisitDate());
+                    peakVisitCount = peakVisit.getVisitCount();
+                }
+            }
+
+            // 방문자 데이터를 모델에 추가
+            model.addAttribute("visitorDataJson", objectMapper.writeValueAsString(statistics));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 1:1 채팅 통계 (예시)
+        List<Integer> chatData = List.of(5, 10, 15, 20, 25, 30, 35); // 실제 데이터로 대체 필요
+        model.addAttribute("chatDataJson", objectMapper.writeValueAsString(chatData));
+
+        // 좋아요 많은 게시글 통계 (예시)
+        List<String> likedPostsLabels = List.of("Post 1", "Post 2", "Post 3", "Post 4", "Post 5");
+        List<Integer> likedPostsData = List.of(20, 15, 30, 25, 10);
+        model.addAttribute("likedPostsDataJson", objectMapper.writeValueAsString(Map.of("labels", likedPostsLabels, "data", likedPostsData)));
+
+        // 최근 리뷰 통계 (예시)
+        List<String> recentReviewsLabels = List.of("Review 1", "Review 2", "Review 3", "Review 4", "Review 5");
+        List<Integer> recentReviewsData = List.of(5, 10, 15, 20, 25);
+        model.addAttribute("recentReviewsDataJson", objectMapper.writeValueAsString(Map.of("labels", recentReviewsLabels, "data", recentReviewsData)));
+
+        // 모델에 데이터 추가
+        model.addAttribute("totalUsers", totalUsers);
+        model.addAttribute("newSignups", newSignups);
+        model.addAttribute("signupGrowthRate", df.format(signupGrowthRate));
+        model.addAttribute("businessInquiries", businessInquiries);
+        model.addAttribute("previousTotalUsers", previousTotalUsers);
+
         return "page/admin/adminMain";
     }
 

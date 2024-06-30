@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserListDao {
     List<MemberEntity> getUsers(int offset, int limit);
     int getTotalUsers();
+    int getNewSignups();
+    int getTotalUsersFromPreviousWeek();
 }
