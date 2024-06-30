@@ -1,25 +1,44 @@
 package kr.bit.function.member.service;
 
 import kr.bit.function.member.entity.MemberEntity;
+import kr.bit.function.member.repository.UserTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class MemberService {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserTagRepository userTagRepository;
+
 
     @Autowired
-    public MemberService(JdbcTemplate jdbcTemplate) {
+    public MemberService(JdbcTemplate jdbcTemplate, UserTagRepository userTagRepository) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userTagRepository = userTagRepository;
+
     }
 
-    public void saveUser(MemberEntity user) {
+    public void saveUser(MemberEntity user,  String tags) {
         String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender, user_nickname) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getUser_type(), user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_birth(), user.getUser_gender(), user.getUser_nickname());
+
+        // 태그 정보를 저장하는 로직
+        if (tags != null && !tags.isEmpty()) {
+            List<Integer> tagList = Arrays.stream(tags.split(","))
+                    .map(String::trim)
+                    .filter(tag -> !tag.isEmpty())
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            userTagRepository.saveUserTags(user.getUser_id(), tagList);
+        }
     }
 
     public void updateUserInfo(MemberEntity user) {

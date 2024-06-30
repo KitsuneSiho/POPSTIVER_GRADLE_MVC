@@ -12,6 +12,7 @@ import kr.bit.function.member.dto.NaverResponse;
 import kr.bit.function.member.entity.MemberEntity;
 import kr.bit.function.member.entity.UserTagEntity;
 import kr.bit.function.member.repository.RefreshTokenRepository;
+import kr.bit.function.member.repository.TagRepository;
 import kr.bit.function.member.repository.UserTagRepository;
 import kr.bit.function.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RequestMapping("/member")
 @Controller
@@ -37,15 +40,20 @@ public class MemberController {
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
 
+    @Autowired
+    private  UserTagRepository userTagRepository;
 
-    @PostMapping("/saveUser")
+    @Autowired
+    private TagRepository tagRepository;
+
+        @PostMapping("/saveUser")
     public String saveUser(@RequestParam("user_email") String userEmail,
                            @RequestParam("user_name") String userName,
                            @RequestParam("user_birth") String userBirth,
                            @RequestParam("user_gender") String userGender,
                            @RequestParam("user_type") String userType,
                            @RequestParam("user_nickName") String userNickname,
-                           @RequestParam("tags") String tags, // 추가
+                           @RequestParam("tags") String tags,
                            @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
 
         String provider = customOAuth2User.getProvider();
@@ -75,9 +83,14 @@ public class MemberController {
         user.setUser_gender(userGender);
         user.setUser_id(user_id);
         user.setUser_nickname(userNickname);
-        memberService.saveUser(user);
+        memberService.saveUser(user, tags);
 
-        return "redirect:/main";
+            // 태그 저장
+            String[] tagArray = tags.split(",");
+            List<Integer> tagList = Arrays.stream(tagArray).map(Integer::parseInt).collect(Collectors.toList());
+            userTagRepository.saveUserTags(user_id, tagList);
+
+            return "redirect:/main";
     }
 
     @GetMapping("/myPage")
@@ -101,8 +114,6 @@ public class MemberController {
                 break;
         }
 
-        MemberEntity user = memberService.findById(user_id);
-        model.addAttribute("user", user);
 
         return "page/myPage/myPage";
     }
@@ -134,6 +145,10 @@ public class MemberController {
             existingUser.setUser_type(updatedUser.getUser_type());
             existingUser.setUser_nickname(updatedUser.getUser_nickname());
             memberService.updateUserInfo(existingUser);
+
+
+
+
             return ResponseEntity.ok("User information updated successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
