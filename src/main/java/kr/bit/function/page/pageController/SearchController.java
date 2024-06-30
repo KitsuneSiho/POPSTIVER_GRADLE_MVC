@@ -30,4 +30,3 @@ public class SearchController {
         return "page/searchResult/searchResult";  // searchResult.jsp 또는 searchResult.html 등의 뷰 페이지 반환
     }
 }
-
