@@ -389,11 +389,6 @@ public class BoardRepository {
      * @param notice_no : 게시글번호(notice_no)
      * @return BoardEntity  형태의 데이터
      */
-    /*
-     * 특정 게시물을 출력하기.
-     * @param notice_no : 게시글번호(notice_no)
-     * @return BoardEntity  형태의 데이터
-     */
     public CommunityEntity getCommunityOneRepo(int board_no) throws Exception{
         List<CommunityEntity> result = jdbcTemplate.query(
                 "select * from community where board_no=?;",
@@ -488,6 +483,41 @@ public class BoardRepository {
         return result;
     }
 
+    /*
+     * 제보 게시물을 출력하기.
+     * @param notice_no : 게시글번호(notice_no)
+     * @return BoardEntity  형태의 데이터
+     */
+    public ReportEntity getReportOneRepo(int report_no) throws Exception{
+        List<ReportEntity> result = jdbcTemplate.query(
+                "select * from report where report_no=?;",
+                new RowMapper<ReportEntity>() {
+                    @Override
+                    public ReportEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        ReportEntity reportEntity = new ReportEntity();
+                        reportEntity.setReport_no(rs.getInt("report_no"));
+                        reportEntity.setReport_title(rs.getString("report_title"));
+                        reportEntity.setReport_content(rs.getString("report_content"));
+                        reportEntity.setReport_host(rs.getString("report_host"));
+                        reportEntity.setReport_dist(rs.getString("report_dist"));
+                        reportEntity.setReport_subdist(rs.getString("report_subdist"));
+                        reportEntity.setReport_location(rs.getString("report_location"));
+                        reportEntity.setReport_start(rs.getString("report_start"));
+                        reportEntity.setReport_end(rs.getString("report_end"));
+                        reportEntity.setOpen_time(rs.getString("open_time"));
+                        reportEntity.setReport_attachment(rs.getString("report_attachment"));
+                        reportEntity.setEvent_type(rs.getInt("event_type"));
+                        reportEntity.setBrand_link(rs.getString("brand_link"));
+                        reportEntity.setBrand_sns(rs.getString("brand_sns"));
+                        reportEntity.setReport_post_date(rs.getString("report_post_date"));
+                        reportEntity.setUser_id(rs.getString("user_id"));
+                        reportEntity.setUser_name(rs.getString("user_name"));
+                        return reportEntity;
+                    }
+                },report_no);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
@@ -514,6 +544,8 @@ public class BoardRepository {
         //데이터를 담은 List를 반환
         return result;
     }
+
+
 }
 
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결
