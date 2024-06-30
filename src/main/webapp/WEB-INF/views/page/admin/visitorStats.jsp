@@ -29,7 +29,7 @@
             color: var(--text-color);
         }
         .main-content {
-            padding: 2rem;
+            /*padding: 2rem;*/
         }
         .chart-container {
             margin-top: 2rem;
@@ -65,7 +65,7 @@
             color: white;
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
