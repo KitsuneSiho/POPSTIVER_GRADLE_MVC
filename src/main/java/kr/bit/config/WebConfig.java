@@ -2,7 +2,7 @@ package kr.bit.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import kr.bit.function.admin.interceptor.VisitorLogInterceptor;
+import kr.bit.function.admin.interceptor.VisitorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -53,11 +53,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Autowired
-    private VisitorLogInterceptor visitorLogInterceptor;
-
+    private VisitorInterceptor visitorInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(visitorLogInterceptor).addPathPatterns("/**");
+        registry.addInterceptor(visitorInterceptor)
+                .addPathPatterns("/**"); // 모든 경로에 대해 인터셉터 적용
     }
 }

@@ -1,0 +1,43 @@
+/* styles.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+    margin-right: 10px;
+}
+
+.footer {
+    background-color: #343a40;
+    color: #6c757d;
+    text-align: center;
+}
+
+.sidebar-sticky {
+    background-color: #343a40;
+    padding: 10px;
+}
+
+.sidebar-sticky .nav-link {
+    color: #adb5bd;
+}
+
+.sidebar-sticky .nav-link:hover {
+    color: #fff;
+    background-color: #495057;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.card-title {
+    font-weight: bold;
+}
