@@ -24,7 +24,7 @@ public class UserTagRepository {
 
     // 사용자 태그 저장 메소드
     public void saveUserTags(String userId, List<Integer> tagList) {
-        String sql = "INSERT INTO user_tag (user_id, tag_no) VALUES (?, ?)";
+        String sql = "INSERT IGNORE INTO user_tag (user_id, tag_no) VALUES (?, ?)";
 
         // 태그 목록을 순회하며 각각의 태그를 저장
         for (Integer tagNo : tagList) {
