@@ -26,27 +26,6 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .nickname-container {
-            display: flex;
-            align-items: center;
-        }
-
-        .nickname-container input {
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        .nickname-container button {
-            white-space: nowrap;
-            margin-top: 5px;
-
-        }
-
-        #nicknameCheckResult {
-            display: block;
-            margin-top: 5px;
-        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/formValidation.js"></script>

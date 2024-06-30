@@ -31,7 +31,7 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a class="on" href="${root}/contact">
+    <a href="${root}/contact">
         <h2>공지사항</h2>
     </a>
     <a href="${root}/money">
@@ -40,7 +40,7 @@
     <a href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="${root}/together">
+    <a class="on" href="${root}/together">
         <h2>동행구하기</h2>
     </a>
     <a href="${root}/free">

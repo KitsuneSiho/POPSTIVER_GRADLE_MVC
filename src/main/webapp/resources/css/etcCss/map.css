@@ -35,46 +35,6 @@ body {
     border-radius: 10px;
 }
 
-.searchList {
-    padding-bottom: 100px;
-    width: 90%; /* 전체 너비의 90%로 설정 */
-    max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto;
-}
-
-.searchList article {
-    width: 100%; /* 전체 너비로 설정 */
-    margin: 0 auto;
-    overflow: hidden;
-    display: block;
-    unicode-bidi: isolate;
-}
-
-.searchListOpen {
-    font-size: 18px;
-    background: #1e1e1e;
-    border-bottom: 1px solid #ffff33;
-    padding: 3px 10px;
-    cursor: pointer;
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.searchListOpen p {
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.searchListOpen img.on {
-    transform: rotate(180deg);
-}
-
-.searchListOpen img {
-    transition: all 0.3s;
-}
 
 .popupFestivalInfo {
     display: none;

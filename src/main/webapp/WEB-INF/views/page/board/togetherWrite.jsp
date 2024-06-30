@@ -76,7 +76,7 @@
         <li>
             <span>내용</span>
             <label class="infoTextarea">
-                <textarea placeholder="자유롭게 작성해주세요" rows="10"></textarea>
+                <textarea placeholder="자유롭게 작성해주세요" rows="10" style="resize: none"></textarea>
             </label>
         </li>
         <li>

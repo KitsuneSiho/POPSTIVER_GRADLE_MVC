@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
@@ -47,7 +47,7 @@
     <div class="popular">
         <div class="popularPosterText">
             <p class="popularText1">인기</p>
-            <p class="popularText2" onclick="window.location.href='popularAdd'">더보기</p>
+            <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
         </div>
         <div class="popularPoster">
             <div class="slide-container">
@@ -118,24 +118,29 @@
         </div>
     </div>
 
+
     <div class="open">
         <div class="openPosterText">
             <p class="openText1">오픈 예정</p>
-            <p class="openText2" onclick="window.location.href='openAdd'">더보기</p>
+            <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
         </div>
         <div class="openPoster">
             <div class="slide-container">
                 <div class="slide-track">
-                    <!-- DB에서 가져온 오픈 예정 포스터 정보 표시 -->
-                    <c:forEach var="popup" items="${upcomingPopups}">
-                        <div class="open-item">
-                            <img src="${popup.popupAttachment}" alt="">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <p class="open-caption">${popup.popupTitle}</p>
-                            <p class="open-caption">${popup.popupLocation}</p>
-                            <p class="open-caption">${popup.popupStart} ~ ${popup.popupEnd}</p>
-                        </div>
-                    </c:forEach>
+                    <c:choose>
+                        <c:when test="${not empty upcomingPopups}">
+                            <c:forEach var="popup" items="${upcomingPopups}">
+                                <div class="open-item">
+                                    <img src="${popup.popup_attachment}" alt="${popup.popup_title}" onclick="window.location.href='popupInfo?id=${popup.popup_no}'">
+                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="" data-popup-no="${popup.popup_no}">
+                                    <p class="open-caption">${popup.popup_title}</p>
+                                </div>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <p>현재 오픈 예정인 팝업 스토어가 없습니다.</p>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -143,6 +148,8 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
+
 </body>
 </html>

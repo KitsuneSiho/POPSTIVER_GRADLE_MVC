@@ -54,10 +54,10 @@
     <div class="mainTopMenu">
         <ul>
             <li>
-                <a href="myPage">마이페이지</a>
+                <a href="${root}/myPage">마이페이지</a>
                 <ul>
-                    <li><a href="myPage">내 정보</a></li>
-                    <li><a href="deleteUser">회원 탈퇴</a></li>
+                    <li><a href="${root}/myPage">내 정보</a></li>
+                    <li><a href="${root}/deleteUser">회원 탈퇴</a></li>
                 </ul>
             </li>
             <li>
@@ -79,6 +79,11 @@
                     <li><a href="${root}/free">자유게시판</a></li>
                 </ul>
             </li>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li>
+                <a href="${root}/admin">관리자</a>
+            </li>
+        </sec:authorize>
         </ul>
     </div>
 
