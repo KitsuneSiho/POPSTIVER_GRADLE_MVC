@@ -18,17 +18,19 @@ public class MemberService {
     private final JdbcTemplate jdbcTemplate;
     private final UserTagRepository userTagRepository;
 
-
     @Autowired
     public MemberService(JdbcTemplate jdbcTemplate, UserTagRepository userTagRepository) {
         this.jdbcTemplate = jdbcTemplate;
         this.userTagRepository = userTagRepository;
-
     }
 
     public void saveUser(MemberEntity user, String tags) {
         String sql = "INSERT INTO user (user_type, user_id, user_name, user_email, user_birth, user_gender, user_nickname) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, user.getUser_type(), user.getUser_id(), user.getUser_name(), user.getUser_email(), user.getUser_birth(), user.getUser_gender(), user.getUser_nickname());
+
+        // user_creation 테이블에 데이터 삽입
+        String creationSql = "INSERT INTO user_creation (user_id, creation_date) VALUES (?, NOW())";
+        jdbcTemplate.update(creationSql, user.getUser_id());
 
         // 태그 정보를 저장하는 로직
         if (tags != null && !tags.isEmpty()) {

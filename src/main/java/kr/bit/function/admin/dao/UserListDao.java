@@ -9,4 +9,5 @@ public interface UserListDao {
     int getTotalUsers();
     int getNewSignups();
     int getTotalUsersFromPreviousWeek();
+    int getNewUsersLast30Days(); // 신규 가입자 수를 조회하는 메서드 추가
 }

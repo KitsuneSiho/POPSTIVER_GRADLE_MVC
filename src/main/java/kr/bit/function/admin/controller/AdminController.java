@@ -14,11 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -134,12 +136,25 @@ public class AdminController {
         String ageStatsJson = objectMapper.writeValueAsString(ageStats);
         String tagStatsJson = objectMapper.writeValueAsString(tagStats);
 
+        int newUsersLast30Days = userDao.getNewUsersLast30Days(); // 추가된 코드
+        model.addAttribute("newUsersLast30Days", newUsersLast30Days); // 추가된 코드
+
         model.addAttribute("genderStatsJson", genderStatsJson);
         model.addAttribute("snsStatsJson", snsStatsJson);
         model.addAttribute("ageStatsJson", ageStatsJson);
         model.addAttribute("tagStatsJson", tagStatsJson);
 
         return "page/admin/memberStats";
+    }
+
+
+    @GetMapping("/api/newUsersLast30Days")
+    @ResponseBody
+    public Map<String, Integer> getNewUsersLast30Days() {
+        int newUsersLast30Days = userDao.getNewUsersLast30Days();
+        Map<String, Integer> response = new HashMap<>();
+        response.put("newUsersLast30Days", newUsersLast30Days);
+        return response;
     }
 
     @GetMapping("/likedPostsStats")

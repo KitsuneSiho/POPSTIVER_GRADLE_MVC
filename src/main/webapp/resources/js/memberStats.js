@@ -145,9 +145,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('totalUsers').textContent = snsTotal;
     document.getElementById('topSNS').textContent = snsLabels[snsData.indexOf(Math.max(...snsData))];
 
-    // 최근 30일 신규 가입자 수는 서버에서 받아와야 합니다.
-    // 여기서는 임시로 0으로 설정합니다.
-    document.getElementById('newUsers').textContent = '0';
+    // 최근 30일 신규 가입자 수를 서버에서 받아와 업데이트
+    fetch('/api/newUsersLast30Days')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('newUsers').textContent = data.newUsersLast30Days;
+        })
+        .catch(error => {
+            console.error('Error fetching new users data:', error);
+            document.getElementById('newUsers').textContent = 'Error';
+        });
+
 
     // 나이대 차트
     var ageCtx = document.getElementById('ageChart').getContext('2d');

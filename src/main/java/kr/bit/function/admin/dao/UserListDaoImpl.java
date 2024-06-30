@@ -31,6 +31,7 @@ public class UserListDaoImpl implements UserListDao {
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
+    @Override
     public int getNewSignups() {
         String sql = "SELECT COUNT(*) FROM user_creation WHERE DATE(creation_date) > DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
         return jdbcTemplate.queryForObject(sql, Integer.class);
@@ -39,6 +40,12 @@ public class UserListDaoImpl implements UserListDao {
     @Override
     public int getTotalUsersFromPreviousWeek() {
         String sql = "SELECT COUNT(*) FROM user_creation WHERE DATE(creation_date) BETWEEN DATE_SUB(CURDATE(), INTERVAL 60 DAY) AND DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public int getNewUsersLast30Days() {
+        String sql = "SELECT COUNT(*) FROM user_creation WHERE DATE(creation_date) > DATE_SUB(CURDATE(), INTERVAL 30 DAY)";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
