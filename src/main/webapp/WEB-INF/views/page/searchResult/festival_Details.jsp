@@ -26,35 +26,37 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .stars {
-            display: inline-block;
-        }
-
-        .star {
-            font-size: 24px;
-            color: #ddd; /* 기본 색상 */
-            cursor: pointer;
-        }
-
-        .star.selected {
-            color: #f5a623; /* 선택된 별 색상 */
-        }
-
-        .star:hover,
-        .star:hover ~ .star {
-            color: #ddd; /* 기본 색상으로 초기화 */
-        }
-
-        .star:hover,
-        .star:hover ~ .star,
-        .star:hover ~ .star {
-            color: #f5a623; /* 마우스를 올린 별과 그 이전의 별 색상 */
-        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/festival_Details.js"></script>
+    <script>
+        // 이미지가 로드된 후 실행할 함수 정의
+        function adjustImageSize() {
+            var img = document.querySelector('.mainPoster img'); // 이미지 요소 선택
+
+            if (img.complete) { // 이미지가 로드되었는지 확인
+                var maxWidth = window.innerWidth; // 현재 창의 너비
+                var maxHeight = window.innerHeight; // 현재 창의 높이
+
+                var ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight); // 이미지 비율 계산
+
+                img.style.width = (img.naturalWidth * ratio) + 'px'; // 이미지 너비 설정
+                img.style.height = (img.naturalHeight * ratio) + 'px'; // 이미지 높이 설정
+            }
+        }
+
+        // 페이지 로드 시 실행할 함수 등록
+        window.onload = function() {
+            adjustImageSize(); // 이미지 크기 조정 함수 호출
+        }
+
+        // 창 크기 변경 시에도 이미지 크기 조정
+        window.onresize = function() {
+            adjustImageSize(); // 이미지 크기 조정 함수 호출
+        }
+
+    </script>
 </head>
 <body>
 
@@ -79,20 +81,28 @@
                 <!-- 공유 모달 창 -->
                 <div id="shareModal" class="share-modal">
                     <div class="share-modal-content">
-                        <div class="brandWebsite">
+                        <div class="brand-item">
                             <p>브랜드 홈페이지</p>
-                            <a id="brandWebsiteLink" href="${festival.brand_link}" target="_blank">${festival.brand_link}</a>
-                            <button onclick="copyToClipboard('brandWebsiteLink')">
-                                <img src="${root}/resources/asset/복사버튼.svg" alt="">
-                            </button>
+                            <div class="link-container">
+                                <div class="link-wrapper">
+                                    <a id="brandWebsiteLink" href="${festival.brand_link}" target="_blank">${festival.brand_link}</a>
+                                </div>
+                                <button onclick="copyToClipboard('brandWebsiteLink')">
+                                    <img src="${root}/resources/asset/복사버튼.svg" alt="">
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="brandSns">
+                        <div class="brand-item">
                             <p>브랜드 SNS</p>
-                            <a id="brandSNSLink" href="${festival.brand_sns}" target="_blank">${festival.brand_sns}</a>
-                            <button onclick="copyToClipboard('brandSNSLink')">
-                                <img src="${root}/resources/asset/복사버튼.svg" alt="">
-                            </button>
+                            <div class="link-container">
+                                <div class="link-wrapper">
+                                    <a id="brandSNSLink" href="${festival.brand_sns}" target="_blank">${festival.brand_sns}</a>
+                                </div>
+                                <button onclick="copyToClipboard('brandSNSLink')">
+                                    <img src="${root}/resources/asset/복사버튼.svg" alt="">
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,10 +128,11 @@
         <div class="detailInfoMap">
             <div id="singleMap"></div>
         </div>
-    <div class="detailInfoReview">
-        <p class="detailInfoReviewTitle">후기</p>
-        <p>댓글 1,234개</p>
-        <form method="post" onsubmit="submitForm(event)">
+        <div class="detailInfoReview">
+            <p class="detailInfoReviewTitle">후기</p>
+            <!-- 후기 개수 표시 -->
+            <p>댓글 ${allComments.size()}개</p>
+            <form method="post" onsubmit="submitForm(event)">
 
             <input type="hidden" name="festival_no" value="${festival.festival_no}">
             <input type="hidden" name="event_type" value="${festival.event_type}">
@@ -179,18 +190,23 @@
 
         </div>
 
-    </div>
+
+        </div>
     </div>
 </div>
 
-
+<div id="customAlertModal" class="custom-alert-modal">
+    <div class="custom-alert-content">
+        <p id="customAlertMessage"></p>
+        <button class="custom-alert-close" onclick="closeCustomAlert()">확인</button>
+    </div>
+</div>
 
 
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 <script src="${root}/resources/js/shareModal.js"></script>
-<script src="${root}/resources/js/like.js"></script>
 <script>
     var geocoder = new kakao.maps.services.Geocoder();
 
@@ -220,6 +236,7 @@
         }
     });
 </script>
+
 
 </body>
 </html>

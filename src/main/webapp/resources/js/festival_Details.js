@@ -34,9 +34,16 @@ function getUserInfoAndSetUserId() {
         url: "/member/getUserInfo",
         success: function (response) {
             if (response && response.user_id && response.user_nickname) {
-// Set the user_id and user_nickname in the hidden input fields
+                // Set the user_id and user_nickname in the hidden input fields
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
+
+                var userName = response.user_nickname;
+                var userType = response.user_type;
+
+                console.log(userType);
+                // 삭제 버튼 표시 여부 업데이트
+                updateDeleteButtonVisibility(userName, userType);
             } else {
                 console.error("사용자 정보를 가져오는 데 실패했습니다.");
             }
@@ -47,13 +54,23 @@ function getUserInfoAndSetUserId() {
     });
 }
 
+function updateDeleteButtonVisibility(userName, userType) {
+    $('.delete').each(function () {
+        var commentWriter = $(this).data('comment-writer'); // 댓글 작성자 가져오기
+
+        // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
+        if (commentWriter === userName || userType === 'ROLE_ADMIN') {
+            $(this).show(); // 삭제 버튼 표시
+        } else {
+            $(this).hide(); // 삭제 버튼 숨김
+        }
+    });
+}
+
 // 저장하기 버튼을 누르면
 function submitForm(event) {
-// 폼 데이터 변수로 가져오기
-
     event.preventDefault(); // 폼 제출 방지
 
-// 폼 데이터 변수로 가져오기
     var festivalNo = $("input[name='festival_no']").val();
     var eventType = $("input[name='event_type']").val();
     var userId = $("input[name='user_id']").val();
@@ -62,19 +79,10 @@ function submitForm(event) {
     var visitDate = $("input[name='visit_date']").val();
     var starRate = $("#star_rate").val();
 
-    console.log(festivalNo);
-    console.log(eventType);
-    console.log(userId);
-    console.log(userName);
-    console.log(commentContent);
-    console.log(visitDate);
-    console.log(starRate);
-
     $.ajax({
         method: "put",
         url: "/comment/festivalInsert",
         contentType: 'application/json;charset=utf-8',
-// StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
         data: JSON.stringify({
             "festival_no": festivalNo,
             "event_type": eventType,
@@ -83,19 +91,50 @@ function submitForm(event) {
             "visit_date": visitDate,
             "star_rate": starRate
         }),
-
         success: function (response) {
-// 업데이트 성공 시 처리할 코드
-            alert("저장이 완료되었습니다!");
-// 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
+            // 업데이트 성공 시 처리할 코드
+            var message = "후기 등록이 완료되었습니다!";
+            openCustomAlert(message);
+            // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },
         error: function (xhr, status, error) {
-// 실패 시 처리할 코드
-            alert("게시글 저장 중 오류가 발생했습니다.");
+            // 실패 시 처리할 코드
+            var errorMessage = "게시글 저장 중 오류가 발생했습니다.";
+            openCustomAlert(errorMessage);
         }
     });
-
-
 }
 
+function openCustomAlert(message) {
+    // 설정한 메시지를 모달에 표시
+    $('#customAlertMessage').text(message);
 
+    // 모달 보이기
+    $('.custom-alert-modal').css('display', 'block');
+}
+
+function deleteComment(comment_no) {
+    if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+        $.ajax({
+            method: "delete",
+            url: "/comment/festival/" + comment_no,
+            success: function(response) {
+                console.log(comment_no);
+                // If deletion is successful, you might want to update the UI accordingly
+                alert('댓글이 성공적으로 삭제되었습니다.');
+                // Refresh the comment section or remove the deleted comment row
+                // Example: $(`tr[data-comment-no='${commentNo}']`).remove();
+                location.reload(); // Refresh the page (or update the UI as per your requirement)
+            },
+            error: function(xhr, status, error) {
+                console.log(comment_no);
+                alert('댓글 삭제에 실패했습니다.');
+                console.error('Failed to delete comment:', error);
+            }
+        });
+    }
+}
+function closeCustomAlert() {
+    // 모달 닫기
+    $('.custom-alert-modal').css('display', 'none');
+}

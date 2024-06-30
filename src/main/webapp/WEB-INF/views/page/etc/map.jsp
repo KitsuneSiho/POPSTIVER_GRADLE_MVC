@@ -197,81 +197,6 @@
 </div>
 
 
-<div class="searchList">
-    <article>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
-            <p>진행 중</p>
-            <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
-        </div>
-        <div class="popupFestivalInfo">
-            <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </article>
-</div>
-
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
 <script src="${root}/resources/js/searchResult.js"></script>
@@ -338,13 +263,13 @@
             var imageOption = { offset: new kakao.maps.Point(25, 25) };
 
 
-// 중앙에 마커를 생성합니다
+            // 중앙에 마커를 생성합니다
             var centerMarker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(userLocation.lat, userLocation.lng),
-                image: new kakao.maps.MarkerImage(imageUrl, imageSize, imageOption)
+                image: new kakao.maps.MarkerImage(imageUrl, imageSize, imageOption),
             });
 
-// 지도에 중앙 마커를 표시합니다
+            // 지도에 중앙 마커를 표시합니다
             centerMarker.setMap(multiMap);
 
 
@@ -709,6 +634,7 @@
             document.getElementById('currentLocationButton').addEventListener('click', function() {
                 getUserLocation(function(newUserLocation) {
                     multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
+                    multiMap.setLevel(4);
                 });
             });
         });
