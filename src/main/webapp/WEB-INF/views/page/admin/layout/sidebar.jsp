@@ -13,7 +13,6 @@
                 <i class="fas fa-crown"></i> adminPage
             </a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link" href="<c:url value='/visitor-stats' />">
                 <i class="fas fa-chart-line"></i> 방문자 통계
