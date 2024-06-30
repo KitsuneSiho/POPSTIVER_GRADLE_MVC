@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/report.css">
-
+<%--    c태그 페이지네이션이 안먹어서 일단 주석처리--%>
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
     <style>
@@ -64,7 +64,7 @@
         <tbody id="boardBody">
         <c:choose>
             <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
-            <c:when test="${empty report}">
+            <c:when test="${empty report_list}">
                 <%-- 아래의 메시지를 출력한다. --%>
                 <tr>
                     <td colspan=15>
@@ -79,7 +79,7 @@
                 <c:forEach items="${report_list}" var="report">
                     <tr>
                             <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
-                        <td><p><a href="contact/${report.report_no}">${report.report_title}</a></p></td>
+                        <td><p><a href="report/${report.report_no}">${report.report_title}</a></p></td>
                         <td ><p>${report.user_name}</p></td>
                         <td ><p>${report.report_post_date}</p></td>
 
@@ -121,7 +121,7 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
-<script src="${root}/resources/js/report.js"></script>
+<%--<script src="${root}/resources/js/report.js"></script>--%>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

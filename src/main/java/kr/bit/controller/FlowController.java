@@ -51,20 +51,16 @@ public class FlowController {
 //        return "page/board/report";
 //    }
 //
-    @GetMapping("reportWrite")//제보하기게시판글작성페이지
-    public String reportWrite_page() {
-        return "page/board/reportWrite";
-    }
 
-    @GetMapping("together")//동행구하기게시판페이지
-    public String together_page() {
-        return "page/board/together";
-    }
+//    @GetMapping("together")//동행구하기게시판페이지
+//    public String together_page() {
+//        return "page/board/together";
+//    }
 
-    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
-    public String togetherWrite_page() {
-        return "page/board/togetherWrite";
-    }
+//    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
+//    public String togetherWrite_page() {
+//        return "page/board/togetherWrite";
+//    }
 
 //    @GetMapping("free")//자유게시판페이지
 //    public String free_page() {
@@ -74,6 +70,16 @@ public class FlowController {
     @GetMapping("freeWrite")//자유게시판글작성페이지
     public String freeWrite_page() {
         return "page/board/freeWrite";
+    }
+
+    @GetMapping("reportWrite")//제보게시판글작성페이지
+    public String reportWrite_page() {
+        return "page/board/reportWrite";
+    }
+
+    @GetMapping("togetherWrite")//동행게시판글작성페이지
+    public String togetherWrite_page() {
+        return "page/board/togetherWrite";
     }
 
     @GetMapping("popularAdd")//인기 페스티벌 정보 페이지(메인페이지에서 인기 더보기 눌렀을때)

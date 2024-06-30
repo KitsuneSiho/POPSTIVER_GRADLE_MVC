@@ -61,11 +61,26 @@
         </tr>
         </thead>
         <tbody id="boardBody">
-        <tr>
-            <td><a href="#">공지사항</a></td>
-            <td>관리자</td>
-            <td>2024-06-12 15:12</td>
-        </tr>
+        <c:choose>
+            <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+            <c:when test="${empty comp_list}">
+                <%-- 아래의 메시지를 출력한다. --%>
+                    <h1>비 정상적인 접근입니다.</h1>
+            </c:when>
+            <c:otherwise>
+                <%-- 그렇지 않다면 foreach문으로 list를 출력한다. --%>
+                <c:forEach items="${comp_list}" var="comp">
+                    <tr>
+                            <%-- 공지제목. a링크를 걸어 클릭시 '공지/파라메터 값(글번호)' 형식으로 보낸다. --%>
+                        <td><p><a href="together/${comp.comp_no}">${comp.comp_title}</a></p></td>
+                        <td ><p>${comp.user_name}</p></td>
+                        <td ><p>${comp.comp_post_date}</p></td>
+
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+
         </tbody>
     </table>
 </div>
@@ -100,7 +115,8 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
-<script src="${root}/resources/js/together.js"></script>
+<%--<script src="${root}/resources/js/together.js"></script>--%>
+<%--C태그쓰느라 잠시 비활성화 하겠습니당--%>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

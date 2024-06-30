@@ -53,8 +53,9 @@
     </a>
 </div>
 
-<form method="post" onsubmit="submitForm(event)">
+
 <div class="business">
+    <form method="post" onsubmit="submitForm(event)">
     <ul class="businessList">
         <li>
             <span>제목</span>
@@ -65,11 +66,12 @@
         <li>
             <span>유형</span>
             <input type="radio" id="culture" name="event_type" value="1" checked>
-            <label for="festival">문화·전통체험</label>
+            <label for="culture">문화·전통체험</label>
             <input type="radio" id="festival" name="event_type" value="2">
             <label for="festival">지역 페스티벌</label>
             <input type="radio" id="popup-store" name="event_type" value="3">
             <label for="popup-store">팝업 스토어</label>
+
         </li>
         <li>
             <span>행사 내용</span>
@@ -105,16 +107,21 @@
             <input type="text" class="brand_link" name="brand_link">
             <p>SNS</p>
             <input type="text" class="brand_sns" name="brand_sns">
+            <input type="hidden" id="user_id" name="user_id" value="">
+            <input type="hidden" id="user_name" name="user_name" value="">
 
         </li>
     </ul>
+        <div class="updateButton">
+            <button type="submit">제보하기</button>
+            <button type="reset" onclick="window.location.href='report'">취소</button>
+        </div>
+    </form>
 </div>
 
-<div class="updateButton">
-    <button type="submit">제보하기</button>
-    <button type="reset" onclick="window.location.href='report'">취소</button>
-</div>
-</form>
+
+
+
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 
 <div id="chatModal" class="chatModal">

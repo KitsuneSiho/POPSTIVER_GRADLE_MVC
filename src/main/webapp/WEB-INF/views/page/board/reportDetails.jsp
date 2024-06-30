@@ -52,62 +52,89 @@
         <h2>자유게시판</h2>
     </a>
 </div>
+<c:choose>
+    <%-- 만약 model에 담긴 list의 value값이 비어있다면 --%>
+    <c:when test="${empty report_detail}">
+        <%-- 아래의 메시지를 출력한다. --%>
+        <tr>
+            <td colspan=15>
+                <h1>비 정상적인 접근이 감지되었습니다.</h1>
+            </td>
+        </tr>
+    </c:when>
+    <c:otherwise>
+        <div class="business">
+            <ul class="businessList">
+                <li>
+                    <span>제목</span>
+                    <label class="title">
+                        <input type="text" value="${report_detail.report_title}" readonly>
+                    </label>
+                </li>
+                <li>
+                    <span>유형</span>
+                    <c:choose>
+                        <c:when test="${report_detail.event_type == 1}">
+                            <label>
+                                <input type="text" value="문화·전통체험" readonly>
+                            </label>
+                        </c:when>
+                        <c:when test="${report_detail.event_type == 2}">
+                            <label>
+                                <input type="text" value="지역 페스티벌" readonly>
+                            </label>
+                        </c:when>
+                        <c:when test="${report_detail.event_type == 3}">
+                            <label>
+                                <input type="text" value="팝업 스토어" readonly>
+                            </label>
+                        </c:when>
+                        <c:otherwise>
+                            <p>알 수 없음</p>
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <li>
+                    <span>행사 내용</span>
+                    <label class="infoTextarea">
+                        <textarea name="report_content" rows="10" readonly>${report_detail.report_content}</textarea>
 
-    <div class="business">
-        <ul class="businessList">
-            <li>
-                <span>제목</span>
-                <label class="title">
-                    <input type="text" name="report_title" placeholder="30자 이내로 입력해주세요">
-                </label>
-            </li>
-            <li>
-                <span>유형</span>
-                <input type="radio" id="culture" name="event_type" value="1" checked>
-                <label for="festival">문화·전통체험</label>
-                <input type="radio" id="festival" name="event_type" value="2">
-                <label for="festival">지역 페스티벌</label>
-                <input type="radio" id="popup-store" name="event_type" value="3">
-                <label for="popup-store">팝업 스토어</label>
-            </li>
-            <li>
-                <span>행사 내용</span>
-                <label class="infoTextarea">
-                    <textarea name="report_content" placeholder="어떤 행사인지 쉽게 알 수 있도록 상세히 적어주세요!" rows="10"></textarea>
-                </label>
-            </li>
-            <li>
-                <span>주소</span>
-                <label class="addressLabel">
-                    <input type="text" name="report_location">
-                </label>
-                <button class="searchAddress" type="button">주소 검색</button>
-            </li>
-            <li>
-                <span>행사기간</span>
-                <label class="dateLabel">
-                    <input type="date" class="date" name="report_start">
-                </label>
-                <p>부터</p>
-                <label class="dateLabel">
-                    <input type="date" class="date" name="report_end">
-                </label>
-                <p>까지</p>
-            </li>
-            <li>
-                <span>주최하는 곳</span>
-                <input type="text" class="host" name="report_host">
-            </li>
-            <li>
-                <span>링크</span>
-                <p>공식홈페이지</p>
-                <input type="text" class="brand_link" name="brand_link">
-                <p>SNS</p>
-                <input type="text" class="brand_sns" name="brand_sns">
+                    </label>
+                </li>
+                <li>
+                    <span>주소</span>
+                    <label class="addressLabel">
+                        <input type="text" name="report_location" value="${report_detail.report_location}" readonly>
+                    </label>
+                    <button class="searchAddress" type="button">주소 검색</button>
+                </li>
+                <li>
+                    <span>행사기간</span>
+                    <label class="dateLabel">
+                        <input type="date" class="date" name="report_start" value="${report_detail.report_start}" readonly>
+                    </label>
+                    <p>부터</p>
+                    <label class="dateLabel">
+                        <input type="date" class="date" name="report_end" value="${report_detail.report_end}" readonly>
+                    </label>
+                    <p>까지</p>
+                </li>
+                <li>
+                    <span>주최하는 곳</span>
+                    <input type="text" class="host" name="report_host" value="${report_detail.report_host}" readonly>
+                </li>
+                <li>
+                    <span>링크</span>
+                    <p>공식홈페이지</p>
+                    <input type="text" class="brand_link" name="brand_link" value="${report_detail.brand_link}" readonly>
+                    <p>SNS</p>
+                    <input type="text" class="brand_sns" name="brand_sns" value="${report_detail.brand_sns}" readonly>
 
-            </li>
-        </ul>
-    </div>
+                </li>
+            </ul>
+        </div>
+    </c:otherwise>
+</c:choose>
 
     <div class="listButton">
         <button onclick="window.location.href='${root}/report'">목록으로</button>
