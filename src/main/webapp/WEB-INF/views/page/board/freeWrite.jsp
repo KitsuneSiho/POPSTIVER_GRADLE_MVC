@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<c:set var="root" value="${pageContext.request.contextPath }" />
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,9 +54,8 @@
     </a>
 </div>
 
-
 <div class="business">
-    <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
+    <form id="uploadForm" method="post" enctype="multipart/form-data" onsubmit="submitForm(event)">
         <ul class="businessList">
             <li>
                 <span>제목</span>
@@ -72,13 +71,12 @@
             </li>
             <li>
                 <span>사진</span>
-                <input type="file" name="board_attachment" class="attachment" alt="">
+                <input type="file" name="board_attachment" class="attachment" alt="" onchange="uploadImage(event)">
             </li>
             <!-- Hidden inputs for user_id and user_nickname -->
             <input type="hidden" id="user_id" name="user_id" value="">
             <input type="hidden" id="user_name" name="user_name" value="">
             <input type="hidden" id="board_views" name="board_views" value="0">
-
         </ul>
         <div class="updateButton">
             <button type="submit">등록하기</button>
@@ -86,13 +84,15 @@
         </div>
     </form>
 
+    <div id="uploadedImageContainer">
+        <h2>Uploaded Image</h2>
+        <img id="uploadedImage" src="" alt="Uploaded Image" style="display: none;">
+    </div>
 </div>
 
+<jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 
-
-    <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-
-    <script src="${root}/resources/js/chatModal.js"></script>
+<script src="${root}/resources/js/chatModal.js"></script>
 </body>
 
 </html>
