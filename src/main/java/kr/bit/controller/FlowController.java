@@ -58,6 +58,11 @@ public class FlowController {
         return "page/board/money";
     }
 
+    @GetMapping("/flow/recommended")
+    public String recommended_page() {
+        return "page/board/recommendedPage";  // 페이지 이름은 필요에 따라 변경
+    }
+
 //    @GetMapping("report")//제보하기게시판페이지
 //    public String report_page() {
 //        return "page/board/report";
@@ -142,6 +147,7 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
+
 
 
 

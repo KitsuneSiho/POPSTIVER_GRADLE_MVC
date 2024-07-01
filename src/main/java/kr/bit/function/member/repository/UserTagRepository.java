@@ -45,4 +45,9 @@ public class UserTagRepository {
                 new UserTagEntity(rs.getString("user_id"), rs.getInt("tag_no"))
         );
     }
+
+    public List<Integer> findTagNosByUserId(String userId) {
+        String sql = "SELECT tag_no FROM user_tag WHERE user_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> rs.getInt("tag_no"));
+    }
 }

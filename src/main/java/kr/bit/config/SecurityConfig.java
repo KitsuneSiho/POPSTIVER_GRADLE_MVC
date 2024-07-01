@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/like/**").permitAll() // 자유게시판 기능
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자페이지
-
+                        .requestMatchers("/recommendations").permitAll() // /recommendations 경로는 인증 필요
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
