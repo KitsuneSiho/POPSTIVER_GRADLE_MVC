@@ -3,16 +3,21 @@ package kr.bit.function.board.boardController;
 
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
+import kr.bit.function.board.boardEntity.FestivalEntity;
+import kr.bit.function.board.boardEntity.PopupEntity;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
+import kr.bit.function.member.service.RecommendationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +33,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private RecommendationService recommendationService;
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -62,19 +70,20 @@ public class BoardController {
     public String home() {
         return "page/test/festival_page";
     }
+
     @RequestMapping(value = "/festival_insert", method = RequestMethod.GET)
     public String insert(Model model) {
         logger.info("festival_insert.jsp start");
         String ret = null;
-        try{
+        try {
             boardService.insertFestivalManual();
             ret = "DB SAVE COMPLETE";
-        }catch(Exception e){
-            ret = "DB SAVE FAILED"+e;
+        } catch (Exception e) {
+            ret = "DB SAVE FAILED" + e;
         }
         //위 처리에 따라 넣어진 메시지 값을 value로 하고
         //'msg'라는 key값을 가진 model에 값을 넣는다.
-        model.addAttribute("msg",ret);
+        model.addAttribute("msg", ret);
         return "page/test/festival_insert";
     }
 
@@ -127,12 +136,12 @@ public class BoardController {
     public String views(Model model) {
         //log임
         logger.info("festival_view.jsp start");
-        try{
+        try {
             //위에서 선언한 service의 selectAll메소드 요청한다.
             //selectAll메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("list",boardService.selectAllFestival());
-        }catch(Exception e){
+            model.addAttribute("list", boardService.selectAllFestival());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/test/festival_view";
@@ -145,12 +154,12 @@ public class BoardController {
     public String viewPopup(Model model) {
         //log임
         logger.info("popup_view.jsp start");
-        try{
+        try {
             //위에서 선언한 service의 selectAll메소드 요청한다.
             //selectAll메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("list",boardService.selectAllPopup());
-        }catch(Exception e){
+            model.addAttribute("list", boardService.selectAllPopup());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/test/popup_view";
@@ -164,8 +173,8 @@ public class BoardController {
     public String contact(Model model) {
         logger.info("contact.jsp start");
         try {
-            model.addAttribute("list",boardService.selectAllNotice());
-        }catch(Exception e){
+            model.addAttribute("list", boardService.selectAllNotice());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/board/contact";
@@ -179,8 +188,8 @@ public class BoardController {
             //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
             //selectOne메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("notice",boardService.selectNoticeOne(notice_no));
-        }catch(Exception e) {
+            model.addAttribute("notice", boardService.selectNoticeOne(notice_no));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //oneviewDB.jsp로 이동한다.
@@ -192,14 +201,15 @@ public class BoardController {
     //=====================================================================================//
 
     @RequestMapping(value = "/free", method = RequestMethod.GET)
-    public String communityBoardList(Model model){
-        try{
+    public String communityBoardList(Model model) {
+        try {
             model.addAttribute("community_list", boardService.selectAllCommunity());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/board/free";
     }
+
     @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
     //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
     public String selectCommunityOne(@PathVariable("board_no") int board_no, Model model) {
@@ -208,8 +218,8 @@ public class BoardController {
             //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
             //selectOne메소드를 통해 나온 리턴값을 value로 해서
             //'list'란 key값으로 model에 담는다.
-            model.addAttribute("community",boardService.selectCommunityOne(board_no));
-        }catch(Exception e) {
+            model.addAttribute("community", boardService.selectCommunityOne(board_no));
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //oneviewDB.jsp로 이동한다.
@@ -218,16 +228,16 @@ public class BoardController {
 
     @RequestMapping(value = "/freeBoard")
     @Controller
-    class InsertCommunityController{
+    class InsertCommunityController {
 
         @PutMapping("/insertWrite")
         @ResponseBody
-        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO){
+        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO) {
             try {
-                System.out.println("제목:"+communityDTO.getBoard_title());
-                System.out.println("내용:"+communityDTO.getBoard_content());
-                System.out.println("사용자아이디:"+communityDTO.getUser_id());
-                System.out.println("사용자명:"+communityDTO.getUser_name());
+                System.out.println("제목:" + communityDTO.getBoard_title());
+                System.out.println("내용:" + communityDTO.getBoard_content());
+                System.out.println("사용자아이디:" + communityDTO.getUser_id());
+                System.out.println("사용자명:" + communityDTO.getUser_name());
                 boardService.insertCommunity(communityDTO);
 
             } catch (Exception e) {
@@ -242,12 +252,12 @@ public class BoardController {
     //=====================================================================================//
     @RequestMapping(value = "/money")
     @Controller
-    class InsertBusinessController{
+    class InsertBusinessController {
 
         @PutMapping("/register")
         @ResponseBody
         public void registerBusiness(@RequestBody TemporaryPostDTO temporaryPostDTO,
-                                    @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String user_id = "";
@@ -283,12 +293,12 @@ public class BoardController {
 
     @RequestMapping(value = "/report")
     @Controller
-    class InsertReportController{
+    class InsertReportController {
 
         @PutMapping("/reportWrite")
         @ResponseBody
         public void registerReport(@RequestBody ReportDTO reportDTO,
-                                     @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+                                   @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
             String user_id = "";
@@ -321,13 +331,13 @@ public class BoardController {
     @RequestMapping(value = "/report", method = RequestMethod.GET)
     public String report(Model model) {
         try {
-            model.addAttribute("report_list",boardService.selectReportAll());
-        }catch(Exception e){
+            model.addAttribute("report_list", boardService.selectReportAll());
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "page/board/report";
     }
-
+}
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
@@ -335,4 +345,3 @@ public class BoardController {
 
 
 
-}

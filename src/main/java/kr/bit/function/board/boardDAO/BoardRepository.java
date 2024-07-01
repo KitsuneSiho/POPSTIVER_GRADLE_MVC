@@ -1,9 +1,6 @@
 package kr.bit.function.board.boardDAO;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.ReportDTO;
-import kr.bit.function.board.boardDTO.TemporaryPostDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -489,6 +487,89 @@ public class BoardRepository {
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
 
-}
 
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 축체 추천 게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
+    public List<FestivalEntity> findFestivalsByTags(List<Integer> tags) {
+        if (tags.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM festival WHERE festival_tag1 IN (" + joinTags(tags) + ") OR festival_tag2 IN (" + joinTags(tags) + ") OR festival_tag3 IN (" + joinTags(tags) + ") OR festival_tag4 IN (" + joinTags(tags) + ") OR festival_tag5 IN (" + joinTags(tags) + ")";
+
+        return jdbcTemplate.query(sql, new RowMapper<FestivalEntity>() {
+            @Override
+            public FestivalEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                FestivalEntity festivalEntity = new FestivalEntity();
+                festivalEntity.setFestival_no(rs.getInt("festival_no"));
+                festivalEntity.setFestival_title(rs.getString("festival_title"));
+                festivalEntity.setFestival_content(rs.getString("festival_content"));
+                festivalEntity.setHost(rs.getString("host"));
+                festivalEntity.setFestival_location(rs.getString("festival_location"));
+                festivalEntity.setFestival_start(rs.getString("festival_start"));  // 날짜를 문자열로 가져옴
+                festivalEntity.setFestival_end(rs.getString("festival_end"));
+                festivalEntity.setOpen_time(rs.getString("open_time"));
+                festivalEntity.setFestival_post_date(rs.getString("festival_post_date"));
+                festivalEntity.setFestival_attachment(rs.getString("festival_attachment"));
+                festivalEntity.setEvent_type(rs.getInt("event_type"));
+                festivalEntity.setLike_that(rs.getInt("like_that"));
+                festivalEntity.setViews(rs.getInt("views"));
+                festivalEntity.setBrand_link(rs.getString("brand_link"));
+                festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                festivalEntity.setFestival_dist(rs.getString("festival_dist"));
+                festivalEntity.setFestival_subdist(rs.getString("festival_subdist"));
+                festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
+                return festivalEntity;
+            }
+        });
+    }
+
+    public List<PopupEntity> findPopupsByTags(List<Integer> tags) {
+        if (tags.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM popup WHERE popup_tag1 IN (" + joinTags(tags) + ") OR popup_tag2 IN (" + joinTags(tags) + ") OR popup_tag3 IN (" + joinTags(tags) + ") OR popup_tag4 IN (" + joinTags(tags) + ") OR popup_tag5 IN (" + joinTags(tags) + ")";
+
+        return jdbcTemplate.query(sql, new RowMapper<PopupEntity>() {
+            @Override
+            public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopupEntity popupEntity = new PopupEntity();
+                popupEntity.setPopup_no(rs.getInt("popup_no"));
+                popupEntity.setPopup_title(rs.getString("popup_title"));
+                popupEntity.setPopup_content(rs.getString("popup_content"));
+                popupEntity.setHost(rs.getString("host"));
+                popupEntity.setPopup_location(rs.getString("popup_location"));
+                popupEntity.setPopup_start(rs.getString("popup_start"));
+                popupEntity.setPopup_end(rs.getString("popup_end"));
+                popupEntity.setOpen_time(rs.getString("open_time"));
+                popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                popupEntity.setEvent_type(rs.getInt("event_type"));
+                popupEntity.setLike_that(rs.getInt("like_that"));
+                popupEntity.setViews(rs.getInt("views"));
+                popupEntity.setBrand_link(rs.getString("brand_link"));
+                popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+                return popupEntity;
+            }
+        });
+    }
+
+    private String joinTags(List<Integer> tags) {
+        return String.join(",", tags.stream().map(String::valueOf).toArray(String[]::new));
+    }
+}
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결

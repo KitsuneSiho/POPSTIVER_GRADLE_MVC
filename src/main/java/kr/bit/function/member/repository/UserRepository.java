@@ -42,4 +42,13 @@ public class UserRepository {
             return user;
         }
     }
+
+    public MemberEntity findByUserEmail(String userEmail) {
+        String sql = "SELECT * FROM user WHERE user_email = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userEmail}, new UserEntityRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

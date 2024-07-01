@@ -46,6 +46,10 @@ public class FlowController {
         return "page/board/money";
     }
 
+    @GetMapping("recommended")//추천행사 페이지
+    public String recommendedPage() {
+        return "page/board/recommended";
+    }
 //    @GetMapping("report")//제보하기게시판페이지
 //    public String report_page() {
 //        return "page/board/report";
@@ -120,6 +124,7 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
+
 
 
 
