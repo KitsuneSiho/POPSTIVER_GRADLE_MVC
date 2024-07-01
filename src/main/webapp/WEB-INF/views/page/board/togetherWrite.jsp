@@ -28,6 +28,8 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/togetherWrite.js"></script>
 </head>
 
 <body>
@@ -53,45 +55,53 @@
 
 
 <div class="business">
+    <form method="post" onsubmit="submitForm(event)">
     <ul class="businessList">
         <li>
             <span>제목</span>
             <label class="title">
-                <input type="text" placeholder="30자 이내로 입력해주세요">
+                <input type="text" name="comp_title" placeholder="30자 이내로 입력해주세요">
             </label>
         </li>
         <li>
             <span>유형</span>
-            <input type="radio" id="festival" name="type" value="지역 페스티벌">
+            <input type="radio" id="culture" name="event_type" value="1" checked>
+            <label for="culture">문화·전통체험</label>
+            <input type="radio" id="festival" name="event_type" value="2">
             <label for="festival">지역 페스티벌</label>
-            <input type="radio" id="popup-store" name="type" value="팝업 스토어" checked>
+            <input type="radio" id="popup-store" name="event_type" value="3">
             <label for="popup-store">팝업 스토어</label>
+
         </li>
         <li>
             <span>동행기간</span>
             <label class="dateLabel">
-                <input type="date" class="date">
+                <input type="date" class="date" name="comp_date">
             </label>
         </li>
         <li>
             <span>내용</span>
             <label class="infoTextarea">
-                <textarea placeholder="자유롭게 작성해주세요" rows="10" style="resize: none"></textarea>
+                <textarea name="comp_content" placeholder="자유롭게 작성해주세요" rows="10" style="resize: none" ></textarea>
             </label>
         </li>
         <li>
             <span>행사링크</span>
             <label class="link">
-                <input type="text" placeholder="해당 행사 링크를 입력해주세요">
+                <input type="text" name="comp_link" placeholder="해당 행사 링크를 입력해주세요">
             </label>
+            <input type="hidden" id="user_id" name="user_id" value="">
+            <input type="hidden" id="user_name" name="user_name" value="">
         </li>
     </ul>
+        <div class="updateButton">
+            <button type="submit">동행구하기</button>
+            <button type="reset" onclick="window.location.href='together'">취소</button>
+        </div>
+    </form>
 </div>
 
-<div class="updateButton">
-    <button type="submit">동행구하기</button>
-    <button type="reset" onclick="window.location.href='together'">취소</button>
-</div>
+
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 

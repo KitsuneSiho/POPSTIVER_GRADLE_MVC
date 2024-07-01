@@ -1,8 +1,5 @@
 package kr.bit.function.board.boardDTO;
 
-import lombok.Data;
-
-@Data
 public class FestivalBoardDTO {
     private int festival_no; // 보드넘버
     private String festival_title; // 제목
@@ -31,7 +28,7 @@ public class FestivalBoardDTO {
     // 생성자와 getter, setter 메서드를 확인합니다.
     // 예시:
     public FestivalBoardDTO(int festival_no, String festival_title, String festival_content, String host,
-                            String festival_dist, String festival_subdist, String festival_location,  String festival_start, String festival_end,
+                            String festival_dist, String festival_subdist, String festival_location, String festival_start, String festival_end,
                             String open_time, String festival_post_date, String festival_attachment,
                             int event_type, int like_that, int views, String brand_link, String brand_sns,
                             String festival_tag1, String festival_tag2, String festival_tag3, String festival_tag4, String festival_tag5) {

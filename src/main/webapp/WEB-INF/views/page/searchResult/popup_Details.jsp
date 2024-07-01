@@ -75,7 +75,7 @@
             <li><button>${popup.popup_tag4}</button></li>
             <li><button>${popup.popup_tag5}</button></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt="">
-                <p>123</p></li>
+                <p>${popup.views}</p></li>
             <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
