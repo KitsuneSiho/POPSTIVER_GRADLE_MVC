@@ -14,7 +14,10 @@ import java.util.Map;
 
 import kr.bit.function.member.entity.MemberEntity;
 import kr.bit.function.member.repository.UserRepository;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -25,11 +28,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
+@PropertySource("classpath:properties/application.properties") //프로퍼티 소스를 불러오겠다!
 @Controller
 public class RecommendationController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${ServerURL}")
+    private String ServerURL;
 
     private static final Logger LOGGER = Logger.getLogger(RecommendationController.class.getName());
 
@@ -70,7 +77,7 @@ public class RecommendationController {
             }
 
             // Python 서버에 요청 보내기
-            String pythonServerUrl = "http://127.0.0.1:5000/recommendations?user_id=" + userId;
+            String pythonServerUrl = ServerURL +"/recommendations?user_id=" + userId;
             URL url = new URL(pythonServerUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
