@@ -442,10 +442,9 @@ public class BoardServiceImpl implements BoardService {
                     communityEntities.get(i).getBoard_content(),
                     communityEntities.get(i).getUser_id(),
                     communityEntities.get(i).getUser_name(),
-                    communityEntities.get(i).getBoard_views(),
                     communityEntities.get(i).getBoard_post_date(),
-                    communityEntities.get(i).getBoard_attachment()
-
+                    communityEntities.get(i).getBoard_attachment(),
+                    communityEntities.get(i).getBoard_views()
             ));
         }
         // 그렇게 담겨진 리스트를 리턴한다.
@@ -467,9 +466,9 @@ public class BoardServiceImpl implements BoardService {
                 communityEntity.getBoard_content(),
                 communityEntity.getUser_id(),
                 communityEntity.getUser_name(),
-                communityEntity.getBoard_views(),
+                communityEntity.getBoard_post_date(),
                 communityEntity.getBoard_attachment(),
-                communityEntity.getBoard_post_date());
+                communityEntity.getBoard_views());
 
     }
     //=====================================================================================//
