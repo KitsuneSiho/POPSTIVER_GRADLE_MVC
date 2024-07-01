@@ -66,11 +66,12 @@
         <li>
             <span>유형</span>
             <input type="radio" id="culture" name="event_type" value="1" checked>
-            <label for="festival">문화·전통체험</label>
+            <label for="culture">문화·전통체험</label>
             <input type="radio" id="festival" name="event_type" value="2">
             <label for="festival">지역 페스티벌</label>
             <input type="radio" id="popup-store" name="event_type" value="3">
             <label for="popup-store">팝업 스토어</label>
+
         </li>
         <li>
             <span>행사 내용</span>
