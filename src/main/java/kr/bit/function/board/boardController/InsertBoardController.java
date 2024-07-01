@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
+@PropertySource("classpath:properties/application.properties")
 @Controller
 @RequestMapping(value = "/freeBoard")
 public class InsertBoardController {
@@ -31,14 +33,15 @@ public class InsertBoardController {
     private ServletContext servletContext;
 
 
+
     @PutMapping("/insertWrite")
     @ResponseBody
     public void insertFreeWrite(@RequestParam("board_title") String boardTitle,
-                                                  @RequestParam("board_content") String boardContent,
-                                                  @RequestParam("user_id") String userId,
-                                                  @RequestParam("user_name") String userName,
-                                                    @RequestParam(value = "board_views", defaultValue = "0") int boardViews,
-                                                    @RequestPart("file") MultipartFile boardAttachment) {
+                                @RequestParam("board_content") String boardContent,
+                                @RequestParam("user_id") String userId,
+                                @RequestParam("user_name") String userName,
+                                @RequestParam(value = "board_views", defaultValue = "0") int boardViews,
+                                @RequestPart("file") MultipartFile boardAttachment) {
 
         try {
             CommunityDTO communityDTO = new CommunityDTO();
