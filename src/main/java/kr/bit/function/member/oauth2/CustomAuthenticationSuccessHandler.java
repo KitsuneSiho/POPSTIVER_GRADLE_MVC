@@ -23,8 +23,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String userName = oAuth2User.getAttribute("name");
         String authorities = oAuth2User.getAuthorities().toString();
 
-        System.out.println("Logged in user: " + userName);
-        System.out.println("User authorities: " + authorities);
 
         response.sendRedirect("/login_success");
     }

@@ -26,9 +26,45 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
+
+        .tag-button {
+            margin: 5px;
+        }
+
+        .tagButton .selected {
+            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+        }
+
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/formValidation.js"></script>
+
+    <script>
+        function toggleTagSelection(button) {
+            button.classList.toggle('selected');
+            console.log('Tag selected:', button.getAttribute('data-tag-no')); // 태그 선택 이벤트 확인용 로그
+        }
+
+        function setTags() {
+
+            document.querySelectorAll('.tag-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                    console.log(`Button ${button.getAttribute('data-tag-no')} clicked`); // 클릭 이벤트 확인용 로그
+                });
+            });
+        }
+        function saveUserTags() {
+            const selectedTags = Array.from(document.querySelectorAll('.tag-button.selected')).map(button => button.getAttribute('data-tag-no'));
+            const tagsField = document.getElementById('tags');
+            tagsField.value = selectedTags.join(',');
+
+            // 폼을 직접 제출
+            document.getElementById('userForm').submit();
+        }
+
+    </script>
+
 </head>
 
 <body>
@@ -46,7 +82,7 @@
     </a>
 </div>
 
-<form action="${pageContext.request.contextPath}/member/saveUser" method="post" onsubmit="return validateForm()">
+<form id="userForm" action="${pageContext.request.contextPath}/member/saveUser" method="post" onsubmit="return validateForm()">
     <div class="userInfo">
         <ul class="info">
             <li>
@@ -94,25 +130,20 @@
                 </div>
             </li>
             <li>
-                <span>관심 태그</span>
+                <h1>관심 태그</h1>
                 <div class="tagButton">
-                    <button class="tag1">태그1</button>
-                    <button class="tag2">태그2</button>
-                    <button class="tag3">태그3</button>
-                    <button class="tag4">태그4</button>
-                    <button class="tag5">태그5</button>
-                    <button class="tag6">태그6</button>
-                    <button class="tag7">태그7</button>
-                    <button class="tag8">태그8</button>
-                    <button class="tag9">태그9</button>
-                    <button class="tag10">태그10</button>
+                    <c:forEach var="tag" items="${tags}">
+                        <button type="button" class="tag-button" data-tag-no="${tag.tag_no}" onclick="toggleTagSelection(this)">${tag.tag_name}</button>
+                    </c:forEach>
                 </div>
+                <input type="hidden" name="tags" id="tags">
             </li>
         </ul>
     </div>
 
+
     <div class="updateButton">
-        <button type="submit">가입하기</button>
+        <button type="button" onclick="saveUserTags()">가입하기</button>
         <button type="reset">취소</button>
     </div>
 </form>
@@ -127,6 +158,9 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+
+
+
 </body>
 
 </html>

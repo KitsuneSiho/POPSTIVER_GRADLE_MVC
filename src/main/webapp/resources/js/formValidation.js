@@ -15,6 +15,23 @@ function containsForbiddenWord(input) {
     return false;
 }
 
+function containsOnlyConsonantsOrVowels(input) {
+    const consonants = 'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ';
+    const vowels = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ';
+    let containsConsonant = false;
+    let containsVowel = false;
+
+    for (let char of input) {
+        if (consonants.includes(char)) {
+            containsConsonant = true;
+        } else if (vowels.includes(char)) {
+            containsVowel = true;
+        }
+    }
+
+    return (containsConsonant && !containsVowel) || (!containsConsonant && containsVowel);
+}
+
 function isValidDateFormat(date) {
     const regex = /^[0-9]{8}$/;
     if (!regex.test(date)) {
@@ -78,12 +95,22 @@ function validateForm() {
         document.getElementById('user_nickName').focus();
         return false;
     }
+    if (containsOnlyConsonantsOrVowels(userNickName)) {
+        showCustomAlert('닉네임에 자음이나 모음만 사용할 수 없습니다.');
+        document.getElementById('user_nickName').focus();
+        return false;
+    }
     if (!isNicknameAvailable) {
         showCustomAlert('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.');
         return false;
     }
     if (userBirth === '') {
         showCustomAlert('생일을 입력해주세요.');
+        document.getElementById('user_birth').focus();
+        return false;
+    }
+    if (!/^[0-9]+$/.test(userBirth)) {
+        showCustomAlert('생일은 숫자만 입력 가능합니다.');
         document.getElementById('user_birth').focus();
         return false;
     }
@@ -129,6 +156,11 @@ function checkNickname() {
         document.getElementById('user_nickName').focus();
         return;
     }
+    if (containsOnlyConsonantsOrVowels(nickname)) {
+        showCustomAlert('닉네임에 자음이나 모음만 사용할 수 없습니다.');
+        document.getElementById('user_nickName').focus();
+        return;
+    }
 
     // AJAX 요청을 사용하여 서버에 닉네임 중복 확인
     $.ajax({
@@ -152,3 +184,13 @@ function checkNickname() {
         }
     });
 }
+
+// 생일 입력란에 숫자만 입력할 수 있도록 이벤트 추가
+document.getElementById('user_birth').addEventListener('input', function (e) {
+    const userBirth = e.target.value;
+    if (!/^[0-9]*$/.test(userBirth)) {
+        showCustomAlert('생일은 숫자만 입력 가능합니다.');
+        e.target.value = userBirth.replace(/[^0-9]/g, ''); // 숫자 외의 문자는 제거
+        e.target.focus();
+    }
+});

@@ -1,11 +1,12 @@
 package kr.bit.config;
 
-import jakarta.servlet.Filter;
+import jakarta.servlet.*;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-
+import java.io.File;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -39,4 +40,22 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
         return new Filter[] { encodingFilter, securityFilterChain  };
     }
+
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+
+        String uploadDirectory = "C:\\POPSTIVER_GRADLE_MVC_TEST\\src\\main\\webapp\\resources\\uploads\\";
+        // MultipartConfigElement를 설정하여 최대 파일 크기, 최대 요청 크기를 지정합니다.
+        MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
+                uploadDirectory,
+                1024 * 1024 * 10, // 최대 업로드 파일 크기: 10MB
+                1024 * 1024 * 20, // 최대 요청 크기: 20MB
+                1024 * 1024 * 5   // 파일 사이즈 임계값: 5MB
+        );
+
+        registration.setMultipartConfig(multipartConfigElement);
+    }
+
+
 }

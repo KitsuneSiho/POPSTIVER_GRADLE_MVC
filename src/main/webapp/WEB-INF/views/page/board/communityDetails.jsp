@@ -69,6 +69,8 @@
         </div>
         <div class="noticeText">
             <p>${community.board_content}</p>
+                <%-- 이미지가 있는 경우에만 출력 --%>
+            <img src="${root}${community.board_attachment}" alt="첨부 이미지">
         </div>
     </c:otherwise>
 </c:choose>

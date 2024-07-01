@@ -127,72 +127,26 @@
         <div class="openPoster">
             <div class="slide-container">
                 <div class="slide-track">
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼1</p>
-                    </div>
-                    <div class="open-item">
-                        <img src="${root}/resources/asset/포스터이미지/흠뻑쇼3.gif" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="open-caption">흠뻑쇼2</p>
-                    </div>
+                    <c:choose>
+                        <c:when test="${empty upcomingFestivals}">
+                            <p style="color: white;">현재 오픈 예정인 페스티벌이 없습니다.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${upcomingFestivals}" var="festival">
+                                <div class="open-item">
+                                    <img src="${festival.festivalAttachment}" alt="${festival.festivalTitle}">
+                                    <p class="open-caption">${festival.festivalTitle}</p>
+                                </div>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/bookmarkToggle.js"></script>
+
 </body>
 </html>
