@@ -398,6 +398,7 @@ public class BoardRepository {
                         communityEntity.setUser_name(rs.getNString("user_name"));
                         communityEntity.setBoard_attachment(rs.getString("board_attachment"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
+                        communityEntity.setBoard_views(rs.getInt("board_views"));
                         return communityEntity;
                     }
                 },board_no);
@@ -415,6 +416,13 @@ public class BoardRepository {
                 communityDTO.getBoard_attachment(),
                 communityDTO.getBoard_views()
                  );
+
+
+    }
+
+    public void increaseViews(int board_no) {
+        String sql = "UPDATE community SET board_views = board_views + 1 WHERE board_no = ?";
+        jdbcTemplate.update(sql, board_no);
     }
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //

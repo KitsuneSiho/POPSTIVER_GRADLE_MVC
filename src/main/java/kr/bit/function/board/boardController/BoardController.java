@@ -1,6 +1,7 @@
 package kr.bit.function.board.boardController;
 
 
+import jakarta.servlet.http.HttpSession;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardService.BoardService;
@@ -22,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class BoardController {
@@ -206,12 +209,26 @@ public class BoardController {
     }
     @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
     //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
-    public String selectCommunityOne(@PathVariable("board_no") int board_no, Model model) {
+    public String selectCommunityOne(@PathVariable("board_no") int board_no, HttpSession session, Model model) {
         try {
-            //위에서 선언한 service의 selectOne()메소드 요청한다.
-            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
-            //selectOne메소드를 통해 나온 리턴값을 value로 해서
-            //'list'란 key값으로 model에 담는다.
+            // 세션에서 조회한 게시물 ID 리스트를 가져옵니다.
+            Set<Integer> viewedBoardNo = (Set<Integer>) session.getAttribute("viewedBoardNo");
+            if (viewedBoardNo == null) {
+                viewedBoardNo = new HashSet<>();
+            }
+
+            // 게시물을 조회합니다.
+            try {
+                CommunityDTO communityDTO = boardService.selectCommunityOne(board_no);
+                // 이미 조회한 게시물이 아니면 조회수를 증가시킵니다.
+                if (!viewedBoardNo.contains(board_no)) {
+                    boardService.increaseViews(board_no); // 조회수 증가 메서드 호출
+                    viewedBoardNo.add(board_no); // 세션에 조회한 게시물 ID 추가
+                    session.setAttribute("viewedBoardNo", viewedBoardNo); // 세션 업데이트
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
             model.addAttribute("community",boardService.selectCommunityOne(board_no));
         }catch(Exception e) {
             e.printStackTrace();

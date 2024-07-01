@@ -60,6 +60,7 @@ public interface BoardService {
     public void insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectCommunityAll() throws Exception;
     public CommunityDTO selectCommunityOne(int board_no) throws Exception;
+    public void increaseViews(int board_no);
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
@@ -82,6 +83,7 @@ public interface BoardService {
     public void insertCompanion(CompanionDTO companionDTO) throws Exception;
     public List<CompanionDTO> selectCompanionAll() throws Exception;
     public CompanionDTO selectCompanionOne(int comp_no) throws Exception;
+
 
 
 }

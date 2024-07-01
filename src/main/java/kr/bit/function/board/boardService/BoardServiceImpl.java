@@ -471,6 +471,11 @@ public class BoardServiceImpl implements BoardService {
                 communityEntity.getBoard_views());
 
     }
+
+    public void increaseViews(int board_no){
+        boardRepository.increaseViews(board_no);
+
+    }
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
