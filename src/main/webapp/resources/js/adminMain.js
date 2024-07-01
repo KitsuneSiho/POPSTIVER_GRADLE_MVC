@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var visitorData = JSON.parse(document.getElementById('visitorData').textContent);
     var chatData = JSON.parse(document.getElementById('chatData').textContent);
     var likedPostsData = JSON.parse(document.getElementById('likedPostsData').textContent);
-    var recentReviewsData = JSON.parse(document.getElementById('recentReviewsData').textContent);
+    // var recentReviewsData = JSON.parse(document.getElementById('recentReviewsData').textContent); // 최근 리뷰는 리스트로 표시하므로 사용하지 않음
 
     function formatDate(timestamp) {
         var date = new Date(timestamp);
@@ -75,25 +75,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    var recentReviewsChartCtx = document.getElementById('recentReviewsChart').getContext('2d');
-    var recentReviewsChart = new Chart(recentReviewsChartCtx, {
-        type: 'line',
-        data: {
-            labels: recentReviewsData.labels,
-            datasets: [{
-                label: 'Reviews',
-                data: recentReviewsData.data,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+    // 최근 리뷰 차트 대신 리스트로 표시
 });

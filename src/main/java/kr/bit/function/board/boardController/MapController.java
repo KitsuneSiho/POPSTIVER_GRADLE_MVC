@@ -18,9 +18,6 @@ public class MapController {
     @Autowired
     private BoardService boardService;
 
-    //로그객체 선언하기.
-    private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-
     @RequestMapping(value = "/map", method = RequestMethod.GET)
     public String festivalDetails(Model model) {
         try {

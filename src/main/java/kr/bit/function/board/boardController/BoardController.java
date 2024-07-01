@@ -12,7 +12,6 @@ import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
-import kr.bit.function.member.service.RecommendationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +41,6 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
 
-    @Autowired
-    private RecommendationService recommendationService;
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
