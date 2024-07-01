@@ -36,19 +36,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="contact">
+    <a href="/contact">
         <h2>공지사항</h2>
     </a>
-    <a href="money">
+    <a href="/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a class="on" href="report">
+    <a class="on" href="/report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a href="/together">
         <h2>동행구하기</h2>
     </a>
-    <a href="free">
+    <a href="/free">
         <h2>자유게시판</h2>
     </a>
 </div>

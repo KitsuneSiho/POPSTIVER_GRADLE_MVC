@@ -215,7 +215,11 @@ public class MemberController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUser(@AuthenticationPrincipal CustomOAuth2User customOAuth2User, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    @ResponseBody
+    public ResponseEntity<String> deleteUser(@AuthenticationPrincipal CustomOAuth2User customOAuth2User,
+                                             HttpSession session,
+                                             HttpServletRequest request,
+                                             HttpServletResponse response) {
         if (customOAuth2User != null) {
             String provider = customOAuth2User.getProvider();
             Object attribute = customOAuth2User.getAttributes();
@@ -256,6 +260,28 @@ public class MemberController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 정보가 없습니다.");
+    }
+
+    @DeleteMapping("/admin/deleteUser")
+    @ResponseBody
+    public ResponseEntity<String> adminDeleteUser(@RequestBody Map<String, String> requestBody) {
+        String userId = requestBody.get("userId");
+
+        if (userId != null && !userId.isEmpty()) {
+            try {
+                // 사용자와 연관된 모든 데이터 삭제
+                memberService.deleteRelatedData(userId);
+
+                // 사용자 삭제
+                memberService.deleteUserByEmail(userId);
+                refreshTokenRepository.deleteRefreshTokensByUsername(userId);
+                return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 탈퇴 중 오류가 발생했습니다.");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("유효한 사용자 ID가 제공되지 않았습니다.");
     }
 
     private void clearAllCookies(HttpServletRequest request, HttpServletResponse response) {

@@ -2,6 +2,7 @@ package kr.bit.function.admin.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import kr.bit.function.admin.dao.VisitorStatisticsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,10 +21,11 @@ public class VisitorInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ipAddress = request.getRemoteAddr();
+        HttpSession session = request.getSession();
 
         try (Connection connection = dataSource.getConnection()) {
             VisitorStatisticsDAO dao = new VisitorStatisticsDAO(connection);
-            dao.incrementVisitCount(new Date(System.currentTimeMillis()), ipAddress);
+            dao.incrementVisitCount(new Date(System.currentTimeMillis()), ipAddress, session);
         } catch (Exception e) {
             e.printStackTrace();
         }
