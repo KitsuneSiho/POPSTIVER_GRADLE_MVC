@@ -4,6 +4,9 @@ import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
 import kr.bit.function.member.dto.KakaoResponse;
 import kr.bit.function.member.dto.NaverResponse;
+import kr.bit.function.member.entity.TagEntity;
+import kr.bit.function.member.repository.TagRepository;
+import kr.bit.function.member.repository.UserTagRepository;
 import kr.bit.function.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,6 +22,9 @@ public class MemberTestController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private TagRepository tagRepository;
 
     @RequestMapping("/login_success")
     public String login_success(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
@@ -90,6 +97,14 @@ public class MemberTestController {
             default:
                 // 예외 처리: 지원하지 않는 제공자인 경우
                 return "error"; // 예시로 간단히 에러 페이지 반환
+        }
+
+        // 태그 목록을 모델에 추가
+        List<TagEntity> tags = tagRepository.findAllTags();
+        if (tags.isEmpty()) {
+            model.addAttribute("errorMessage", "태그를 불러오지 못했습니다. 관리자에게 문의하세요.");
+        } else {
+            model.addAttribute("tags", tags);
         }
 
         return "page/myPage/join_information";

@@ -62,7 +62,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             user.setUser_gender(oAuth2Response.getGender());
             user.setUser_birth(oAuth2Response.getBirthYear() + oAuth2Response.getBirthday());
             memberService.updateUserInfo(user); // Update existing user information in the database
-            System.out.println("Existing user updated: " + user);
+//            System.out.println("Existing user updated: " + user);
         }
 
         // Ensure the user_type is being read from the DB
@@ -74,7 +74,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         userDTO.setUserGender(user.getUser_gender());
         userDTO.setUserBirth(user.getUser_birth());
 
-        System.out.println("User DTO created: " + userDTO);
+//        System.out.println("User DTO created: " + userDTO);
 
         return new CustomOAuth2User(userDTO, oAuth2User.getAttributes());
     }
