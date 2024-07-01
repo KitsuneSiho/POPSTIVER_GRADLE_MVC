@@ -1,13 +1,21 @@
 package kr.bit.controller;
 
+import kr.bit.function.page.pageEntity.PopupUpcomingEntity;
+import kr.bit.function.page.pageService.PopupUpcomingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class FlowController {
+
+    @Autowired
+    private PopupUpcomingService popupUpcomingService;
 
     @GetMapping("/")//"/" 경로로 들어가면 일단 메인페이지로 리다이렉트 시킨다.
     public String home() {
@@ -107,8 +115,10 @@ public class FlowController {
         return "page/searchResult/openAddFestival";
     }
 
-    @GetMapping("mainPopup")//팝업메인페이지(메인에서 팝업 눌렀을때)
-    public String mainPopup_page() {
+    @GetMapping("mainPopup")
+    public String mainPopup_page(Model model) {
+        List<PopupUpcomingEntity> upcomingPopups = popupUpcomingService.getUpcomingPopups();
+        model.addAttribute("upcomingPopups", upcomingPopups);
         return "page/main/mainPopup";
     }
 
