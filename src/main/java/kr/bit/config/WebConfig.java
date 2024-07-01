@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import kr.bit.function.admin.interceptor.VisitorInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +26,13 @@ public class WebConfig implements WebMvcConfigurer {
         registry.jsp("/WEB-INF/views/", ".jsp");
     }
 
+    @Value("${file.upload-dir}")
+    private String uploadDirectory;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/uploads/**")
-                .addResourceLocations("file:C:/POPSTIVER_GRADLE_MVC_TEST/src/main/webapp/resources/uploads/");
+                .addResourceLocations("file:" + uploadDirectory);
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
