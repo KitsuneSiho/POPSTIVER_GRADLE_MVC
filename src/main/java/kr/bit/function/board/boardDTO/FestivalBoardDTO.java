@@ -1,5 +1,8 @@
 package kr.bit.function.board.boardDTO;
 
+import lombok.Data;
+
+@Data
 public class FestivalBoardDTO {
     private int festival_no; // 보드넘버
     private String festival_title; // 제목

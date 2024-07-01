@@ -58,6 +58,7 @@
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
+            <th>조회수</th>
         </tr>
         </thead>
         <tbody id="boardBody">
@@ -75,7 +76,7 @@
                         <td><p><a href="together/${comp.comp_no}">${comp.comp_title}</a></p></td>
                         <td ><p>${comp.user_name}</p></td>
                         <td ><p>${comp.comp_post_date}</p></td>
-
+                        <td ><p>${comp.comp_views}</p></td>
                     </tr>
                 </c:forEach>
             </c:otherwise>

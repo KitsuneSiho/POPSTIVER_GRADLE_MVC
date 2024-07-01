@@ -165,6 +165,11 @@ public class BoardRepository {
         return result;
     }
 
+    public void increaseFestivalViews(int festival_no) {
+        String sql = "UPDATE festival SET views = views + 1 WHERE festival_no = ?";
+        jdbcTemplate.update(sql, festival_no);
+    }
+
     //=====================================================================================//
     //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
@@ -307,6 +312,11 @@ public class BoardRepository {
         return result;
     }
 
+    public void increasePopupViews(int popup_no) {
+        String sql = "UPDATE popup SET views = views + 1 WHERE popup_no = ?";
+        jdbcTemplate.update(sql, popup_no);
+    }
+
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
@@ -420,7 +430,7 @@ public class BoardRepository {
 
     }
 
-    public void increaseViews(int board_no) {
+    public void increaseCommunityViews(int board_no) {
         String sql = "UPDATE community SET board_views = board_views + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, board_no);
     }
@@ -592,6 +602,11 @@ public class BoardRepository {
                 companionDTO.getEvent_type()
 
         );
+    }
+
+    public void increaseCompanionViews(int comp_no) {
+        String sql = "UPDATE companion SET comp_views = comp_views + 1 WHERE comp_no = ?";
+        jdbcTemplate.update(sql, comp_no);
     }
 
 

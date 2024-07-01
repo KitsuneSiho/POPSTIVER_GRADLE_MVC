@@ -196,6 +196,11 @@ public class BoardServiceImpl implements BoardService {
         //게시글 번호 바탕으로 게시글삭제
     }
 
+    @Override
+    public void increaseFestivalViews(int festival_no){
+        boardRepository.increaseFestivalViews(festival_no);
+    }
+
     //=====================================================================================//
     //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
@@ -370,6 +375,11 @@ public class BoardServiceImpl implements BoardService {
         return popupCommentDTOs;
     }
 
+    @Override
+    public void increasePopupViews(int popup_no){
+        boardRepository.increasePopupViews(popup_no);
+    }
+
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
@@ -472,9 +482,8 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
-    public void increaseViews(int board_no){
-        boardRepository.increaseViews(board_no);
-
+    public void increaseCommunityViews(int board_no){
+        boardRepository.increaseCommunityViews(board_no);
     }
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
@@ -633,5 +642,10 @@ public class BoardServiceImpl implements BoardService {
                 companionEntity.getComp_post_date(),
                 companionEntity.getComp_views());
 
+    }
+
+    @Override
+    public void increaseCompanionViews(int comp_no){
+        boardRepository.increaseCompanionViews(comp_no);
     }
 }
