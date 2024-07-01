@@ -1,8 +1,19 @@
 package kr.bit.function.board.boardController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+
 import kr.bit.function.member.entity.MemberEntity;
 import kr.bit.function.member.repository.UserRepository;
-import kr.bit.function.member.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -10,9 +21,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
 @Controller
@@ -21,12 +31,9 @@ public class RecommendationController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RecommendationService recommendationService;
-
     private static final Logger LOGGER = Logger.getLogger(RecommendationController.class.getName());
 
-    @GetMapping("/getRecommended")
+    @GetMapping("/recommended")
     public String getRecommended(@AuthenticationPrincipal OAuth2User principal, Model model, OAuth2AuthenticationToken authentication) {
         try {
             String userId = null;
@@ -63,17 +70,48 @@ public class RecommendationController {
             }
 
             // Python 서버에 요청 보내기
-            Map<String, List<Map<String, Object>>> recommendations = recommendationService.getRecommendationsFromPythonServer(userId);
+            String pythonServerUrl = "http://127.0.0.1:5000/recommendations?user_id=" + userId;
+            URL url = new URL(pythonServerUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
 
-            // JSP에 전달
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+            StringBuilder sb = new StringBuilder();
+            String output;
+            while ((output = br.readLine()) != null) {
+                sb.append(output);
+            }
+
+            conn.disconnect();
+
+            // Jackson 설정 변경
+            ObjectMapper mapper = JsonMapper.builder()
+                    .enable(JsonReadFeature.ALLOW_NON_NUMERIC_NUMBERS)
+                    .build();
+            Map<String, Object> recommendations = mapper.readValue(sb.toString(), Map.class);
+
             model.addAttribute("festivals", recommendations.get("festivals"));
             model.addAttribute("popups", recommendations.get("popups"));
 
+        } catch (JsonParseException e) {
+            LOGGER.severe("JSON parsing error: " + e.getMessage());
+        } catch (JsonMappingException e) {
+            LOGGER.severe("JSON mapping error: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            LOGGER.severe("JSON processing error: " + e.getMessage());
+        } catch (IOException e) {
+            LOGGER.severe("IO error: " + e.getMessage());
         } catch (Exception e) {
-            LOGGER.severe("Error while getting recommendations: " + e.getMessage());
-            e.printStackTrace();
-            return "error";  // 에러 페이지로 이동 (적절한 에러 페이지를 설정해야 합니다)
+            LOGGER.severe("Error: " + e.getMessage());
         }
-        return "recommended";
+
+        return "page/board/recommendedList";
     }
+
+
 }

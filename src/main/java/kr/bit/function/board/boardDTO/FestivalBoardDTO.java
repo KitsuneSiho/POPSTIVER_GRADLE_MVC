@@ -1,5 +1,8 @@
 package kr.bit.function.board.boardDTO;
 
+import lombok.Data;
+
+@Data
 public class FestivalBoardDTO {
     private int festival_no; // 보드넘버
     private String festival_title; // 제목
@@ -36,8 +39,6 @@ public class FestivalBoardDTO {
         this.festival_title = festival_title;
         this.festival_content = festival_content;
         this.host = host;
-        this.festival_dist = festival_dist;
-        this.festival_subdist = festival_subdist;
         this.festival_location = festival_location;
         this.festival_start = festival_start;
         this.festival_end = festival_end;
@@ -49,10 +50,58 @@ public class FestivalBoardDTO {
         this.views = views;
         this.brand_link = brand_link;
         this.brand_sns = brand_sns;
+        this.festival_dist = festival_dist;
+        this.festival_subdist = festival_subdist;
         this.festival_tag1 = festival_tag1;
         this.festival_tag2 = festival_tag2;
         this.festival_tag3 = festival_tag3;
         this.festival_tag4 = festival_tag4;
         this.festival_tag5 = festival_tag5;
     }
+
+    // Getters and Setters
+    public int getFestival_no() { return festival_no; }
+    public void setFestival_no(int festival_no) { this.festival_no = festival_no; }
+    public String getFestival_title() { return festival_title; }
+    public void setFestival_title(String festival_title) { this.festival_title = festival_title; }
+    public String getFestival_content() { return festival_content; }
+    public void setFestival_content(String festival_content) { this.festival_content = festival_content; }
+    public String getHost() { return host; }
+    public void setHost(String host) { this.host = host; }
+    public String getFestival_location() { return festival_location; }
+    public void setFestival_location(String festival_location) { this.festival_location = festival_location; }
+    public String getFestival_start() { return festival_start; }
+    public void setFestival_start(String festival_start) { this.festival_start = festival_start; }
+    public String getFestival_end() { return festival_end; }
+    public void setFestival_end(String festival_end) { this.festival_end = festival_end; }
+    public String getOpen_time() { return open_time; }
+    public void setOpen_time(String open_time) { this.open_time = open_time; }
+    public String getFestival_post_date() { return festival_post_date; }
+    public void setFestival_post_date(String festival_post_date) { this.festival_post_date = festival_post_date; }
+    public String getFestival_attachment() { return festival_attachment; }
+    public void setFestival_attachment(String festival_attachment) { this.festival_attachment = festival_attachment; }
+    public int getEvent_type() { return event_type; }
+    public void setEvent_type(int event_type) { this.event_type = event_type; }
+    public int getLike_that() { return like_that; }
+    public void setLike_that(int like_that) { this.like_that = like_that; }
+    public int getViews() { return views; }
+    public void setViews(int views) { this.views = views; }
+    public String getBrand_link() { return brand_link; }
+    public void setBrand_link(String brand_link) { this.brand_link = brand_link; }
+    public String getBrand_sns() { return brand_sns; }
+    public void setBrand_sns(String brand_sns) { this.brand_sns = brand_sns; }
+    public String getFestival_dist() { return festival_dist; }
+    public void setFestival_dist(String festival_dist) { this.festival_dist = festival_dist; }
+    public String getFestival_subdist() { return festival_subdist; }
+    public void setFestival_subdist(String festival_subdist) { this.festival_subdist = festival_subdist; }
+    public String getFestival_tag1() { return festival_tag1; }
+    public void setFestival_tag1(String festival_tag1) { this.festival_tag1 = festival_tag1; }
+    public String getFestival_tag2() { return festival_tag2; }
+    public void setFestival_tag2(String festival_tag2) { this.festival_tag2 = festival_tag2; }
+    public String getFestival_tag3() { return festival_tag3; }
+    public void setFestival_tag3(String festival_tag3) { this.festival_tag3 = festival_tag3; }
+    public String getFestival_tag4() { return festival_tag4; }
+    public void setFestival_tag4(String festival_tag4) { this.festival_tag4 = festival_tag4; }
+    public String getFestival_tag5() { return festival_tag5; }
+    public void setFestival_tag5(String festival_tag5) { this.festival_tag5 = festival_tag5; }
 }
