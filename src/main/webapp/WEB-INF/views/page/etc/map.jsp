@@ -519,8 +519,7 @@
                     } else if (city === '전체'){
                         addMarkers(multiMap, geocoder, festivals);
                         addPopupMarkers(multiMap, geocoder, popups);
-                    }
-                    else {
+                    } else {
                         // 모든 마커 숨기기 (보이지 않게 설정)
                         festivalMarkers.forEach(function(marker) {
                             marker.setMap(null);
@@ -634,7 +633,7 @@
             document.getElementById('currentLocationButton').addEventListener('click', function() {
                 getUserLocation(function(newUserLocation) {
                     multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
-                    multiMap.setLevel(4);
+                    multiMap.setLevel(10);
                 });
             });
         });

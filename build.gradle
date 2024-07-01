@@ -68,8 +68,6 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
     implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1' // SLF4J와 Log4j 연동을 위한 의존성
-
-    // SLF4J API
     implementation 'org.slf4j:slf4j-api:2.0.9'
 
     // Spring Security 태그 라이브러리

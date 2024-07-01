@@ -20,7 +20,7 @@ public class KakaoResponse implements OAuth2Response {
         this.profileAttribute = getMapFromAttributes(kakaoAccountAttribute, "profile");
 
         // 전체 응답 구조 출력 (디버깅용)
-        System.out.println("Full Kakao Response: " + attribute);
+//        System.out.println("Full Kakao Response: " + attribute);
     }
 
     private Map<String, Object> getMapFromAttributes(Map<String, Object> attributes, String key) {

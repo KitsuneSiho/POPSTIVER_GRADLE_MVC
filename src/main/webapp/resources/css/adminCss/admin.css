@@ -1,43 +1,64 @@
-/* styles.css */
-
 body {
     font-family: 'Roboto', sans-serif;
-}
-
-.navbar-brand {
-    font-weight: bold;
-    color: #fff;
-}
-
-.navbar-nav .nav-link {
-    color: #fff;
-    margin-right: 10px;
-}
-
-.footer {
-    background-color: #343a40;
-    color: #6c757d;
-    text-align: center;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .sidebar-sticky {
-    background-color: #343a40;
-    padding: 10px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    padding-top: 60px;
+    background-color: #343a40 !important;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 
 .sidebar-sticky .nav-link {
-    color: #adb5bd;
+    padding: 15px 20px;
+    color: #adb5bd !important;
+    transition: all 0.3s;
 }
 
 .sidebar-sticky .nav-link:hover {
-    color: #fff;
     background-color: #495057;
+    color: #ffffff !important;
 }
 
-.text-muted {
-    color: #6c757d !important;
+.navbar {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1030; /* Ensure the navbar is above the sidebar */
 }
 
-.card-title {
-    font-weight: bold;
+.navbar-brand {
+    font-weight: 700;
+    color: #ffffff !important;
+}
+
+.nav-item .nav-link {
+    color: #adb5bd !important;
+    transition: color 0.3s;
+}
+
+.nav-item .nav-link:hover {
+    color: #ffffff !important;
+}
+
+.footer {
+    background-color: #343a40 !important;
+    color: #ffffff !important;
+    padding: 15px 0;
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
 }

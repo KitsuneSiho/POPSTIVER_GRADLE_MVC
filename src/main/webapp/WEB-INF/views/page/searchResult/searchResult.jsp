@@ -29,7 +29,6 @@
         }
     </style>
 </head>
-
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
@@ -56,7 +55,7 @@
                         <c:if test="${today >= result.start_date && today <= result.end_date}">
                             <c:set var="hasOngoing" value="true" />
                             <div class="card">
-                                <div class="card-content">
+                                <div class="card-content" data-eventtype="${result.event_type}" data-eventno="${result.event_no}">
                                     <!-- 포스터 클릭 시 상세 페이지로 이동 -->
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
@@ -82,6 +81,8 @@
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
                                         <c:out value="${result.start_date}" /> - <c:out value="${result.end_date}" />
                                     </p>
+                                    <input type="hidden" id="user_id" name="user_id" value="">
+                                    <input type="hidden" id="user_name" name="user_name" value="">
                                 </div>
                             </div>
                         </c:if>

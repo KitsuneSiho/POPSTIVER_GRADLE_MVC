@@ -81,6 +81,8 @@
             <li><button>${festival.festival_tag4}</button></li>
             <li><button>${festival.festival_tag5}</button></li>
 
+            <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${festival.views}</p></li>
+            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>123</p></li>
             <li>
                 <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"

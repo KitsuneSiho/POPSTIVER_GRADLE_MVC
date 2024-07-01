@@ -1,13 +1,25 @@
 package kr.bit.controller;
 
+import kr.bit.function.page.pageEntity.FestivalUpcomingEntity;
+import kr.bit.function.page.pageEntity.PopupUpcomingEntity;
+import kr.bit.function.page.pageService.FestivalUpcomingService;
+import kr.bit.function.page.pageService.PopupUpcomingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 public class FlowController {
+
+    @Autowired
+    private PopupUpcomingService popupUpcomingService;
+    @Autowired
+    private FestivalUpcomingService festivalUpcomingService;
 
     @GetMapping("/")//"/" 경로로 들어가면 일단 메인페이지로 리다이렉트 시킨다.
     public String home() {
@@ -24,13 +36,12 @@ public class FlowController {
 
     @GetMapping("/myPage")//마이페이지
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
-        return "page/myPage/myPage";
+        return "forward:/member/myPage";
     }
-
-//    @GetMapping("bookmark")//관심행사페이지
-//    public String bookmark_page() {
-//        return "page/myPage/bookmark";
-//    }
+    @GetMapping("bookmark")//관심행사페이지
+    public String bookmark_page() {
+        return "page/myPage/bookmark";
+    }
 
     @GetMapping("calendar")//행사일정페이지
     public String calendar_page() {
@@ -47,25 +58,22 @@ public class FlowController {
         return "page/board/money";
     }
 
+
 //    @GetMapping("report")//제보하기게시판페이지
 //    public String report_page() {
 //        return "page/board/report";
 //    }
 //
-    @GetMapping("reportWrite")//제보하기게시판글작성페이지
-    public String reportWrite_page() {
-        return "page/board/reportWrite";
-    }
 
-    @GetMapping("together")//동행구하기게시판페이지
-    public String together_page() {
-        return "page/board/together";
-    }
+//    @GetMapping("together")//동행구하기게시판페이지
+//    public String together_page() {
+//        return "page/board/together";
+//    }
 
-    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
-    public String togetherWrite_page() {
-        return "page/board/togetherWrite";
-    }
+//    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
+//    public String togetherWrite_page() {
+//        return "page/board/togetherWrite";
+//    }
 
 //    @GetMapping("free")//자유게시판페이지
 //    public String free_page() {
@@ -75,6 +83,16 @@ public class FlowController {
     @GetMapping("freeWrite")//자유게시판글작성페이지
     public String freeWrite_page() {
         return "page/board/freeWrite";
+    }
+
+    @GetMapping("reportWrite")//제보게시판글작성페이지
+    public String reportWrite_page() {
+        return "page/board/reportWrite";
+    }
+
+    @GetMapping("togetherWrite")//동행게시판글작성페이지
+    public String togetherWrite_page() {
+        return "page/board/togetherWrite";
     }
 
     @GetMapping("popularAdd")//인기 페스티벌 정보 페이지(메인페이지에서 인기 더보기 눌렀을때)
@@ -88,7 +106,9 @@ public class FlowController {
     }
 
     @GetMapping("mainFestival")//페스티벌메인페이지(메인에서 페스티벌 눌렀을때)
-    public String mainFestival_page() {
+    public String mainFestival_page(Model model) {
+        List<FestivalUpcomingEntity> upcomingFestivals = festivalUpcomingService.getUpcomingFestivals();
+        model.addAttribute("upcomingFestivals", upcomingFestivals);
         return "page/main/mainFestival";
     }
 
@@ -102,8 +122,10 @@ public class FlowController {
         return "page/searchResult/openAddFestival";
     }
 
-    @GetMapping("mainPopup")//팝업메인페이지(메인에서 팝업 눌렀을때)
-    public String mainPopup_page() {
+    @GetMapping("mainPopup")
+    public String mainPopup_page(Model model) {
+        List<PopupUpcomingEntity> upcomingPopups = popupUpcomingService.getUpcomingPopups();
+        model.addAttribute("upcomingPopups", upcomingPopups);
         return "page/main/mainPopup";
     }
 
@@ -121,6 +143,7 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
+
 
 
 

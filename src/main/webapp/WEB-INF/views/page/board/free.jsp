@@ -65,6 +65,7 @@
             <th>제목</th>
             <th>작성자</th>
             <th>작성일</th>
+            <th>조회수</th>
         </tr>
         </thead>
         <tbody id="boardBody">
@@ -85,7 +86,7 @@
                         <td><p><a href="free/${community.board_no}">${community.board_title}</a></p></td>
                         <td ><p>${community.user_name}</p></td>
                         <td ><p>${community.board_post_date}</p></td>
-
+                        <td ><p>${community.board_views}</p></td>
                     </tr>
                 </c:forEach>
             </c:otherwise>
