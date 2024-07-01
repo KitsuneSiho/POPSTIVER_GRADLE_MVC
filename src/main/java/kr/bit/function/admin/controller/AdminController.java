@@ -8,6 +8,10 @@ import kr.bit.function.admin.dao.VisitorStatisticsDAO;
 import kr.bit.function.admin.model.VisitorStatistic;
 import kr.bit.function.admin.model.businessContents;
 import kr.bit.function.admin.service.BusinessContentsService;
+import kr.bit.function.board.boardDTO.FestivalCommentDTO;
+import kr.bit.function.board.boardDTO.PopupCommentDTO;
+import kr.bit.function.board.boardDTO.TotalCommentDTO;
+import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +42,9 @@ public class AdminController {
 
     @Autowired
     private BusinessContentsService businessContentsService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private DataSource dataSource;
@@ -92,10 +99,9 @@ public class AdminController {
         List<Integer> likedPostsData = List.of(20, 15, 30, 25, 10);
         model.addAttribute("likedPostsDataJson", objectMapper.writeValueAsString(Map.of("labels", likedPostsLabels, "data", likedPostsData)));
 
-        // 최근 리뷰 통계 (예시)
-        List<String> recentReviewsLabels = List.of("Review 1", "Review 2", "Review 3", "Review 4", "Review 5");
-        List<Integer> recentReviewsData = List.of(5, 10, 15, 20, 25);
-        model.addAttribute("recentReviewsDataJson", objectMapper.writeValueAsString(Map.of("labels", recentReviewsLabels, "data", recentReviewsData)));
+        // 최근 댓글 데이터 추가
+        List<TotalCommentDTO> recentComments = commentService.getRecentComments(5);
+        model.addAttribute("recentComments", recentComments);
 
         // 모델에 데이터 추가
         model.addAttribute("totalUsers", totalUsers);
@@ -173,7 +179,16 @@ public class AdminController {
     }
 
     @GetMapping("/recentReviews")
-    public String getRecentReviews() {
+    public String getRecentReviews(Model model) {
+        // 축제 댓글 가져오기
+        List<FestivalCommentDTO> festivalComments = commentService.getFestivalComments();
+        // 팝업 댓글 가져오기
+        List<PopupCommentDTO> popupComments = commentService.getPopupComments();
+
+        // 모델에 데이터 추가
+        model.addAttribute("festivalComments", festivalComments);
+        model.addAttribute("popupComments", popupComments);
+
         return "page/admin/recentReviews";
     }
 

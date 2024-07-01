@@ -178,6 +178,7 @@
                 vAxis: {
                     title: '방문 수',
                     minValue: 0,
+                    format: '0',
                     gridlines: {color: '#f3f3f3'},
                     textStyle: {color: '#666'}
                 },
