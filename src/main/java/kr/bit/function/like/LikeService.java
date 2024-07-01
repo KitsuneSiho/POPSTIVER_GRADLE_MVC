@@ -1,12 +1,8 @@
 package kr.bit.function.like;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 public interface LikeService {
-    boolean toggleLike(String user_name, String user_id, int event_no, int event_type);
+    boolean toggleLike(String userId, String userName, int eventNo, int eventType);
+    int getLikeCount(int eventNo, int eventType);
 }
-
-
-

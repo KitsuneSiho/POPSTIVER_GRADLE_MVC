@@ -54,7 +54,12 @@
                 <div class="slide-track">
                     <div class="poster-item">
                         <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                             class="bookmark"
+                             alt=""
+                             data-event-no="${result.event_no}"
+                             data-event-type="${result.event_type}">
+                        <span class="like-count">${likeCount}</span>
                         <p class="poster-caption">서울 포스터</p>
                     </div>
                     <div class="poster-item">

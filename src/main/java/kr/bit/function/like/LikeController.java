@@ -1,12 +1,10 @@
 package kr.bit.function.like;
 
+import kr.bit.function.member.dto.CustomOAuth2User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,16 +15,20 @@ public class LikeController {
     private LikeService likeService;
 
     @PostMapping("/toggle")
-    public ResponseEntity<Map<String, Object>> toggleLike(@RequestBody Map<String, Object> payload) {
-        String user_name = (String) payload.get("user_name");
-        String user_id = (String) payload.get("user_id");
-        int event_no = (int) payload.get("event_no");
-        int event_type = (int) payload.get("event_type");
+    public ResponseEntity<Map<String, Object>> toggleLike(@RequestBody Map<String, Integer> payload,
+                                                          @AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        String userId = customOAuth2User.getName(); // OAuth2 제공자에 따라 적절한 메서드 사용
+        String userName = customOAuth2User.getAttribute("name"); // 사용자 이름 가져오기
 
-        boolean isLiked = likeService.toggleLike(user_name, user_id, event_no, event_type);
+        int eventNo = payload.get("event_no");
+        int eventType = payload.get("event_type");
+
+        boolean isLiked = likeService.toggleLike(userId, userName, eventNo, eventType);
+        int likeCount = likeService.getLikeCount(eventNo, eventType);
 
         Map<String, Object> response = new HashMap<>();
         response.put("isLiked", isLiked);
+        response.put("likeCount", likeCount);
         return ResponseEntity.ok(response);
     }
 }

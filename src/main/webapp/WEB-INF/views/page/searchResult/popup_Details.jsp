@@ -60,6 +60,9 @@
 </head>
 <body>
 
+<input type="hidden" id="user_id" value="${sessionScope.user_id}">
+<input type="hidden" id="user_name" value="${sessionScope.user_name}">
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 
 <div class="mainPoster">
@@ -76,7 +79,14 @@
             <li><button>${popup.popup_tag5}</button></li>
             <li><img src="${root}/resources/asset/조회수.svg" alt="">
                 <p>123</p></li>
-            <li><img src="${root}/resources/asset/아니좋아요.svg" class="bookmark" alt=""></li>
+            <li>
+                <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                     class="bookmark"
+                     alt=""
+                     data-event-no="${result.event_no}"
+                     data-event-type="${result.event_type}">
+                <span class="like-count">${likeCount}</span>
+            </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
                 <div id="shareModal" class="share-modal">
@@ -135,8 +145,8 @@
 
                 <input type="hidden" name="popup_no" value="${popup.popup_no}">
                 <input type="hidden" name="event_type" value="${popup.event_type}">
-                <input type="hidden" id="user_name" name="user_name" value="">
-                <input type="hidden" id="user_id" name="user_id" value="">
+                <input type="hidden" id="user_id" value="${sessionScope.user_id}">
+                <input type="hidden" id="user_name" value="${sessionScope.user_name}">
                 <div class="commentArea">
                     <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
                     <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
@@ -192,9 +202,9 @@
                                 </c:forEach>
                             </div>
                             <td>
-                            <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
-                                <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
-                            </div>
+                                <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
+                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
+                                </div>
                             </td>
                         </tr>
                     </c:forEach>

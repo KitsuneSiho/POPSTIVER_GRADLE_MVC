@@ -4,6 +4,7 @@ import kr.bit.function.page.pageMapper.LikeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
 @Service
 public class LikeServiceImpl implements LikeService {
@@ -12,22 +13,28 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     @Transactional
-    public boolean toggleLike(String user_name, String user_id, int event_no, int event_type) {
+    public boolean toggleLike(String userId, String userName, int eventNo, int eventType) {
         LikeEntity like = new LikeEntity();
-        like.setUser_name(user_name);
-        like.setUser_id(user_id);
-        like.setEvent_no(event_no);
-        like.setEvent_type(event_type);
+        like.setUser_id(userId);
+        like.setUser_name(userName);
+        like.setEvent_no(eventNo);
+        like.setEvent_type(eventType);
 
         boolean exists = likeMapper.existsLike(like);
+
         if (exists) {
             likeMapper.deleteLike(like);
-            likeMapper.updateLikeCount(event_no, event_type, -1);
+            likeMapper.updateLikeCount(eventNo, eventType, -1);
             return false;
         } else {
             likeMapper.insertLike(like);
-            likeMapper.updateLikeCount(event_no, event_type, 1);
+            likeMapper.updateLikeCount(eventNo, eventType, 1);
             return true;
         }
+    }
+
+    @Override
+    public int getLikeCount(int eventNo, int eventType) {
+        return likeMapper.getLikeCount(eventNo, eventType);
     }
 }

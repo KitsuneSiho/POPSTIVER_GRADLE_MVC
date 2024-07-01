@@ -27,10 +27,10 @@ public class FlowController {
         return "page/myPage/myPage";
     }
 
-    @GetMapping("bookmark")//관심행사페이지
-    public String bookmark_page() {
-        return "page/myPage/bookmark";
-    }
+//    @GetMapping("bookmark")//관심행사페이지
+//    public String bookmark_page() {
+//        return "page/myPage/bookmark";
+//    }
 
     @GetMapping("calendar")//행사일정페이지
     public String calendar_page() {

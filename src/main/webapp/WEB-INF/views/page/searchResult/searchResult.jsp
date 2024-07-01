@@ -62,7 +62,12 @@
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
 
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+                                    <span class="like-count">${likeCount}</span>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -101,7 +106,12 @@
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+                                    <span class="like-count">${likeCount}</span>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -140,7 +150,12 @@
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+                                    <span class="like-count">${likeCount}</span>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -173,6 +188,34 @@
 </script>
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
+
+<%--                    <!--좋아요 기능-->--%>
+<%--<script>--%>
+<%--    function toggleLike(event_no, event_type, element) {--%>
+<%--        fetch('${root}/api/like/toggle', {--%>
+<%--            method: 'POST',--%>
+<%--            headers: {--%>
+<%--                'Content-Type': 'application/json',--%>
+<%--            },--%>
+<%--            body: JSON.stringify({--%>
+<%--                event_no: event_no,--%>
+<%--                event_type: event_type--%>
+<%--            }),--%>
+<%--        })--%>
+<%--            .then(response => response.json())--%>
+<%--            .then(data => {--%>
+<%--                if (data.isLiked) {--%>
+<%--                    element.src = "${root}/resources/asset/좋아요.svg";--%>
+<%--                } else {--%>
+<%--                    element.src = "${root}/resources/asset/아니좋아요.svg";--%>
+<%--                }--%>
+<%--            })--%>
+<%--            .catch((error) => {--%>
+<%--                console.error('Error:', error);--%>
+<%--            });--%>
+<%--    }--%>
+<%--</script>--%>
+
 </body>
 
 </html>
