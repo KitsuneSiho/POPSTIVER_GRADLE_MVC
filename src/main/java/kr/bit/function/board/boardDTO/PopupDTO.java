@@ -34,8 +34,8 @@ public class PopupDTO {
     }
 
     // 모든 필드를 초기화하는 생성자
-    public PopupDTO(int popup_no, String popup_title, String popup_content, String host, String popup_location,
-                       String popup_dist, String popup_subdist,
+    public PopupDTO(int popup_no, String popup_title, String popup_content, String host,
+                        String popup_location,String popup_dist, String popup_subdist,
                        String popup_start, String popup_end, String open_time, String popup_post_date,
                        String popup_attachment, int event_type, int like_that, int views, String brand_link, String brand_sns,
                        String popup_tag1, String popup_tag2, String popup_tag3, String popup_tag4, String popup_tag5) {

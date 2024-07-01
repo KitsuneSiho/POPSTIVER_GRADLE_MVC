@@ -30,7 +30,7 @@ function submitForm(event) {
 
 // 폼 데이터 변수로 가져오기
     var reportTitle = $("input[name='report_title']").val();
-    var reportEventType = $("input[name='event_type']:checked").val();
+    var reportEventType = ($("input[name='event_type']:checked").val());
     var reportContent = $("textarea[name='report_content']").val();
     var reportLocation = $("input[name='report_location']").val();
     var reportStart = $("input[name='report_start']").val();
@@ -38,10 +38,12 @@ function submitForm(event) {
     var reportHost = $("input[name='report_host']").val();
     var reportBrandLink = $("input[name='brand_link']").val();
     var reportBrandSns = $("input[name='brand_sns']").val();
+    var userId = $("input[name='user_id']").val();
+    var userName = $("input[name='user_name']").val();
 
     $.ajax({
         method: "put",
-        url: "report/reportWrite",
+        url: "report/insertWrite",
         contentType: 'application/json;charset=utf-8',
 // StudentAndInfo 객체를 JSON 문자열로 변환하여 전송
         data: JSON.stringify({
@@ -53,7 +55,9 @@ function submitForm(event) {
             "report_end" : reportEnd,
             "report_host" : reportHost,
             "brand_link" : reportBrandLink,
-            "brand_sns" : reportBrandSns
+            "brand_sns" : reportBrandSns,
+            "user_id": userId,
+            "user_name":userName
         }),
 
         success: function (response) {

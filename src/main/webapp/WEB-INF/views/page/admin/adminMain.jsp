@@ -1,15 +1,56 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %><!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
+    <style>
+        .dashboard-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .card-subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+        .card-link {
+            font-size: 1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .card-link:hover {
+            text-decoration: underline;
+        }
+        .review-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 0;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .chart-container {
+            position: relative;
+            height: 200px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+<!-- 헤더 -->
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
 <div class="container-fluid">
     <div class="row">
         <!-- 사이드바 -->
@@ -19,35 +60,37 @@
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
             <h2 class="mt-4">Dashboard</h2>
             <div class="container mt-4">
                 <!-- 대시보드 내용 -->
                 <div class="row">
                     <div class="col-md-4 mb-4">
-                        <div class="card">
+                        <div class="card dashboard-card">
                             <div class="card-body">
-                                <h5 class="card-title">Real-Time</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">1,856</h6>
-                                <p class="card-text">+2.25% Since last week</p>
+                                <h5 class="card-title">Total Users</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${totalUsers}</h6>
+                                <p class="card-text">${totalUsers - previousTotalUsers > 0 ? '+' : ''}${totalUsers - previousTotalUsers} Since last week</p>
+                                <a href="<c:url value='/usersList' />" class="card-link">View Details</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Visitors</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">17,212</h6>
-                                <p class="card-text">-1.25% Since last week</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
+                        <div class="card dashboard-card">
                             <div class="card-body">
                                 <h5 class="card-title">New Signups</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">312</h6>
-                                <p class="card-text">+3.75% Since last week</p>
+                                <h6 class="card-subtitle mb-2 text-muted">${newSignups}</h6>
+                                <p class="card-text">${signupGrowthRate > 0 ? '+' : ''}${signupGrowthRate} Since last week</p>
+                                <a href="<c:url value='/memberStats' />" class="card-link">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card dashboard-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Business Inquiries</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${businessInquiries}</h6>
+                                <p class="card-text">+1.25% Since last week</p>
+                                <a href="<c:url value='/businessContents' />" class="card-link">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -55,73 +98,77 @@
                 <!-- 추가 카드 및 그래프 -->
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card dashboard-card">
                             <div class="card-body">
-                                <canvas id="visitorChart"></canvas>
+                                <h5 class="card-title">Visitors</h5>
+                                <div class="chart-container">
+                                    <canvas id="visitorChart"></canvas>
+                                </div>
+                                <a href="<c:url value='/visitor-stats' />" class="card-link">View Details</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
-                        <div class="card">
+                        <div class="card dashboard-card">
                             <div class="card-body">
-                                <canvas id="signupChart"></canvas>
+                                <h5 class="card-title">1:1 Chats</h5>
+                                <div class="chart-container">
+                                    <canvas id="chatChart"></canvas>
+                                </div>
+                                <a href="<c:url value='/chatManagement' />" class="card-link">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card dashboard-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Top Liked Posts</h5>
+                                <div class="chart-container">
+                                    <canvas id="likedPostsChart"></canvas>
+                                </div>
+                                <a href="<c:url value='/likedPostsStats' />" class="card-link">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card dashboard-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Recent Reviews</h5>
+                                <div class="review-list">
+                                    <c:forEach var="review" items="${recentComments}" varStatus="status">
+                                        <c:if test="${status.index < 5}">
+                                            <div class="review-item">
+                                                <strong>${review.comment_writer}</strong> - ${review.comment_content}
+                                                <br><small class="text-muted">${review.comment_date}</small>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <a href="<c:url value='/recentReviews' />" class="card-link">View All Reviews</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
+<!-- 데이터를 JSON 형태로 전달 -->
+<script id="visitorData" type="application/json">${visitorDataJson}</script>
+<script id="chatData" type="application/json">${chatDataJson}</script>
+<script id="likedPostsData" type="application/json">${likedPostsDataJson}</script>
+<script id="recentReviewsData" type="application/json">${recentReviewsDataJson}</script>
+<!-- JavaScript 파일 포함 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    var ctx = document.getElementById('visitorChart').getContext('2d');
-    var visitorChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [{
-                label: 'Visitors',
-                data: [1200, 1900, 3000, 5000, 2300, 3400, 4000],
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    var ctx2 = document.getElementById('signupChart').getContext('2d');
-    var signupChart = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            datasets: [{
-                label: 'Signups',
-                data: [50, 100, 150, 200, 150, 300, 400],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
+<script src="<c:url value='/resources/js/adminMain.js' />"></script>
 </body>
 </html>

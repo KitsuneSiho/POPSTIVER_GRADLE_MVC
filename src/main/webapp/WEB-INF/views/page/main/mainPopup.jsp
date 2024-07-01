@@ -83,11 +83,6 @@
                         <p class="poster-caption">대구 포스터</p>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대전 포스터</p>
-                    </div>
-                    <div class="poster-item">
                         <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
                         <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                         <p class="poster-caption">부산 포스터</p>
@@ -101,6 +96,11 @@
                         <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
                         <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                         <p class="poster-caption">대구 포스터</p>
+                    </div>
+                    <div class="poster-item">
+                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
+                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                        <p class="poster-caption">대전 포스터</p>
                     </div>
                     <div class="poster-item">
                         <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
@@ -128,17 +128,16 @@
             <div class="slide-container">
                 <div class="slide-track">
                     <c:choose>
-                        <c:when test="${not empty upcomingPopups}">
-                            <c:forEach var="popup" items="${upcomingPopups}">
-                                <div class="open-item">
-                                    <img src="${popup.popup_attachment}" alt="${popup.popup_title}" onclick="window.location.href='popupInfo?id=${popup.popup_no}'">
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="" data-popup-no="${popup.popup_no}">
-                                    <p class="open-caption">${popup.popup_title}</p>
-                                </div>
-                            </c:forEach>
+                        <c:when test="${empty upcomingPopups}">
+                            <p style="color: white;">현재 오픈 예정인 팝업이 없습니다.</p>
                         </c:when>
                         <c:otherwise>
-                            <p>현재 오픈 예정인 팝업 스토어가 없습니다.</p>
+                            <c:forEach items="${upcomingPopups}" var="popup">
+                                <div class="open-item">
+                                    <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
+                                    <p class="open-caption">${popup.popupTitle}</p>
+                                </div>
+                            </c:forEach>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -148,8 +147,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-
-<script src="${root}/resources/js/bookmarkToggle.js"></script>
 
 </body>
 </html>

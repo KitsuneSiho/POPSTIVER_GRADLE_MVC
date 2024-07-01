@@ -1,63 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Chart.js 설정
-    let visitorCtx = document.getElementById('visitorChart').getContext('2d');
-    let genderCtx = document.getElementById('genderChart').getContext('2d');
-    let likesCtx = document.getElementById('likesChart').getContext('2d');
-    let viewsCtx = document.getElementById('viewsChart').getContext('2d');
-    let snsCtx = document.getElementById('snsChart').getContext('2d');
+    var visitorData = JSON.parse(document.getElementById('visitorData').textContent);
+    var chatData = JSON.parse(document.getElementById('chatData').textContent);
+    var likedPostsData = JSON.parse(document.getElementById('likedPostsData').textContent);
+    // var recentReviewsData = JSON.parse(document.getElementById('recentReviewsData').textContent); // 최근 리뷰는 리스트로 표시하므로 사용하지 않음
 
-    // 예제 데이터 설정
-    let visitorData = { /* 데이터 로드 */ };
-    let genderData = { /* 데이터 로드 */ };
-    let likesData = { /* 데이터 로드 */ };
-    let viewsData = { /* 데이터 로드 */ };
-    let snsData = { /* 데이터 로드 */ };
+    function formatDate(timestamp) {
+        var date = new Date(timestamp);
+        return date.toLocaleDateString(); // 또는 원하는 날짜 형식으로 변환
+    }
 
-    // Chart 생성
-    new Chart(visitorCtx, { type: 'line', data: visitorData });
-    new Chart(genderCtx, { type: 'pie', data: genderData });
-    new Chart(likesCtx, { type: 'bar', data: likesData });
-    new Chart(viewsCtx, { type: 'bar', data: viewsData });
-    new Chart(snsCtx, { type: 'doughnut', data: snsData });
-
-    // 회원 데이터 로드
-    $.ajax({
-        url: '/fetchUsers',
-        method: 'GET',
-        success: function(data) {
-            let userTableBody = document.getElementById('userTableBody');
-            data.forEach(function(user) {
-                let row = `<tr>
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${user.joinDate}</td>
-                    <td><button class="btn btn-danger" onclick="deleteUser(${user.id})">삭제</button></td>
-                </tr>`;
-                userTableBody.innerHTML += row;
-            });
+    var visitorChartCtx = document.getElementById('visitorChart').getContext('2d');
+    var visitorChart = new Chart(visitorChartCtx, {
+        type: 'line',
+        data: {
+            labels: visitorData.map(v => formatDate(v.visitDate)),
+            datasets: [{
+                label: 'Visitors',
+                data: visitorData.map(v => v.visitCount),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
         }
     });
 
-    // // 1:1 채팅
-    // let chatMessages = document.getElementById('chatMessages');
-    // document.getElementById('sendMessageBtn').addEventListener('click', function() {
-    //     let message = document.getElementById('chatInput').value;
-    //     // 채팅 메시지 서버로 전송 로직 추가
-    //     chatMessages.innerHTML += `<div class="message">${message}</div>`;
-    //     document.getElementById('chatInput').value = '';
-    // });
+    var chatChartCtx = document.getElementById('chatChart').getContext('2d');
+    var chatChart = new Chart(chatChartCtx, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Chats',
+                data: chatData,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var likedPostsChartCtx = document.getElementById('likedPostsChart').getContext('2d');
+    var likedPostsChart = new Chart(likedPostsChartCtx, {
+        type: 'bar',
+        data: {
+            labels: likedPostsData.labels,
+            datasets: [{
+                label: 'Likes',
+                data: likedPostsData.data,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // 최근 리뷰 차트 대신 리스트로 표시
 });
-
-function deleteUser(userId) {
-    $.ajax({
-        url: '/deleteUser',
-        method: 'POST',
-        data: { id: userId },
-        success: function() {
-            // 사용자 삭제 후 테이블 업데이트 로직 추가
-            alert('사용자가 삭제되었습니다.');
-            location.reload();
-        }
-    });
-}

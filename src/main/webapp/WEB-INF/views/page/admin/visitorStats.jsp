@@ -27,30 +27,25 @@
             font-family: 'Noto Sans KR', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .main-content {
-            /*padding: 2rem;*/
+            flex: 1;
+            padding: 1rem;
         }
         .chart-container {
-            margin-top: 2rem;
-            padding: 2rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
             background-color: var(--card-bg-color);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
-        }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
         h2 {
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             color: var(--primary-color);
             font-weight: 700;
         }
@@ -64,8 +59,8 @@
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -76,14 +71,14 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .stat-card {
             background-color: var(--card-bg-color);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 1rem;
             margin: 0.5rem;
-            flex: 1 1 200px;
+            flex: 1 1 150px;
             text-align: center;
             box-shadow: var(--box-shadow);
             transition: all 0.3s ease;
@@ -94,17 +89,17 @@
         }
         .stat-card h3 {
             color: var(--secondary-color);
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin-bottom: 0.5rem;
         }
         .stat-card p {
             color: var(--accent-color);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
         @media (max-width: 768px) {
             .main-content {
-                padding: 1rem;
+                padding: 0.5rem;
             }
             .chart-container {
                 padding: 1rem;
@@ -114,7 +109,10 @@
             }
         }
         #slider {
-            margin: 20px;
+            margin: 10px 0;
+        }
+        .navbar {
+            z-index: 1030; /* Ensure the navbar is above the sidebar */
         }
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -180,6 +178,7 @@
                 vAxis: {
                     title: '방문 수',
                     minValue: 0,
+                    format: '0',
                     gridlines: {color: '#f3f3f3'},
                     textStyle: {color: '#666'}
                 },
@@ -211,17 +210,18 @@
     </script>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row">
+<header>
+    <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
+</header>
+<div class="container-fluid d-flex flex-column min-vh-100">
+    <div class="row flex-grow-1">
         <!-- 사이드바 -->
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <jsp:include page="/WEB-INF/views/page/admin/layout/sidebar.jsp"/>
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
-            <jsp:include page="/WEB-INF/views/page/admin/layout/header.jsp"/>
-
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 main-content">
             <div class="stats-summary">
                 <div class="stat-card">
                     <h3>총 방문자 수</h3>
@@ -248,13 +248,16 @@
                         <button onclick="location.reload()"><i class="fas fa-sync-alt"></i> 새로고침</button>
                     </div>
                 </div>
-                <div id="curve_chart" style="width: 100%; height: 500px;"></div>
+                <div id="curve_chart" style="width: 100%; height: 400px;"></div>
                 <div id="slider"></div>
             </div>
-            <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
         </main>
     </div>
 </div>
+<!-- 푸터 -->
+<footer class="mt-auto">
+    <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
+</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

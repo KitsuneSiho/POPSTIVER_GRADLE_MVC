@@ -1,6 +1,9 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .sidebar-sticky {
@@ -27,6 +30,8 @@ body {
 
 .navbar {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1030; /* Ensure the navbar is above the sidebar */
 }
 
 .navbar-brand {
@@ -47,12 +52,13 @@ body {
     background-color: #343a40 !important;
     color: #ffffff !important;
     padding: 15px 0;
-    position: fixed;
-    bottom: 0;
+    margin-top: auto;
     width: 100%;
+    text-align: center;
 }
 
 .main-content {
     margin-left: 250px;
     padding: 20px;
+    flex: 1;
 }

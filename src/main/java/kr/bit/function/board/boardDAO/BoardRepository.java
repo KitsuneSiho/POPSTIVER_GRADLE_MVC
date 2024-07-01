@@ -1,9 +1,6 @@
 package kr.bit.function.board.boardDAO;
 
-import kr.bit.function.board.boardDTO.CommunityDTO;
-import kr.bit.function.board.boardDTO.NoticeDTO;
-import kr.bit.function.board.boardDTO.ReportDTO;
-import kr.bit.function.board.boardDTO.TemporaryPostDTO;
+import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -168,6 +166,11 @@ public class BoardRepository {
         return result;
     }
 
+    public void increaseFestivalViews(int festival_no) {
+        String sql = "UPDATE festival SET views = views + 1 WHERE festival_no = ?";
+        jdbcTemplate.update(sql, festival_no);
+    }
+
     //=====================================================================================//
     //                            🎁🎁 POPUP  팝업스토어 🎁🎁                               //
     //=====================================================================================//
@@ -310,6 +313,11 @@ public class BoardRepository {
         return result;
     }
 
+    public void increasePopupViews(int popup_no) {
+        String sql = "UPDATE popup SET views = views + 1 WHERE popup_no = ?";
+        jdbcTemplate.update(sql, popup_no);
+    }
+
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
@@ -389,11 +397,6 @@ public class BoardRepository {
      * @param notice_no : 게시글번호(notice_no)
      * @return BoardEntity  형태의 데이터
      */
-    /*
-     * 특정 게시물을 출력하기.
-     * @param notice_no : 게시글번호(notice_no)
-     * @return BoardEntity  형태의 데이터
-     */
     public CommunityEntity getCommunityOneRepo(int board_no) throws Exception{
         List<CommunityEntity> result = jdbcTemplate.query(
                 "select * from community where board_no=?;",
@@ -404,7 +407,9 @@ public class BoardRepository {
                         communityEntity.setBoard_title(rs.getString("board_title"));
                         communityEntity.setBoard_content(rs.getString("board_content"));
                         communityEntity.setUser_name(rs.getNString("user_name"));
+                        communityEntity.setBoard_attachment(rs.getString("board_attachment"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
+                        communityEntity.setBoard_views(rs.getInt("board_views"));
                         return communityEntity;
                     }
                 },board_no);
@@ -412,26 +417,37 @@ public class BoardRepository {
     }
 
     public void insertCommunityRepo(CommunityDTO communityDTO) {
-        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name, board_attachment, board_views) VALUES (?, ?, ?, ?, ?, ?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
-        jdbcTemplate.update(sql, communityDTO.getBoard_title(),
+        jdbcTemplate.update(sql,
+                communityDTO.getBoard_title(),
                 communityDTO.getBoard_content(),
                 communityDTO.getUser_id(),
-                communityDTO.getUser_name()
+                communityDTO.getUser_name(),
+                communityDTO.getBoard_attachment(),
+                communityDTO.getBoard_views()
                  );
+
+
+    }
+
+    public void increaseCommunityViews(int board_no) {
+        String sql = "UPDATE community SET board_views = board_views + 1 WHERE board_no = ?";
+        jdbcTemplate.update(sql, board_no);
     }
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
     public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
-        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end, event_type) VALUES (?,?,?,?,?,?,?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
         jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
                 temporaryPostDTO.getTemp_content(),
                 temporaryPostDTO.getTemp_host(),
                 temporaryPostDTO.getTemp_location(),
                 temporaryPostDTO.getTemp_start(),
-                temporaryPostDTO.getTemp_end()
+                temporaryPostDTO.getTemp_end(),
+                temporaryPostDTO.getEvent_type()
         );
     }
     
@@ -440,7 +456,7 @@ public class BoardRepository {
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
     public void insertReportRepo(ReportDTO reportDTO) {
-        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns,user_id, user_name, event_type) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, reportDTO.getReport_title(),
                 reportDTO.getReport_content(),
                 reportDTO.getReport_host(),
@@ -448,7 +464,10 @@ public class BoardRepository {
                 reportDTO.getReport_start(),
                 reportDTO.getReport_end(),
                 reportDTO.getBrand_link(),
-                reportDTO.getBrand_sns()
+                reportDTO.getBrand_sns(),
+                reportDTO.getUser_id(),
+                reportDTO.getUser_name(),
+                reportDTO.getEvent_type()
         );
     }
 
@@ -485,10 +504,196 @@ public class BoardRepository {
         return result;
     }
 
+    /*
+     * 제보 게시물을 출력하기.
+     * @param notice_no : 게시글번호(notice_no)
+     * @return BoardEntity  형태의 데이터
+     */
+    public ReportEntity getReportOneRepo(int report_no) throws Exception{
+        List<ReportEntity> result = jdbcTemplate.query(
+                "select * from report where report_no=?;",
+                new RowMapper<ReportEntity>() {
+                    @Override
+                    public ReportEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        ReportEntity reportEntity = new ReportEntity();
+                        reportEntity.setReport_no(rs.getInt("report_no"));
+                        reportEntity.setReport_title(rs.getString("report_title"));
+                        reportEntity.setReport_content(rs.getString("report_content"));
+                        reportEntity.setReport_host(rs.getString("report_host"));
+                        reportEntity.setReport_dist(rs.getString("report_dist"));
+                        reportEntity.setReport_subdist(rs.getString("report_subdist"));
+                        reportEntity.setReport_location(rs.getString("report_location"));
+                        reportEntity.setReport_start(rs.getString("report_start"));
+                        reportEntity.setReport_end(rs.getString("report_end"));
+                        reportEntity.setOpen_time(rs.getString("open_time"));
+                        reportEntity.setReport_attachment(rs.getString("report_attachment"));
+                        reportEntity.setEvent_type(rs.getInt("event_type"));
+                        reportEntity.setBrand_link(rs.getString("brand_link"));
+                        reportEntity.setBrand_sns(rs.getString("brand_sns"));
+                        reportEntity.setReport_post_date(rs.getString("report_post_date"));
+                        reportEntity.setUser_id(rs.getString("user_id"));
+                        reportEntity.setUser_name(rs.getString("user_name"));
+                        return reportEntity;
+                    }
+                },report_no);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
+    //동행데시판 모두 불러오기
+    public List<CompanionEntity> getCompanionRepo() throws Exception {
+        //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
+        List<CompanionEntity> result = jdbcTemplate.query("select * from companion ORDER BY comp_post_date DESC;",  new RowMapper<CompanionEntity>() {
+            //콤마 뒤에 RowMapper 객체를 만든다.
+            //해당 객체에서 BoardEntity 형(u)을 반환하는 maprow메소드를 정의한다.(출력 데이터를 담는다)
+            //그리고 해당 결과를 results에 담는다.
+            @Override
+            public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CompanionEntity companionEntity= new CompanionEntity();
+                companionEntity.setComp_no(rs.getInt("comp_no"));
+                companionEntity.setComp_title(rs.getString("comp_title"));
+                companionEntity.setComp_content(rs.getString("comp_content"));
+                companionEntity.setUser_name(rs.getString("user_name"));
+                companionEntity.setUser_id(rs.getString("user_id"));
+                companionEntity.setComp_date(rs.getString("comp_date"));
+                companionEntity.setComp_link(rs.getString("comp_link"));
+                companionEntity.setEvent_type(rs.getString("event_type"));
+                companionEntity.setComp_post_date(rs.getString("comp_post_date"));
+                companionEntity.setComp_views(rs.getInt("comp_views"));
+                return companionEntity;
+            }
+        });
+        //데이터를 담은 List를 반환
+        return result;
+    }
 
+    public CompanionEntity getCompanionOneRepo(int comp_no) throws Exception{
+        List<CompanionEntity> result = jdbcTemplate.query(
+                "select * from companion where comp_no=?;",
+                new RowMapper<CompanionEntity>() {
+                    @Override
+                    public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        CompanionEntity companionEntity = new CompanionEntity();
+                        companionEntity.setComp_no(rs.getInt("comp_no"));
+                        companionEntity.setComp_title(rs.getString("comp_title"));
+                        companionEntity.setComp_content(rs.getString("comp_content"));
+                        companionEntity.setUser_name(rs.getString("user_name"));
+                        companionEntity.setUser_id(rs.getString("user_id"));
+                        companionEntity.setComp_date(rs.getString("comp_date"));
+                        companionEntity.setComp_link(rs.getString("comp_link"));
+                        companionEntity.setEvent_type(rs.getString("event_type"));
+                        companionEntity.setComp_post_date(rs.getString("comp_post_date"));
+                        companionEntity.setComp_views(rs.getInt("comp_views"));
+                        return companionEntity;
+                    }
+                },comp_no);
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public void insertCompanionRepo(CompanionDTO companionDTO) {
+        String sql = "INSERT INTO companion (comp_title, comp_content, user_name, user_id, comp_date, comp_link,event_type, comp_views) VALUES (?,?,?,?,?,?,?,1)";
+        jdbcTemplate.update(sql, companionDTO.getComp_title(),
+                companionDTO.getComp_content(),
+                companionDTO.getUser_name(),
+                companionDTO.getUser_id(),
+                companionDTO.getComp_date(),
+                companionDTO.getComp_link(),
+                companionDTO.getEvent_type()
+
+        );
+    }
+
+    public void increaseCompanionViews(int comp_no) {
+        String sql = "UPDATE companion SET comp_views = comp_views + 1 WHERE comp_no = ?";
+        jdbcTemplate.update(sql, comp_no);
+    }
+
+
+
+    //=====================================================================================//
+    //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 축체 추천 게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
+    //=====================================================================================//
+
+    public List<FestivalEntity> findFestivalsByTags(List<Integer> tags) {
+        if (tags.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM festival WHERE festival_tag1 IN (" + joinTags(tags) + ") OR festival_tag2 IN (" + joinTags(tags) + ") OR festival_tag3 IN (" + joinTags(tags) + ") OR festival_tag4 IN (" + joinTags(tags) + ") OR festival_tag5 IN (" + joinTags(tags) + ")";
+
+        return jdbcTemplate.query(sql, new RowMapper<FestivalEntity>() {
+            @Override
+            public FestivalEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                FestivalEntity festivalEntity = new FestivalEntity();
+                festivalEntity.setFestival_no(rs.getInt("festival_no"));
+                festivalEntity.setFestival_title(rs.getString("festival_title"));
+                festivalEntity.setFestival_content(rs.getString("festival_content"));
+                festivalEntity.setHost(rs.getString("host"));
+                festivalEntity.setFestival_location(rs.getString("festival_location"));
+                festivalEntity.setFestival_start(rs.getString("festival_start"));  // 날짜를 문자열로 가져옴
+                festivalEntity.setFestival_end(rs.getString("festival_end"));
+                festivalEntity.setOpen_time(rs.getString("open_time"));
+                festivalEntity.setFestival_post_date(rs.getString("festival_post_date"));
+                festivalEntity.setFestival_attachment(rs.getString("festival_attachment"));
+                festivalEntity.setEvent_type(rs.getInt("event_type"));
+                festivalEntity.setLike_that(rs.getInt("like_that"));
+                festivalEntity.setViews(rs.getInt("views"));
+                festivalEntity.setBrand_link(rs.getString("brand_link"));
+                festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                festivalEntity.setFestival_dist(rs.getString("festival_dist"));
+                festivalEntity.setFestival_subdist(rs.getString("festival_subdist"));
+                festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
+                return festivalEntity;
+            }
+        });
+    }
+
+    public List<PopupEntity> findPopupsByTags(List<Integer> tags) {
+        if (tags.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM popup WHERE popup_tag1 IN (" + joinTags(tags) + ") OR popup_tag2 IN (" + joinTags(tags) + ") OR popup_tag3 IN (" + joinTags(tags) + ") OR popup_tag4 IN (" + joinTags(tags) + ") OR popup_tag5 IN (" + joinTags(tags) + ")";
+
+        return jdbcTemplate.query(sql, new RowMapper<PopupEntity>() {
+            @Override
+            public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopupEntity popupEntity = new PopupEntity();
+                popupEntity.setPopup_no(rs.getInt("popup_no"));
+                popupEntity.setPopup_title(rs.getString("popup_title"));
+                popupEntity.setPopup_content(rs.getString("popup_content"));
+                popupEntity.setHost(rs.getString("host"));
+                popupEntity.setPopup_location(rs.getString("popup_location"));
+                popupEntity.setPopup_start(rs.getString("popup_start"));
+                popupEntity.setPopup_end(rs.getString("popup_end"));
+                popupEntity.setOpen_time(rs.getString("open_time"));
+                popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                popupEntity.setEvent_type(rs.getInt("event_type"));
+                popupEntity.setLike_that(rs.getInt("like_that"));
+                popupEntity.setViews(rs.getInt("views"));
+                popupEntity.setBrand_link(rs.getString("brand_link"));
+                popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+                return popupEntity;
+            }
+        });
+    }
+
+    private String joinTags(List<Integer> tags) {
+        return String.join(",", tags.stream().map(String::valueOf).toArray(String[]::new));
+    }
 }
-
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결

@@ -140,3 +140,4 @@ function showCustomAlert(message) {
 function closeCustomAlert() {
     $("#customAlertModal").css("display", "none");
 }
+
