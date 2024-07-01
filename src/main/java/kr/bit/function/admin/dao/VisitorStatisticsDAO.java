@@ -47,6 +47,8 @@ public class VisitorStatisticsDAO {
 
             try (PreparedStatement statement = connection.prepareStatement(sql);
                  PreparedStatement logStatement = connection.prepareStatement(logSql)) {
+                connection.setAutoCommit(false); // 트랜잭션 시작
+
                 statement.setDate(1, visitDate);
                 statement.executeUpdate();
 
@@ -55,11 +57,24 @@ public class VisitorStatisticsDAO {
                 logStatement.setTimestamp(3, currentTime);
                 logStatement.executeUpdate();
 
+                connection.commit(); // 트랜잭션 커밋
+
                 session.setAttribute("recentVisit", true);
                 session.setAttribute("lastVisit", currentTime);
                 session.setMaxInactiveInterval(30 * 60); // 세션 타임아웃을 30분으로 설정
             } catch (SQLException e) {
+                try {
+                    connection.rollback(); // 오류 발생 시 롤백
+                } catch (SQLException rollbackEx) {
+                    rollbackEx.printStackTrace();
+                }
                 e.printStackTrace();
+            } finally {
+                try {
+                    connection.setAutoCommit(true); // 트랜잭션 종료
+                } catch (SQLException finalEx) {
+                    finalEx.printStackTrace();
+                }
             }
         }
     }

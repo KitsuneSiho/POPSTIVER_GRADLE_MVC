@@ -82,6 +82,9 @@
                     <li><a href="${root}/free">자유게시판</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="${root}/recommended">추천행사</a>
+            </li>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <li>
                 <a href="${root}/admin">관리자</a>

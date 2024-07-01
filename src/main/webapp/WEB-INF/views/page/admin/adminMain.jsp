@@ -32,6 +32,13 @@
         .card-link:hover {
             text-decoration: underline;
         }
+        .review-item {
+            border-bottom: 1px solid #dee2e6;
+            padding: 10px 0;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
         .chart-container {
             position: relative;
             height: 200px;
@@ -129,10 +136,17 @@
                         <div class="card dashboard-card">
                             <div class="card-body">
                                 <h5 class="card-title">Recent Reviews</h5>
-                                <div class="chart-container">
-                                    <canvas id="recentReviewsChart"></canvas>
+                                <div class="review-list">
+                                    <c:forEach var="review" items="${recentComments}" varStatus="status">
+                                        <c:if test="${status.index < 5}">
+                                            <div class="review-item">
+                                                <strong>${review.comment_writer}</strong> - ${review.comment_content}
+                                                <br><small class="text-muted">${review.comment_date}</small>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
                                 </div>
-                                <a href="<c:url value='/recentReviews' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/recentReviews' />" class="card-link">View All Reviews</a>
                             </div>
                         </div>
                     </div>
@@ -153,7 +167,7 @@
 <!-- JavaScript 파일 포함 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<c:url value='/resources/js/adminMain.js' />"></script>
 </body>

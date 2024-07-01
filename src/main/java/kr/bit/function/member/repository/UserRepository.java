@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -19,14 +20,16 @@ public class UserRepository {
     public UserRepository(JdbcTemplate jdbcTemplate) {  this.jdbcTemplate = jdbcTemplate;
     }
 
-    public MemberEntity findByUserId(String userId) {
-        String sql = "SELECT * FROM user WHERE user_id = ?";
+    public Optional<MemberEntity> findByUserIdAndEmail(String userId, String userEmail) {
+        String sql = "SELECT * FROM user WHERE user_id = ? AND user_email = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new UserEntityRowMapper());
+            MemberEntity user = jdbcTemplate.queryForObject(sql, new Object[]{userId, userEmail}, new UserEntityRowMapper());
+            return Optional.ofNullable(user);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return Optional.empty();
         }
     }
+
 
     private static class UserEntityRowMapper implements RowMapper<MemberEntity> {
         @Override

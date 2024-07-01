@@ -1,6 +1,7 @@
 package kr.bit.config;
 
 import jakarta.servlet.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -9,6 +10,9 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import java.io.File;
 
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Value("${file.upload-dir}")
+    private String uploadDirectory;
 
     // DispatcherServlet의 URL 매핑을 정의합니다. "/"는 모든 요청을 처리한다는 의미입니다.
     @Override
@@ -45,7 +49,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
 
-        String uploadDirectory = "C:\\POPSTIVER_GRADLE_MVC_TEST\\src\\main\\webapp\\resources\\uploads\\";
         // MultipartConfigElement를 설정하여 최대 파일 크기, 최대 요청 크기를 지정합니다.
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
                 uploadDirectory,

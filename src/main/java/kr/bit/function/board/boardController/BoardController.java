@@ -1,8 +1,11 @@
 package kr.bit.function.board.boardController;
 
 
+import jakarta.servlet.http.HttpSession;
 import kr.bit.function.board.boardDAO.BoardRepository;
 import kr.bit.function.board.boardDTO.*;
+import kr.bit.function.board.boardEntity.FestivalEntity;
+import kr.bit.function.board.boardEntity.PopupEntity;
 import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.member.dto.CustomOAuth2User;
@@ -15,15 +18,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class BoardController {
@@ -32,6 +40,7 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
 
     //로그객체 선언하기.
     private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -83,8 +92,26 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/festival_Details/{festival_no}", method = RequestMethod.GET)
-    public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model) {
+    public String festivalDetails(@PathVariable("festival_no") int festivalNo, Model model, HttpSession session) {
         try {
+            // 세션에서 조회한 게시물 ID 리스트를 가져옵니다.
+            Set<Integer> viewedFestivalNo = (Set<Integer>) session.getAttribute("viewedFestivalNo");
+            if (viewedFestivalNo == null) {
+                viewedFestivalNo = new HashSet<>();
+            }
+
+            // 게시물을 조회합니다.
+            try {
+                // 게시물을 조회합니다.
+                FestivalBoardDTO festivalBoardDTO = boardService.selectFestivalOne(festivalNo);
+                if (!viewedFestivalNo.contains(festivalNo)) {
+                    boardService.increaseFestivalViews(festivalNo); // 조회수 증가 메서드 호출
+                    viewedFestivalNo.add(festivalNo); // 세션에 조회한 게시물 ID 추가
+                    session.setAttribute("viewedFestivalNo", viewedFestivalNo); // 세션 업데이트
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
             // 특정 축제 정보
             FestivalBoardDTO festival = boardService.selectFestivalOne(festivalNo);
             model.addAttribute("festival", festival);
@@ -105,8 +132,26 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/popup_Details/{popup_no}", method = RequestMethod.GET)
-    public String popupDetails(@PathVariable("popup_no") int popupNo, Model model) {
+    public String popupDetails(@PathVariable("popup_no") int popupNo, Model model, HttpSession session) {
         try {
+            // 세션에서 조회한 게시물 ID 리스트를 가져옵니다.
+            Set<Integer> viewedPopupNo = (Set<Integer>) session.getAttribute("viewedPopupNo");
+            if (viewedPopupNo == null) {
+                viewedPopupNo = new HashSet<>();
+            }
+
+            // 게시물을 조회합니다.
+            try {
+                // 게시물을 조회합니다.
+                PopupBoardDTO popupBoardDTO = boardService.selectPopupOne(popupNo);
+                if (!viewedPopupNo.contains(popupNo)) {
+                    boardService.increasePopupViews(popupNo); // 조회수 증가 메서드 호출
+                    viewedPopupNo.add(popupNo); // 세션에 조회한 게시물 ID 추가
+                    session.setAttribute("viewedPopupNo", viewedPopupNo); // 세션 업데이트
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
             // 특정 축제 정보
             PopupBoardDTO popup = boardService.selectPopupOne(popupNo);
             model.addAttribute("popup", popup);
@@ -206,12 +251,26 @@ public class BoardController {
     }
     @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
     //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
-    public String selectCommunityOne(@PathVariable("board_no") int board_no, Model model) {
+    public String selectCommunityOne(@PathVariable("board_no") int board_no, HttpSession session, Model model) {
         try {
-            //위에서 선언한 service의 selectOne()메소드 요청한다.
-            //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
-            //selectOne메소드를 통해 나온 리턴값을 value로 해서
-            //'list'란 key값으로 model에 담는다.
+
+            // 세션에서 조회한 게시물 ID 리스트를 가져옵니다.
+            Set<Integer> viewedBoardNo = (Set<Integer>) session.getAttribute("viewedBoardNo");
+            if (viewedBoardNo == null) {
+                viewedBoardNo = new HashSet<>();
+            }
+
+            // 게시물을 조회합니다.
+            try {
+                CommunityDTO communityDTO = boardService.selectCommunityOne(board_no);
+                if (!viewedBoardNo.contains(board_no)) {
+                    boardService.increaseCommunityViews(board_no); // 조회수 증가 메서드 호출
+                    viewedBoardNo.add(board_no); // 세션에 조회한 게시물 ID 추가
+                    session.setAttribute("viewedBoardNo", viewedBoardNo); // 세션 업데이트
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
             model.addAttribute("community",boardService.selectCommunityOne(board_no));
         }catch(Exception e) {
             e.printStackTrace();
@@ -336,12 +395,28 @@ public class BoardController {
     //=====================================================================================//
     @RequestMapping(value = "/together/{comp_no}", method = RequestMethod.GET)
     //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
-    public String selectCompanionOne(@PathVariable("comp_no") int comp_no, Model model) {
+    public String selectCompanionOne(@PathVariable("comp_no") int comp_no, Model model, HttpSession session) {
         try {
             //위에서 선언한 service의 selectOne()메소드 요청한다.
             //매개변수로 선언한 studentid를 인자로 하여 selectOne()에 넣는다.
             //selectOne메소드를 통해 나온 리턴값을 value로 해서
+            // 세션에서 조회한 게시물 ID 리스트를 가져옵니다.
+            Set<Integer> viewedCompNo = (Set<Integer>) session.getAttribute("viewedCompNo");
+            if (viewedCompNo == null) {
+                viewedCompNo = new HashSet<>();
+            }
 
+            // 게시물을 조회합니다.
+            try {
+                CompanionDTO companionDTO = boardService.selectCompanionOne(comp_no);
+                if (!viewedCompNo.contains(comp_no)) {
+                    boardService.increaseCompanionViews(comp_no); // 조회수 증가 메서드 호출
+                    viewedCompNo.add(comp_no); // 세션에 조회한 게시물 ID 추가
+                    session.setAttribute("viewedPopupNo", viewedCompNo); // 세션 업데이트
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
             model.addAttribute("together",boardService.selectCompanionOne(comp_no));
         }catch(Exception e) {
             e.printStackTrace();

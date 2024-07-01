@@ -29,6 +29,7 @@ public interface BoardService {
     // 해당 게시글 번호를 가진 댓글 전체 출력
     public List<FestivalCommentDTO> selectFestivalComment(int festival_no) throws Exception;
 
+    public void increaseFestivalViews(int board_no);
 
 
     //=====================================================================================//
@@ -54,12 +55,14 @@ public interface BoardService {
     // 해당 게시글 번호를 가진 댓글 전체 출력
     public List<PopupCommentDTO> selectPopupComment(int popup_no) throws Exception;
 
+    public void increasePopupViews(int board_no);
     //=====================================================================================//
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
     public void insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectCommunityAll() throws Exception;
     public CommunityDTO selectCommunityOne(int board_no) throws Exception;
+    public void increaseCommunityViews(int board_no);
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
@@ -83,5 +86,6 @@ public interface BoardService {
     public List<CompanionDTO> selectCompanionAll() throws Exception;
     public CompanionDTO selectCompanionOne(int comp_no) throws Exception;
 
+    public void increaseCompanionViews(int board_no);
 
 }
