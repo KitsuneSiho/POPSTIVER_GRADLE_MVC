@@ -34,18 +34,20 @@ function submitForm(event) {
     var userId = $("input[name='user_id']").val();
     var userName = $("input[name='user_name']").val();
     var boardAttachment = $("input[name='board_attachment']")[0].files[0];
-
+    var boardViews = $("input[name='board_views']").val();
     console.log(boardTitle);
     console.log(boardContent);
     console.log(userId);
     console.log(userName);
     console.log(boardAttachment);
+    console.log(boardViews);
 
     var formData = new FormData();
     formData.append("board_title", boardTitle);
     formData.append("board_content", boardContent);
     formData.append("user_id", userId);
     formData.append("user_name", userName);
+    formData.append("board_views", boardViews);
     if (boardAttachment) {
         formData.append("file", boardAttachment);
     }

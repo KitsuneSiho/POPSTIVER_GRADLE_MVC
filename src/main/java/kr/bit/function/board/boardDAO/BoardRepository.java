@@ -405,14 +405,15 @@ public class BoardRepository {
     }
 
     public void insertCommunityRepo(CommunityDTO communityDTO) {
-        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name, board_attachment) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name, board_attachment, board_views) VALUES (?, ?, ?, ?, ?, ?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
         jdbcTemplate.update(sql,
                 communityDTO.getBoard_title(),
                 communityDTO.getBoard_content(),
                 communityDTO.getUser_id(),
                 communityDTO.getUser_name(),
-                communityDTO.getBoard_attachment()
+                communityDTO.getBoard_attachment(),
+                communityDTO.getBoard_views()
                  );
     }
     //=====================================================================================//

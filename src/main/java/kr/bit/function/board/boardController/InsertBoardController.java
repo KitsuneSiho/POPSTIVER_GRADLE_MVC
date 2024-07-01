@@ -26,17 +26,13 @@ public class InsertBoardController {
     private ServletContext servletContext;
 
     @PutMapping("/insertWrite")
+    @ResponseBody
     public void insertFreeWrite(@RequestParam("board_title") String boardTitle,
                                                   @RequestParam("board_content") String boardContent,
                                                   @RequestParam("user_id") String userId,
                                                   @RequestParam("user_name") String userName,
+                                                    @RequestParam(value = "board_views", defaultValue = "0") int boardViews,
                                                     @RequestPart("file") MultipartFile boardAttachment) {
-
-        logger.debug("Received board_title: {}", boardTitle);
-        logger.debug("Received board_content: {}", boardContent);
-        logger.debug("Received user_id: {}", userId);
-        logger.debug("Received user_name: {}", userName);
-
 
         try {
             CommunityDTO communityDTO = new CommunityDTO();
@@ -44,10 +40,10 @@ public class InsertBoardController {
             communityDTO.setBoard_content(boardContent);
             communityDTO.setUser_id(userId);
             communityDTO.setUser_name(userName);
+            communityDTO.setBoard_views(boardViews);
 
             // 파일 처리
             if (boardAttachment != null && !boardAttachment.isEmpty()) {
-                // 파일 저장 경로 설정 (예시: C:/POPSTIVER_GRADLE_MVC_TEST/src/main/webapp/resources/uploads 디렉토리)
                 String uploadDirectory = "C:\\POPSTIVER_GRADLE_MVC_TEST\\src\\main\\webapp\\resources\\uploads\\";
                 File uploadDir = new File(uploadDirectory);
                 if (!uploadDir.exists()) {
@@ -56,8 +52,6 @@ public class InsertBoardController {
 
                 String originalFilename = boardAttachment.getOriginalFilename();
                 String filePath = uploadDirectory + originalFilename;
-
-                logger.debug("파일 경로: {}", filePath);
 
                 // 파일 저장
                 File dest = new File(filePath);

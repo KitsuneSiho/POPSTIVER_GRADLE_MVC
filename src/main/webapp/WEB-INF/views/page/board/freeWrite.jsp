@@ -56,7 +56,7 @@
 
 
 <div class="business">
-    <form method="post" onsubmit="submitForm(event)" enctype="multipart/form-data">
+    <form onsubmit="submitForm(event)" method="post" enctype="multipart/form-data">
         <ul class="businessList">
             <li>
                 <span>제목</span>
@@ -77,7 +77,7 @@
             <!-- Hidden inputs for user_id and user_nickname -->
             <input type="hidden" id="user_id" name="user_id" value="">
             <input type="hidden" id="user_name" name="user_name" value="">
-            <input type="hidden" id="views" name="views" value="0">
+            <input type="hidden" id="board_views" name="board_views" value="0">
 
         </ul>
         <div class="updateButton">
