@@ -36,6 +36,9 @@
 
 </head>
 <body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 <header class="mainTop">
     <div class="mainTopLogo">
         <h1><a href="#" onclick="redirectRandom()">POPSTIVER</a></h1>
@@ -88,8 +91,10 @@
     </div>
 
     <div class="weather">
-        <p>날씨 위젯</p>
+        <jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
+
     </div>
+
 
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
