@@ -12,12 +12,16 @@ import kr.bit.function.member.dto.NaverResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -216,25 +220,8 @@ public class BoardController {
         return "page/board/communityDetails";
     }
 
-    @RequestMapping(value = "/freeBoard")
-    @Controller
-    class InsertCommunityController{
 
-        @PutMapping("/insertWrite")
-        @ResponseBody
-        public void insertFreeWrite(@RequestBody CommunityDTO communityDTO){
-            try {
-                System.out.println("제목:"+communityDTO.getBoard_title());
-                System.out.println("내용:"+communityDTO.getBoard_content());
-                System.out.println("사용자아이디:"+communityDTO.getUser_id());
-                System.out.println("사용자명:"+communityDTO.getUser_name());
-                boardService.insertCommunity(communityDTO);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
     // 자유 게시판 글 등록
 
     //=====================================================================================//

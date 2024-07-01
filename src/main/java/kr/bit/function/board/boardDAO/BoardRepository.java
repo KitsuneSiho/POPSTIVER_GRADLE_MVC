@@ -404,6 +404,7 @@ public class BoardRepository {
                         communityEntity.setBoard_title(rs.getString("board_title"));
                         communityEntity.setBoard_content(rs.getString("board_content"));
                         communityEntity.setUser_name(rs.getNString("user_name"));
+                        communityEntity.setBoard_attachment(rs.getString("board_attachment"));
                         communityEntity.setBoard_post_date(rs.getString("board_post_date"));
                         return communityEntity;
                     }
@@ -412,12 +413,14 @@ public class BoardRepository {
     }
 
     public void insertCommunityRepo(CommunityDTO communityDTO) {
-        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO community (board_title, board_content, user_id, user_name, board_attachment) VALUES (?, ?, ?, ?, ?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
-        jdbcTemplate.update(sql, communityDTO.getBoard_title(),
+        jdbcTemplate.update(sql,
+                communityDTO.getBoard_title(),
                 communityDTO.getBoard_content(),
                 communityDTO.getUser_id(),
-                communityDTO.getUser_name()
+                communityDTO.getUser_name(),
+                communityDTO.getBoard_attachment()
                  );
     }
     //=====================================================================================//

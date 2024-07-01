@@ -56,7 +56,7 @@
 
 
 <div class="business">
-    <form method="post" onsubmit="submitForm(event)">
+    <form method="post" onsubmit="submitForm(event)" enctype="multipart/form-data">
         <ul class="businessList">
             <li>
                 <span>제목</span>
