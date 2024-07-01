@@ -167,6 +167,7 @@ body, html {
     height: 100%;
     object-fit: cover;
     transform: translate(-50%, -50%);
+    filter: grayscale(20%);
 }
 
 /* 반응형 디자인 */
