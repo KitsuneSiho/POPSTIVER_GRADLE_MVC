@@ -1,6 +1,8 @@
 package kr.bit.controller;
 
+import kr.bit.function.page.pageEntity.FestivalUpcomingEntity;
 import kr.bit.function.page.pageEntity.PopupUpcomingEntity;
+import kr.bit.function.page.pageService.FestivalUpcomingService;
 import kr.bit.function.page.pageService.PopupUpcomingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +18,8 @@ public class FlowController {
 
     @Autowired
     private PopupUpcomingService popupUpcomingService;
+    @Autowired
+    private FestivalUpcomingService festivalUpcomingService;
 
     @GetMapping("/")//"/" 경로로 들어가면 일단 메인페이지로 리다이렉트 시킨다.
     public String home() {
@@ -101,7 +105,9 @@ public class FlowController {
     }
 
     @GetMapping("mainFestival")//페스티벌메인페이지(메인에서 페스티벌 눌렀을때)
-    public String mainFestival_page() {
+    public String mainFestival_page(Model model) {
+        List<FestivalUpcomingEntity> upcomingFestivals = festivalUpcomingService.getUpcomingFestivals();
+        model.addAttribute("upcomingFestivals", upcomingFestivals);
         return "page/main/mainFestival";
     }
 
