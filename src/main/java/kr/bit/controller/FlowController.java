@@ -38,10 +38,10 @@ public class FlowController {
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "forward:/member/myPage";
     }
-    @GetMapping("bookmark")//관심행사페이지
-    public String bookmark_page() {
-        return "page/myPage/bookmark";
-    }
+//    @GetMapping("bookmark")//관심행사페이지
+//    public String bookmark_page() {
+//        return "page/myPage/bookmark";
+//    }
 
     @GetMapping("calendar")//행사일정페이지
     public String calendar_page() {
@@ -94,6 +94,9 @@ public class FlowController {
     public String togetherWrite_page() {
         return "page/board/togetherWrite";
     }
+
+    @GetMapping("noticeWrite")
+    public String noticeWrite_page() {return "page/board/noticeWrite"; }
 
     @GetMapping("popularAdd")//인기 페스티벌 정보 페이지(메인페이지에서 인기 더보기 눌렀을때)
     public String popularAdd_page() {

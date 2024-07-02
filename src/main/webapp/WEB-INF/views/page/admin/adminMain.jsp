@@ -8,7 +8,8 @@
     <title>Admin Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />"
+    <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
+    <style>
         .dashboard-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -91,7 +92,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Business Inquiries</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${businessInquiries}</h6>
-                                <p class="card-text">+1.25% Since last week</p>
+                                <p class="card-text">
+                                    <fmt:formatNumber value="${businessInquiriesGrowthRate}" pattern="+#,##0.0;-#,##0.0" />% Since last week
+                                </p>
                                 <a href="<c:url value='/businessContents' />" class="card-link">View Details</a>
                             </div>
                         </div>

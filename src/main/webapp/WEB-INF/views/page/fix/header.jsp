@@ -41,7 +41,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 <header class="mainTop">
     <div class="mainTopLogo">
-<%--        <h1><a href="#" onclick="redirectRandom()">POPSTIVER</a></h1>--%>
         <h1><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='${root}/mainPopup'">POP-UP</button>

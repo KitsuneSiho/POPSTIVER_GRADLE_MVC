@@ -8,6 +8,7 @@ function getUserInfoAndSetUserId() {
         url: "/member/getUserInfo",
         success: function (response) {
             if (response && response.user_id && response.user_nickname) {
+// Set the user_id and user_nickname in the hidden input fields
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
             } else {

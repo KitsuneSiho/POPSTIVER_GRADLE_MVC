@@ -56,22 +56,35 @@ public class CommentService {
 
     // 축제 댓글 목록 조회
     public List<FestivalCommentDTO> getFestivalComments() {
-        String sql = "SELECT * FROM festival_comment";
+        String sql = "SELECT * FROM festival_comment ORDER BY comment_date DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FestivalCommentDTO.class));
     }
 
     // 팝업 댓글 목록 조회
     public List<PopupCommentDTO> getPopupComments() {
-        String sql = "SELECT * FROM popup_comment";
+        String sql = "SELECT * FROM popup_comment ORDER BY comment_date DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PopupCommentDTO.class));
     }
 
     // 최근 댓글 5개 가져오기
     public List<TotalCommentDTO> getRecentComments(int limit) {
-        String sql = "(SELECT 'festival' AS type, comment_writer, comment_content, comment_date FROM festival_comment) " +
+        String sql = "(SELECT 'festival' AS type, TRIM(comment_writer) AS comment_writer, comment_content, comment_date FROM festival_comment) " +
                 "UNION " +
-                "(SELECT 'popup' AS type, comment_writer, comment_content, comment_date FROM popup_comment) " +
+                "(SELECT 'popup' AS type, TRIM(comment_writer) AS comment_writer, comment_content, comment_date FROM popup_comment) " +
                 "ORDER BY comment_date DESC LIMIT ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TotalCommentDTO.class), limit);
     }
+
+    // 축제 댓글 목록 조회 및 평균 star_rate 계산
+    public double getFestivalStarAvg(int festivalNo) {
+        String sql = "SELECT AVG(star_rate) FROM festival_comment WHERE festival_no = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{festivalNo}, Double.class);
+    }
+
+    // 축제 댓글 목록 조회 및 평균 star_rate 계산
+    public double getPopupStarAvg(int popupNo) {
+        String sql = "SELECT AVG(star_rate) FROM popup_comment WHERE popup_no = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{popupNo}, Double.class);
+    }
+
 }
