@@ -62,8 +62,8 @@
 </head>
 <body>
 
-<input type="hidden" id="user_id" value="${sessionScope.user_id}">
-<input type="hidden" id="user_name" value="${sessionScope.user_name}">
+<input type="hidden" id="userId" value="${sessionScope.user_id}">
+<input type="hidden" id="userName" value="${sessionScope.user_name}">
 
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 

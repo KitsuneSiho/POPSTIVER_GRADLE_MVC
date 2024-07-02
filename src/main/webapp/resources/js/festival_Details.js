@@ -79,6 +79,10 @@ function submitForm(event) {
     var visitDate = $("input[name='visit_date']").val();
     var starRate = $("#star_rate").val();
 
+
+    console.log(userId);
+    console.log(userName);
+
     $.ajax({
         method: "put",
         url: "/comment/festivalInsert",
