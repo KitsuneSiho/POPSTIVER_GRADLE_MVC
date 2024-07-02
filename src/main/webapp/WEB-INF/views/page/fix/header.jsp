@@ -101,13 +101,13 @@
 
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
-            <button class="loginButton" onclick="window.location.href='login'">
+            <button class="loginButton" onclick="window.location.href='${root}/login'">
                 로그인
             </button>
         </sec:authorize>
 
         <sec:authorize access="isAuthenticated()">
-            <button class="logoutButton" onclick="window.location.href='logout'">
+            <button class="logoutButton" onclick="window.location.href='${root}/logout'">
                 로그아웃
             </button>
         </sec:authorize>
