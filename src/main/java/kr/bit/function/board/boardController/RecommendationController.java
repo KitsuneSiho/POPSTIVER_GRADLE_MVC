@@ -64,16 +64,6 @@ public class RecommendationController {
             }
 
             LOGGER.info("User Email: " + userEmail);
-
-            if (userEmail == null) {
-                throw new RuntimeException("User email not found");
-            }
-
-            MemberEntity user = userRepository.findByUserEmail(userEmail);
-            if (user != null) {
-                userId = user.getUser_id();
-            }
-
             LOGGER.info("User ID: " + userId);
 
             if (userEmail == null || userId == null) {

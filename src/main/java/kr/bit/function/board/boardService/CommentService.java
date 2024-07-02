@@ -56,13 +56,13 @@ public class CommentService {
 
     // 축제 댓글 목록 조회
     public List<FestivalCommentDTO> getFestivalComments() {
-        String sql = "SELECT * FROM festival_comment";
+        String sql = "SELECT * FROM festival_comment ORDER BY comment_date DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(FestivalCommentDTO.class));
     }
 
     // 팝업 댓글 목록 조회
     public List<PopupCommentDTO> getPopupComments() {
-        String sql = "SELECT * FROM popup_comment";
+        String sql = "SELECT * FROM popup_comment ORDER BY comment_date DESC";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PopupCommentDTO.class));
     }
 

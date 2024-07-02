@@ -12,7 +12,7 @@ import java.io.File;
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Value("${file.upload-dir}")
-    private String uploadDirectory;
+    private String uploadDir;
 
     // DispatcherServlet의 URL 매핑을 정의합니다. "/"는 모든 요청을 처리한다는 의미입니다.
     @Override
@@ -51,7 +51,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
         // MultipartConfigElement를 설정하여 최대 파일 크기, 최대 요청 크기를 지정합니다.
         MultipartConfigElement multipartConfigElement = new MultipartConfigElement(
-                uploadDirectory,
+                uploadDir,
                 1024 * 1024 * 10, // 최대 업로드 파일 크기: 10MB
                 1024 * 1024 * 20, // 최대 요청 크기: 20MB
                 1024 * 1024 * 5   // 파일 사이즈 임계값: 5MB
