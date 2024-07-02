@@ -5,6 +5,8 @@ import kr.bit.function.board.boardService.BoardService;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,10 +19,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.stream.Collectors;
 
+
+@PropertySource("classpath:properties/application.properties") //프로퍼티 소스를 불러오겠다!
 @Controller
 @RequestMapping(value = "/freeBoard")
 public class InsertBoardController {
 
+    @Value("${ServerURL}")
+    private String ServerURL;
 
     private static final Logger logger = LoggerFactory.getLogger(InsertBoardController.class);
     private BoardService boardService;
@@ -67,7 +73,7 @@ public class InsertBoardController {
     }
 
     private String uploadFileToServer(MultipartFile file, String userId) throws IOException {
-        String uploadUrl = "http://localhost:5000/upload"; // Flask 서버의 파일 업로드 엔드포인트 URL
+        String uploadUrl = ServerURL + "/upload"; // Flask 서버의 파일 업로드 엔드포인트 URL
         URL url = new URL(uploadUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
