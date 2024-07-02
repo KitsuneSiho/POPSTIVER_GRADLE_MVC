@@ -9,6 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="${root}/resources/css/searchResultCss/posterInfo.css">
     <title>POPSTIVER</title>
     <style>
@@ -77,16 +79,14 @@
             <li><button>${popup.popup_tag3}</button></li>
             <li><button>${popup.popup_tag4}</button></li>
             <li><button>${popup.popup_tag5}</button></li>
-            <li><img src="${root}/resources/asset/조회수.svg" alt="">
-                <p>${popup.views}</p></li>
-            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
-                <p>123</p></li>
+
+            <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${popup.views}</p></li>
             <li>
                 <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                      class="bookmark"
                      alt=""
-                     data-event-no="${result.event_no}"
-                     data-event-type="${result.event_type}">
+                     data-event-no="${popup.popup_no}"
+                     data-event-type="${popup.event_type}">
                 <span class="like-count">${likeCount}</span>
             </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
@@ -147,8 +147,8 @@
 
                 <input type="hidden" name="popup_no" value="${popup.popup_no}">
                 <input type="hidden" name="event_type" value="${popup.event_type}">
-                <input type="hidden" id="user_id" value="${sessionScope.user_id}">
-                <input type="hidden" id="user_name" value="${sessionScope.user_name}">
+                <input type="hidden" id="user_name" name="user_name" value="">
+                <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
                     <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
                     <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
@@ -163,21 +163,6 @@
                     <input type="hidden" name="star_rate" id="star_rate">
                     <button type="submit">등록</button>
                 </div>
-                <input type="hidden" id="user_name" name="user_name" value="${sessionScope.user_name}">
-                <input type="hidden" id="user_id" name="user_id" value="${sessionScope.user_id}">
-                <!--<input type="hidden" id="user_name" name="user_name" value="">
-                <input type="hidden" id="user_id" name="user_id" value=""> -->
-                <input type="text" name="comment_content" placeholder="후기를 입력해주세요.">
-                <input type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
-                <div class="stars" id="starRating">
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="5">&#9733;</span>
-                </div>
-                <input type="hidden" name="star_rate" id="star_rate">
-                <button type="submit">등록</button>
             </form>
             <div class="detailInfoReviewTable">
                 <table>
@@ -204,9 +189,9 @@
                                 </c:forEach>
                             </div>
                             <td>
-                                <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
-                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
-                                </div>
+                            <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
+                                <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
+                            </div>
                             </td>
                         </tr>
                     </c:forEach>
@@ -229,7 +214,6 @@
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 <script src="${root}/resources/js/shareModal.js"></script>
-<script src="${root}/resources/js/like.js"></script>
 <script>
     var geocoder = new kakao.maps.services.Geocoder();
 

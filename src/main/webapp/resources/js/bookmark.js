@@ -38,8 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (section.hasResults) {
             const sectionElement = document.getElementById(section.id);
             const contentElement = document.getElementById(section.contentId);
-            contentElement.style.display = "block";
-            sectionElement.querySelector('img.arrow').classList.add("on");
+            if (contentElement) contentElement.style.display = "block";
+            if (sectionElement) {
+                const arrow = sectionElement.querySelector('img.arrow');
+                if (arrow) arrow.classList.add("on");
+            }
         }
     });
 });
@@ -57,17 +60,7 @@ function toggleSearchList(element) {
     }
 }
 
-// 메뉴 토글 함수
-function toggleMenu() {
-    var modal = document.getElementById('menuModal');
-    if (modal.style.display === "none" || modal.style.display === "") {
-        modal.style.display = "block";
-    } else {
-        modal.style.display = "none";
-    }
-}
-
-// 캐러셀 관련 변수와 함수
+// 캐러셀 관련 변수와 함수 (필요한 경우)
 let currentSlide = 0;
 
 function showSlide(index) {

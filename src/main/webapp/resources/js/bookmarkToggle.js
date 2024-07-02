@@ -1,24 +1,41 @@
 document.addEventListener("DOMContentLoaded", function() {
     const bookmarks = document.querySelectorAll(".bookmark");
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
 
     bookmarks.forEach(function(bookmark) {
-        bookmark.addEventListener("click", function() {
+        bookmark.addEventListener("click", function(event) {
+            event.preventDefault();
             const eventNo = this.getAttribute("data-event-no");
             const eventType = this.getAttribute("data-event-type");
+
+            console.log("Sending like toggle request");
+            console.log("Event No:", eventNo);
+            console.log("Event Type:", eventType);
+
+            if (!eventNo || !eventType) {
+                console.error("Event No or Event Type is missing");
+                return;
+            }
 
             fetch('/api/like/toggle', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="_csrf"]').getAttribute('content')
+                    'X-CSRF-TOKEN': csrfToken || ''
                 },
                 body: JSON.stringify({
                     event_no: eventNo,
                     event_type: eventType
                 }),
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("Received response:", data);
                     if (data.isLiked) {
                         this.setAttribute("src", "/resources/asset/좋아요.svg");
                     } else {
@@ -40,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function updateOtherPages(eventNo, eventType, isLiked, likeCount) {
+    console.log("Updating other pages");
+    console.log("Event No:", eventNo);
+    console.log("Event Type:", eventType);
+    console.log("Is Liked:", isLiked);
+    console.log("Like Count:", likeCount);
+
     const bookmarks = document.querySelectorAll(`.bookmark[data-event-no="${eventNo}"][data-event-type="${eventType}"]`);
     bookmarks.forEach(bookmark => {
         bookmark.setAttribute("src", isLiked ? "/resources/asset/좋아요.svg" : "/resources/asset/아니좋아요.svg");

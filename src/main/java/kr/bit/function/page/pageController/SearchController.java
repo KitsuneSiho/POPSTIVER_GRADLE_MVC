@@ -1,6 +1,6 @@
 package kr.bit.function.page.pageController;
 
-
+import kr.bit.function.like.BookmarkDTO;
 import kr.bit.function.like.LikeService;
 import kr.bit.function.member.dto.CustomOAuth2User;
 import kr.bit.function.member.dto.GoogleResponse;
@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/main")
@@ -41,9 +42,17 @@ public class SearchController {
 
         if (customOAuth2User != null) {
             String userId = getUserId(customOAuth2User);
+            List<BookmarkDTO> likedEvents = likeService.getLikedEvents(userId);
+
+            // 좋아요한 이벤트의 ID와 타입을 Set으로 만듭니다.
+            Set<String> likedEventSet = likedEvents.stream()
+                    .map(event -> event.getEvent_no() + "-" + event.getEvent_type())
+                    .collect(Collectors.toSet());
+
             for (SearchResult result : searchResults) {
-                // isLiked 메소드 대신에 직접 좋아요 여부를 확인하는 로직을 구현합니다.
-                result.setIsLiked(checkIsLiked(userId, result.getEvent_no(), result.getEvent_type()));
+                // 현재 검색 결과가 좋아요한 이벤트 목록에 있는지 확인합니다.
+                boolean isLiked = likedEventSet.contains(result.getEvent_no() + "-" + result.getEvent_type());
+                result.setIsLiked(isLiked);
             }
         }
 
@@ -71,19 +80,5 @@ public class SearchController {
                 break;
         }
         return userId;
-    }
-
-    // 좋아요 여부를 확인하는 메소드를 직접 구현합니다.
-    private boolean checkIsLiked(String userId, int eventNo, int eventType) {
-        try {
-            // LikeService에서 제공하는 다른 메소드를 사용하여 좋아요 여부를 확인합니다.
-            // 예를 들어, getLikeCount 메소드를 사용할 수 있습니다.
-            int likeCount = likeService.getLikeCount(eventNo, eventType);
-            // 좋아요 수가 0보다 크면 좋아요한 것으로 간주합니다.
-            return likeCount > 0;
-        } catch (Exception e) {
-            // 에러 발생 시 기본값으로 false를 반환합니다.
-            return false;
-        }
     }
 }

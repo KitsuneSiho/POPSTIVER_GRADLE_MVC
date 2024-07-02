@@ -81,8 +81,8 @@
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
                                         <c:out value="${result.start_date}" /> - <c:out value="${result.end_date}" />
                                     </p>
-                                    <input type="hidden" id="user_id" name="user_id" value="">
-                                    <input type="hidden" id="user_name" name="user_name" value="">
+                                    <input type="hidden" id="user_id" value="${sessionScope.user_id}">
+                                    <input type="hidden" id="user_name" value="${sessionScope.user_name}">
                                 </div>
                             </div>
                         </c:if>
@@ -189,33 +189,6 @@
 </script>
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
-
-<%--                    <!--좋아요 기능-->--%>
-<%--<script>--%>
-<%--    function toggleLike(event_no, event_type, element) {--%>
-<%--        fetch('${root}/api/like/toggle', {--%>
-<%--            method: 'POST',--%>
-<%--            headers: {--%>
-<%--                'Content-Type': 'application/json',--%>
-<%--            },--%>
-<%--            body: JSON.stringify({--%>
-<%--                event_no: event_no,--%>
-<%--                event_type: event_type--%>
-<%--            }),--%>
-<%--        })--%>
-<%--            .then(response => response.json())--%>
-<%--            .then(data => {--%>
-<%--                if (data.isLiked) {--%>
-<%--                    element.src = "${root}/resources/asset/좋아요.svg";--%>
-<%--                } else {--%>
-<%--                    element.src = "${root}/resources/asset/아니좋아요.svg";--%>
-<%--                }--%>
-<%--            })--%>
-<%--            .catch((error) => {--%>
-<%--                console.error('Error:', error);--%>
-<%--            });--%>
-<%--    }--%>
-<%--</script>--%>
 
 </body>
 
