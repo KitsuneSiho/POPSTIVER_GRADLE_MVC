@@ -33,11 +33,11 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-<%--<div class="mainButton">--%>
-<%--    <button class="popupButton" onclick="window.location.href='mainPopup'">--%>
-<%--        POP-UP 보러가기--%>
-<%--    </button>--%>
-<%--</div>--%>
+<div class="mainButton">
+    <button class="popupButton" onclick="window.location.href='mainPopup'">
+        POP-UP 보러가기
+    </button>
+</div>
 
 <div class="mainPoster">
     <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">

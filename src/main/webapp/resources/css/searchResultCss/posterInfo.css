@@ -399,3 +399,7 @@ body {
     font-size: 1.2rem;
     margin: 10px;
 }
+
+.commentDate::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
+}

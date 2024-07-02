@@ -66,6 +66,10 @@ body {
     align-content: end;
 }
 
+.date::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
+}
+
 .businessList .title{
     width: 100%;
 }
