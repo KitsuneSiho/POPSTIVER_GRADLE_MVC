@@ -4,47 +4,47 @@ body {
     background-color: black;
 }
 
-.mainButton {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    /* Flex wrap added for responsiveness */
-    flex-wrap: wrap;
-}
+/*.mainButton {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    !* Flex wrap added for responsiveness *!*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.mainButton {
-    font-family: 'Pre', sans-serif;
-    color: white;
-    font-size: 30px;
-    transition: transform 0.3s ease;
-    width: 95%;
-    flex: 1;
-    display: flex;
-    justify-content: right;
-    text-align: center;
-}
+/*.mainButton {*/
+/*    font-family: 'Pre', sans-serif;*/
+/*    color: white;*/
+/*    font-size: 30px;*/
+/*    transition: transform 0.3s ease;*/
+/*    width: 95%;*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    justify-content: right;*/
+/*    text-align: center;*/
+/*}*/
 
-.popupButton{
-    border: 2px solid #ffff33;
-    background: none;
-    padding: 1%;
-    font-family: 'Pre', sans-serif;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+/*.popupButton{*/
+/*    border: none;*/
+/*    background: none;*/
+/*    padding: 10px;*/
+/*    font-family: 'Pre', sans-serif;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
 
-.popupButton:hover{
-    transform: scale(1.05);
-    background-color: #ffff33;
-    color: black;
-}
+/*.popupButton:hover{*/
+/*    transform: scale(1.05);*/
+/*    !*background-color: #ffff33;*!*/
+/*    color: #ffff33;*/
+/*}*/
 
 .mainPoster {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .mainPoster img {
@@ -108,9 +108,28 @@ body {
 }
 
 .poster-item {
-    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+    position: relative;
+    overflow: hidden;
+}
+
+.poster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.poster-item:hover .poster-overlay,
+.open-item:hover .poster-overlay {
+    opacity: 1;
 }
 
 .poster-item img {
@@ -132,17 +151,29 @@ body {
 }
 
 .poster-caption {
-    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
-    bottom: 10px; /* 아래에서 10픽셀 정도 떨어진 위치 */
-    left: 0; /* 왼쪽 정렬 */
-    right: 0; /* 오른쪽 정렬 */
-    color: white; /* 글씨색 */
-    font-size: 18px; /* 폰트 크기 */
-    font-weight: bold; /* 폰트 굵기 */
-    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
-    padding: 5px; /* 여백 */
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0 30px;
+    width: 180px;
 }
 
+.poster-button {
+    background-color: #ffff33;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Pre', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.poster-button:hover {
+    background-color: #e6e600;
+}
 
 .openPosterText {
     font-family: 'Pre', sans-serif;
@@ -196,7 +227,6 @@ body {
     height: 250px;
     border-radius: 10px;
     cursor: pointer;
-    /* Width adjusted for responsiveness */
     object-fit: cover;
 }
 
@@ -210,25 +240,38 @@ body {
 }
 
 .open-caption {
-    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
-    bottom: 10px; /* 아래에서 10픽셀 정도 떨어진 위치 */
-    left: 0; /* 왼쪽 정렬 */
-    right: 0; /* 오른쪽 정렬 */
-    color: white; /* 글씨색 */
-    font-size: 18px; /* 폰트 크기 */
-    font-weight: bold; /* 폰트 굵기 */
-    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
-    padding: 5px; /* 여백 */
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0 30px;
+    width: 180px;
 }
 
 .slide-container {
     width: 100%;
-    overflow: hidden;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.slide-container::-webkit-scrollbar {
+    display: none;
 }
 
 .slide-track {
     display: flex;
-    animation: scroll 60s linear infinite;
+    animation: scroll 30s linear infinite;
+    transition: all 0.5s;
+    user-select: none;
+    width: 200%;
+}
+
+.slide-container.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
 }
 
 .slide-track img {
@@ -250,8 +293,12 @@ body {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-220px * 10));
+        transform: translateX(-50%); /* 반만 이동하도록 수정 */
     }
+}
+
+.poster-item, .open-item {
+    flex: 0 0 auto;
 }
 
 /* Added media queries for responsiveness */
@@ -303,6 +350,7 @@ body {
         font-size: 0.8rem;
     }
 }
+
 
 
 
