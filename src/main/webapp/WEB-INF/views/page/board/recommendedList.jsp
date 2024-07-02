@@ -1,27 +1,108 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-<head>
-    <title>Recommendations</title>
-</head>
-<body>
-<h1>Festival Recommendations</h1>
-<c:forEach var="festival" items="${festivals}">
-    <div>
-        <h2>${festival.festival_title}</h2>
-        <p>${festival.festival_content}</p>
-        <a href="${festival.brand_link}">Visit</a>
-        <img src="${festival.festival_attachment}" alt="${festival.festival_title}" width="200"/>
-    </div>
-</c:forEach>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="root" value="${pageContext.request.contextPath }" />
 
-<h1>Popup Recommendations</h1>
-<c:forEach var="popup" items="${popups}">
-    <div>
-        <h2>${popup.popup_title}</h2>
-        <p>${popup.popup_content}</p>
-        <a href="${popup.brand_link}">Visit</a>
-        <img src="${popup.popup_attachment}" alt="${popup.popup_title}" width="200"/>
-    </div>
-</c:forEach>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/recommended.css">
+    <title>추천 결과</title>
+</head>
+
+<body>
+<jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
+
+<div class="recommendedList">
+    <article>
+        <div class="recommendedTitle">
+            <h1>추천된 축제 및 팝업</h1>
+        </div>
+
+        <div class="recommendedListOpen" id="festivalSection" onclick="toggleRecommendedList(this)">
+            <p>축제 추천</p>
+            <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
+        </div>
+        <div class="popupFestivalInfo" id="festivalContent">
+            <div class="carousel">
+                <div class="carousel-content" id="carousel-content">
+                    <c:forEach var="festival" items="${festivals}">
+                        <div class="card">
+                            <div class="card-content">
+                                <a href="${root}/festival_Details/${festival.festival_no}">
+                                    <img src="<c:out value="${festival.festival_attachment}" />" alt="포스터 이미지"/>
+                                </a>
+                                <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                <h3>
+                                    <a href="${root}/festival_Details/${festival.festival_no}">
+                                        <c:out value="${festival.festival_title}" />
+                                    </a>
+                                </h3>
+                                <p>
+                                    <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
+                                    <c:out value="${festival.festival_location}" />
+                                </p>
+                                <p>
+                                    <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
+                                    <c:out value="${festival.festival_start}" /> - <c:out value="${festival.festival_end}" />
+                                </p>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendedListOpen" id="popupSection" onclick="toggleRecommendedList(this)">
+            <p>팝업 추천</p>
+            <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
+        </div>
+        <div class="popupFestivalInfo" id="popupContent">
+            <div class="carousel">
+                <div class="carousel-content" id="carousel-content">
+                    <c:forEach var="popup" items="${popups}">
+                        <div class="card">
+                            <div class="card-content">
+                                <a href="${root}/popup_Details/${popup.popup_no}">
+                                    <img src="<c:out value="${popup.popup_attachment}" />" alt="포스터 이미지"/>
+                                </a>
+                                <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                <h3>
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <c:out value="${popup.popup_title}" />
+                                    </a>
+                                </h3>
+                                <p>
+                                    <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
+                                    <c:out value="${popup.popup_location}" />
+                                </p>
+                                <p>
+                                    <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
+                                    <c:out value="${popup.popup_start}" /> - <c:out value="${popup.popup_end}" />
+                                </p>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+<script>
+    function toggleRecommendedList(section) {
+        var content = section.nextElementSibling;
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+</script>
 </body>
+
 </html>
