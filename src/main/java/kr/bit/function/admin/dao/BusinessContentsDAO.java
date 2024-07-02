@@ -26,6 +26,11 @@ public class BusinessContentsDAO {
         return jdbcTemplate.query(sql, new BusinessContentsRowMapper());
     }
 
+    public List<businessContents> getBusinessContentsFromLastWeek() {
+        String sql = "SELECT * FROM temporary_post WHERE temp_start >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) AND temp_start < CURDATE()";
+        return jdbcTemplate.query(sql, new BusinessContentsRowMapper());
+    }
+
     private static final class BusinessContentsRowMapper implements RowMapper<businessContents> {
         public businessContents mapRow(ResultSet rs, int rowNum) throws SQLException {
             businessContents post = new businessContents();

@@ -9,6 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="${root}/resources/css/searchResultCss/posterInfo.css">
     <title>POPSTIVER</title>
     <style>
@@ -30,6 +32,7 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/festival_Details.js"></script>
+    <script src="${root}/resources/js/like.js"></script>
     <script>
         // 이미지가 로드된 후 실행할 함수 정의
         function adjustImageSize() {
@@ -60,6 +63,9 @@
 </head>
 <body>
 
+<input type="hidden" id="userId" value="${sessionScope.user_id}">
+<input type="hidden" id="userName" value="${sessionScope.user_name}">
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 
 <div class="mainPoster">
@@ -76,7 +82,14 @@
             <li><button>${festival.festival_tag5}</button></li>
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${festival.views}</p></li>
-            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
+            <li>
+                <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                     class="bookmark"
+                     alt=""
+                     data-event-no="${festival.festival_no}"
+                     data-event-type="${festival.event_type}">
+                <%--                <span class="like-count">${likeCount}</span>--%>
+            </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
                 <div id="shareModal" class="share-modal">
@@ -131,7 +144,7 @@
         <div class="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <!-- 후기 개수 표시 -->
-            <p>댓글 ${allComments.size()}개</p>
+            <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
             <form method="post" onsubmit="submitForm(event)">
 
                 <input type="hidden" name="festival_no" value="${festival.festival_no}">
@@ -139,16 +152,16 @@
                 <input type="hidden" id="user_name" name="user_name" value="">
                 <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
-                    <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                    <input class="commentDate" type="date" name="visit_date" placeholder="방문일을 입력해주세요.">
                     <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
 
-                <div class="stars" id="starRating">
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="5">&#9733;</span>
-                </div>
+                    <div class="stars" id="starRating">
+                        <span class="new-star" data-value="1">&#9733;</span>
+                        <span class="new-star" data-value="2">&#9733;</span>
+                        <span class="new-star" data-value="3">&#9733;</span>
+                        <span class="new-star" data-value="4">&#9733;</span>
+                        <span class="new-star" data-value="5">&#9733;</span>
+                    </div>
                 <input type="hidden" name="star_rate" id="star_rate">
                 <button type="submit">등록</button>
                 </div>
@@ -163,19 +176,17 @@
                                     <div class="name">${comment.comment_writer}</div>
                                     <div class="date">${comment.visit_date}</div>
                                 </div>
+                                <div class="star_rate">
+                                    <c:forEach var="i" begin="1" end="5">
+                                        <span class="star ${i <= comment.star_rate ? 'selected readonly' : 'readonly'}">&#9733;</span>
+                                    </c:forEach>
+
+                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})"
+                                         class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
+                                </div>
                             </td>
                             <td>
                                 <div class="comment-text">${comment.comment_content}</div>
-                            </td>
-                            <td class="star_rate">
-                                <c:forEach var="i" begin="1" end="5">
-                                    <span class="star ${i <= comment.star_rate ? 'selected' : ''}">&#9733;</span>
-                                </c:forEach>
-                            </td>
-                            <td>
-                                <div class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
-                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})">
-                                </div>
                             </td>
                         </tr>
                     </c:forEach>
@@ -224,9 +235,58 @@
                 position: coords
             });
         } else {
-            alert('주소를 찾을 수 없습니다.');
+            alert('해당 행사의 주소는 상세페이지를 참고해주세요!');
         }
     });
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // 새 댓글 폼의 별점 요소들 선택
+        var stars = document.querySelectorAll('#starRating .new-star');
+
+        // 별점 요소들에 클릭 이벤트 추가
+        stars.forEach(function(star) {
+            star.addEventListener('click', function() {
+                var value = this.getAttribute('data-value');
+                document.getElementById('star_rate').value = value;
+
+                // 모든 별점 요소의 선택 상태 초기화
+                stars.forEach(function(s) {
+                    s.classList.remove('selected');
+                });
+
+                // 클릭된 별점까지 선택 상태로 설정
+                for (var i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+
+            star.addEventListener('mouseover', function() {
+                var value = this.getAttribute('data-value');
+                // 모든 별점 요소의 호버 상태 초기화
+                stars.forEach(function(s) {
+                    s.classList.remove('hover');
+                });
+
+                // 호버된 별점까지 호버 상태로 설정
+                for (var i = 0; i < value; i++) {
+                    stars[i].classList.add('hover');
+                }
+            });
+
+            star.addEventListener('mouseout', function() {
+                // 모든 별점 요소의 호버 상태 제거
+                stars.forEach(function(s) {
+                    s.classList.remove('hover');
+                });
+            });
+        });
+    });
+
+
+
+
 </script>
 
 

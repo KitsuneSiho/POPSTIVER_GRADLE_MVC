@@ -124,6 +124,13 @@ public class BoardController {
             List<FestivalCommentDTO> allComments = boardService.selectFestivalComment(festivalNo);
             model.addAttribute("allComments", allComments);
 
+            // 축제 평균 별점 조회
+            double avgStarRate = commentService.getFestivalStarAvg(festivalNo);
+            // 평균 별점을 소수점 한 자리까지 포맷팅
+            String formattedAvgStarRate = String.format("%.1f", avgStarRate);
+            model.addAttribute("avgStarRate", formattedAvgStarRate);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,6 +170,12 @@ public class BoardController {
             // 모든 후기
             List<PopupCommentDTO> allComments = boardService.selectPopupComment(popupNo);
             model.addAttribute("allComments", allComments);
+
+            // 축제 평균 별점 조회
+            double avgStarRate = commentService.getPopupStarAvg(popupNo);
+            // 평균 별점을 소수점 한 자리까지 포맷팅
+            String formattedAvgStarRate = String.format("%.1f", avgStarRate);
+            model.addAttribute("avgStarRate", formattedAvgStarRate);
 
 
         } catch (Exception e) {

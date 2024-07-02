@@ -50,19 +50,20 @@
         </div>
         <div class="popupFestivalInfo" id="ongoingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-ongoing">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today >= result.start_date && today <= result.end_date}">
                             <c:set var="hasOngoing" value="true" />
                             <div class="card">
                                 <div class="card-content" data-eventtype="${result.event_type}" data-eventno="${result.event_no}">
-                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
@@ -83,6 +84,11 @@
                         </c:if>
                     </c:forEach>
                 </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
+                </div>
             </div>
         </div>
 
@@ -92,18 +98,20 @@
         </div>
         <div class="popupFestivalInfo" id="upcomingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-upcoming">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today < result.start_date}">
                             <c:set var="hasUpcoming" value="true" />
                             <div class="card">
                                 <div class="card-content">
-                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
@@ -122,6 +130,11 @@
                         </c:if>
                     </c:forEach>
                 </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
+                </div>
             </div>
         </div>
 
@@ -131,18 +144,20 @@
         </div>
         <div class="popupFestivalInfo" id="endedContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-ended">
                     <c:forEach var="result" items="${results}">
                         <c:if test="${today > result.end_date}">
                             <c:set var="hasEnded" value="true" />
                             <div class="card">
                                 <div class="card-content">
-                                    <!-- 포스터 클릭 시 상세 페이지로 이동 -->
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                    <!-- 제목 클릭 시 상세 페이지로 이동 -->
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                             <c:out value="${result.title}" />
@@ -160,6 +175,11 @@
                             </div>
                         </c:if>
                     </c:forEach>
+                </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
                 </div>
             </div>
         </div>

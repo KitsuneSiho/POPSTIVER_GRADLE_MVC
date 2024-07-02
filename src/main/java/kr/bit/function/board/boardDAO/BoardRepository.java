@@ -141,7 +141,7 @@ public class BoardRepository {
 
     public List<FestivalCommentEntity> getFestivalComments(int festival_no) throws Exception {
         List<FestivalCommentEntity> result = jdbcTemplate.query(
-                "select * from festival_comment where festival_no=?;", //쿼리문
+                "select * from festival_comment where festival_no=? ORDER BY comment_date DESC;", //쿼리문
                 new RowMapper<FestivalCommentEntity>() {
                     @Override
                     public FestivalCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -288,7 +288,7 @@ public class BoardRepository {
 
     public List<PopupCommentEntity> getPopupComments(int popup_no) throws Exception {
         List<PopupCommentEntity> result = jdbcTemplate.query(
-                "select * from popup_comment where popup_no=?;", //쿼리문
+                "SELECT * FROM popup_comment WHERE popup_no = ? ORDER BY comment_date DESC;", //쿼리문
                 new RowMapper<PopupCommentEntity>() {
                     @Override
                     public PopupCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {

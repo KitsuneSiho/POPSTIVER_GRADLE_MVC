@@ -66,8 +66,8 @@
         <%-- 아래 내용을 출력한다. --%>
         <h1>${community.board_title}</h1>
         <div class="writerDate">
-            <p>작성자 : ${community.user_name}</p>
-            <p>${community.board_post_date}</p>
+            <p>작성자 : ${community.user_name}<br>
+                    ${community.board_post_date}</p>
             <p>조회수 : ${community.board_views}</p>
         </div>
         <div class="noticeText">

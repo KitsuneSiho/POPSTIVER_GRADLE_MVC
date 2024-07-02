@@ -99,14 +99,20 @@
         </li>
         <li>
             <span>주최하는 곳</span>
-            <input type="text" class="host" name="report_host">
+            <label>
+                <input type="text" class="host" name="report_host">
+            </label>
         </li>
         <li>
             <span>링크</span>
             <p>공식홈페이지</p>
-            <input type="text" class="brand_link" name="brand_link">
+            <label>
+                <input type="text" class="brand_link" name="brand_link">
+            </label>
             <p>SNS</p>
-            <input type="text" class="brand_sns" name="brand_sns">
+            <label>
+                <input type="text" class="brand_sns" name="brand_sns">
+            </label>
             <input type="hidden" id="user_id" name="user_id" value="">
             <input type="hidden" id="user_name" name="user_name" value="">
 

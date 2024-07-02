@@ -99,7 +99,9 @@
         </li>
         <li>
             <span>주최</span>
-            <input type="text" name="temp_host">
+            <label>
+                <input type="text" name="temp_host">
+            </label>
         </li>
     </ul>
 

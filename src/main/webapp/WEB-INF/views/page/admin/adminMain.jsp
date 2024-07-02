@@ -1,5 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +80,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">New Signups</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${newSignups}</h6>
-                                <p class="card-text">${signupGrowthRate > 0 ? '+' : ''}${signupGrowthRate} Since last week</p>
+                                <p class="card-text">
+                                    <fmt:formatNumber value="${signupGrowthRate}" pattern="+#,##0.0;-#,##0.0" />% Since last week
+                                </p>
                                 <a href="<c:url value='/memberStats' />" class="card-link">View Details</a>
                             </div>
                         </div>
@@ -89,7 +92,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Business Inquiries</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${businessInquiries}</h6>
-                                <p class="card-text">+1.25% Since last week</p>
+                                <p class="card-text">
+                                    <fmt:formatNumber value="${businessInquiriesGrowthRate}" pattern="+#,##0.0;-#,##0.0" />% Since last week
+                                </p>
                                 <a href="<c:url value='/businessContents' />" class="card-link">View Details</a>
                             </div>
                         </div>
@@ -167,7 +172,7 @@
 <!-- JavaScript 파일 포함 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="<c:url value='/resources/js/adminMain.js' />"></script>
 </body>
