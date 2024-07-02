@@ -63,8 +63,8 @@
 </head>
 <body>
 
-<input type="hidden" id="user_id" value="${sessionScope.user_id}">
-<input type="hidden" id="user_name" value="${sessionScope.user_name}">
+<input type="hidden" id="userId" value="${sessionScope.user_id}">
+<input type="hidden" id="userName" value="${sessionScope.user_name}">
 
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 
@@ -144,7 +144,7 @@
         <div class="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <!-- 후기 개수 표시 -->
-            <p>댓글 ${allComments.size()}개</p>
+            <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
             <form method="post" onsubmit="submitForm(event)">
 
                 <input type="hidden" name="festival_no" value="${festival.festival_no}">
