@@ -53,9 +53,8 @@ public class AdminController {
     public String adminDashboard(Model model) throws JsonProcessingException {
         // 유저 통계
         int totalUsers = userDao.getTotalUsers();
-        int newSignups = userDao.getNewSignups(); // 새로운 가입자 수 가져오는 메서드
+        int newSignups = userDao.getNewSignups();
         int previousTotalUsers = userDao.getTotalUsersFromPreviousWeek();
-        DecimalFormat df = new DecimalFormat("#.#");
         double signupGrowthRate = ((double) (newSignups) / (previousTotalUsers + totalUsers)) * 100;
 
         // 비즈니스 문의 수
@@ -91,7 +90,7 @@ public class AdminController {
         }
 
         // 1:1 채팅 통계 (예시)
-        List<Integer> chatData = List.of(5, 10, 15, 20, 25, 30, 35); // 실제 데이터로 대체 필요
+        List<Integer> chatData = List.of(5, 10, 15, 20, 25, 30, 35);
         model.addAttribute("chatDataJson", objectMapper.writeValueAsString(chatData));
 
         // 좋아요 많은 게시글 통계 (예시)
@@ -106,7 +105,7 @@ public class AdminController {
         // 모델에 데이터 추가
         model.addAttribute("totalUsers", totalUsers);
         model.addAttribute("newSignups", newSignups);
-        model.addAttribute("signupGrowthRate", df.format(signupGrowthRate));
+        model.addAttribute("signupGrowthRate", signupGrowthRate);
         model.addAttribute("businessInquiries", businessInquiries);
         model.addAttribute("previousTotalUsers", previousTotalUsers);
 
