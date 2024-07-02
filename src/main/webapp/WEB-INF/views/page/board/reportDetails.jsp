@@ -97,7 +97,7 @@
                 <li>
                     <span>행사 내용</span>
                     <label class="infoTextarea">
-                        <textarea name="report_content" rows="10" readonly>${report_detail.report_content}</textarea>
+                        <textarea name="report_content" rows="10" style="resize: none" readonly>${report_detail.report_content}</textarea>
 
                     </label>
                 </li>

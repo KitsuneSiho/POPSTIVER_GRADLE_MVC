@@ -48,7 +48,7 @@ body {
     padding: 5px 10px;
     margin: 0 5px;
     background: none;
-    border: 1px solid white;
+    border: none;
     color: white;
     font-family: 'Pre', sans-serif;
     font-size: 20px;
@@ -136,8 +136,6 @@ body {
     color: white;
     border: none;
     border-radius: 10px;
-    width: 300px;
-    height: 60px;
 }
 
 .mainTopButton {

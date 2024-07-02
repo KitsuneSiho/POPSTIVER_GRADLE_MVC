@@ -135,6 +135,7 @@
                             <c:forEach items="${upcomingPopups}" var="popup">
                                 <div class="open-item">
                                     <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
+                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <p class="open-caption">${popup.popupTitle}</p>
                                 </div>
                             </c:forEach>
@@ -147,6 +148,89 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sliders = document.querySelectorAll('.slide-container');
 
+        sliders.forEach(slider => {
+            const track = slider.querySelector('.slide-track');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let velocity = 0;
+            let rafId = null;
+
+            function stopMomentumTracking() {
+                cancelAnimationFrame(rafId);
+            }
+
+            function momentumTracking() {
+                const currentScrollLeft = slider.scrollLeft;
+
+                slider.scrollLeft += velocity;
+                velocity *= 0.95;
+
+                if (Math.abs(velocity) > 0.5) {
+                    rafId = requestAnimationFrame(momentumTracking);
+                }
+
+                // Handle infinite scroll
+                const maxScroll = track.scrollWidth / 2;
+                if (slider.scrollLeft >= maxScroll) {
+                    slider.scrollLeft -= maxScroll;
+                } else if (slider.scrollLeft <= 0) {
+                    slider.scrollLeft += maxScroll;
+                }
+            }
+
+            slider.addEventListener('mouseenter', () => {
+                track.style.animationPlayState = 'paused';
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                track.style.animationPlayState = 'running';
+            });
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+                stopMomentumTracking();
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+                momentumTracking();
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                const prevScrollLeft = slider.scrollLeft;
+                slider.scrollLeft = scrollLeft - walk;
+                velocity = slider.scrollLeft - prevScrollLeft;
+            });
+
+            // Clone items for infinite scroll
+            const items = track.querySelectorAll('.poster-item, .open-item');
+            items.forEach(item => {
+                const clone = item.cloneNode(true);
+                track.appendChild(clone);
+            });
+
+            // Set initial scroll position
+            slider.scrollLeft = track.scrollWidth / 4;
+        });
+    });
+</script>
 </body>
 </html>

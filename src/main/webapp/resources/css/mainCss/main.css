@@ -138,20 +138,20 @@ body, html {
 }
 
 .enterPopup button, .enterFestival button{
-    border: 2px solid white;
+    border: none;
     background: none;
     padding: 1%;
     font-family: 'Pre', sans-serif;
     color: white;
-    font-size: 20px;
+    font-size: 30px;
     margin-top: 5%;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .enterPopup button:hover, .enterFestival button:hover {
-    background-color: white;
-    color: black;
+    /*background-color: white;*/
+    /*color: black;*/
 }
 
 .img-background {
