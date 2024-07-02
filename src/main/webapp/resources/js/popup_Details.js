@@ -194,8 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function editComment(commentNo, commentContent, starRate, visitDate) {
     // 수정할 폼의 값을 설정
     document.querySelector('input[name="comment_content"]').value = commentContent;
+    document.querySelector('input[name="comment_content"]').style.backgroundColor = '#3e3e3e';
     document.querySelector('input[name="star_rate"]').value = starRate;
     document.querySelector('input[name="visit_date"]').value = visitDate;
+    document.querySelector('input[name="visit_date"]').style.backgroundColor = '#3e3e3e';
 
     // commentNo를 hidden으로 전달하여 서버에서 식별할 수 있도록 함
     var commentNoInput = document.createElement('input');
@@ -204,19 +206,27 @@ function editComment(commentNo, commentContent, starRate, visitDate) {
     commentNoInput.value = commentNo;
     document.getElementById('commentForm').appendChild(commentNoInput);
 
+    document.querySelectorAll('.new-star').forEach(star => {
+        if (star.dataset.value <= starRate) {
+            star.classList.add('selected');
+        }
+    });
+
     var submitButton = document.querySelector('#commentForm button[type="submit"]');
     submitButton.textContent = '수정 완료';
+
 
     // 방문일을 readonly로 설정
     $("input[name='visit_date']").prop('readonly', true);
 
     // 스크롤을 폼 위치로 이동
-    document.getElementById('commentForm').scrollIntoView();
+    document.getElementById('detailInfoReview').scrollIntoView();
 
     // 수정 완료 버튼 클릭 시 처리할 이벤트 추가
     submitButton.onclick = function(event) {
         event.preventDefault();
 
+        var commentContent = $("input[name='comment_content']").val();
         var commentContent = $("input[name='comment_content']").val();
         var starRate = $("#star_rate").val();
         var commentNo = $("input[name='comment_no']").val();

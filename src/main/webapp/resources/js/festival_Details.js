@@ -185,8 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function editComment(commentNo, commentContent, starRate, visitDate) {
     // 수정할 폼의 값을 설정
     document.querySelector('input[name="comment_content"]').value = commentContent;
+    document.querySelector('input[name="comment_content"]').style.backgroundColor = '#3e3e3e';
     document.querySelector('input[name="star_rate"]').value = starRate;
     document.querySelector('input[name="visit_date"]').value = visitDate;
+    document.querySelector('input[name="visit_date"]').style.backgroundColor = '#3e3e3e';
 
     // commentNo를 hidden으로 전달하여 서버에서 식별할 수 있도록 함
     var commentNoInput = document.createElement('input');
@@ -194,6 +196,12 @@ function editComment(commentNo, commentContent, starRate, visitDate) {
     commentNoInput.name = 'comment_no';
     commentNoInput.value = commentNo;
     document.getElementById('commentForm').appendChild(commentNoInput);
+
+    document.querySelectorAll('.new-star').forEach(star => {
+        if (star.dataset.value <= starRate) {
+            star.classList.add('selected');
+        }
+    });
 
     var submitButton = document.querySelector('#commentForm button[type="submit"]');
     submitButton.textContent = '수정 완료';

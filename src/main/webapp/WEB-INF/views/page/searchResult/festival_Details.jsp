@@ -141,7 +141,7 @@
         <div class="detailInfoMap">
             <div id="singleMap"></div>
         </div>
-        <div class="detailInfoReview">
+        <div class="detailInfoReview" id="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <!-- 후기 개수 표시 -->
             <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
@@ -152,7 +152,6 @@
                 <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
                     <input class="commentDate" type="date" name="visit_date" placeholder="방문일을 입력해주세요.">
-                    <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
                     <div class="stars" id="starRating">
                         <span class="new-star" data-value="1">&#9733;</span>
                         <span class="new-star" data-value="2">&#9733;</span>
@@ -160,6 +159,9 @@
                         <span class="new-star" data-value="4">&#9733;</span>
                         <span class="new-star" data-value="5">&#9733;</span>
                     </div>
+                </div>
+                <div class="commentArea2">
+                    <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
                     <input type="hidden" name="star_rate" id="star_rate">
                     <button type="submit">등록</button>
                 </div>
@@ -172,20 +174,22 @@
                             <td>
                                 <div class="comment-header">
                                     <div class="name">${comment.comment_writer}</div>
-                                    <div class="date"> 방문일자 ${comment.visit_date}</div>
-                                    <div class="date"> 작성일 ${comment.comment_date}</div>
+                                    <button type="button" class="edit-button"  data-comment-writer="${comment.comment_writer}"
+                                            onclick="editComment(${comment.comment_no}, '${comment.comment_content}', ${comment.star_rate},
+                                                    '${comment.visit_date}')">수정</button>
+                                    <button type="button" onclick="deleteComment(${comment.comment_no})"
+                                            class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">삭제</button>
                                 </div>
                                 <div class="star_rate">
                                     <c:forEach var="i" begin="1" end="5">
                                         <span class="star ${i <= comment.star_rate ? 'selected readonly' : 'readonly'}">&#9733;</span>
                                     </c:forEach>
-                                    <!-- 수정 버튼 추가 -->
-                                    <button type="button" class="edit-button"  data-comment-writer="${comment.comment_writer}" onclick="editComment(${comment.comment_no}, '${comment.comment_content}', ${comment.star_rate}, '${comment.visit_date}')">수정</button>
-                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})" class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
                                 </div>
                             </td>
                             <td>
                                 <div class="comment-text">${comment.comment_content}</div>
+                                <div class="date"> 방문일자 : ${comment.visit_date}<br>
+                                    작성일 : ${comment.comment_date}</div>
                             </td>
                         </tr>
                     </c:forEach>
