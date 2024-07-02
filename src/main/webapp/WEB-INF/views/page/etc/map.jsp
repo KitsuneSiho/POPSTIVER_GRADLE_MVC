@@ -332,7 +332,7 @@
                                 modal.style.display = "block";
                             });
                         } else {
-                            console.error('주소를 찾을 수 없습니다:', festival.location);
+                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
                         }
                     });
                 });
@@ -367,7 +367,7 @@
                                 modal.style.display = "block";
                             });
                         } else {
-                            console.error('주소를 찾을 수 없습니다:', popup.location);
+                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
                         }
                     });
                 });
@@ -467,6 +467,7 @@
                                                 });
                                             })(marker, festival);
                                         } else {
+                                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
                                             console.error('주소를 찾을 수 없습니다:', festival.location);
                                         }
                                     });

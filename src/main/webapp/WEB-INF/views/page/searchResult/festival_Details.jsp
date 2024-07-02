@@ -9,6 +9,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <link rel="stylesheet" href="${root}/resources/css/searchResultCss/posterInfo.css">
     <title>POPSTIVER</title>
     <style>
@@ -30,6 +32,7 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/festival_Details.js"></script>
+    <script src="${root}/resources/js/like.js"></script>
     <script>
         // 이미지가 로드된 후 실행할 함수 정의
         function adjustImageSize() {
@@ -60,6 +63,9 @@
 </head>
 <body>
 
+<input type="hidden" id="user_id" value="${sessionScope.user_id}">
+<input type="hidden" id="user_name" value="${sessionScope.user_name}">
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp"/>
 
 <div class="mainPoster">
@@ -76,7 +82,14 @@
             <li><button>${festival.festival_tag5}</button></li>
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${festival.views}</p></li>
-            <li><img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt=""></li>
+            <li>
+                <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                     class="bookmark"
+                     alt=""
+                     data-event-no="${festival.festival_no}"
+                     data-event-type="${festival.event_type}">
+                <%--                <span class="like-count">${likeCount}</span>--%>
+            </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
                 <div id="shareModal" class="share-modal">
@@ -139,7 +152,7 @@
                 <input type="hidden" id="user_name" name="user_name" value="">
                 <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
-                    <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                    <input class="commentDate" type="date" name="visit_date" placeholder="방문일을 입력해주세요.">
                     <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
 
                     <div class="stars" id="starRating">
@@ -222,7 +235,7 @@
                 position: coords
             });
         } else {
-            alert('주소를 찾을 수 없습니다.');
+            alert('해당 행사의 주소는 상세페이지를 참고해주세요!');
         }
     });
 
