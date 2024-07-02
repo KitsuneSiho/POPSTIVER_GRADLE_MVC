@@ -223,14 +223,6 @@ body {
     margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
 }
 
-.open-item img {
-    width: 180px;
-    height: 250px;
-    border-radius: 10px;
-    cursor: pointer;
-    object-fit: cover;
-}
-
 .open-item .bookmark{
     width: 40px;
     height: 40px;

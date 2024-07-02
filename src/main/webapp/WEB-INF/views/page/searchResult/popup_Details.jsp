@@ -32,33 +32,33 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/popup_Details.js"></script>
-    <script>
-        // 이미지가 로드된 후 실행할 함수 정의
-        function adjustImageSize() {
-            var img = document.querySelector('.mainPoster img'); // 이미지 요소 선택
+<%--    <script>--%>
+<%--        // 이미지가 로드된 후 실행할 함수 정의--%>
+<%--        function adjustImageSize() {--%>
+<%--            var img = document.querySelector('.mainPoster img'); // 이미지 요소 선택--%>
 
-            if (img.complete) { // 이미지가 로드되었는지 확인
-                var maxWidth = window.innerWidth; // 현재 창의 너비
-                var maxHeight = window.innerHeight; // 현재 창의 높이
+<%--            if (img.complete) { // 이미지가 로드되었는지 확인--%>
+<%--                var maxWidth = window.innerWidth; // 현재 창의 너비--%>
+<%--                var maxHeight = window.innerHeight; // 현재 창의 높이--%>
 
-                var ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight); // 이미지 비율 계산
+<%--                var ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight); // 이미지 비율 계산--%>
 
-                img.style.width = (img.naturalWidth * ratio) + 'px'; // 이미지 너비 설정
-                img.style.height = (img.naturalHeight * ratio) + 'px'; // 이미지 높이 설정
-            }
-        }
+<%--                img.style.width = (img.naturalWidth * ratio) + 'px'; // 이미지 너비 설정--%>
+<%--                img.style.height = (img.naturalHeight * ratio) + 'px'; // 이미지 높이 설정--%>
+<%--            }--%>
+<%--        }--%>
 
-        // 페이지 로드 시 실행할 함수 등록
-        window.onload = function() {
-            adjustImageSize(); // 이미지 크기 조정 함수 호출
-        }
+<%--        // 페이지 로드 시 실행할 함수 등록--%>
+<%--        window.onload = function() {--%>
+<%--            adjustImageSize(); // 이미지 크기 조정 함수 호출--%>
+<%--        }--%>
 
-        // 창 크기 변경 시에도 이미지 크기 조정
-        window.onresize = function() {
-            adjustImageSize(); // 이미지 크기 조정 함수 호출
-        }
+<%--        // 창 크기 변경 시에도 이미지 크기 조정--%>
+<%--        window.onresize = function() {--%>
+<%--            adjustImageSize(); // 이미지 크기 조정 함수 호출--%>
+<%--        }--%>
 
-    </script>
+<%--    </script>--%>
 </head>
 <body>
 

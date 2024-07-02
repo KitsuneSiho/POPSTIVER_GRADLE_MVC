@@ -12,8 +12,10 @@ body {
 
 .mainPoster img {
     margin-top: 30px;
-    max-width: 80%; /* 최대 너비 설정 */
-    height: auto; /* 높이 자동 조정 */
+    /*max-width: 80%; !* 최대 너비 설정 *!*/
+    /*height: auto; !* 높이 자동 조정 *!*/
+    width: 40%;
+    height: 40%;
     border: none;
 }
 .detailInfo{
@@ -24,15 +26,14 @@ body {
 
 }
 .detailInfoTitle{
-    width: 80%;
+    width: 70%;
     border: none;
 }
 .detailInfoTitle ul{
     list-style: none;
     display: flex;
     justify-content: right;
-    margin: 0;
-    margin-top: 10px;
+    margin: 10px 0 0;
     padding: 0;
     align-items: center;
 
@@ -92,7 +93,7 @@ body {
     background-color: #2e2e2e;
     border-radius: 5px;
     color: #7e7e7e;
-    width: 50%;
+    width: 97%;
     height: auto;
     padding: 20px;
     line-height: 1.5;
@@ -102,7 +103,7 @@ body {
     margin-top: 100px;
 }
 .detailInfoMap #singleMap{
-    width: 70%;
+    width: 100%;
     height: 500px;
 }
 .detailInfoReviewTitle{
