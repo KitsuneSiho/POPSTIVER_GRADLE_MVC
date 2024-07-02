@@ -95,6 +95,9 @@ public class FlowController {
         return "page/board/togetherWrite";
     }
 
+    @GetMapping("noticeWrite")
+    public String noticeWrite_page() {return "page/board/noticeWrite"; }
+
     @GetMapping("popularAdd")//인기 페스티벌 정보 페이지(메인페이지에서 인기 더보기 눌렀을때)
     public String popularAdd_page() {
         return "page/searchResult/popularAdd";

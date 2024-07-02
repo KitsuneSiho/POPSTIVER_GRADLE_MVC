@@ -11,6 +11,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/myPageCss/bookmark.css">
     <title>POPSTIVER - 관심 행사</title>
+    <style>
+        @font-face {
+            font-family: Giants;
+            src: url('${root}/resources/font/Giants-Inline.ttf');
+        }
+
+        @font-face {
+            font-family: KBO;
+            src: url('${root}/resources/font/KBO.ttf');
+        }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
+    </style>
     <script>
         // 각 섹션에 이벤트가 있는지 여부를 JavaScript 변수로 설정
         var hasOngoing = ${not empty ongoingEvents};

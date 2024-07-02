@@ -4,14 +4,14 @@ body {
     background-color: black;
 }
 
-.recommendedTitle{
+.searchResultTitle{
     font-family: 'Pre',sans-serif;
     color: white;
     text-align: left;
     font-size: 25px;
 }
 
-.recommendedList {
+.searchList {
     margin: 40px 0;
     padding-bottom: 100px;
 }
@@ -24,7 +24,7 @@ body {
     unicode-bidi: isolate;
 }
 
-.recommendedListOpen {
+.searchListOpen {
     font-size: 18px;
     background: #1e1e1e;
     border-bottom: 1px solid #ffff33;
@@ -37,21 +37,21 @@ body {
     align-items: center;
 }
 
-.recommendedListOpen p {
+.searchListOpen p {
     font-weight: 600;
     cursor: pointer;
 }
 
-.recommendedListOpen img.on {
+.searchListOpen img.on {
     transform: rotate(180deg);
 }
 
-.recommendedListOpen img {
+.searchListOpen img {
     transition: all 0.3s;
 }
 
 .popupFestivalInfo {
-    display: none;
+    display: block;
     padding: 10px 16px;
     background: #2e2e2e;
     color: white;
@@ -157,7 +157,7 @@ footer {
 /* 수정된 CSS */
 
 @media (max-width: 767px) {
-    .recommendedList article {
+    .searchList article {
         width: 90%;
     }
 
@@ -176,7 +176,7 @@ footer {
 }
 
 @media (min-width: 768px) {
-    .recommendedList article {
+    .searchList article {
         width: 80%;
     }
 
@@ -186,7 +186,7 @@ footer {
 }
 
 @media (min-width: 1024px) {
-    .recommendedList article {
+    .searchList article {
         width: 70%;
     }
 

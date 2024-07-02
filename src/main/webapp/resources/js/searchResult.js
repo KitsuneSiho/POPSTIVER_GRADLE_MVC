@@ -1,50 +1,135 @@
-// 사용자 정보 가져오기 함수
+$(document).ready(function () {
+    getUserInfoAndSetUserId();
+});
+
 function getUserInfoAndSetUserId() {
-    fetch("/member/getUserInfo")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data && data.user_id && data.user_nickname) {
-                const userIdElement = document.getElementById("user_id");
-                const userNameElement = document.getElementById("user_name");
-                if (userIdElement) userIdElement.value = data.user_id;
-                if (userNameElement) userNameElement.value = data.user_nickname;
+    $.ajax({
+        type: "GET",
+        url: "/member/getUserInfo",
+        success: function (response) {
+            if (response && response.user_id && response.user_nickname) {
+// Set the user_id and user_nickname in the hidden input fields
+                $("#user_id").val(response.user_id);
+                $("#user_name").val(response.user_nickname);
             } else {
                 console.error("사용자 정보를 가져오는 데 실패했습니다.");
             }
-        })
-        .catch(error => {
-            console.error("사용자 정보를 가져오는 중 오류 발생:", error);
-        });
+        },
+        error: function (xhr, status, error) {
+            console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
+        }
+    });
 }
 
-// DOM이 로드되면 실행될 함수
-document.addEventListener('DOMContentLoaded', function() {
-    // 사용자 정보 가져오기
+$(document).ready(function () {
     getUserInfoAndSetUserId();
 
-    // 섹션 토글 기능 설정
-    const sections = [
-        { id: 'ongoingSection', contentId: 'ongoingContent', hasResults: hasOngoing },
-        { id: 'upcomingSection', contentId: 'upcomingContent', hasResults: hasUpcoming },
-        { id: 'endedSection', contentId: 'endedContent', hasResults: hasEnded }
-    ];
+    $('.bookmark').click(function() {
+        var isLiked = $(this).hasClass('liked');
+        var eventType = $(this).closest('.card-content').data('eventtype');
+        var eventNo = $(this).closest('.card-content').data('eventno');
+        var userId = $("#user_id").val();
+        var userName = $("#user_name").val();
 
-    sections.forEach(section => {
-        if (section.hasResults) {
-            const sectionElement = document.getElementById(section.id);
-            const contentElement = document.getElementById(section.contentId);
-            contentElement.style.display = "block";
-            sectionElement.querySelector('img.arrow').classList.add("on");
+        var requestType = isLiked ? 'delete' : 'put';
+
+        if(requestType === 'delete'){
+            $.ajax({
+                type: "delete",
+                url: '/like/remove/' + eventNo + '/' + userId + '/' + eventType,
+                success: function(response) {
+                    if (response === 'liked') {
+                        $('.bookmark').addClass('liked');
+                    } else if (response === 'unliked') {
+                        $('.bookmark').removeClass('liked');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        } else {
+            $.ajax({
+                type: "put",
+                url: '/like/add',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify({
+                    "event_type": eventType,
+                    "event_no": eventNo,
+                    "user_id": userId,
+                    "user_name": userName
+                }),
+                success: function(response) {
+                    if (response === 'liked') {
+                        $('.bookmark').addClass('liked');
+                    } else if (response === 'unliked') {
+                        $('.bookmark').removeClass('liked');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         }
     });
 });
 
-// 검색 목록 토글 함수
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = [
+        { id: 'ongoing', contentId: 'ongoingContent', hasResults: hasOngoing },
+        { id: 'upcoming', contentId: 'upcomingContent', hasResults: hasUpcoming },
+        { id: 'ended', contentId: 'endedContent', hasResults: hasEnded }
+    ];
+
+    sections.forEach(section => {
+        if (section.hasResults) {
+            const sectionElement = document.getElementById(section.id + 'Section');
+            const contentElement = document.getElementById(section.contentId);
+            contentElement.style.display = "block";
+            sectionElement.querySelector('img.arrow').classList.add("on");
+
+            initPagination(section.id);
+        }
+    });
+});
+
+function initPagination(sectionId) {
+    const content = document.querySelector(`#carousel-content-${sectionId}`);
+    const cards = content.querySelectorAll('.card');
+    const pageSize = 6;
+    const pageCount = Math.ceil(cards.length / pageSize);
+    let currentPage = 1;
+
+    const prevButton = content.parentElement.querySelector('.prev-page');
+    const nextButton = content.parentElement.querySelector('.next-page');
+    const pageInfo = content.parentElement.querySelector('.page-info');
+
+    function updatePage() {
+        cards.forEach((card, index) => {
+            card.style.display = (index >= (currentPage - 1) * pageSize && index < currentPage * pageSize) ? '' : 'none';
+        });
+        pageInfo.textContent = `${currentPage}/${pageCount}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === pageCount;
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePage();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentPage < pageCount) {
+            currentPage++;
+            updatePage();
+        }
+    });
+
+    updatePage();
+}
+
 function toggleSearchList(element) {
     var popupInfo = element.nextElementSibling;
     var arrow = element.querySelector('img.arrow');
@@ -57,7 +142,6 @@ function toggleSearchList(element) {
     }
 }
 
-// 메뉴 토글 함수
 function toggleMenu() {
     var modal = document.getElementById('menuModal');
     if (modal.style.display === "none" || modal.style.display === "") {
@@ -65,21 +149,4 @@ function toggleMenu() {
     } else {
         modal.style.display = "none";
     }
-}
-
-// 캐러셀 관련 변수와 함수
-let currentSlide = 0;
-
-function showSlide(index) {
-    const slides = document.querySelectorAll('.carousel-content .card');
-    const totalSlides = Math.ceil(slides.length / 4);
-    if (index >= totalSlides) {
-        currentSlide = 0;
-    } else if (index < 0) {
-        currentSlide = totalSlides - 1;
-    } else {
-        currentSlide = index;
-    }
-    const newTransform = -currentSlide * 100 + '%';
-    document.getElementById('carousel-content').style.transform = `translateX(${newTransform})`;
 }

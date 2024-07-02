@@ -20,4 +20,8 @@ public class BusinessContentsService {
     public List<businessContents> getAllBusinessContents() {
         return businessContentsDAO.getAllBusinessContents();
     }
+
+    public List<businessContents> getBusinessContentsFromLastWeek() {
+        return businessContentsDAO.getBusinessContentsFromLastWeek();
+    }
 }
