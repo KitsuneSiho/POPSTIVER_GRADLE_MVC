@@ -10,7 +10,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/recommended.css">
-    <title>추천 결과</title>
+    <title>POPSTIVER</title>
+    <style>
+        @font-face {
+            font-family: Giants;
+            src: url('${root}/resources/font/Giants-Inline.ttf');
+        }
+
+        @font-face {
+            font-family: KBO;
+            src: url('${root}/resources/font/KBO.ttf');
+        }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
+    </style>
 </head>
 
 

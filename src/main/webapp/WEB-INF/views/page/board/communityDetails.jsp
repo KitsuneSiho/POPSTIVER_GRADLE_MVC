@@ -26,6 +26,8 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/communityDetails.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
@@ -64,8 +66,8 @@
         <%-- 아래 내용을 출력한다. --%>
         <h1>${community.board_title}</h1>
         <div class="writerDate">
-            <p>작성자 : ${community.user_name}</p>
-            <p>${community.board_post_date}</p>
+            <p>작성자 : ${community.user_name}<br>
+                    ${community.board_post_date}</p>
             <p>조회수 : ${community.board_views}</p>
         </div>
         <div class="noticeText">
@@ -75,6 +77,9 @@
         </div>
     </c:otherwise>
 </c:choose>
+    <div id="editButtonContainer">
+
+    </div>
     <div class="listButton">
         <button onclick="window.location.href='${root}/free'">목록</button>
     </div>
@@ -98,7 +103,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

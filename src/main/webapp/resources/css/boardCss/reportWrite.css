@@ -9,7 +9,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 15px 0 20px;
+    margin: 50px 0 20px;
     padding-bottom: 10px;
     font-family: 'Pre', sans-serif;
     color: white;
@@ -74,6 +74,10 @@ body {
 
 .businessList .dateLabel {
     width: 30%;
+}
+
+.date::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }
 
 .businessList .image {
@@ -144,6 +148,27 @@ body {
 }
 
 .updateButton button:hover {
+    background-color: #ffff3388;
+}
+
+.listButton{
+    text-align: right;
+}
+
+.listButton button{
+    padding: 5px 10px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.listButton button:hover{
     background-color: #ffff3388;
 }
 

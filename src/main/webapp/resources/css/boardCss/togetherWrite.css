@@ -9,7 +9,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin: 15px 0 20px;
+    margin: 50px 0 20px;
     padding-bottom: 10px;
     font-family: 'Pre', sans-serif;
     color: white;
@@ -64,6 +64,10 @@ body {
     box-sizing: border-box;
     outline: none;
     align-content: end;
+}
+
+.date::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }
 
 .businessList .title{

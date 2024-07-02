@@ -124,6 +124,13 @@ public class BoardController {
             List<FestivalCommentDTO> allComments = boardService.selectFestivalComment(festivalNo);
             model.addAttribute("allComments", allComments);
 
+            // 축제 평균 별점 조회
+            double avgStarRate = commentService.getFestivalStarAvg(festivalNo);
+            // 평균 별점을 소수점 한 자리까지 포맷팅
+            String formattedAvgStarRate = String.format("%.1f", avgStarRate);
+            model.addAttribute("avgStarRate", formattedAvgStarRate);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -163,6 +170,12 @@ public class BoardController {
             // 모든 후기
             List<PopupCommentDTO> allComments = boardService.selectPopupComment(popupNo);
             model.addAttribute("allComments", allComments);
+
+            // 축제 평균 별점 조회
+            double avgStarRate = commentService.getPopupStarAvg(popupNo);
+            // 평균 별점을 소수점 한 자리까지 포맷팅
+            String formattedAvgStarRate = String.format("%.1f", avgStarRate);
+            model.addAttribute("avgStarRate", formattedAvgStarRate);
 
 
         } catch (Exception e) {
@@ -208,6 +221,43 @@ public class BoardController {
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
+
+    @RequestMapping(value = "/contact")
+    @Controller
+    class InsertNoticeController{
+
+        @PutMapping("/insertWrite")
+        @ResponseBody
+        public void registerReport(@RequestBody NoticeDTO noticeDTO,
+                                   @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertNotice(noticeDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {

@@ -1,5 +1,6 @@
 package kr.bit.function.board.boardDAO;
 
+import kr.bit.function.board.DTO.BoardDTO;
 import kr.bit.function.board.boardDTO.*;
 import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
@@ -140,7 +141,7 @@ public class BoardRepository {
 
     public List<FestivalCommentEntity> getFestivalComments(int festival_no) throws Exception {
         List<FestivalCommentEntity> result = jdbcTemplate.query(
-                "select * from festival_comment where festival_no=?;", //쿼리문
+                "select * from festival_comment where festival_no=? ORDER BY comment_date DESC;", //쿼리문
                 new RowMapper<FestivalCommentEntity>() {
                     @Override
                     public FestivalCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -287,7 +288,7 @@ public class BoardRepository {
 
     public List<PopupCommentEntity> getPopupComments(int popup_no) throws Exception {
         List<PopupCommentEntity> result = jdbcTemplate.query(
-                "select * from popup_comment where popup_no=?;", //쿼리문
+                "SELECT * FROM popup_comment WHERE popup_no = ? ORDER BY comment_date DESC;", //쿼리문
                 new RowMapper<PopupCommentEntity>() {
                     @Override
                     public PopupCommentEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -321,6 +322,13 @@ public class BoardRepository {
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
+    public void insertNoticeRepo(NoticeDTO noticeDTO) {
+        String sql = "INSERT INTO notice (notice_title, notice_content) VALUES (?,?)";
+        jdbcTemplate.update(sql, noticeDTO.getNotice_title(),
+                noticeDTO.getNotice_content()
+        );
+    }
+
     public List<NoticeEntity> getNoticeRepo() throws Exception {
         logger.info("getAllNotice"); //로그남기기
         //generic이  BoardEntity  인 List 를 선언하고 jdbc template 의 query 메소드를 통해서 전체 데이터를 추출하고 list에 담는다
@@ -430,11 +438,35 @@ public class BoardRepository {
 
 
     }
+    //게시글 수정
+    public void updateCommunityRepo(CommunityDTO communityDTO) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(update는 update)
+        //sql : community안에서 해당하는 게시글넘버의 데이터를 수정한다.
+        //update 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
+        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(
+                "update community set board_title = ?,board_content = ?, board_attachment = ? where board_no = ?;"
+                ,communityDTO.getBoard_title(), communityDTO.getBoard_content(), communityDTO.getBoard_no());
+    }
+
+    public void deleteCommunityRepo(CommunityDTO communityDTO) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(delete는 update)
+        //sql : communitytable안에서 해당하는 데이터(row)를 지운다.
+        //delete 시 문자열 변수에 sql문을 넣고, 지울게시글번호를 받아오는곳은 ?로 처리한다. (preparedstatement 형식)
+        String query = "delete from community where board_no = ?;";
+        //update메소드에 쿼리문을 넣고,그 뒤에 ?에 넣을 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(query,communityDTO.getBoard_no());
+    }
+
 
     public void increaseCommunityViews(int board_no) {
         String sql = "UPDATE community SET board_views = board_views + 1 WHERE board_no = ?";
         jdbcTemplate.update(sql, board_no);
     }
+
+
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//

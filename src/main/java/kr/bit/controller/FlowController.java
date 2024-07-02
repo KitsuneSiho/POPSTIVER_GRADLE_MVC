@@ -1,5 +1,7 @@
 package kr.bit.controller;
 
+import kr.bit.function.like.BookmarkDTO;
+import kr.bit.function.like.LikeService;
 import kr.bit.function.page.pageEntity.FestivalUpcomingEntity;
 import kr.bit.function.page.pageEntity.PopupUpcomingEntity;
 import kr.bit.function.page.pageService.FestivalUpcomingService;
@@ -20,6 +22,8 @@ public class FlowController {
     private PopupUpcomingService popupUpcomingService;
     @Autowired
     private FestivalUpcomingService festivalUpcomingService;
+    @Autowired
+    private LikeService likeService;
 
     @GetMapping("/")//"/" 경로로 들어가면 일단 메인페이지로 리다이렉트 시킨다.
     public String home() {
@@ -29,18 +33,9 @@ public class FlowController {
     @GetMapping("/login")//로그인페이지
     public String login_page() { return "page/myPage/login"; }
 
-//    @GetMapping("/contact")//연락처 페이지
-//    public String contact_page() {
-//        return "page/board/contact";
-//    }
-
     @GetMapping("/myPage")//마이페이지
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "forward:/member/myPage";
-    }
-    @GetMapping("bookmark")//관심행사페이지
-    public String bookmark_page() {
-        return "page/myPage/bookmark";
     }
 
     @GetMapping("calendar")//행사일정페이지
@@ -58,28 +53,6 @@ public class FlowController {
         return "page/board/money";
     }
 
-
-//    @GetMapping("report")//제보하기게시판페이지
-//    public String report_page() {
-//        return "page/board/report";
-//    }
-//
-
-//    @GetMapping("together")//동행구하기게시판페이지
-//    public String together_page() {
-//        return "page/board/together";
-//    }
-
-//    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
-//    public String togetherWrite_page() {
-//        return "page/board/togetherWrite";
-//    }
-
-//    @GetMapping("free")//자유게시판페이지
-//    public String free_page() {
-//        return "page/board/free";
-//    }
-
     @GetMapping("freeWrite")//자유게시판글작성페이지
     public String freeWrite_page() {
         return "page/board/freeWrite";
@@ -95,6 +68,9 @@ public class FlowController {
         return "page/board/togetherWrite";
     }
 
+    @GetMapping("noticeWrite")
+    public String noticeWrite_page() {return "page/board/noticeWrite"; }
+
     @GetMapping("popularAdd")//인기 페스티벌 정보 페이지(메인페이지에서 인기 더보기 눌렀을때)
     public String popularAdd_page() {
         return "page/searchResult/popularAdd";
@@ -108,7 +84,9 @@ public class FlowController {
     @GetMapping("mainFestival")//페스티벌메인페이지(메인에서 페스티벌 눌렀을때)
     public String mainFestival_page(Model model) {
         List<FestivalUpcomingEntity> upcomingFestivals = festivalUpcomingService.getUpcomingFestivals();
+        List<BookmarkDTO> popularFestivals = likeService.getPopularFestivalEvents(10); // 인기 페스티벌 10개 가져오기
         model.addAttribute("upcomingFestivals", upcomingFestivals);
+        model.addAttribute("popularFestivals", popularFestivals);
         return "page/main/mainFestival";
     }
 
@@ -125,7 +103,9 @@ public class FlowController {
     @GetMapping("mainPopup")
     public String mainPopup_page(Model model) {
         List<PopupUpcomingEntity> upcomingPopups = popupUpcomingService.getUpcomingPopups();
+        List<BookmarkDTO> popularPopups = likeService.getPopularPopupEvents(10); // 인기 팝업 10개 가져오기
         model.addAttribute("upcomingPopups", upcomingPopups);
+        model.addAttribute("popularPopups", popularPopups);
         return "page/main/mainPopup";
     }
 
@@ -143,9 +123,4 @@ public class FlowController {
     public String posterInfo_page() {
         return "page/searchResult/posterInfo";
     }
-
-
-
-
-
 }

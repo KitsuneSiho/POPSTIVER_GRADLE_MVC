@@ -163,10 +163,16 @@ body {
     font-size: 22px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .detailInfoReviewTable table td.star_rate {
-    justify-content: flex-end; /* 별점 셀을 오른쪽 끝으로 정렬 */
+    display: flex;
+    align-items: center;
+}
+
+.delete{
+    cursor: pointer;
 }
 
 .detailInfoReviewTable table tr {
@@ -280,10 +286,29 @@ body {
     align-content: center;
 }
 
+.new-star {
+    font-size: 25px;
+    color: #ddd; /* 기본 색상 */
+    cursor: pointer;
+}
+
+.new-star.selected {
+    color: #ffff33; /* 선택된 별 색상 */
+}
+
+/* 호버 효과 */
+.new-star:hover,
+.new-star.hover {
+    color: #ffff33;
+}
 
 .stars {
     display: inline-block;
     margin-left: 2%;
+}
+
+.star.non-interactive {
+    cursor: default;
 }
 
 .star {
@@ -296,14 +321,19 @@ body {
     color: #ffff33; /* 선택된 별 색상 */
 }
 
-/* 호버 효과 수정 */
-.star ~ .star:hover {
-    color: #ddd; /* 호버한 별의 왼쪽 별들은 기본 색상 유지 */
+.star:hover,
+.star.hover {
+    color: #ffff33; /* 호버한 별과 그 오른쪽 별들 색상 변경 */
 }
 
-.star:hover,
-.star ~ .star:hover {
-    color: #ffff33; /* 호버한 별과 그 오른쪽 별들 색상 변경 */
+#starRating .star:hover ~ .star {
+    color: #ddd; /* 호버한 별의 오른쪽 별들은 기본 색상 유지 */
+}
+
+/* 상호작용하지 않는 별점 스타일 */
+.star.readonly {
+    cursor: default;
+    pointer-events: none; /* 클릭 및 호버 이벤트 비활성화 */
 }
 
 .custom-alert-modal {
@@ -368,4 +398,8 @@ body {
     font-family: 'Pre', sans-serif;
     font-size: 1.2rem;
     margin: 10px;
+}
+
+.commentDate::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }

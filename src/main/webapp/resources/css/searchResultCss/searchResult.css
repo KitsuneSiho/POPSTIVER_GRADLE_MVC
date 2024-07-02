@@ -72,7 +72,7 @@ body {
 }
 
 .card {
-    width: 50%;
+    width: 33.33%;
     box-sizing: border-box;
     padding: 10px;
 }
@@ -154,6 +154,34 @@ footer {
     }
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Pre',sans-serif;
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.pagination button:disabled {
+    color: #5e5e5e;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: white;
+    margin: 0 10px;
+}
+
+
 /* 수정된 CSS */
 
 @media (max-width: 767px) {
@@ -175,23 +203,13 @@ footer {
     }
 }
 
-@media (min-width: 768px) {
-    .searchList article {
-        width: 80%;
-    }
-
-    .card {
-        width: 50%;
-    }
-}
-
 @media (min-width: 1024px) {
     .searchList article {
         width: 70%;
     }
 
     .card {
-        width: 33.33%;
+        width: 50%;
     }
 }
 

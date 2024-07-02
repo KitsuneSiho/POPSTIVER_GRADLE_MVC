@@ -81,6 +81,13 @@
 
     </table>
 </div>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <div class="write">
+        <button class="writeButton" onclick="window.location.href='noticeWrite'">
+            <img src="${root}/resources/asset/글쓰기.svg" alt="">
+            공지 등록하기</button>
+    </div>
+</sec:authorize>
 <div class="pageNumber">
     <ul id="pageNumberList">
         <li><a class="pageOn"></a></li>
@@ -102,7 +109,7 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
+<script src="${root}/resources/js/page.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

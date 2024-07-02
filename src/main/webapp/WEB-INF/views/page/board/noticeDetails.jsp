@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+           <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
@@ -26,6 +26,7 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
@@ -95,7 +96,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

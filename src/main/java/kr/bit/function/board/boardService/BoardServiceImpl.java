@@ -384,6 +384,11 @@ public class BoardServiceImpl implements BoardService {
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
     @Override
+    public void insertNotice(NoticeDTO noticeDTO) throws Exception {
+        boardRepository.insertNoticeRepo(noticeDTO);
+    }
+
+    @Override
     public List<NoticeDTO> selectNoticeAll() throws Exception {
         List<NoticeEntity> noticeEntities = null;
         try {
@@ -481,6 +486,15 @@ public class BoardServiceImpl implements BoardService {
                 communityEntity.getBoard_views());
 
     }
+    @Override
+    public void updateCommunity(CommunityDTO communityDTO) throws Exception{
+    boardRepository.updateCommunityRepo(communityDTO);
+    }
+    @Override
+    public void deleteCommunity(CommunityDTO communityDTO)throws Exception{
+
+    }
+
 
     public void increaseCommunityViews(int board_no){
         boardRepository.increaseCommunityViews(board_no);
