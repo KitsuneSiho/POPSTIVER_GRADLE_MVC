@@ -81,6 +81,13 @@
 
     </table>
 </div>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+    <div class="write">
+        <button class="writeButton" onclick="window.location.href='noticeWrite'">
+            <img src="${root}/resources/asset/글쓰기.svg" alt="">
+            공지 등록하기</button>
+    </div>
+</sec:authorize>
 <div class="pageNumber">
     <ul id="pageNumberList">
         <li><a class="pageOn"></a></li>

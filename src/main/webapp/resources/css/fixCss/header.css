@@ -133,9 +133,12 @@ body {
 }
 
 .weather{
+    margin-top: 8px;
     color: white;
     border: none;
     border-radius: 10px;
+    width: 240px;
+    height: 80px;
 }
 
 .mainTopButton {

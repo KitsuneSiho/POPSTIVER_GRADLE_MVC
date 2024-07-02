@@ -15,24 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script> const root = "${root}"; </script>
     <script src="${root}/resources/js/loginName.js"></script>
-<%--    <script>--%>
-<%--        $(document).ready(function() {--%>
-<%--            $(".mainTopLogo").hover(--%>
-<%--                function() {--%>
-<%--                    $(".logoButtons").stop().slideDown(300);--%>
-<%--                },--%>
-<%--                function() {--%>
-<%--                    $(".logoButtons").stop().slideUp(300);--%>
-<%--                }--%>
-<%--            );--%>
-<%--        });--%>
 
-<%--        function redirectRandom() {--%>
-<%--            const urls = ['mainPopup', 'mainFestival'];--%>
-<%--            const randomIndex = Math.floor(Math.random() * urls.length);--%>
-<%--            window.location.href = root + '/' + urls[randomIndex];--%>
-<%--        }--%>
-<%--    </script>--%>
 
 </head>
 <body>
@@ -41,7 +24,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 <header class="mainTop">
     <div class="mainTopLogo">
-<%--        <h1><a href="#" onclick="redirectRandom()">POPSTIVER</a></h1>--%>
         <h1><a href="#" onclick="window.location.href='main'">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='mainPopup'">POP-UP</button>
