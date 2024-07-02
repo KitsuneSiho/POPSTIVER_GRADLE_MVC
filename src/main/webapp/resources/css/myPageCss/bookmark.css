@@ -177,3 +177,14 @@ footer {
         width: 33.33%;
     }
 }
+
+
+/* href 파란색, 밑줄 제거*/
+.card-content h3 a {
+    color: white;
+    text-decoration: none;
+}
+
+.card-content h3 a:hover {
+    text-decoration: none;
+}

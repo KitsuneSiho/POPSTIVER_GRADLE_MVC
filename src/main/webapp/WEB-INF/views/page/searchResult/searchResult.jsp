@@ -61,7 +61,12 @@
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
 
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -76,8 +81,8 @@
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
                                         <c:out value="${result.start_date}" /> - <c:out value="${result.end_date}" />
                                     </p>
-                                    <input type="hidden" id="user_id" name="user_id" value="">
-                                    <input type="hidden" id="user_name" name="user_name" value="">
+                                    <input type="hidden" id="user_id" value="${sessionScope.user_id}">
+                                    <input type="hidden" id="user_name" value="${sessionScope.user_name}">
                                 </div>
                             </div>
                         </c:if>
@@ -102,7 +107,12 @@
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -141,7 +151,12 @@
                                     <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
                                         <img src="<c:out value="${result.attachment}" />" alt="포스터 이미지"/>
                                     </a>
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${result.event_no}"
+                                         data-event-type="${result.event_type}">
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -174,6 +189,7 @@
 </script>
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
+
 </body>
 
 </html>

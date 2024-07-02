@@ -154,4 +154,8 @@ function getCurrentDate() {
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.querySelector('.commentDate');
     dateInput.max = getCurrentDate();
+
+    if (typeof loadUserLikes === 'function') {
+        loadUserLikes();
+    }
 });

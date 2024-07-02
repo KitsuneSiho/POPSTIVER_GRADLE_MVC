@@ -130,10 +130,6 @@ function submitForm(event) {
 
 }
 
-
-
-
-
 function deleteComment(comment_no) {
     if (confirm("정말로 이 후기를 삭제하시겠습니까?")) {
         $.ajax({
@@ -173,4 +169,8 @@ function getCurrentDate() {
 document.addEventListener('DOMContentLoaded', () => {
     const dateInput = document.querySelector('.commentDate');
     dateInput.max = getCurrentDate();
+
+    if (typeof loadUserLikes === 'function') {
+        loadUserLikes();
+    }
 });
