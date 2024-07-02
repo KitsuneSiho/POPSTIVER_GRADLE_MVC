@@ -4,47 +4,47 @@ body {
     background-color: black;
 }
 
-.mainButton {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    /* Flex wrap added for responsiveness */
-    flex-wrap: wrap;
-}
+/*.mainButton {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    margin-top: 30px;*/
+/*    !* Flex wrap added for responsiveness *!*/
+/*    flex-wrap: wrap;*/
+/*}*/
 
-.mainButton {
-    font-family: 'Pre', sans-serif;
-    color: white;
-    font-size: 30px;
-    transition: transform 0.3s ease;
-    width: 95%;
-    flex: 1;
-    display: flex;
-    justify-content: right;
-    text-align: center;
-}
+/*.mainButton {*/
+/*    font-family: 'Pre', sans-serif;*/
+/*    color: white;*/
+/*    font-size: 30px;*/
+/*    transition: transform 0.3s ease;*/
+/*    width: 95%;*/
+/*    flex: 1;*/
+/*    display: flex;*/
+/*    justify-content: right;*/
+/*    text-align: center;*/
+/*}*/
 
-.popupButton{
-    border: none;
-    background: none;
-    padding: 10px;
-    font-family: 'Pre', sans-serif;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+/*.popupButton{*/
+/*    border: none;*/
+/*    background: none;*/
+/*    padding: 10px;*/
+/*    font-family: 'Pre', sans-serif;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s, color 0.3s;*/
+/*}*/
 
-.popupButton:hover{
-    transform: scale(1.05);
-    /*background-color: #ffff33;*/
-    color: #ffff33;
-}
+/*.popupButton:hover{*/
+/*    transform: scale(1.05);*/
+/*    !*background-color: #ffff33;*!*/
+/*    color: #ffff33;*/
+/*}*/
 
 .mainPoster {
     display: flex;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .mainPoster img {
@@ -108,9 +108,28 @@ body {
 }
 
 .poster-item {
-    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+    position: relative;
+    overflow: hidden;
+}
+
+.poster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.poster-item:hover .poster-overlay,
+.open-item:hover .poster-overlay {
+    opacity: 1;
 }
 
 .poster-item img {
@@ -132,21 +151,29 @@ body {
 }
 
 .poster-caption {
-    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
-    bottom: 0; /* 아래에서 10픽셀 정도 떨어진 위치 */
-    left: 0; /* 왼쪽 정렬 */
-    right: 0; /* 오른쪽 정렬 */
-    color: white; /* 글씨색 */
-    font-family: 'Pre',sans-serif;
-    font-size: 17px; /* 폰트 크기 */
-    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
-    padding: 5px; /* 여백 */
-    margin: 0;
-    height: 20%;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0 30px;
     width: 180px;
-    justify-self: center;
 }
 
+.poster-button {
+    background-color: #ffff33;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Pre', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.poster-button:hover {
+    background-color: #e6e600;
+}
 
 .openPosterText {
     font-family: 'Pre', sans-serif;
@@ -200,7 +227,6 @@ body {
     height: 250px;
     border-radius: 10px;
     cursor: pointer;
-    /* Width adjusted for responsiveness */
     object-fit: cover;
 }
 
@@ -214,19 +240,13 @@ body {
 }
 
 .open-caption {
-    position: absolute; /* 포스터 텍스트의 절대 위치 설정 */
-    bottom: 0; /* 아래에서 10픽셀 정도 떨어진 위치 */
-    left: 0; /* 왼쪽 정렬 */
-    right: 0; /* 오른쪽 정렬 */
-    color: white; /* 글씨색 */
-    font-family: 'Pre',sans-serif;
-    font-size: 17px; /* 폰트 크기 */
-    background-color: rgba(0, 0, 0, 0.5); /* 배경색 */
-    padding: 5px; /* 여백 */
-    margin: 0;
-    height: 20%;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 17px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0 30px;
     width: 180px;
-    justify-self: center;
 }
 
 .slide-container {

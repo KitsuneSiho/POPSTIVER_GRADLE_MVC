@@ -33,11 +33,11 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-<div class="mainButton">
-    <button class="popupButton" onclick="window.location.href='mainPopup'">
-        POP-UP 보러가기
-    </button>
-</div>
+<%--<div class="mainButton">--%>
+<%--    <button class="popupButton" onclick="window.location.href='mainPopup'">--%>
+<%--        POP-UP 보러가기--%>
+<%--    </button>--%>
+<%--</div>--%>
 
 <div class="mainPoster">
     <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
@@ -54,65 +54,60 @@
                 <div class="slide-track">
                     <div class="poster-item">
                         <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                        <p class="poster-caption">서울 포스터dddddddddddd</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
+                    </div>
+                    <div class="poster-item">
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
                         <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+                        <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대전 포스터</p>
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+                        <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+                        <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+                        <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
                     <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
+                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
+                        <p class="poster-caption">서울 포스터</p>
+                        <div class="poster-overlay">
+                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                            <button class="poster-button">자세히 보기</button>
+                        </div>
                     </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대전 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -135,8 +130,11 @@
                             <c:forEach items="${upcomingFestivals}" var="festival">
                                 <div class="open-item">
                                     <img src="${festival.festivalAttachment}" alt="${festival.festivalTitle}">
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
                                     <p class="open-caption">${festival.festivalTitle}</p>
+                                    <div class="poster-overlay">
+                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                        <button class="poster-button">자세히 보기</button>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </c:otherwise>
@@ -231,6 +229,32 @@
             slider.scrollLeft = track.scrollWidth / 4;
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const posterItems = document.querySelectorAll('.poster-item, .open-item');
+
+        posterItems.forEach(item => {
+            const overlay = item.querySelector('.poster-overlay');
+            const button = item.querySelector('.poster-button');
+
+            if (overlay && button) {
+                item.addEventListener('mouseenter', () => {
+                    overlay.style.opacity = '1';
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    overlay.style.opacity = '0';
+                });
+
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // 버튼 클릭 시 수행할 동작 추가
+                    console.log('자세히 보기 버튼 클릭됨');
+                });
+            }
+        });
+    });
 </script>
+<script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
 </html>

@@ -98,7 +98,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
