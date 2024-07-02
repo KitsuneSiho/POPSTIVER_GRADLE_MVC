@@ -404,3 +404,4 @@ body {
 .commentDate::-webkit-calendar-picker-indicator {
     filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }
+
