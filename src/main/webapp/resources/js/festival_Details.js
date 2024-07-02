@@ -96,11 +96,13 @@ function submitForm(event) {
             var message = "후기 등록이 완료되었습니다!";
             openCustomAlert(message);
             // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
+            location.reload();
         },
         error: function (xhr, status, error) {
             // 실패 시 처리할 코드
-            var errorMessage = "게시글 저장 중 오류가 발생했습니다.";
+            var errorMessage = "후기 저장 중 오류가 발생했습니다.";
             openCustomAlert(errorMessage);
+            location.reload();
         }
     });
 }
@@ -114,21 +116,21 @@ function openCustomAlert(message) {
 }
 
 function deleteComment(comment_no) {
-    if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+    if (confirm("정말로 이 후기를 삭제하시겠습니까?")) {
         $.ajax({
             method: "delete",
             url: "/comment/festival/" + comment_no,
             success: function(response) {
                 console.log(comment_no);
                 // If deletion is successful, you might want to update the UI accordingly
-                alert('댓글이 성공적으로 삭제되었습니다.');
+                alert('후기가 성공적으로 삭제되었습니다.');
                 // Refresh the comment section or remove the deleted comment row
                 // Example: $(`tr[data-comment-no='${commentNo}']`).remove();
                 location.reload(); // Refresh the page (or update the UI as per your requirement)
             },
             error: function(xhr, status, error) {
                 console.log(comment_no);
-                alert('댓글 삭제에 실패했습니다.');
+                alert('후기 삭제에 실패했습니다.');
                 console.error('Failed to delete comment:', error);
             }
         });
@@ -138,3 +140,18 @@ function closeCustomAlert() {
     // 모달 닫기
     $('.custom-alert-modal').css('display', 'none');
 }
+
+// 현재 날짜를 yyyy-mm-dd 형식으로 포맷팅하는 함수
+function getCurrentDate() {
+    const today = new Date();
+    year = today.getFullYear();
+    month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    day = String(today.getDate()).padStart(2, '0');
+    return year + "-" + month + "-" + day;
+}
+
+// 페이지가 로드될 때 현재 날짜를 max 속성에 설정
+document.addEventListener('DOMContentLoaded', () => {
+    const dateInput = document.querySelector('.commentDate');
+    dateInput.max = getCurrentDate();
+});
