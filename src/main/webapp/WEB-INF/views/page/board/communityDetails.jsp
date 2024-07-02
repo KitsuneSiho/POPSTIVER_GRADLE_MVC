@@ -64,8 +64,8 @@
         <%-- 아래 내용을 출력한다. --%>
         <h1>${community.board_title}</h1>
         <div class="writerDate">
-            <p>작성자 : ${community.user_name}</p>
-            <p>${community.board_post_date}</p>
+            <p>작성자 : ${community.user_name}<br>
+                    ${community.board_post_date}</p>
             <p>조회수 : ${community.board_views}</p>
         </div>
         <div class="noticeText">
@@ -98,7 +98,6 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
-<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
