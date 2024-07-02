@@ -634,7 +634,7 @@
             document.getElementById('currentLocationButton').addEventListener('click', function() {
                 getUserLocation(function(newUserLocation) {
                     multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
-                    multiMap.setLevel(10);
+                    multiMap.setLevel(3);
                 });
             });
         });

@@ -144,7 +144,7 @@
         <div class="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <!-- 후기 개수 표시 -->
-            <p>댓글 ${allComments.size()}개</p>
+            <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
             <form method="post" onsubmit="submitForm(event)">
 
                 <input type="hidden" name="festival_no" value="${festival.festival_no}">

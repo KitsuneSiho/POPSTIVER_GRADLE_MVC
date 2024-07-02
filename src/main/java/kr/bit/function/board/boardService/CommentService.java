@@ -74,4 +74,17 @@ public class CommentService {
                 "ORDER BY comment_date DESC LIMIT ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TotalCommentDTO.class), limit);
     }
+
+    // 축제 댓글 목록 조회 및 평균 star_rate 계산
+    public double getFestivalStarAvg(int festivalNo) {
+        String sql = "SELECT AVG(star_rate) FROM festival_comment WHERE festival_no = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{festivalNo}, Double.class);
+    }
+
+    // 축제 댓글 목록 조회 및 평균 star_rate 계산
+    public double getPopupStarAvg(int popupNo) {
+        String sql = "SELECT AVG(star_rate) FROM popup_comment WHERE popup_no = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{popupNo}, Double.class);
+    }
+
 }
