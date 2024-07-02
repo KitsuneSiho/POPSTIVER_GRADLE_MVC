@@ -108,12 +108,15 @@
                     </label>
                 </li>
             </ul>
+
+            <div class="listButton">
+                <button onclick="window.location.href='${root}/together'">목록</button>
+            </div>
+
         </div>
     </c:otherwise>
 </c:choose>
-        <div class="listButton">
-            <button onclick="window.location.href='${root}/together'">목록</button>
-        </div>
+
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 

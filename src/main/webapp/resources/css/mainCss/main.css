@@ -26,6 +26,7 @@ body, html {
     font-family: 'Giants', sans-serif;
     line-height: 1;
     color: white;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
 }
 
 .title span {
@@ -38,6 +39,8 @@ body, html {
     max-width: 50%;
     font-size: 18px;
     align-self: center;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
+
 }
 
 /* 애니메이션 */
@@ -85,6 +88,7 @@ body, html {
     opacity: 0;
     font-family: 'Pre', serif;
     cursor: pointer;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
 }
 
 .scroll-up {
@@ -97,6 +101,7 @@ body, html {
     animation: fadeInUp 0.8s ease-out forwards;
     opacity: 0;
     animation-delay: 2s;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
 }
 
 .scroll-up img {
@@ -167,7 +172,7 @@ body, html {
     height: 100%;
     object-fit: cover;
     transform: translate(-50%, -50%);
-    filter: grayscale(20%);
+    filter: brightness(0.3);
 }
 
 /* 반응형 디자인 */

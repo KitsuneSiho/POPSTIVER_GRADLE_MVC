@@ -36,19 +36,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="/contact">
+    <a href="${root}/contact">
         <h2>공지사항</h2>
     </a>
-    <a href="/money">
+    <a href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a class="on" href="/report">
+    <a class="on" href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="/together">
+    <a href="${root}/together">
         <h2>동행구하기</h2>
     </a>
-    <a href="/free">
+    <a href="${root}/free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -121,24 +121,33 @@
                 </li>
                 <li>
                     <span>주최하는 곳</span>
-                    <input type="text" class="host" name="report_host" value="${report_detail.report_host}" readonly>
+                    <label>
+                        <input type="text" class="host" name="report_host" value="${report_detail.report_host}" readonly>
+                    </label>
                 </li>
                 <li>
                     <span>링크</span>
                     <p>공식홈페이지</p>
-                    <input type="text" class="brand_link" name="brand_link" value="${report_detail.brand_link}" readonly>
+                    <label>
+                        <input type="text" class="brand_link" name="brand_link" value="${report_detail.brand_link}" readonly>
+                    </label>
                     <p>SNS</p>
-                    <input type="text" class="brand_sns" name="brand_sns" value="${report_detail.brand_sns}" readonly>
+                    <label>
+                        <input type="text" class="brand_sns" name="brand_sns" value="${report_detail.brand_sns}" readonly>
+                    </label>
 
                 </li>
             </ul>
+
+            <div class="listButton">
+                <button onclick="window.location.href='${root}/report'">목록</button>
+            </div>
+
         </div>
     </c:otherwise>
 </c:choose>
 
-    <div class="listButton">
-        <button onclick="window.location.href='${root}/report'">목록으로</button>
-    </div>
+
 
 <img src="${root}/resources/asset/채팅버튼.svg" id="chatButton" class="chatButton" alt="">
 
