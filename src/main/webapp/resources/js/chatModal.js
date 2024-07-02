@@ -2,6 +2,9 @@ $(document).ready(function() {
     let contextPath = 'http://localhost:8080';
     let username = sessionStorage.getItem('loggedInNickname');
     let stompClient = null;
+    let lastSender = '';
+    let lastMessageDate = null;
+    let lastMessageTime = null;
 
     function connect() {
         let socket = new SockJS(contextPath + '/chat-websocket');
@@ -49,17 +52,51 @@ $(document).ready(function() {
         return strTime;
     }
 
+    function formatDate(date) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('ko-KR', options);
+    }
+
     function showMessage(message) {
-        let messageElement = $("<div class='message'></div>");
         let timestamp = new Date(message.timestamp);
-        messageElement.text(`[${formatAMPM(timestamp)}] ${message.sender}: ${message.content}`);
+        let formattedTime = formatAMPM(timestamp);
+        let formattedDate = formatDate(timestamp);
+
+        // 날짜가 바뀌었을 때 날짜 표시
+        if (!lastMessageDate || lastMessageDate !== formattedDate) {
+            $(".chatBox").append(`<div class='dateDisplay'>${formattedDate}</div>`);
+            lastMessageDate = formattedDate;
+        }
+
+        let messageElement = $("<div class='message'></div>");
+        if (message.sender === username) {
+            messageElement.addClass('userMessage');
+            messageElement.html(`<span class='messageText'>${message.content}</span>`);
+        } else {
+            if (lastSender !== message.sender) {
+                $(".chatBox").append(`<div class='sender'>${message.sender}</div>`);
+            }
+            messageElement.addClass('adminMessage');
+            messageElement.html(`<span class='messageText'>${message.content}</span>`);
+        }
+
+        // 발신자가 바뀌거나 마지막 메시지로부터 5분이 지났을 때 시간 표시
+        if (lastSender !== message.sender ||
+            !lastMessageTime ||
+            (timestamp - lastMessageTime) / (1000 * 60) >= 5) {
+            messageElement.append(`<span class='timestamp-${message.sender === username ? 'user' : 'admin'}'>${formattedTime}</span>`);
+            lastMessageTime = timestamp;
+        }
+
         $(".chatBox").append(messageElement);
         $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight);
+
+        lastSender = message.sender;
     }
 
     $("#sendChatButton").click(sendMessage);
     $("#chatInput").keypress(function(e) {
-        if(e.which == 13) sendMessage();
+        if (e.which == 13) sendMessage();
     });
 
     $("#chatButton").click(function() {
