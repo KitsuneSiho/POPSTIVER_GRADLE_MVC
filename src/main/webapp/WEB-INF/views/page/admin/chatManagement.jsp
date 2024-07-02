@@ -86,24 +86,49 @@
             background: #f8f8f8;
         }
 
-        .chatBox .message {
+        .chatBox .message-container {
+            display: flex;
+            flex-direction: column;
             margin-bottom: 15px;
-            padding: 15px;
+        }
+
+        .chatBox .message-container.sent {
+            align-items: flex-end;
+        }
+
+        .chatBox .message-container.received {
+            align-items: flex-start;
+        }
+
+        .chatBox .message-sender {
+            font-weight: bold;
+            margin-bottom: 5px;
+            padding: 0 10px;
+        }
+
+        .chatBox .message {
+            padding: 10px;
             border-radius: 15px;
             max-width: 70%;
             word-wrap: break-word;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: background 0.3s ease;
+            position: relative;
+        }
+
+        .chatBox .message .timestamp {
+            font-size: 0.8em;
+            color: #999;
+            text-align: right;
+            margin-top: 5px;
         }
 
         .chatBox .message.received {
             background: #e1f5fe;
-            align-self: flex-start;
         }
 
         .chatBox .message.sent {
             background: #c8e6c9;
-            align-self: flex-end;
         }
 
         .chat-input-container {

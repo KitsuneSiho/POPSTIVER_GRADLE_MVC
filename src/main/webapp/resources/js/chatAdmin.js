@@ -4,6 +4,7 @@ $(document).ready(function() {
     let currentRecipient = null;
     let userList = [];
     let messageHistory = {}; // 사용자별 메시지 히스토리를 저장할 객체
+    let lastSender = '';
 
     function connect() {
         let socket = new SockJS(contextPath + '/chat-websocket');
@@ -75,6 +76,7 @@ $(document).ready(function() {
 
     function displayChatHistory(user) {
         $("#adminChatBox").empty();
+        lastSender = '';
         if (messageHistory[user]) {
             messageHistory[user].messages.forEach(showMessage);
         }
@@ -110,16 +112,38 @@ $(document).ready(function() {
     }
 
     function showMessage(message) {
-        let messageElement = $("<div class='message'></div>");
+        let messageContainer = $("<div class='message-container'></div>");
+        let messageElement = $("<div class='message'></div>").text(message.content);
         let timestamp = new Date(message.timestamp);
-        messageElement.text(`[${formatAMPM(timestamp)}] ${message.sender}: ${message.content}`);
+        let timestampElement = $("<div class='timestamp'></div>").text(formatAMPM(timestamp));
+
         if (message.sender === 'admin') {
+            messageContainer.addClass('sent');
             messageElement.addClass('sent');
+            messageContainer.append(messageElement);
+            timestampElement.addClass('left');
         } else {
+            messageContainer.addClass('received');
             messageElement.addClass('received');
+            messageContainer.append(messageElement);
+            timestampElement.addClass('right');
+
+            if (lastSender !== message.sender) {
+                let senderElement = $("<div class='message-sender'></div>").text(message.sender);
+                messageContainer.prepend(senderElement);
+            }
         }
-        $("#adminChatBox").append(messageElement);
+
+        // 마지막 메시지에 타임스탬프 추가
+        if (lastSender === message.sender) {
+            $("#adminChatBox .message-container:last .timestamp").remove();
+        }
+
+        messageContainer.append(timestampElement);
+        $("#adminChatBox").append(messageContainer);
         $("#adminChatBox").scrollTop($("#adminChatBox")[0].scrollHeight);
+
+        lastSender = message.sender;
     }
 
     $("#adminSendButton").click(sendMessage);
