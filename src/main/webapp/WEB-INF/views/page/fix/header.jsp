@@ -15,25 +15,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script> const root = "${root}"; </script>
     <script src="${root}/resources/js/loginName.js"></script>
-<%--    <script>--%>
-<%--        $(document).ready(function() {--%>
-<%--            $(".mainTopLogo").hover(--%>
-<%--                function() {--%>
-<%--                    $(".logoButtons").stop().slideDown(300);--%>
-<%--                },--%>
-<%--                function() {--%>
-<%--                    $(".logoButtons").stop().slideUp(300);--%>
-<%--                }--%>
-<%--            );--%>
-<%--        });--%>
-
-<%--        function redirectRandom() {--%>
-<%--            const urls = ['mainPopup', 'mainFestival'];--%>
-<%--            const randomIndex = Math.floor(Math.random() * urls.length);--%>
-<%--            window.location.href = root + '/' + urls[randomIndex];--%>
-<%--        }--%>
-<%--    </script>--%>
-
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,18 +68,24 @@
             <li>
                 <a href="${root}/recommended">추천행사</a>
             </li>
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <li>
-                <a href="${root}/admin">관리자</a>
-            </li>
-        </sec:authorize>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <li>
+                    <a href="${root}/admin">관리자</a>
+                </li>
+            </sec:authorize>
         </ul>
     </div>
 
     <div class="weather">
-<jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
+        <div id="weatherOverlay">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
     </div>
-
 
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
@@ -129,9 +116,19 @@
 </div>
 
 <div id="loader"></div>
+
 <script>
     $(window).on('load', function() {
-        $('#loader').fadeOut(500); // 페이지 로딩 완료 시 스피너 숨김
+        // 페이지 로딩 완료 시 스피너 숨김
+        $('#loader').fadeOut(500);
+
+        // 3초 후에 날씨 위젯 덮개 부드럽게 숨김
+        setTimeout(function() {
+            $('#weatherOverlay').css('opacity', '0');
+            setTimeout(function() {
+                $('#weatherOverlay').hide();
+            }, 500); // 페이드아웃 효과 시간과 일치시킴
+        }, 1300);
     });
 
     // 검색 버튼 클릭 시 검색 모달 열기
