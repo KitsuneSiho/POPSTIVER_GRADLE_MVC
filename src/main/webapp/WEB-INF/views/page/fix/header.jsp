@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1><a href="#" onclick="window.location.href='main'">POPSTIVER</a></h1>
+        <h1><a href="#" onclick="window.location.href='/'">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='mainPopup'">POP-UP</button>
             <button class="logoButton" onclick="window.location.href='mainFestival'">FESTIVAL</button>
