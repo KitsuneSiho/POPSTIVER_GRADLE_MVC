@@ -134,9 +134,10 @@ body {
 
 .weather{
     color: white;
-    border: 1px solid white;
-    font-size: 20px;
-    width: 15%;
+    border: none;
+    border-radius: 10px;
+    width: 300px;
+    height: 60px;
 }
 
 .mainTopButton {
