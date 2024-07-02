@@ -35,12 +35,14 @@ function submitForm(event) {
     var userName = $("input[name='user_name']").val();
     var boardAttachment = $("input[name='board_attachment']")[0].files[0];
     var boardViews = $("input[name='board_views']").val();
+    var boardNo = $("input[name='board_no']").val();
     console.log(boardTitle);
     console.log(boardContent);
     console.log(userId);
     console.log(userName);
     console.log(boardAttachment);
     console.log(boardViews);
+    console.log(boardNo);
 
     var formData = new FormData();
     formData.append("board_title", boardTitle);
@@ -48,24 +50,25 @@ function submitForm(event) {
     formData.append("user_id", userId);
     formData.append("user_name", userName);
     formData.append("board_views", boardViews);
+    formData.append("board_no", boardNo);
     if (boardAttachment) {
         formData.append("file", boardAttachment);
     }
 
     $.ajax({
         type: "PUT",
-        url: "/freeBoard/insertWrite",
+        url: "/freeBoard/updateEdit",
         processData:false,
         contentType:false,
         data: formData,
         success: function (response) {
             // 업데이트 성공 시 처리할 코드
-            alert("저장이 완료되었습니다!");
+            alert("수정이 완료되었습니다!");
             window.location.href = "/free";
         },
         error: function (xhr, status, error) {
             // 실패 시 처리할 코드
-            alert("게시글 저장 중 오류가 발생했습니다.");
+            alert("수정중 오류가 발생했습니다.");
             window.location.href = "/free";
 
         }

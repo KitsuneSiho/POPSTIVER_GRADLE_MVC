@@ -29,7 +29,7 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${root}/resources/js/reportWrite.js"></script>
+    <script src="${root}/resources/js/reportDetails.js"></script>
 </head>
 
 <body>
@@ -133,6 +133,10 @@
                 </li>
             </ul>
         </div>
+        <%--        삭제버튼--%>
+        <div id="deleteButton"></div>
+        <%--        수정버튼--%>
+        <div id="editButton"></div>
     </c:otherwise>
 </c:choose>
 
@@ -154,6 +158,10 @@
     </div>
 </div>
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+<script>
+    const boardUserId = '${report_detail.user_id}';
+    const boardNo = '${report_detail.report_no}';
+</script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>

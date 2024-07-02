@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${root}/resources/css/boardCss/togetherDetails.css">
+    <link rel="stylesheet" href="${root}/resources/css/boardCss/togetherWrite.css">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
     <title>POPSTIVER</title>
     <style>
@@ -26,6 +26,8 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/togetherDetails.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
@@ -109,6 +111,10 @@
                 </li>
             </ul>
         </div>
+        <%--        삭제버튼--%>
+        <div id="deleteButton"></div>
+        <%--        수정버튼--%>
+        <div id="editButton"></div>
     </c:otherwise>
 </c:choose>
         <div class="listButton">
@@ -134,5 +140,9 @@
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+<script>
+    const boardUserId = '${together.user_id}';
+    const boardNo = '${together.comp_no}';
+</script>
 </body>
 </html>

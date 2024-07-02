@@ -84,7 +84,7 @@
             <label class="addressLabel">
                 <input type="text" name="report_location">
             </label>
-            <button class="searchAddress" type="button">주소 검색</button>
+
         </li>
         <li>
             <span>행사기간</span>

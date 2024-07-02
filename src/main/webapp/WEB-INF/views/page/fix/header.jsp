@@ -94,47 +94,7 @@
     </div>
 
     <div class="weather">
-<%--        <script>--%>
-<%--            (function(d, s, id) {--%>
-<%--                if (d.getElementById(id)) {--%>
-<%--                    if (window.__TOMORROW__) {--%>
-<%--                        window.__TOMORROW__.renderWidget();--%>
-<%--                    }--%>
-<%--                    return;--%>
-<%--                }--%>
-<%--                const fjs = d.getElementsByTagName(s)[0];--%>
-<%--                const js = d.createElement(s);--%>
-<%--                js.id = id;--%>
-<%--                js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";--%>
-
-<%--                fjs.parentNode.insertBefore(js, fjs);--%>
-<%--            })(document, 'script', 'tomorrow-sdk');--%>
-<%--        </script>--%>
-
-<%--        <div class="tomorrow"--%>
-<%--             data-location-id=""--%>
-<%--             data-language="KO"--%>
-<%--             data-unit-system="METRIC"--%>
-<%--             data-skin="dark"--%>
-<%--             data-widget-type="aqiMini"--%>
-<%--             style="padding-bottom:22px;position:relative;"--%>
-<%--        >--%>
-<%--            <a--%>
-<%--                    href="https://www.tomorrow.io/weather-api/"--%>
-<%--                    rel="nofollow noopener noreferrer"--%>
-<%--                    target="_blank"--%>
-<%--                    style="position: absolute; bottom: 0; transform: translateX(-50%); left: 50%;"--%>
-<%--            >--%>
-<%--                <img--%>
-<%--                        alt="Powered by the Tomorrow.io Weather API"--%>
-<%--                        src="https://weather-website-client.tomorrow.io/img/powered-by.svg"--%>
-<%--                        width="250"--%>
-<%--                        height="18"--%>
-<%--                />--%>
-<%--            </a>--%>
-<%--        </div>--%>
-<%--    <iframe src="https://www.meteoblue.com/en/weather/widget/three?geoloc=detect&nocurrent=0&noforecast=0&noforecast=1&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=image"  frameborder="0" scrolling="NO" allowtransparency="true" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" style="width: 300px; height: 80px"></iframe><div><!-- DO NOT REMOVE THIS LINK --><a href="https://www.meteoblue.com/en/weather/week/index?utm_source=three_widget&utm_medium=linkus&utm_content=three&utm_campaign=Weather%2BWidget" target="_blank" rel="noopener">meteoblue</a></div>--%>
-    <jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
+<jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
     </div>
 
 
