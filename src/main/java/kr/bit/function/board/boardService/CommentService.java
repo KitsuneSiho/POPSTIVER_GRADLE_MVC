@@ -68,9 +68,9 @@ public class CommentService {
 
     // 최근 댓글 5개 가져오기
     public List<TotalCommentDTO> getRecentComments(int limit) {
-        String sql = "(SELECT 'festival' AS type, comment_writer, comment_content, comment_date FROM festival_comment) " +
+        String sql = "(SELECT 'festival' AS type, TRIM(comment_writer) AS comment_writer, comment_content, comment_date FROM festival_comment) " +
                 "UNION " +
-                "(SELECT 'popup' AS type, comment_writer, comment_content, comment_date FROM popup_comment) " +
+                "(SELECT 'popup' AS type, TRIM(comment_writer) AS comment_writer, comment_content, comment_date FROM popup_comment) " +
                 "ORDER BY comment_date DESC LIMIT ?";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(TotalCommentDTO.class), limit);
     }
