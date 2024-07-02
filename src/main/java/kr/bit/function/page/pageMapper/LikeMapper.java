@@ -30,7 +30,6 @@ public interface LikeMapper {
             "WHERE ${event_type == 3 ? 'popup_no' : 'festival_no'} = #{event_no}")
     int getLikeCount(@Param("event_no") int event_no, @Param("event_type") int event_type);
 
-
     //관심행사페이지 추가 쿼리
     @Select("SELECT l.*, " +
             "CASE WHEN l.event_type IN (1, 2) THEN f.festival_title ELSE p.popup_title END as title, " +
@@ -53,4 +52,21 @@ public interface LikeMapper {
             "festival_end as endDate, festival_location as location, festival_attachment as attachment, " +
             "1 as event_type FROM festival WHERE festival_no = #{eventNo}")
     BookmarkDTO getFestivalEvent(int eventNo);
+
+    // 새 메서드 추가
+    @Select("SELECT event_no, title, startDate, endDate, location, attachment, event_type, like_count " +
+            "FROM (" +
+            "   SELECT f.festival_no as event_no, f.festival_title as title, f.festival_start as startDate, " +
+            "          f.festival_end as endDate, f.festival_location as location, f.festival_attachment as attachment, " +
+            "          1 as event_type, f.like_that as like_count " +
+            "   FROM festival f " +
+            "   UNION ALL " +
+            "   SELECT p.popup_no as event_no, p.popup_title as title, p.popup_start as startDate, " +
+            "          p.popup_end as endDate, p.popup_location as location, p.popup_attachment as attachment, " +
+            "          3 as event_type, p.like_that as like_count " +
+            "   FROM popup p " +
+            ") as events " +
+            "ORDER BY like_count DESC " +
+            "LIMIT #{limit}")
+    List<BookmarkDTO> getPopularEvents(@Param("limit") int limit);
 }

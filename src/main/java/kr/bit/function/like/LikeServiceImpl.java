@@ -42,4 +42,9 @@ public class LikeServiceImpl implements LikeService {
     public List<BookmarkDTO> getLikedEvents(String userId) {
         return likeMapper.getLikedEventsByUserId(userId);
     }
+
+    @Override
+    public List<BookmarkDTO> getPopularEvents(int limit) {
+        return likeMapper.getPopularEvents(limit);
+    }
 }
