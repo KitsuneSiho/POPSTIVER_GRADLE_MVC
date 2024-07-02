@@ -66,7 +66,7 @@
                                          alt=""
                                          data-event-no="${result.event_no}"
                                          data-event-type="${result.event_type}">
-                                    <span class="like-count">${likeCount}</span>
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -112,7 +112,7 @@
                                          alt=""
                                          data-event-no="${result.event_no}"
                                          data-event-type="${result.event_type}">
-                                    <span class="like-count">${likeCount}</span>
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">
@@ -156,7 +156,7 @@
                                          alt=""
                                          data-event-no="${result.event_no}"
                                          data-event-type="${result.event_type}">
-                                    <span class="like-count">${likeCount}</span>
+<%--                                    <span class="like-count">${likeCount}</span>--%>
                                     <!-- 제목 클릭 시 상세 페이지로 이동 -->
                                     <h3>
                                         <a href="${root}/${result.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${result.event_no}">

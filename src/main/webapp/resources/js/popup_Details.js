@@ -140,3 +140,9 @@ function deleteComment(comment_no) {
     });
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof loadUserLikes === 'function') {
+    loadUserLikes();
+  }
+});

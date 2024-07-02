@@ -34,13 +34,21 @@
                     <c:forEach var="event" items="${ongoingEvents}">
                         <div class="card">
                             <div class="card-content">
-                                <img src="${event.attachment}" alt="포스터">
+                                <!-- 수정: 포스터 이미지에 링크 추가 -->
+                                <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                    <img src="${event.attachment}" alt="포스터">
+                                </a>
                                 <img src="${root}/resources/asset/좋아요.svg"
                                      class="bookmark"
                                      alt=""
                                      data-event-no="${event.event_no}"
                                      data-event-type="${event.event_type}">
-                                <h3>${event.title}</h3>
+                                <!-- 수정: 제목에 링크 추가 -->
+                                <h3>
+                                    <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                            ${event.title}
+                                    </a>
+                                </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         ${event.location}
@@ -66,13 +74,21 @@
                     <c:forEach var="event" items="${upcomingEvents}">
                         <div class="card">
                             <div class="card-content">
-                                <img src="${event.attachment}" alt="포스터">
+                                <!-- 수정: 포스터 이미지에 링크 추가 -->
+                                <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                    <img src="${event.attachment}" alt="포스터">
+                                </a>
                                 <img src="${root}/resources/asset/좋아요.svg"
                                      class="bookmark"
                                      alt=""
                                      data-event-no="${event.event_no}"
                                      data-event-type="${event.event_type}">
-                                <h3>${event.title}</h3>
+                                <!-- 수정: 제목에 링크 추가 -->
+                                <h3>
+                                    <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                            ${event.title}
+                                    </a>
+                                </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         ${event.location}
@@ -98,13 +114,21 @@
                     <c:forEach var="event" items="${endedEvents}">
                         <div class="card">
                             <div class="card-content">
-                                <img src="${event.attachment}" alt="포스터">
+                                <!-- 수정: 포스터 이미지에 링크 추가 -->
+                                <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                    <img src="${event.attachment}" alt="포스터">
+                                </a>
                                 <img src="${root}/resources/asset/좋아요.svg"
                                      class="bookmark"
                                      alt=""
                                      data-event-no="${event.event_no}"
                                      data-event-type="${event.event_type}">
-                                <h3>${event.title}</h3>
+                                <!-- 수정: 제목에 링크 추가 -->
+                                <h3>
+                                    <a href="${root}/${event.event_type == '3' ? 'popup_Details' : 'festival_Details'}/${event.event_no}">
+                                            ${event.title}
+                                    </a>
+                                </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                         ${event.location}

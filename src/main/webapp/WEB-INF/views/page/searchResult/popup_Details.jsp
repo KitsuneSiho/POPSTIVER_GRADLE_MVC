@@ -87,7 +87,7 @@
                      alt=""
                      data-event-no="${popup.popup_no}"
                      data-event-type="${popup.event_type}">
-                <span class="like-count">${likeCount}</span>
+<%--                <span class="like-count">${likeCount}</span>--%>
             </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->

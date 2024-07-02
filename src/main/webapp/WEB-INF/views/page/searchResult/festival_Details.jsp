@@ -88,7 +88,7 @@
                      alt=""
                      data-event-no="${festival.festival_no}"
                      data-event-type="${festival.event_type}">
-                <span class="like-count">${likeCount}</span>
+<%--                <span class="like-count">${likeCount}</span>--%>
             </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->

@@ -138,3 +138,9 @@ function closeCustomAlert() {
     // 모달 닫기
     $('.custom-alert-modal').css('display', 'none');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof loadUserLikes === 'function') {
+        loadUserLikes();
+    }
+});

@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/like")
@@ -29,7 +31,7 @@ public class LikeController {
         }
 
         String userId = getUserId(customOAuth2User);
-        String userName = customOAuth2User.getAttribute("name");
+        String userName = getUserName(customOAuth2User);
 
         String eventNoStr = payload.get("event_no");
         String eventTypeStr = payload.get("event_type");
@@ -91,4 +93,44 @@ public class LikeController {
         }
         return userId;
     }
+
+    private String getUserName(CustomOAuth2User customOAuth2User) {
+        String provider = customOAuth2User.getProvider();
+        Object attribute = customOAuth2User.getAttributes();
+        String userName = "";
+
+        switch (provider) {
+            case "google":
+                GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                userName = googleResponse.getName();
+                break;
+            case "kakao":
+                KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                userName = kakaoResponse.getName();
+                break;
+            case "naver":
+                NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                userName = naverResponse.getName();
+                break;
+        }
+        return userName;
+    }
+
+
+    @GetMapping("/user-likes")
+    public ResponseEntity<List<Map<String, Object>>> getUserLikes(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+        String userId = getUserId(customOAuth2User);
+        List<BookmarkDTO> likes = likeService.getLikedEvents(userId);
+        List<Map<String, Object>> simplifiedLikes = likes.stream()
+                .map(like -> {
+                    Map<String, Object> simplifiedLike = new HashMap<>();
+                    simplifiedLike.put("event_no", like.getEvent_no());
+                    simplifiedLike.put("event_type", like.getEvent_type());
+                    return simplifiedLike;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(simplifiedLikes);
+    }
+
+
 }
