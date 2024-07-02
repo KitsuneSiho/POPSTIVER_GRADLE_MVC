@@ -26,6 +26,8 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${root}/resources/js/communityDetails.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
@@ -75,6 +77,9 @@
         </div>
     </c:otherwise>
 </c:choose>
+    <div id="editButtonContainer">
+
+    </div>
     <div class="listButton">
         <button onclick="window.location.href='${root}/free'">목록</button>
     </div>

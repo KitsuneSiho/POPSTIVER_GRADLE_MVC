@@ -62,10 +62,14 @@ public interface BoardService {
     public void insertCommunity(CommunityDTO communityDTO) throws Exception;
     public List<CommunityDTO> selectCommunityAll() throws Exception;
     public CommunityDTO selectCommunityOne(int board_no) throws Exception;
+    //해당 보드넘버를 가진 데이터를 수정
+    public void updateCommunity(CommunityDTO communityDTO) throws Exception;
+    public void deleteCommunity(CommunityDTO communityDTO) throws Exception;
     public void increaseCommunityViews(int board_no);
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
+    public void insertNotice(NoticeDTO noticeDTO) throws Exception;
     public List<NoticeDTO> selectNoticeAll() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
     //=====================================================================================//

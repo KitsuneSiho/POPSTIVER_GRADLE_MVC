@@ -209,6 +209,43 @@ public class BoardController {
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
     //=====================================================================================//
 
+    @RequestMapping(value = "/contact")
+    @Controller
+    class InsertNoticeController{
+
+        @PutMapping("/insertWrite")
+        @ResponseBody
+        public void registerReport(@RequestBody NoticeDTO noticeDTO,
+                                   @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.insertNotice(noticeDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     @RequestMapping(value = "/contact", method = RequestMethod.GET)
     public String contact(Model model) {
         logger.info("contact.jsp start");
