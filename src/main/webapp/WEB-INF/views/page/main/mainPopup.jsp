@@ -52,15 +52,9 @@
         <div class="popularPoster">
             <div class="slide-container">
                 <div class="slide-track">
-                    <c:forEach items="${popularEvents}" var="event">
+                    <c:forEach items="${popularPopups}" var="event">
                         <div class="poster-item">
                             <img src="${event.attachment}" alt="${event.title}" onclick="window.location.href='posterInfo?event_no=${event.event_no}&event_type=${event.event_type}'">
-                            <img src="${root}/resources/asset/${event.isLiked ? '좋아요' : '아니좋아요'}.svg"
-                                 class="bookmark"
-                                 alt=""
-                                 data-event-no="${event.event_no}"
-                                 data-event-type="${event.event_type}">
-                            <span class="like-count">${event.likeCount}</span>
                             <p class="poster-caption">${event.title}</p>
                         </div>
                     </c:forEach>

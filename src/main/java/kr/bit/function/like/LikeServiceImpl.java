@@ -44,7 +44,12 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public List<BookmarkDTO> getPopularEvents(int limit) {
-        return likeMapper.getPopularEvents(limit);
+    public List<BookmarkDTO> getPopularPopupEvents(int limit) {
+        return likeMapper.getPopularPopupEvents(limit);
+    }
+
+    @Override
+    public List<BookmarkDTO> getPopularFestivalEvents(int limit) {
+        return likeMapper.getPopularFestivalEvents(limit);
     }
 }

@@ -61,13 +61,9 @@ public class BookmarkController {
             }
         }
 
-        // 인기 이벤트 가져오기
-        List<BookmarkDTO> popularEvents = likeService.getPopularEvents(10); // 예를 들어 10개의 인기 이벤트를 가져옴
-
         model.addAttribute("upcomingEvents", upcomingEvents);
         model.addAttribute("ongoingEvents", ongoingEvents);
         model.addAttribute("endedEvents", endedEvents);
-        model.addAttribute("popularEvents", popularEvents);
 
         return "page/myPage/bookmark";
     }
