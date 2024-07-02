@@ -75,11 +75,21 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li><button>${festival.festival_tag1}</button></li>
-            <li><button>${festival.festival_tag2}</button></li>
-            <li><button>${festival.festival_tag3}</button></li>
-            <li><button>${festival.festival_tag4}</button></li>
-            <li><button>${festival.festival_tag5}</button></li>
+            <c:if test="${not empty festival.festival_tag1}">
+                <li><button>${festival.festival_tag1}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag2}">
+                <li><button>${festival.festival_tag2}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag3}">
+                <li><button>${festival.festival_tag3}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag4}">
+                <li><button>${festival.festival_tag4}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag5}">
+                <li><button>${festival.festival_tag5}</button></li>
+            </c:if>
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${festival.views}</p></li>
             <li>
@@ -236,7 +246,7 @@
                 position: coords
             });
         } else {
-
+            alert('해당 행사의 주소는 상세페이지를 참고해주세요!');
         }
     });
 
@@ -284,10 +294,6 @@
             });
         });
     });
-
-
-
-
 </script>
 
 

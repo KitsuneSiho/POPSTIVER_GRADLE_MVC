@@ -30,8 +30,6 @@ public interface LikeMapper {
             "WHERE ${event_type == 3 ? 'popup_no' : 'festival_no'} = #{event_no}")
     int getLikeCount(@Param("event_no") int event_no, @Param("event_type") int event_type);
 
-
-    //관심행사페이지 추가 쿼리
     @Select("SELECT l.*, " +
             "CASE WHEN l.event_type IN (1, 2) THEN f.festival_title ELSE p.popup_title END as title, " +
             "CASE WHEN l.event_type IN (1, 2) THEN f.festival_start ELSE p.popup_start END as startDate, " +
@@ -44,13 +42,23 @@ public interface LikeMapper {
             "WHERE l.user_id = #{userId}")
     List<BookmarkDTO> getLikedEventsByUserId(String userId);
 
-    @Select("SELECT popup_no as event_no, popup_title as title, popup_start as startDate, " +
-            "popup_end as endDate, popup_location as location, popup_attachment as attachment, " +
-            "3 as event_type FROM popup WHERE popup_no = #{eventNo}")
-    BookmarkDTO getPopupEvent(int eventNo);
+    @Select("SELECT popup.popup_no as event_no, popup.popup_title as title, popup.popup_start as startDate, " +
+            "popup.popup_end as endDate, popup.popup_location as location, popup.popup_attachment as attachment, " +
+            "3 as event_type " +
+            "FROM popup " +
+            "LEFT JOIN like_list ON popup.popup_no = like_list.event_no AND like_list.event_type = 3 " +
+            "GROUP BY popup.popup_no, popup.popup_title, popup.popup_start, popup.popup_end, popup.popup_location, popup.popup_attachment " +
+            "ORDER BY COUNT(like_list.like_no) DESC " +
+            "LIMIT #{limit}")
+    List<BookmarkDTO> getPopularPopupEvents(@Param("limit") int limit);
 
-    @Select("SELECT festival_no as event_no, festival_title as title, festival_start as startDate, " +
-            "festival_end as endDate, festival_location as location, festival_attachment as attachment, " +
-            "1 as event_type FROM festival WHERE festival_no = #{eventNo}")
-    BookmarkDTO getFestivalEvent(int eventNo);
+    @Select("SELECT festival.festival_no as event_no, festival.festival_title as title, festival.festival_start as startDate, " +
+            "festival.festival_end as endDate, festival.festival_location as location, festival.festival_attachment as attachment, " +
+            "1 as event_type " +
+            "FROM festival " +
+            "LEFT JOIN like_list ON festival.festival_no = like_list.event_no AND like_list.event_type IN (1, 2) " +
+            "GROUP BY festival.festival_no, festival.festival_title, festival.festival_start, festival.festival_end, festival.festival_location, festival.festival_attachment " +
+            "ORDER BY COUNT(like_list.like_no) DESC " +
+            "LIMIT #{limit}")
+    List<BookmarkDTO> getPopularFestivalEvents(@Param("limit") int limit);
 }

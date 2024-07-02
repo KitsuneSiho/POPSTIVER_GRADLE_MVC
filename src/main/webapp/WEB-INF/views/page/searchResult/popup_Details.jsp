@@ -237,7 +237,7 @@
                 position: coords
             });
         } else {
-
+            alert('주소를 찾을 수 없습니다.');
         }
     });
 
