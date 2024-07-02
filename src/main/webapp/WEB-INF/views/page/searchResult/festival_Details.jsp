@@ -139,7 +139,7 @@
                 <input type="hidden" id="user_name" name="user_name" value="">
                 <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
-                    <input class="commentDate" type="text" name="visit_date" placeholder="방문일을 입력해주세요.">
+                    <input class="commentDate" type="date" name="visit_date" placeholder="방문일을 입력해주세요.">
                     <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
 
                     <div class="stars" id="starRating">
