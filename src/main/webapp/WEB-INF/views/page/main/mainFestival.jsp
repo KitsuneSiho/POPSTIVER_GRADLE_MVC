@@ -143,7 +143,7 @@
                                     <p class="open-caption">${festival.festivalTitle}</p>
                                     <div class="poster-overlay">
                                         <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                        <button class="poster-button">자세히 보기</button>
+                                        <a href="${root}/festival_Details/${festival.festivalNo}" class="poster-button">자세히 보기</a>
                                     </div>
                                 </div>
                             </c:forEach>

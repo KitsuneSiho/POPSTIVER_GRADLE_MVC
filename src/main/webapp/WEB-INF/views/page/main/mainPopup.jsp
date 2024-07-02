@@ -136,7 +136,7 @@
                                     <p class="open-caption">${popup.popupTitle}</p>
                                     <div class="poster-overlay">
                                         <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                        <button class="poster-button">자세히 보기</button>
+                                        <a href="${root}/popup_Details/${popup.popupNo}" class="poster-button">자세히 보기</a>
                                     </div>
                                 </div>
                             </c:forEach>
