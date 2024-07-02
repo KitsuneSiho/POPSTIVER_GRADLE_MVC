@@ -44,7 +44,7 @@ public class SecurityConfig {
                 )
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
-                        .requestMatchers("/main", "/map", "/calendar", "/openAddFestival","/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/popularAddFestival", "/popularAddPopup", "/posterInfo", "/searchResult").permitAll()
+                        .requestMatchers("/main", "/map", "/calendar", "/openAddFestival","/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd" , "/posterInfo", "/searchResult").permitAll()
                         .requestMatchers("/comment/**").permitAll() // 댓글 기능
                         .requestMatchers("/freeBoard/**").permitAll() // 자유게시판 기능
                         .requestMatchers("/like/**").permitAll() // 자유게시판 기능

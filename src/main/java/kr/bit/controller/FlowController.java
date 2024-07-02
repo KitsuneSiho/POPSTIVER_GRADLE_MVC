@@ -115,10 +115,10 @@ public class FlowController {
         return "page/main/mainFestival";
     }
 
-    @GetMapping("popularAddFestival")//인기 페스티벌 정보 페이지(페스티벌페이지에서 인기 더보기 눌렀을때)
-    public String popularAddFestival_page() {
-        return "page/searchResult/popularAddFestival";
-    }
+//    @GetMapping("popularAddFestival")//인기 페스티벌 정보 페이지(페스티벌페이지에서 인기 더보기 눌렀을때)
+//    public String popularAddFestival_page() {
+//        return "page/searchResult/popularAddFestival";
+//    }
 
     @GetMapping("openAddFestival")//오픈예정 페스티벌 정보 페이지(페스티벌페이지에서 오픈예정 더보기 눌렀을때)
     public String openAddFestival_page() {
@@ -132,10 +132,10 @@ public class FlowController {
         return "page/main/mainPopup";
     }
 
-    @GetMapping("popularAddPopup")//인기 팝업 정보 페이지(팝업페이지에서 인기 더보기 눌렀을때)
-    public String popularAddPopup_page() {
-        return "page/searchResult/popularAddPopup";
-    }
+//    @GetMapping("popularAddPopup")//인기 팝업 정보 페이지(팝업페이지에서 인기 더보기 눌렀을때)
+//    public String popularAddPopup_page() {
+//        return "page/searchResult/popularAddPopup";
+//    }
 
     @GetMapping("openAddPopup")//오픈예정 팝업 정보 페이지(팝업페이지에서 오픈예정 더보기 눌렀을때)
     public String openAddPopup_page() {
