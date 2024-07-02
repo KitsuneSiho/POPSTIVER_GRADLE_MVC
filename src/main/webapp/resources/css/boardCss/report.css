@@ -43,7 +43,7 @@ body {
 
 .boardTable th, .boardTable td {
     border: 1px solid #2e2e2e;
-    padding: 10px;
+    padding: 12px;
     text-align: left;
 }
 
@@ -53,8 +53,14 @@ body {
     text-align: center;
 }
 
+
 .boardTable td {
     font-size: 20px;
+}
+
+.boardTable td p{
+    margin: 0;
+    padding: 0;
 }
 
 .boardTable td a {
@@ -75,6 +81,7 @@ body {
     width: 15%;
     text-align: center;
 }
+
 
 .write {
     width: 85%;

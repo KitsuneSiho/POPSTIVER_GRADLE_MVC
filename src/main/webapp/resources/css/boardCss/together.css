@@ -43,7 +43,7 @@ body {
 
 .boardTable th, .boardTable td {
     border: 1px solid #2e2e2e;
-    padding: 10px;
+    padding: 12px;
     text-align: left;
 }
 
@@ -53,8 +53,14 @@ body {
     text-align: center;
 }
 
+
 .boardTable td {
     font-size: 20px;
+}
+
+.boardTable td p{
+    margin: 0;
+    padding: 0;
 }
 
 .boardTable td a {
@@ -72,7 +78,12 @@ body {
 }
 
 .boardTable th:nth-child(3), .boardTable td:nth-child(3) {
-    width: 15%;
+    width: 18%;
+    text-align: center;
+}
+
+.boardTable th:nth-child(4), .boardTable td:nth-child(4) {
+    width: 10%;
     text-align: center;
 }
 
