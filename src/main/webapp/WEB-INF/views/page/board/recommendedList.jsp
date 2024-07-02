@@ -10,19 +10,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/recommended.css">
-    <title>추천 결과</title>
+    <title>POPSTIVER</title>
+    <style>
+        @font-face {
+            font-family: Giants;
+            src: url('${root}/resources/font/Giants-Inline.ttf');
+        }
+
+        @font-face {
+            font-family: KBO;
+            src: url('${root}/resources/font/KBO.ttf');
+        }
+
+        @font-face {
+            font-family: Pre;
+            src: url('${root}/resources/font/Pre.ttf');
+        }
+    </style>
 </head>
 
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-<div class="recommendedList">
+<div class="searchList">
     <article>
-        <div class="recommendedTitle">
+        <div class="searchResultTitle">
             <h1>추천된 축제 및 팝업</h1>
         </div>
 
-        <div class="recommendedListOpen" id="festivalSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="festivalSection" onclick="toggleSearchList(this)">
             <p>축제 추천</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -56,7 +72,7 @@
             </div>
         </div>
 
-        <div class="recommendedListOpen" id="popupSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="popupSection" onclick="toggleSearchList(this)">
             <p>팝업 추천</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -94,7 +110,7 @@
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script>
-    function toggleRecommendedList(section) {
+    function toggleSearchList(section) {
         var content = section.nextElementSibling;
         if (content.style.display === "none" || content.style.display === "") {
             content.style.display = "block";
@@ -103,6 +119,8 @@
         }
     }
 </script>
+<script src="${root}/resources/js/bookmarkToggle.js"></script>
+<script src="${root}/resources/js/searchResult.js"></script>
 </body>
 
 </html>

@@ -8,7 +8,6 @@ function getUserInfoAndSetUserId() {
         url: "/member/getUserInfo",
         success: function (response) {
             if (response && response.user_id && response.user_nickname) {
-// Set the user_id and user_nickname in the hidden input fields
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
             } else {
@@ -20,25 +19,18 @@ function getUserInfoAndSetUserId() {
         }
     });
 }
+
 $(document).ready(function () {
-    // 페이지 로드 시 사용자 정보를 가져와서 hidden input 필드에 설정
     getUserInfoAndSetUserId();
 
-    // 좋아요 버튼 클릭 이벤트 처리
     $('.bookmark').click(function() {
-        var isLiked = $(this).hasClass('liked'); // 좋아요 여부 확인
-        var eventType = $(this).closest('.card-content').data('eventtype'); // 이벤트 타입
-        var eventNo = $(this).closest('.card-content').data('eventno'); // 이벤트 번호
-        var userId = $("#user_id").val(); // hidden input에서 사용자 ID 가져오기
-        var userName = $("#user_name").val(); // hidden input에서 사용자 이름 가져오기
+        var isLiked = $(this).hasClass('liked');
+        var eventType = $(this).closest('.card-content').data('eventtype');
+        var eventNo = $(this).closest('.card-content').data('eventno');
+        var userId = $("#user_id").val();
+        var userName = $("#user_name").val();
 
-        console.log(isLiked);
-        console.log(eventType);
-        console.log(eventNo);
-        console.log(userId);
-        console.log(userName);
-
-        var requestType = isLiked ? 'delete' : 'put'; // 좋아요 상태에 따라 요청 타입 결정
+        var requestType = isLiked ? 'delete' : 'put';
 
         if(requestType === 'delete'){
             $.ajax({
@@ -46,13 +38,12 @@ $(document).ready(function () {
                 url: '/like/remove/' + eventNo + '/' + userId + '/' + eventType,
                 success: function(response) {
                     if (response === 'liked') {
-                        $('.bookmark').addClass('liked'); // 좋아요 상태로 변경
+                        $('.bookmark').addClass('liked');
                     } else if (response === 'unliked') {
-                        $('.bookmark').removeClass('liked'); // 좋아요 취소 상태로 변경
+                        $('.bookmark').removeClass('liked');
                     }
                 },
                 error: function(xhr, status, error) {
-                    // 요청 실패 시 에러 처리
                     console.error('Error:', error);
                 }
             });
@@ -69,37 +60,74 @@ $(document).ready(function () {
                 }),
                 success: function(response) {
                     if (response === 'liked') {
-                        $('.bookmark').addClass('liked'); // 좋아요 상태로 변경
+                        $('.bookmark').addClass('liked');
                     } else if (response === 'unliked') {
-                        $('.bookmark').removeClass('liked'); // 좋아요 취소 상태로 변경
+                        $('.bookmark').removeClass('liked');
                     }
                 },
                 error: function(xhr, status, error) {
-                    // 요청 실패 시 에러 처리
                     console.error('Error:', error);
                 }
             });
         }
-
     });
 });
 
 document.addEventListener('DOMContentLoaded', function() {
     const sections = [
-        { id: 'ongoingSection', contentId: 'ongoingContent', hasResults: hasOngoing },
-        { id: 'upcomingSection', contentId: 'upcomingContent', hasResults: hasUpcoming },
-        { id: 'endedSection', contentId: 'endedContent', hasResults: hasEnded }
+        { id: 'ongoing', contentId: 'ongoingContent', hasResults: hasOngoing },
+        { id: 'upcoming', contentId: 'upcomingContent', hasResults: hasUpcoming },
+        { id: 'ended', contentId: 'endedContent', hasResults: hasEnded }
     ];
 
     sections.forEach(section => {
         if (section.hasResults) {
-            const sectionElement = document.getElementById(section.id);
+            const sectionElement = document.getElementById(section.id + 'Section');
             const contentElement = document.getElementById(section.contentId);
             contentElement.style.display = "block";
             sectionElement.querySelector('img.arrow').classList.add("on");
+
+            initPagination(section.id);
         }
     });
 });
+
+function initPagination(sectionId) {
+    const content = document.querySelector(`#carousel-content-${sectionId}`);
+    const cards = content.querySelectorAll('.card');
+    const pageSize = 6;
+    const pageCount = Math.ceil(cards.length / pageSize);
+    let currentPage = 1;
+
+    const prevButton = content.parentElement.querySelector('.prev-page');
+    const nextButton = content.parentElement.querySelector('.next-page');
+    const pageInfo = content.parentElement.querySelector('.page-info');
+
+    function updatePage() {
+        cards.forEach((card, index) => {
+            card.style.display = (index >= (currentPage - 1) * pageSize && index < currentPage * pageSize) ? '' : 'none';
+        });
+        pageInfo.textContent = `${currentPage}/${pageCount}`;
+        prevButton.disabled = currentPage === 1;
+        nextButton.disabled = currentPage === pageCount;
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePage();
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentPage < pageCount) {
+            currentPage++;
+            updatePage();
+        }
+    });
+
+    updatePage();
+}
 
 function toggleSearchList(element) {
     var popupInfo = element.nextElementSibling;
@@ -120,20 +148,4 @@ function toggleMenu() {
     } else {
         modal.style.display = "none";
     }
-}
-
-let currentSlide = 0;
-
-function showSlide(index) {
-    const slides = document.querySelectorAll('.carousel-content .card');
-    const totalSlides = Math.ceil(slides.length / 4);
-    if (index >= totalSlides) {
-        currentSlide = 0;
-    } else if (index < 0) {
-        currentSlide = totalSlides - 1;
-    } else {
-        currentSlide = index;
-    }
-    const newTransform = -currentSlide * 100 + '%';
-    document.getElementById('carousel-content').style.transform = `translateX(${newTransform})`;
 }
