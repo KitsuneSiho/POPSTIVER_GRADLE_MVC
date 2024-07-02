@@ -59,6 +59,8 @@ public class AdminController {
 
         // 비즈니스 문의 수
         int businessInquiries = businessContentsService.getAllBusinessContents().size();
+        int previousBusinessInquiries = businessContentsService.getBusinessContentsFromLastWeek().size();
+        double businessInquiriesGrowthRate = ((double) (businessInquiries - previousBusinessInquiries) / previousBusinessInquiries) * 100;
 
         // 방문자 통계
         try (Connection connection = dataSource.getConnection()) {
@@ -107,6 +109,7 @@ public class AdminController {
         model.addAttribute("newSignups", newSignups);
         model.addAttribute("signupGrowthRate", signupGrowthRate);
         model.addAttribute("businessInquiries", businessInquiries);
+        model.addAttribute("businessInquiriesGrowthRate", businessInquiriesGrowthRate);
         model.addAttribute("previousTotalUsers", previousTotalUsers);
 
         return "page/admin/adminMain";
