@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1:1 채팅 관리</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -13,29 +14,40 @@
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
     <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f0f4f8;
+            --text-color: #333;
+            --light-text-color: #777;
+            --border-color: #e1e4e8;
+            --success-color: #28a745;
+            --hover-color: #3a7bd5;
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f4f4f9;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
         }
 
         .chat-container {
             width: 100%;
-            max-width: 1000px;
-            height: 700px;
+            max-width: 1200px;
+            height: 80vh;
             background: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
             overflow: hidden;
             display: flex;
-            margin: 20px auto;
+            margin: 40px auto;
         }
 
         .user-list {
             width: 300px;
-            border-right: 1px solid #ccc;
-            background: #fafafa;
+            border-right: 1px solid var(--border-color);
+            background: #fff;
             overflow-y: auto;
         }
 
@@ -46,35 +58,42 @@
         }
 
         .user-list ul li {
-            padding: 20px;
-            border-bottom: 1px solid #ddd;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .user-list ul li:hover {
-            background-color: #e9e9e9;
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .user-list ul li .badge {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8em;
         }
 
         .chat-section {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            background: #f8f8f8;
+            background: #fff;
         }
 
         .chat-header {
-            background: #007bff;
+            background: var(--primary-color);
             color: white;
-            padding: 15px 20px;
+            padding: 20px;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: bold;
-            border-bottom: 1px solid #0056b3;
         }
 
         .chatBox {
@@ -83,106 +102,124 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            background: #f8f8f8;
         }
 
-        .chatBox .message-container {
+        .message-container {
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .chatBox .message-container.sent {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-container.sent {
             align-items: flex-end;
         }
 
-        .chatBox .message-container.received {
+        .message-container.received {
             align-items: flex-start;
         }
 
-        .chatBox .message-sender {
+        .message-sender {
             font-weight: bold;
             margin-bottom: 5px;
-            padding: 0 10px;
+            color: var(--light-text-color);
         }
 
-        .chatBox .message {
-            padding: 10px;
-            border-radius: 15px;
+        .message {
+            padding: 12px 18px;
+            border-radius: 20px;
             max-width: 70%;
             word-wrap: break-word;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s ease;
             position: relative;
         }
 
-        .chatBox .message .timestamp {
-            font-size: 0.8em;
-            color: #999;
-            text-align: right;
+        .message .timestamp {
+            font-size: 0.7em;
+            color: var(--light-text-color);
             margin-top: 5px;
         }
 
-        .chatBox .message.received {
-            background: #e1f5fe;
+        .message.received {
+            background: var(--secondary-color);
+            border-bottom-left-radius: 0;
         }
 
-        .chatBox .message.sent {
-            background: #c8e6c9;
+        .message.sent {
+            background: var(--primary-color);
+            color: white;
+            border-bottom-right-radius: 0;
         }
 
         .chat-input-container {
             display: flex;
             padding: 20px;
-            border-top: 1px solid #ddd;
             background: #fff;
-            align-items: center;
+            border-top: 1px solid var(--border-color);
         }
 
         #adminChatInput {
             flex: 1;
             padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
             margin-right: 15px;
             font-size: 1em;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: border 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         #adminChatInput:focus {
-            border-color: #007bff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
         }
 
         #adminSendButton {
             padding: 12px 25px;
             border: none;
-            border-radius: 25px;
-            background: #007bff;
+            border-radius: 30px;
+            background: var(--primary-color);
             color: white;
             font-size: 1em;
             cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         #adminSendButton:hover {
-            background: #0056b3;
-        }
-
-        .navbar {
-            z-index: 1030; /* Ensure the navbar is above the sidebar */
+            background: var(--hover-color);
+            transform: translateY(-2px);
         }
 
         .current-user-title {
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border-bottom: 1px solid #ddd;
-            background: #f1f1f1;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--secondary-color);
         }
 
         .current-user-title span {
             font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                flex-direction: column;
+                height: 90vh;
+            }
+
+            .user-list {
+                width: 100%;
+                max-height: 30%;
+            }
+
+            .chat-section {
+                height: 70%;
+            }
         }
     </style>
 </head>
