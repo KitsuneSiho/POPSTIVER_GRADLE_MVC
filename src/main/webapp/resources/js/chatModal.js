@@ -5,6 +5,7 @@ $(document).ready(function() {
     let lastSender = '';
     let lastMessageDate = null;
     let lastMessageTime = null;
+    let lastMessageElement = null;
 
     function connect() {
         let socket = new SockJS(contextPath + '/chat-websocket');
@@ -57,6 +58,12 @@ $(document).ready(function() {
         return date.toLocaleDateString('ko-KR', options);
     }
 
+    function removePreviousTimestamp() {
+        if (lastMessageElement && lastMessageElement.find(".timestamp-user, .timestamp-admin").length > 0) {
+            lastMessageElement.find(".timestamp-user, .timestamp-admin").remove();
+        }
+    }
+
     function showMessage(message) {
         let timestamp = new Date(message.timestamp);
         let formattedTime = formatAMPM(timestamp);
@@ -80,18 +87,25 @@ $(document).ready(function() {
             messageElement.html(`<span class='messageText'>${message.content}</span>`);
         }
 
-        // 발신자가 바뀌거나 마지막 메시지로부터 5분이 지났을 때 시간 표시
-        if (lastSender !== message.sender ||
-            !lastMessageTime ||
-            (timestamp - lastMessageTime) / (1000 * 60) >= 5) {
-            messageElement.append(`<span class='timestamp-${message.sender === username ? 'user' : 'admin'}'>${formattedTime}</span>`);
-            lastMessageTime = timestamp;
+        // If the sender changes, retain the timestamp on the last message of the previous sender
+        if (lastSender !== message.sender) {
+            if (lastMessageElement && lastMessageElement.find(`.timestamp-${lastSender === username ? 'user' : 'admin'}`).length === 0) {
+                lastMessageElement.append(`<span class='timestamp-${lastSender === username ? 'user' : 'admin'}'>${formatAMPM(lastMessageTime)}</span>`);
+            }
+        } else {
+            // Remove timestamp from the previous message if the sender is the same
+            removePreviousTimestamp();
         }
+
+        // Add timestamp to the current message
+        messageElement.append(`<span class='timestamp-${message.sender === username ? 'user' : 'admin'}'>${formattedTime}</span>`);
 
         $(".chatBox").append(messageElement);
         $(".chatBox").scrollTop($(".chatBox")[0].scrollHeight);
 
         lastSender = message.sender;
+        lastMessageElement = messageElement;
+        lastMessageTime = timestamp;
     }
 
     $("#sendChatButton").click(sendMessage);
