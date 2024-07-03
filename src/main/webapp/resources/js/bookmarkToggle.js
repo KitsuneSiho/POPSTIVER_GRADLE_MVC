@@ -1,5 +1,31 @@
 let userLikes = [];
 
+function getUserInfoAndSetUserId2() {
+    $.ajax({
+        type: "GET",
+        url: "/member/getUserInfo",
+        success: function(response) {
+            if (response && response.user_id && response.user_nickname) {
+// Set the user_id and user_nickname in the hidden input fields
+                $("#user_id").val(response.user_id);
+                $("#user_name").val(response.user_nickname);
+                console.log(response.user_id);
+                console.log(response.user_nickname);
+                userId = response.user_id;
+                userName = response.user_nickname;
+            } else {
+                console.error("사용자 정보를 가져오는 데 실패했습니다.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("사용자 정보를 가져오는 중 오류 발생: " + error);
+        }
+    });
+}
+
+
+var userId ="";
+var userName ="";
 
 function loadUserLikes() {
     return fetch('/api/like/user-likes')
@@ -25,8 +51,9 @@ function updateBookmarkIcons() {
 function toggleLike(eventNo, eventType, element) {
     const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
 
-    var userId = $("input[name='user_id']").val();
-    var userName = $("input[name='user_name']").val();
+    console.log("User ID:", userId);
+    console.log("User Name:", userName); //여기가 문제
+
 
     fetch('/api/like/toggle', {
         method: 'POST',
@@ -61,6 +88,9 @@ function toggleLike(eventNo, eventType, element) {
 
             // 다른 페이지의 좋아요 상태 업데이트
             updateOtherPages(eventNo, eventType, data.isLiked, data.likeCount);
+
+            console.log("bookmarkToggle.js에 tgglelike도 받았다고 하네요~")
+            console.log(userName, userId)
         })
         .catch(error => console.error('Error:', error));
 }
@@ -86,6 +116,8 @@ function updateOtherPages(eventNo, eventType, isLiked, likeCount) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    getUserInfoAndSetUserId2();
+
     loadUserLikes().then(() => {
         document.querySelectorAll('.bookmark').forEach(bookmark => {
             bookmark.addEventListener('click', function(event) {

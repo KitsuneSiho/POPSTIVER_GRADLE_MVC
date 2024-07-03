@@ -46,7 +46,7 @@
         </div>
         <div class="popupFestivalInfo" id="ongoingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-ongoing">
                     <c:forEach var="event" items="${ongoingEvents}">
                         <div class="card">
                             <div class="card-content">
@@ -86,7 +86,7 @@
         </div>
         <div class="popupFestivalInfo" id="upcomingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-upcoming">
                     <c:forEach var="event" items="${upcomingEvents}">
                         <div class="card">
                             <div class="card-content">
@@ -126,7 +126,7 @@
         </div>
         <div class="popupFestivalInfo" id="endedContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
+                <div class="carousel-content" id="carousel-content-ended">
                     <c:forEach var="event" items="${endedEvents}">
                         <div class="card">
                             <div class="card-content">
