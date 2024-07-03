@@ -99,7 +99,7 @@
                      alt=""
                      data-event-no="${popup.popup_no}"
                      data-event-type="${popup.event_type}">
-<%--                <span class="like-count">${likeCount}</span>--%>
+                <span class="like-count">${popup.like_that}</span>
             </li>
             <li><img src="${root}/resources/asset/공유버튼.svg" alt="" onclick="toggleShareModal()">
                 <!-- 공유 모달 창 -->
@@ -136,7 +136,7 @@
         <p class="detailDate">${popup.popup_start} ~ ${popup.popup_end}</p>
         <p class="detailAddress">
             <img src="${root}/resources/asset/위치표시.svg" alt="">
-            ${popup.popup_location}
+            ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
         </p>
 
         <div class="detailInfoTime">
@@ -155,7 +155,7 @@
         <div class="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
-            <form method="post" onsubmit="submitForm(event)">
+            <form id="commentForm" method="post" onsubmit="submitForm(event)">
 
                 <input type="hidden" name="popup_no" value="${popup.popup_no}">
                 <input type="hidden" name="event_type" value="${popup.event_type}">
@@ -184,13 +184,14 @@
                             <td>
                                 <div class="comment-header">
                                     <div class="name">${comment.comment_writer}</div>
-                                    <div class="date">${comment.visit_date}</div>
+                                    <div class="date"> 방문일자 ${comment.visit_date}</div>
+                                    <div class="date"> 작성일 ${comment.comment_date}</div>
                                 </div>
                                 <div class="star_rate">
                                     <c:forEach var="i" begin="1" end="5">
                                         <span class="star ${i <= comment.star_rate ? 'selected readonly' : 'readonly'}">&#9733;</span>
                                     </c:forEach>
-
+                                    <button type="button" class="edit-button"  data-comment-writer="${comment.comment_writer}" onclick="editComment(${comment.comment_no}, '${comment.comment_content}', ${comment.star_rate}, '${comment.visit_date}')">수정</button>
                                     <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})"
                                          class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
                                 </div>
@@ -243,6 +244,8 @@
                 map: singleMap,
                 position: coords
             });
+        } else {
+
         }
     });
 

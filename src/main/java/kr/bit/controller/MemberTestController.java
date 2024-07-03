@@ -76,8 +76,7 @@ public class MemberTestController {
                 KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
                 model.addAttribute("name", kakaoResponse.getName());
                 model.addAttribute("gender", kakaoResponse.getGender());
-                model.addAttribute("birthday", kakaoResponse.getBirthday());
-                model.addAttribute("birthYear", kakaoResponse.getBirthYear());
+                model.addAttribute("birthday", formatDate(kakaoResponse.getBirthYear(), kakaoResponse.getBirthday()));
                 model.addAttribute("email", kakaoResponse.getEmail());
                 break;
             case "naver":
@@ -89,8 +88,7 @@ public class MemberTestController {
                 if (firstbirthday != null) {
                     birthday = firstbirthday.replace("-", "");
                 }
-                model.addAttribute("birthday", birthday);
-                model.addAttribute("birthYear", naverResponse.getBirthYear());
+                model.addAttribute("birthday", formatDate(naverResponse.getBirthYear(), birthday));
                 model.addAttribute("email", naverResponse.getEmail());
                 System.out.println("출생년도: " + naverResponse.getBirthYear());
                 break;
@@ -109,4 +107,13 @@ public class MemberTestController {
 
         return "page/myPage/join_information";
     }
+
+    // 생년월일 데이터를 yyyy-MM-dd 형식으로 변환하는 함수
+    private String formatDate(String birthYear, String birthDay) {
+        if (birthYear != null && birthDay != null && birthDay.length() == 4) {
+            return birthYear + "-" + birthDay.substring(0, 2) + "-" + birthDay.substring(2, 4);
+        }
+        return birthYear + birthDay; // 기본값으로 원본 문자열 반환
+    }
 }
+

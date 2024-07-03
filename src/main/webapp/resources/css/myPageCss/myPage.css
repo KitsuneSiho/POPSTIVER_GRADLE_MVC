@@ -151,8 +151,45 @@ body {
     border-radius: 20px;
     background-color: #5e5e5e;
     font-family: 'Pre', sans-serif;
-    margin-right: 12px;
-    margin-bottom: 20px;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.typeButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.genderButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.genderButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
 }
 
 .custom-alert-modal {

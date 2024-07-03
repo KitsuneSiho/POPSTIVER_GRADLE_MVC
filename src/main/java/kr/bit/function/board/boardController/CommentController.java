@@ -74,5 +74,37 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("댓글 삭제에 실패했습니다.");
         }
     }
+
+    // 축제 코멘트 입력
+    @PutMapping("/updateFestival")
+    @ResponseBody
+    public void updateFestival(@RequestBody FestivalCommentDTO festivalCommentDTO) {
+
+        try {
+
+            System.out.println("내용:"+festivalCommentDTO.getComment_content());
+            System.out.println("댓글번호:"+festivalCommentDTO.getComment_no());
+            System.out.println("별점:"+festivalCommentDTO.getStar_rate());
+            commentService.updateFestivalComment(festivalCommentDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 축제 코멘트 입력
+    @PutMapping("/updatePopup")
+    @ResponseBody
+    public void updatePopup(@RequestBody PopupCommentDTO popupCommentDTO) {
+
+        try {
+
+            System.out.println("내용:"+popupCommentDTO.getComment_content());
+            System.out.println("댓글번호:"+popupCommentDTO.getComment_no());
+            System.out.println("별점:"+popupCommentDTO.getStar_rate());
+            commentService.updatePopupComment(popupCommentDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 

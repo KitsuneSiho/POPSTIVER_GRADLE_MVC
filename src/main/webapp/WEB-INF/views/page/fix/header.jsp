@@ -23,8 +23,6 @@
 <header class="mainTop">
     <div class="mainTopLogo">
         <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
-        <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
-        <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='${root}/mainPopup'">POP-UP</button>
             <button class="logoButton" onclick="window.location.href='${root}/mainFestival'">FESTIVAL</button>
