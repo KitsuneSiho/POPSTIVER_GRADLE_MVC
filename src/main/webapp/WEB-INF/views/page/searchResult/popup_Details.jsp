@@ -74,11 +74,23 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li><button>${popup.popup_tag1}</button></li>
-            <li><button>${popup.popup_tag2}</button></li>
-            <li><button>${popup.popup_tag3}</button></li>
-            <li><button>${popup.popup_tag4}</button></li>
-            <li><button>${popup.popup_tag5}</button></li>
+
+            <c:if test="${not empty popup.popup_tag1}">
+                <li><button>${popup.popup_tag1}</button></li>
+            </c:if>
+            <c:if test="${not empty popup.popup_tag2}">
+                <li><button>${popup.popup_tag2}</button></li>
+            </c:if>
+            <c:if test="${not empty popup.popup_tag3}">
+                <li><button>${popup.popup_tag3}</button></li>
+            </c:if>
+            <c:if test="${not empty popup.popup_tag4}">
+                <li><button>${popup.popup_tag4}</button></li>
+            </c:if>
+            <c:if test="${not empty popup.popup_tag5}">
+                <li><button>${popup.popup_tag5}</button></li>
+            </c:if>
+
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${popup.views}</p></li>
             <li>
