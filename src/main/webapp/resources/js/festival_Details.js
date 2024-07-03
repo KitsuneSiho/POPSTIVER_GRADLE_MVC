@@ -197,6 +197,7 @@ function editComment(commentNo, commentContent, starRate, visitDate) {
     commentNoInput.value = commentNo;
     document.getElementById('commentForm').appendChild(commentNoInput);
 
+    // 기존 별점 표시
     document.querySelectorAll('.new-star').forEach(star => {
         if (star.dataset.value <= starRate) {
             star.classList.add('selected');

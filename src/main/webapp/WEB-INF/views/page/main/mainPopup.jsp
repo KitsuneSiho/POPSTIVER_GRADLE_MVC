@@ -54,8 +54,11 @@
                 <div class="slide-track">
                     <c:forEach items="${popularPopups}" var="event">
                         <div class="poster-item">
-                            <img src="${event.attachment}" alt="${event.title}" onclick="window.location.href='posterInfo?event_no=${event.event_no}&event_type=${event.event_type}'">
+                            <img src="${event.attachment}" alt="${event.title}">
                             <p class="poster-caption">${event.title}</p>
+                            <div class="poster-overlay">
+                                <a href="${root}/popup_Details/${event.event_no}" class="poster-button">자세히 보기</a>
+                            </div>
                         </div>
                     </c:forEach>
                 </div>

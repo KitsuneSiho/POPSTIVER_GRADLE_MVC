@@ -142,6 +142,42 @@ body {
     cursor: pointer;
 }
 
+.typeButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.genderButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.genderButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
 .infoModal {
     display: none;
     position: fixed;
@@ -299,4 +335,8 @@ body {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.user_birth::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }
