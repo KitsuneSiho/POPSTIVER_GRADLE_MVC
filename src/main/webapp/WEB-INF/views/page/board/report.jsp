@@ -32,6 +32,11 @@
 </head>
 
 <body>
+<% if (request.getAttribute("message") != null) { %>
+<script>
+    alert('<%= request.getAttribute("message") %>');
+</script>
+<% } %>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">

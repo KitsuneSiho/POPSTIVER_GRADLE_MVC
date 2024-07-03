@@ -12,6 +12,8 @@ import kr.bit.function.board.boardDTO.FestivalCommentDTO;
 import kr.bit.function.board.boardDTO.PopupCommentDTO;
 import kr.bit.function.board.boardDTO.TotalCommentDTO;
 import kr.bit.function.board.boardService.CommentService;
+import kr.bit.function.like.BookmarkDTO;
+import kr.bit.function.like.LikeService;
 import kr.bit.function.member.entity.MemberEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +47,9 @@ public class AdminController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private LikeService likeService;
 
     @Autowired
     private DataSource dataSource;
@@ -95,10 +100,17 @@ public class AdminController {
         List<Integer> chatData = List.of(5, 10, 15, 20, 25, 30, 35);
         model.addAttribute("chatDataJson", objectMapper.writeValueAsString(chatData));
 
-        // 좋아요 많은 게시글 통계 (예시)
-        List<String> likedPostsLabels = List.of("Post 1", "Post 2", "Post 3", "Post 4", "Post 5");
-        List<Integer> likedPostsData = List.of(20, 15, 30, 25, 10);
-        model.addAttribute("likedPostsDataJson", objectMapper.writeValueAsString(Map.of("labels", likedPostsLabels, "data", likedPostsData)));
+        // 좋아요 많은 게시글 통계
+        List<BookmarkDTO> popularPopupEvents = likeService.getPopularPopupEvents(10);
+        List<BookmarkDTO> popularFestivalEvents = likeService.getPopularFestivalEvents(10);
+
+        // ObjectMapper를 사용하여 JSON 문자열로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        String popularPopupEventsJson = objectMapper.writeValueAsString(popularPopupEvents);
+        String popularFestivalEventsJson = objectMapper.writeValueAsString(popularFestivalEvents);
+
+        model.addAttribute("popularPopupEventsJson", popularPopupEventsJson);
+        model.addAttribute("popularFestivalEventsJson", popularFestivalEventsJson);
 
         // 최근 댓글 데이터 추가
         List<TotalCommentDTO> recentComments = commentService.getRecentComments(5);
@@ -166,9 +178,16 @@ public class AdminController {
     }
 
     @GetMapping("/likedPostsStats")
-    public String getLikedPostsStats() {
+    public String getLikedPostsStats(Model model) {
+        List<BookmarkDTO> popularPopupEvents = likeService.getPopularPopupEvents(10);
+        List<BookmarkDTO> popularFestivalEvents = likeService.getPopularFestivalEvents(10);
+
+        model.addAttribute("popularPopupEvents", popularPopupEvents);
+        model.addAttribute("popularFestivalEvents", popularFestivalEvents);
+
         return "page/admin/likedPostsStats";
     }
+
 
     @GetMapping("/mostViewedPostsStats")
     public String getMostViewedPostsStats() {

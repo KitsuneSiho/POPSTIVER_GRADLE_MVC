@@ -131,6 +131,4 @@ public class LikeController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(simplifiedLikes);
     }
-
-
 }
