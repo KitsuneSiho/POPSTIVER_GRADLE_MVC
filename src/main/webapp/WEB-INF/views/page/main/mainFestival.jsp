@@ -52,72 +52,12 @@
         <div class="popularPoster">
             <div class="slide-container">
                 <div class="slide-track">
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/서울.webp" alt="" onclick="window.location.href='posterInfo'">
-                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
-                             class="bookmark"
-                             alt=""
-                             data-event-no="${result.event_no}"
-                             data-event-type="${result.event_type}">
-                        <span class="like-count">${likeCount}</span>
-                        <p class="poster-caption">서울 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대전 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대전.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대전 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/대구.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">대구 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/부산.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">부산 포스터</p>
-                    </div>
-                    <div class="poster-item">
-                        <img src="${root}/resources/asset/포스터이미지/속초.webp" alt="">
-                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                        <p class="poster-caption">속초 포스터</p>
-                    </div>
-
+                    <c:forEach items="${popularFestivals}" var="event">
+                        <div class="poster-item">
+                            <img src="${event.attachment}" alt="${event.title}" onclick="window.location.href='posterInfo?event_no=${event.event_no}&event_type=${event.event_type}'">
+                            <p class="poster-caption">${event.title}</p>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -142,8 +82,7 @@
                                     <img src="${festival.festivalAttachment}" alt="${festival.festivalTitle}">
                                     <p class="open-caption">${festival.festivalTitle}</p>
                                     <div class="poster-overlay">
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                        <button class="poster-button">자세히 보기</button>
+                                        <a href="${root}/festival_Details/${festival.festivalNo}" class="poster-button">자세히 보기</a>
                                     </div>
                                 </div>
                             </c:forEach>

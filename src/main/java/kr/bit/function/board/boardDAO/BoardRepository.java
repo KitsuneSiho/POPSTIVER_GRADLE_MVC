@@ -412,6 +412,8 @@ public class BoardRepository {
                     @Override
                     public CommunityEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
                         CommunityEntity communityEntity = new CommunityEntity();
+                        communityEntity.setUser_id(rs.getString("user_id"));
+                        communityEntity.setBoard_no(rs.getInt("board_no"));
                         communityEntity.setBoard_title(rs.getString("board_title"));
                         communityEntity.setBoard_content(rs.getString("board_content"));
                         communityEntity.setUser_name(rs.getNString("user_name"));
@@ -447,17 +449,17 @@ public class BoardRepository {
         //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
         jdbcTemplate.update(
                 "update community set board_title = ?,board_content = ?, board_attachment = ? where board_no = ?;"
-                ,communityDTO.getBoard_title(), communityDTO.getBoard_content(), communityDTO.getBoard_no());
+                ,communityDTO.getBoard_title(), communityDTO.getBoard_content(),communityDTO.getBoard_attachment(), communityDTO.getBoard_no());
     }
 
-    public void deleteCommunityRepo(CommunityDTO communityDTO) throws Exception{
+    public void deleteCommunityRepo(int board_no) throws Exception{
         //쿼리문을 적고 실행하고 리턴한다.(delete는 update)
         //sql : communitytable안에서 해당하는 데이터(row)를 지운다.
         //delete 시 문자열 변수에 sql문을 넣고, 지울게시글번호를 받아오는곳은 ?로 처리한다. (preparedstatement 형식)
         String query = "delete from community where board_no = ?;";
         //update메소드에 쿼리문을 넣고,그 뒤에 ?에 넣을 데이터를 적어준다.(template 형식)
         //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
-        jdbcTemplate.update(query,communityDTO.getBoard_no());
+        jdbcTemplate.update(query,board_no);
     }
 
 
@@ -571,6 +573,28 @@ public class BoardRepository {
         return result.isEmpty() ? null : result.get(0);
     }
 
+    //게시글 수정
+    public void updateReportRepo(ReportDTO reportDTO) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(update는 update)
+        //sql : community안에서 해당하는 게시글넘버의 데이터를 수정한다.
+        //update 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
+        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(
+                "update report set report_title = ?,event_type=?, report_content=?, report_host=?, report_start=?, report_end=?, report_dist=?, report_subdist=?, report_location=?,open_time=?,brand_link=?,brand_sns=?, report_attachment=? where report_no = ?;"
+                ,reportDTO.getReport_title(), reportDTO.getEvent_type(),reportDTO.getReport_content(), reportDTO.getReport_host(), reportDTO.getReport_start(), reportDTO.getReport_end(), reportDTO.getReport_dist(), reportDTO.getReport_subdist(), reportDTO.getReport_location(), reportDTO.getOpen_time(),reportDTO.getBrand_link(),reportDTO.getBrand_sns(), reportDTO.getReport_attachment(), reportDTO.getReport_no());
+    }
+
+    public void deleteReportRepo(int report_no) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(delete는 update)
+        //sql : communitytable안에서 해당하는 데이터(row)를 지운다.
+        //delete 시 문자열 변수에 sql문을 넣고, 지울게시글번호를 받아오는곳은 ?로 처리한다. (preparedstatement 형식)
+        String query = "delete from report where report_no = ?;";
+        //update메소드에 쿼리문을 넣고,그 뒤에 ?에 넣을 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(query,report_no);
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
@@ -640,6 +664,29 @@ public class BoardRepository {
     public void increaseCompanionViews(int comp_no) {
         String sql = "UPDATE companion SET comp_views = comp_views + 1 WHERE comp_no = ?";
         jdbcTemplate.update(sql, comp_no);
+    }
+
+    //게시글 수정
+    public void updateCompanionRepo(CompanionDTO companionDTO) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(update는 update)
+        //sql : community안에서 해당하는 게시글넘버의 데이터를 수정한다.
+        //update 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
+        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(
+                "update companion set comp_title=?,comp_content=?,comp_date=?,event_type=?, comp_link=? where comp_no=?;"
+                ,companionDTO.getComp_title(),companionDTO.getComp_content(),companionDTO.getComp_date(),companionDTO.getEvent_type(),companionDTO.getComp_link(),companionDTO.getComp_no());
+
+    }
+
+    public void deleteCompanionRepo(int comp_no) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(delete는 update)
+        //sql : communitytable안에서 해당하는 데이터(row)를 지운다.
+        //delete 시 문자열 변수에 sql문을 넣고, 지울게시글번호를 받아오는곳은 ?로 처리한다. (preparedstatement 형식)
+        String query = "delete from companion where comp_no = ?;";
+        //update메소드에 쿼리문을 넣고,그 뒤에 ?에 넣을 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(query,comp_no);
     }
 
 

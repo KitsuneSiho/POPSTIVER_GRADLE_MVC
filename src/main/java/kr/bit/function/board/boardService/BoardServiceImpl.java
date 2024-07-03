@@ -491,8 +491,8 @@ public class BoardServiceImpl implements BoardService {
     boardRepository.updateCommunityRepo(communityDTO);
     }
     @Override
-    public void deleteCommunity(CommunityDTO communityDTO)throws Exception{
-
+    public void deleteCommunity(int board_no)throws Exception{
+    boardRepository.deleteCommunityRepo(board_no);
     }
 
 
@@ -588,14 +588,18 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
+    @Override
+    public void updateReport(ReportDTO reportDTO) throws Exception{
+        boardRepository.updateReportRepo(reportDTO);
+    }
+    @Override
+    public void deleteReport(int board_no)throws Exception{
+        boardRepository.deleteReportRepo(board_no);
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
-
-
-
-
-
 
 
     @Override
@@ -661,5 +665,14 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void increaseCompanionViews(int comp_no){
         boardRepository.increaseCompanionViews(comp_no);
+    }
+
+    @Override
+    public void updateCompanion(CompanionDTO companionDTO) throws Exception{
+        boardRepository.updateCompanionRepo(companionDTO);
+    }
+    @Override
+    public void deleteCompanion(int comp_no)throws Exception{
+        boardRepository.deleteCompanionRepo(comp_no);
     }
 }

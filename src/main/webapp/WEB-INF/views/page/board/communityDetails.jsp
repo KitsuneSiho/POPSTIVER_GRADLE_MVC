@@ -75,11 +75,12 @@
                 <%-- 이미지가 있는 경우에만 출력 --%>
             <img src="${root}${community.board_attachment}" alt="첨부 이미지">
         </div>
+<%--        삭제버튼--%>
+        <div id="deleteButton"></div>
+<%--        수정버튼--%>
+        <div id="editButton"></div>
     </c:otherwise>
 </c:choose>
-    <div id="editButtonContainer">
-
-    </div>
     <div class="listButton">
         <button onclick="window.location.href='${root}/free'">목록</button>
     </div>
@@ -103,8 +104,18 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+
+<script src="${root}/resources/js/contact.js"></script>
 <script src="${root}/resources/js/chatModal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+
+
+
+<script>
+    const boardUserId = '${community.user_id}';
+    const boardNo = '${community.board_no}';
+</script>
 </body>
 </html>

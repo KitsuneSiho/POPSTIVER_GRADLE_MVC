@@ -286,6 +286,8 @@ public class BoardController {
         return "page/board/noticeDetails";
     }
 
+
+
     //=====================================================================================//
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//
@@ -300,7 +302,6 @@ public class BoardController {
         return "page/board/free";
     }
     @RequestMapping(value = "/free/{board_no}", method = RequestMethod.GET)
-    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
     public String selectCommunityOne(@PathVariable("board_no") int board_no, HttpSession session, Model model) {
         try {
 
@@ -329,9 +330,70 @@ public class BoardController {
         return "page/board/communityDetails";
     }
 
+    @RequestMapping(value = "/deleteCommunity/{board_no}", method = RequestMethod.GET)
+    public String deleteCommunity(@PathVariable("board_no") int board_no, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.deleteCommunity(board_no);
+            redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "게시글 삭제 중 오류가 발생했습니다.");
+        }
+        return "redirect:/free"; // 삭제 후 리다이렉트할 페이지
+    }
+    @RequestMapping(value = "/editCommunity/{board_no}", method = RequestMethod.GET)
+    public String editCommunity(@PathVariable("board_no") int board_no, HttpSession session, Model model) {
+            try {
+                model.addAttribute("current_community",boardService.selectCommunityOne(board_no));
+                }catch (Exception e){
+                e.printStackTrace();
+            }
+
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/freeEdit";
+    }
+
+    @RequestMapping(value = "/freeBoard")
+    @Controller
+    class EditCommunityController{
+
+        @PutMapping("/updateEdit")
+        @ResponseBody
+        public void editCommunity(@RequestBody CommunityDTO communityDTO,
+                                   @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.updateCommunity(communityDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
 
     // 자유 게시판 글 등록
+
 
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
@@ -440,6 +502,67 @@ public class BoardController {
         return "page/board/reportDetails";
     }
 
+    @RequestMapping(value = "/deleteReport/{report_no}", method = RequestMethod.GET)
+    public String deleteReport(@PathVariable("report_no") int report_no, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.deleteReport(report_no);
+            redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "게시글 삭제 중 오류가 발생했습니다.");
+        }
+        return "redirect:/report"; // 삭제 후 리다이렉트할 페이지
+    }
+
+    @RequestMapping(value = "/editReport/{report_no}", method = RequestMethod.GET)
+    public String editReport(@PathVariable("report_no") int report_no, HttpSession session, Model model) {
+        try {
+            model.addAttribute("current_report",boardService.selectReportOne(report_no));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/reportEdit";
+    }
+
+    @RequestMapping(value = "/report")
+    @Controller
+    class EditReportController{
+
+        @PutMapping("/updateEdit")
+        @ResponseBody
+        public void editReport(@RequestBody ReportDTO reportDTO,
+                                  @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.updateReport(reportDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
@@ -520,6 +643,67 @@ public class BoardController {
             e.printStackTrace();
         }
         return "page/board/together";
+    }
+
+    @RequestMapping(value = "/deleteTogether/{comp_no}", method = RequestMethod.GET)
+    public String deleteCompanion(@PathVariable("comp_no") int comp_no, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.deleteCompanion(comp_no);
+            redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "게시글 삭제 중 오류가 발생했습니다.");
+        }
+        return "redirect:/together"; // 삭제 후 리다이렉트할 페이지
+    }
+
+    @RequestMapping(value = "/editTogether/{comp_no}", method = RequestMethod.GET)
+    public String editCompanion(@PathVariable("comp_no") int comp_no, HttpSession session, Model model) {
+        try {
+            model.addAttribute("current_together",boardService.selectCompanionOne(comp_no));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/togetherEdit";
+    }
+
+    @RequestMapping(value = "/together")
+    @Controller
+    class EditTogetherController{
+
+        @PutMapping("/updateEdit")
+        @ResponseBody
+        public void editCompanion(@RequestBody CompanionDTO companionDTO,
+                               @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.updateCompanion(companionDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
 
