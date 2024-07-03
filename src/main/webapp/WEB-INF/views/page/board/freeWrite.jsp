@@ -84,10 +84,6 @@
         </div>
     </form>
 
-    <div id="uploadedImageContainer">
-        <h2>Uploaded Image</h2>
-        <img id="uploadedImage" src="" alt="Uploaded Image" style="display: none;">
-    </div>
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />

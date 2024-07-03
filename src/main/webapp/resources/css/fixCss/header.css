@@ -148,7 +148,9 @@ body {
     opacity: 1;
     transition: opacity 0.5s ease;
 }
-
+#ww_8fe9e8e469269{
+    color: #ffffff !important;
+}
 /* 막대 애니메이션 스타일 */
 .loader {
     display: flex;
