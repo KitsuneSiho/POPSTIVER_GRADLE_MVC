@@ -37,6 +37,10 @@ public class FlowController {
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "forward:/member/myPage";
     }
+//    @GetMapping("bookmark")//관심행사페이지
+//    public String bookmark_page() {
+//        return "page/myPage/bookmark";
+//    } //BookmarkController
 
     @GetMapping("calendar")//행사일정페이지
     public String calendar_page() {
@@ -90,16 +94,6 @@ public class FlowController {
         return "page/main/mainFestival";
     }
 
-    @GetMapping("popularAddFestival")//인기 페스티벌 정보 페이지(페스티벌페이지에서 인기 더보기 눌렀을때)
-    public String popularAddFestival_page() {
-        return "page/searchResult/popularAddFestival";
-    }
-
-    @GetMapping("openAddFestival")//오픈예정 페스티벌 정보 페이지(페스티벌페이지에서 오픈예정 더보기 눌렀을때)
-    public String openAddFestival_page() {
-        return "page/searchResult/openAddFestival";
-    }
-
     @GetMapping("mainPopup")
     public String mainPopup_page(Model model) {
         List<PopupUpcomingEntity> upcomingPopups = popupUpcomingService.getUpcomingPopups();
@@ -109,15 +103,25 @@ public class FlowController {
         return "page/main/mainPopup";
     }
 
-    @GetMapping("popularAddPopup")//인기 팝업 정보 페이지(팝업페이지에서 인기 더보기 눌렀을때)
-    public String popularAddPopup_page() {
-        return "page/searchResult/popularAddPopup";
-    }
+//    @GetMapping("popularAddFestival")//인기 페스티벌 정보 페이지(페스티벌페이지에서 인기 더보기 눌렀을때)
+//    public String popularAddFestival_page() {
+//        return "page/searchResult/popularAddFestival";
+//    } //MainAddController
 
-    @GetMapping("openAddPopup")//오픈예정 팝업 정보 페이지(팝업페이지에서 오픈예정 더보기 눌렀을때)
-    public String openAddPopup_page() {
-        return "page/searchResult/openAddPopup";
-    }
+//    @GetMapping("openAddFestival")//오픈예정 페스티벌 정보 페이지(페스티벌페이지에서 오픈예정 더보기 눌렀을때)
+//    public String openAddFestival_page() {
+//        return "page/searchResult/openAddFestival";
+//    } //MainAddController
+
+//    @GetMapping("popularAddPopup")//인기 팝업 정보 페이지(팝업페이지에서 인기 더보기 눌렀을때)
+//    public String popularAddPopup_page() {
+//        return "page/searchResult/popularAddPopup";
+//    } //MainAddController
+
+//    @GetMapping("openAddPopup")//오픈예정 팝업 정보 페이지(팝업페이지에서 오픈예정 더보기 눌렀을때)
+//    public String openAddPopup_page() {
+//        return "page/searchResult/openAddPopup";
+//    } //MainAddController
 
     @GetMapping("posterInfo")//행사세부정보페이지
     public String posterInfo_page() {

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="root" value="${pageContext.request.contextPath }" />
 
 <!DOCTYPE html>
@@ -34,219 +35,145 @@
 
 <div class="searchList">
     <article>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+        <c:set var="now" value="<%=new java.util.Date()%>" />
+        <fmt:formatDate var="today" value="${now}" pattern="yyyy-MM-dd" />
+
+        <c:set var="hasOngoing" value="false" />
+        <c:set var="hasUpcoming" value="false" />
+        <c:set var="hasEnded" value="false" />
+
+        <div class="searchListOpen" id="ongoingSection" onclick="toggleSearchList(this)">
             <p>진행중 페스티벌</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="ongoingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
+                <div class="carousel-content" id="carousel-content-ongoing">
+                    <c:forEach var="festival" items="${festivals}">
+                        <c:if test="${today >= festival.festival_start && today <= festival.festival_end}">
+                            <c:set var="hasOngoing" value="true" />
+                            <div class="card">
+                                <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
+                                    <img src="${festival.festival_attachment}" alt="포스터">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${festival.festival_no}"
+                                         data-event-type="${festival.event_type}">
+                                    <h3>${festival.festival_title}</h3>
+                                    <p>
+                                        <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
+                                            ${festival.festival_location}
+                                    </p>
+                                    <p>
+                                        <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
+                                            ${festival.festival_start} - ${festival.festival_end}
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
                 </div>
             </div>
         </div>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+
+        <div class="searchListOpen" id="upcomingSection" onclick="toggleSearchList(this)">
             <p>오픈 예정 페스티벌</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="upcomingContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
+                <div class="carousel-content" id="carousel-content-upcoming">
+                    <c:forEach var="festival" items="${festivals}">
+                        <c:if test="${today < festival.festival_start}">
+                            <c:set var="hasUpcoming" value="true" />
+                            <div class="card">
+                                <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
+                                    <img src="${festival.festival_attachment}" alt="포스터">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${festival.festival_no}"
+                                         data-event-type="${festival.event_type}">
+                                    <h3>${festival.festival_title}</h3>
+                                    <p>
+                                        <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
+                                            ${festival.festival_location}
+                                    </p>
+                                    <p>
+                                        <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
+                                            ${festival.festival_start} - ${festival.festival_end}
+                                    </p>
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
                 </div>
             </div>
         </div>
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+
+        <div class="searchListOpen" id="endedSection" onclick="toggleSearchList(this)">
             <p>종료 페스티벌</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="endedContent">
             <div class="carousel">
-                <div class="carousel-content" id="carousel-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
+                <div class="carousel-content" id="carousel-content-ended">
+                    <c:forEach var="festival" items="${festivals}">
+                    <c:if test="${today > festival.festival_end}">
+                        <c:set var="hasEnded" value="true" />
+                        <div class="card">
+                            <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
+                                <img src="${festival.festival_attachment}" alt="포스터">
+                                <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                     class="bookmark"
+                                     alt=""
+                                     data-event-no="${festival.festival_no}"
+                                     data-event-type="${festival.event_type}">
+                                <h3>${festival.festival_title}</h3>
+                                <p>
+                                    <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
+                                        ${festival.festival_location}
+                                </p>
+                                <p>
+                                    <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
+                                        ${festival.festival_start} - ${festival.festival_end}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img src="${root}/resources/asset/포스터이미지/흠뻑쇼6.gif" alt="포스터1">
-                            <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                            <h3>It's Your Day: 이번 광고, 생일 카페 주인공은 바로 너!</h3>
-                            <p>
-                                <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                서울특별시 마포구
-                            </p>
-                            <p>
-                                <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
-                                24.05.02 - 24.06.30
-                            </p>
-                        </div>
-                    </div>
+                    </c:if>
+                    </c:forEach>
+                </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
                 </div>
             </div>
         </div>
     </article>
 </div>
+
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+
+<input type="hidden" id="user_id" name="user_id" value="">
+<input type="hidden" id="user_name" name="user_name" value="">
+
+<script>
+    var hasOngoing = ${hasOngoing};
+    var hasUpcoming = ${hasUpcoming};
+    var hasEnded = ${hasEnded};
+</script>
 
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
