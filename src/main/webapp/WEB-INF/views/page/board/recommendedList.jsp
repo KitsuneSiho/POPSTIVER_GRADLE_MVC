@@ -33,14 +33,14 @@
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
-<div class="recommendedList">
+<div class="searchList">
     <article>
-        <div class="recommendedTitle">
+        <div class="searchResultTitle">
             <h1>관심 태그 기반 축제 및 팝업 추천</h1>
         </div>
 
         <!-- 사용자 관심 태그 기반 축제 추천 -->
-        <div class="recommendedListOpen" id="userFestivalSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="userFestivalSection" onclick="toggleSearchList(this)">
             <p>축제 추천</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -76,7 +76,7 @@
         </div>
 
         <!-- 사용자 관심 태그 기반 팝업 추천 -->
-        <div class="recommendedListOpen" id="userPopupSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="userPopupSection" onclick="toggleSearchList(this)">
             <p>팝업 추천</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -113,7 +113,7 @@
 
 
         <!-- 비슷한 취향을 가진 다른 사용자의 태그 기반 축제 추천 -->
-        <div class="recommendedListOpen" id="similarFestivalSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="similarFestivalSection" onclick="toggleSearchList(this)">
             <p>비슷한 취향을 가진 다른 사용자의 관심 축제</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -149,7 +149,7 @@
         </div>
 
         <!-- 비슷한 취향을 가진 다른 사용자의 태그 기반 팝업 추천 -->
-        <div class="recommendedListOpen" id="similarPopupSection" onclick="toggleRecommendedList(this)">
+        <div class="searchListOpen" id="similarPopupSection" onclick="toggleSearchList(this)">
             <p>비슷한 취향을 가진 다른 사용자의 관심 팝업</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
@@ -205,7 +205,7 @@
         });
     });
 
-    function toggleRecommendedList(section) {
+    function toggleSearchList(section) {
         var content = section.nextElementSibling;
         if (content.style.display === "none" || content.style.display === "") {
             content.style.display = "block";
@@ -214,5 +214,7 @@
         }
     }
 </script>
+<script src="${root}/resources/js/searchResult.js"></script>
+<script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
 </html>
