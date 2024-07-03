@@ -38,7 +38,7 @@ body {
 .mainPoster {
     display: flex;
     justify-content: center;
-    margin: 0 10%;
+    margin: 0 12%;
 }
 
 .main-content {
@@ -134,7 +134,10 @@ body {
 
 .popularSlide-container {
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden; /* overflow-x: scroll에서 hidden으로 변경 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .popularSlide-container::-webkit-scrollbar {
@@ -143,9 +146,9 @@ body {
 
 .popularSlide-track {
     display: flex;
-    transition: transform 0.3s ease-in-out;
-
+    width: 100%;
 }
+
 
 .popularSlide-container.active {
     cursor: grabbing;

@@ -229,11 +229,13 @@
         const nextBtn = document.querySelector('.next-btn');
         const dotsContainer = document.querySelector('.slide-dots');
 
+        const itemWidth = items[0].offsetWidth;
+        const totalSlides = items.length;
         let currentIndex = 0;
-        const slideWidth = 100; // 퍼센트 단위
+        let isAnimating = false;
 
         // 슬라이드 dots 생성
-        for (let i = 0; i < items.length / 2; i++) {
+        for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
             dotsContainer.appendChild(dot);
@@ -243,37 +245,68 @@
 
         function updateDots() {
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex / 2);
+                dot.classList.toggle('active', index === currentIndex);
             });
         }
 
-        function showSlide(index) {
+        function moveSlide(index) {
+            if (isAnimating) return;
+
             if (index < 0) {
+                index = totalSlides - 1;
+            } else if (index >= totalSlides) {
                 index = 0;
-            } else if (index > items.length - 2) {
-                index = items.length - 2;
             }
-            track.style.transform = `translateX(-${index * 50}%)`; // 50%로 변경
+
+            const start = container.scrollLeft;
+            const end = index * itemWidth;
+            const duration = 500;
+            let startTime = null;
+
+            isAnimating = true;
+
+            function animation(currentTime) {
+                if (!startTime) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const progress = Math.min(timeElapsed / duration, 1);
+                const ease = easeInOutQuad(progress);
+                container.scrollLeft = start + (end - start) * ease;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animation);
+                } else {
+                    isAnimating = false;
+                }
+            }
+
+            requestAnimationFrame(animation);
+
             currentIndex = index;
             updateDots();
         }
 
+        function easeInOutQuad(t) {
+            return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        }
+
         prevBtn.addEventListener('click', () => {
-            showSlide(currentIndex - 2);
+            moveSlide(currentIndex - 1);
         });
 
         nextBtn.addEventListener('click', () => {
-            showSlide(currentIndex + 2);
+            moveSlide(currentIndex + 1);
         });
 
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                showSlide(index * 2);
+                moveSlide(index);
             });
         });
 
+        // 초기 상태 설정
         updateDots();
     });
+
 </script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>

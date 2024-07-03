@@ -185,15 +185,14 @@ body {
     margin-bottom: 10px;
 }
 .comment-header .name{
-    width: 50%;
-    margin-right: 10%;
+    width: 100%;
+    font-size: 20px;
 }
 .comment-header button{
     background: none;
     border: none;
     color: #5e5e5e;
-    margin: 5%;
-    padding: 0;
+    margin: 1%;
     width: 60px;
 }
 .comment-header button:hover{

@@ -64,6 +64,7 @@ body {
 }
 
 .card {
+    font-family: 'Pre',sans-serif;
     width: 50%;
     box-sizing: border-box;
     padding: 10px;
@@ -119,14 +120,6 @@ body {
     cursor: pointer;
 }
 
-footer {
-    margin-top: 50px;
-    border-top: 1px solid #2e2e2e;
-    color: #5e5e5e;
-    text-align: center;
-    padding: 20px 0;
-}
-
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -137,7 +130,34 @@ footer {
     }
 }
 
-/* 수정된 CSS */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Pre',sans-serif;
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.pagination button:disabled {
+    color: #5e5e5e;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: white;
+    margin: 0 10px;
+}
+
+
 
 @media (max-width: 767px) {
     .searchList article {
@@ -176,4 +196,14 @@ footer {
     .card {
         width: 33.33%;
     }
+}
+
+/* 링크 색상 설정 */
+a {
+    color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+a:hover {
+    text-decoration: underline; /* 호버 시에는 밑줄 추가 */
 }

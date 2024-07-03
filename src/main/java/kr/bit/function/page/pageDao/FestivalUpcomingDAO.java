@@ -23,7 +23,7 @@ public class FestivalUpcomingDAO {
 
 
     public List<FestivalUpcomingEntity> getUpcomingFestivals() {
-        String sql = "SELECT festival_no, festival_title, festival_attachment FROM festival WHERE festival_start > CURDATE() ORDER BY festival_start ASC LIMIT 10";
+        String sql = "SELECT festival_no, festival_title, festival_attachment FROM festival WHERE festival_start > CURDATE() ORDER BY festival_start ASC LIMIT 30";
         List<FestivalUpcomingEntity> results = jdbcTemplate.query(sql, new FestivalUpcomingDAO.FestivalUpcomingRowMapper());
         return results;
     }
