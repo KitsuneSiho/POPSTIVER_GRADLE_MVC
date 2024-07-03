@@ -29,7 +29,7 @@ body {
 .userInfo {
     font-family: 'Pre', sans-serif;
     color: white;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     margin: 20px auto;
 }
@@ -296,4 +296,53 @@ body {
 #nicknameCheckResult {
     display: block;
     margin-top: 5px;
+}
+
+
+.tagButton .tag-button {
+    width: 90px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.tagButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+}
+
+.typeButton .type-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.typeButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+}
+
+.genderButton .gender-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.genderButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
 }

@@ -6,20 +6,14 @@ body {
 
 .mainButton {
     display: flex;
-    justify-content: center;
     margin-top: 30px;
-    /* Flex wrap added for responsiveness */
     flex-wrap: wrap;
-}
-
-.mainButton {
     font-family: 'Pre', sans-serif;
     color: white;
     font-size: 30px;
     transition: transform 0.3s ease;
     width: 95%;
     flex: 1;
-    display: flex;
     justify-content: right;
     text-align: center;
 }
@@ -44,24 +38,15 @@ body {
 .mainPoster {
     display: flex;
     justify-content: center;
-    margin-top: 50px;
-}
-
-.mainPoster img {
-    margin-top: 30px;
-    width: 100%;
-    height: 450px;
-    border: none;
+    margin: 0 10%;
 }
 
 .main-content {
-    display: flex;
-    justify-content: space-between;
     margin: 100px 5% 0 5%;
 }
 
-.popular, .open {
-    width: 48%;
+.popular {
+    width: 100%;
     margin-top: 0;
 }
 
@@ -89,34 +74,118 @@ body {
     color: #ffff33;
 }
 
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.slide-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    width: 20px;
+    border-radius: 5px;
+    background-color: #ffff33;
+}
+
+
 .popularPoster {
+    position: relative;
     overflow: hidden;
     padding: 20px 0;
     margin: 0 auto;
-    /* Width adjusted for responsiveness */
     width: 100%;
 }
 
 .popularPoster img {
     display: inline-flex;
-    width: 180px;
-    height: 250px;
-    margin: 20px;
-    border-radius: 10px;
+    width: 550px;
+    height: 550px;
     border: none;
 }
 
-.poster-item {
-    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+.popularSlide-container {
+    width: 100%;
+    overflow: hidden;
 }
 
-.poster-overlay {
+.popularSlide-container::-webkit-scrollbar {
+    display: none;
+}
+
+.popularSlide-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.popularSlide-container.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.popularSlide-track img {
+    width: 100%;
+    height: 550px;
+    border: none;
+    cursor: pointer;
+}
+
+.popularPoster-item {
+    position: relative;
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.popularPoster-item img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+}
+.popularPoster-caption {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.popularPoster-overlay {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    left: 10px;
+    right: 10px;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
@@ -127,40 +196,7 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.poster-item:hover .poster-overlay,
-.open-item:hover .poster-overlay {
-    opacity: 1;
-}
-
-.poster-item img {
-    width: 180px;
-    height: 250px;
-    border-radius: 10px;
-    cursor: pointer;
-    /* Width adjusted for responsiveness */
-    object-fit: cover;
-}
-
-.poster-item .bookmark{
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-.poster-caption {
-    color: white;
-    font-family: 'Pre', sans-serif;
-    font-size: 17px;
-    margin-bottom: 10px;
-    text-align: center;
-    padding: 0 30px;
-    width: 180px;
-}
-
-.poster-button {
+.popularPoster-button {
     background-color: #ffff33;
     color: black;
     border: none;
@@ -171,10 +207,19 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.poster-button:hover {
+.popularPoster-button:hover {
     background-color: #e6e600;
 }
 
+.popularPoster-item:hover .popularPoster-overlay {
+    opacity: 1;
+}
+
+
+.open {
+    width:100%;
+    margin-top: 0;
+}
 
 .openPosterText {
     font-family: 'Pre', sans-serif;
@@ -204,45 +249,18 @@ body {
     overflow: hidden;
     padding: 20px 0;
     margin: 0 auto;
-    /* Width adjusted for responsiveness */
     width: 100%;
 }
 
 .openPoster img {
     display: inline-flex;
-    width: 180px;
-    height: 250px;
-    margin: 20px;
+    width: 350px;
+    height: 350px;
     border-radius: 10px;
     border: none;
 }
 
-.open-item {
-    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
-}
-
-.open-item .bookmark{
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-.open-caption {
-    color: white;
-    font-family: 'Pre', sans-serif;
-    font-size: 17px;
-    margin-bottom: 10px;
-    text-align: center;
-    padding: 0 30px;
-    width: 180px;
-}
-
-.slide-container {
+.openSlide-container {
     width: 100%;
     overflow-x: scroll;
     scrollbar-width: none;
@@ -250,30 +268,91 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-.slide-container::-webkit-scrollbar {
+.openSlide-container::-webkit-scrollbar {
     display: none;
 }
 
-.slide-track {
+.openSlide-track {
     display: flex;
     animation: scroll 30s linear infinite;
     transition: all 0.5s;
     user-select: none;
-    width: 200%;
+    width: 100%;
+    gap: 40px;
 }
 
-.slide-container.active {
+.openSlide-container.active {
     cursor: grabbing;
     cursor: -webkit-grabbing;
 }
 
-.slide-track img {
-    width: 180px;
-    height: 250px;
-    margin: 0 20px;
+.openSlide-track img {
+    width: 350px;
+    height: 350px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
+}
+
+.openPoster-item {
+    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+    flex: 0 0 auto;
+    overflow: hidden;
+}
+
+.openPoster-item img {
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.openPoster-caption {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 350px;
+}
+
+.openPoster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 350px;
+    height: 350px;
+}
+
+.openPoster-button {
+    background-color: #ffff33;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Pre', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.openPoster-button:hover {
+    background-color: #e6e600;
+}
+
+.openPoster-item:hover .openPoster-overlay {
+    opacity: 1;
 }
 
 .slider {
@@ -290,11 +369,6 @@ body {
     }
 }
 
-.poster-item, .open-item {
-    flex: 0 0 auto;
-    position: relative;
-    overflow: hidden;
-}
 
 /* Added media queries for responsiveness */
 @media (max-width: 1024px) {
@@ -320,12 +394,12 @@ body {
         font-size: 5vw;
     }
 
-    .poster-item img, .open-item img {
+    .popularPoster-item img, .openPoster-item img {
         width: 140px;
         height: 200px;
     }
 
-    .poster-caption, .open-caption {
+    .popularPoster-caption, .openPoster-caption {
         font-size: 0.9rem;
     }
 }
@@ -336,12 +410,12 @@ body {
         height: 40px;
     }
 
-    .poster-item img, .open-item img {
+    .popularPoster-item img, .openPoster-item img {
         width: 120px;
         height: 170px;
     }
 
-    .poster-caption, .open-caption {
+    .popularPoster-caption, .openPoster-caption {
         font-size: 0.8rem;
     }
 }

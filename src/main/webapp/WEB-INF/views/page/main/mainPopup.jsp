@@ -40,32 +40,33 @@
 </div>
 
 <div class="mainPoster">
-    <img src="${root}/resources/asset/포스터이미지/워터밤가로.webp" alt="">
-</div>
-
-<div class="main-content">
     <div class="popular">
         <div class="popularPosterText">
             <p class="popularText1">인기</p>
             <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
         </div>
         <div class="popularPoster">
-            <div class="slide-container">
-                <div class="slide-track">
-                    <c:forEach items="${popularPopups}" var="event">
-                        <div class="poster-item">
+            <button class="arrow-btn prev-btn">&lt;</button>
+            <div class="popularSlide-container">
+                <div class="popularSlide-track">
+                    <c:forEach items="${popularPopups}" var="event" varStatus="status">
+                        <div class="popularPoster-item">
                             <img src="${event.attachment}" alt="${event.title}">
-                            <p class="poster-caption">${event.title}</p>
-                            <div class="poster-overlay">
-                                <a href="${root}/popup_Details/${event.event_no}" class="poster-button">자세히 보기</a>
+                            <div class="popularPoster-overlay">
+                                <p class="popularPoster-caption">${event.title}</p>
+                                <a href="${root}/popup_Details/${event.event_no}" class="popularPoster-button">자세히 보기</a>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
             </div>
+            <button class="arrow-btn next-btn">&gt;</button>
+            <div class="slide-dots"></div>
         </div>
     </div>
+</div>
 
+<div class="main-content">
 
     <div class="open">
         <div class="openPosterText">
@@ -73,20 +74,37 @@
             <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
         </div>
         <div class="openPoster">
-            <div class="slide-container">
-                <div class="slide-track">
+            <div class="openSlide-container">
+                <div class="openSlide-track">
                     <c:choose>
                         <c:when test="${empty upcomingPopups}">
                             <p style="color: white;">현재 오픈 예정인 팝업이 없습니다.</p>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${upcomingPopups}" var="popup">
-                                <div class="open-item">
+                            <c:forEach items="${upcomingPopups}" var="popup" begin="0" end="7">
+                                <div class="openPoster-item">
                                     <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
-                                    <p class="open-caption">${popup.popupTitle}</p>
-                                    <div class="poster-overlay">
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
-                                        <a href="${root}/popup_Details/${popup.popupNo}" class="poster-button">자세히 보기</a>
+                                    <p class="openPoster-caption">${popup.popupTitle}</p>
+                                    <div class="openPoster-overlay">
+                                        <a href="${root}/popup_Details/${popup.popupNo}" class="openPoster-button">자세히 보기</a>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="openSlide-track">
+                    <c:choose>
+                        <c:when test="${empty upcomingPopups}">
+                            <p style="color: white;">현재 오픈 예정인 팝업이 없습니다.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach items="${upcomingPopups}" var="popup" begin="8" end="15">
+                                <div class="openPoster-item">
+                                    <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
+                                    <p class="openPoster-caption">${popup.popupTitle}</p>
+                                    <div class="openPoster-overlay">
+                                        <a href="${root}/popup_Details/${popup.popupNo}" class="openPoster-button">자세히 보기</a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -101,94 +119,87 @@
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const sliders = document.querySelectorAll('.slide-container');
+        const slider = document.querySelector('.openSlide-container');
+        const tracks = slider.querySelectorAll('.openSlide-track');
 
-        sliders.forEach(slider => {
-            const track = slider.querySelector('.slide-track');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let velocity = 0;
-            let rafId = null;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let velocity = 0;
+        let rafId = null;
 
-            function stopMomentumTracking() {
-                cancelAnimationFrame(rafId);
+        function stopMomentumTracking() {
+            cancelAnimationFrame(rafId);
+        }
+
+        function momentumTracking() {
+            slider.scrollLeft += velocity;
+            velocity *= 0.95;
+
+            if (Math.abs(velocity) > 0.5) {
+                rafId = requestAnimationFrame(momentumTracking);
             }
 
-            function momentumTracking() {
-                const currentScrollLeft = slider.scrollLeft;
-
-                slider.scrollLeft += velocity;
-                velocity *= 0.95;
-
-                if (Math.abs(velocity) > 0.5) {
-                    rafId = requestAnimationFrame(momentumTracking);
-                }
-
-                // Handle infinite scroll
-                const maxScroll = track.scrollWidth / 2;
-                if (slider.scrollLeft >= maxScroll) {
-                    slider.scrollLeft -= maxScroll;
-                } else if (slider.scrollLeft <= 0) {
-                    slider.scrollLeft += maxScroll;
-                }
+            // Handle infinite scroll
+            const maxScroll = tracks[0].scrollWidth;
+            if (slider.scrollLeft >= maxScroll) {
+                slider.scrollLeft = 0;  // 즉시 처음으로 돌아감
+            } else if (slider.scrollLeft <= 0) {
+                slider.scrollLeft = maxScroll - 1;  // 끝으로 즉시 이동
             }
+        }
 
-            slider.addEventListener('mouseenter', () => {
+        slider.addEventListener('mouseenter', () => {
+            tracks.forEach(track => {
                 track.style.animationPlayState = 'paused';
             });
+        });
 
-            slider.addEventListener('mouseleave', () => {
+        slider.addEventListener('mouseleave', () => {
+            tracks.forEach(track => {
                 track.style.animationPlayState = 'running';
             });
-
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true;
-                slider.classList.add('active');
-                startX = e.pageX - slider.offsetLeft;
-                scrollLeft = slider.scrollLeft;
-                stopMomentumTracking();
-            });
-
-            slider.addEventListener('mouseleave', () => {
-                isDown = false;
-                slider.classList.remove('active');
-            });
-
-            slider.addEventListener('mouseup', () => {
-                isDown = false;
-                slider.classList.remove('active');
-                momentumTracking();
-            });
-
-            slider.addEventListener('mousemove', (e) => {
-                if(!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2;
-                const prevScrollLeft = slider.scrollLeft;
-                slider.scrollLeft = scrollLeft - walk;
-                velocity = slider.scrollLeft - prevScrollLeft;
-            });
-
-            // Clone items for infinite scroll
-            const items = track.querySelectorAll('.poster-item, .open-item');
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                track.appendChild(clone);
-            });
-
-            // Set initial scroll position
-            slider.scrollLeft = track.scrollWidth / 4;
         });
-    });
 
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            stopMomentumTracking();
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+            momentumTracking();
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            const prevScrollLeft = slider.scrollLeft;
+            slider.scrollLeft = scrollLeft - walk;
+            velocity = slider.scrollLeft - prevScrollLeft;
+        });
+
+
+        // Set initial scroll position
+        slider.scrollLeft = tracks[0].scrollWidth / 4;
+    });
     document.addEventListener('DOMContentLoaded', function() {
-        const posterItems = document.querySelectorAll('.poster-item, .open-item');
+        const posterItems = document.querySelectorAll('.openPoster-item');
 
         posterItems.forEach(item => {
-            const overlay = item.querySelector('.poster-overlay');
-            const button = item.querySelector('.poster-button');
+            const overlay = item.querySelector('.popularPoster-overlay, .openPoster-overlay');
+            const button = item.querySelector('.popularPoster-button, .openPoster-button');
 
             if (overlay && button) {
                 item.addEventListener('mouseenter', () => {
@@ -206,6 +217,62 @@
                 });
             }
         });
+    });
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.querySelector('.popularSlide-container');
+        const track = document.querySelector('.popularSlide-track');
+        const items = track.querySelectorAll('.popularPoster-item');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const dotsContainer = document.querySelector('.slide-dots');
+
+        let currentIndex = 0;
+        const slideWidth = 100; // 퍼센트 단위
+
+        // 슬라이드 dots 생성
+        for (let i = 0; i < items.length / 2; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = dotsContainer.querySelectorAll('.dot');
+
+        function updateDots() {
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex / 2);
+            });
+        }
+
+        function showSlide(index) {
+            if (index < 0) {
+                index = 0;
+            } else if (index > items.length - 2) {
+                index = items.length - 2;
+            }
+            track.style.transform = `translateX(-${index * 50}%)`; // 50%로 변경
+            currentIndex = index;
+            updateDots();
+        }
+
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentIndex - 2);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentIndex + 2);
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index * 2);
+            });
+        });
+
+        updateDots();
     });
 </script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>

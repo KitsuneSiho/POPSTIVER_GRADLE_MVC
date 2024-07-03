@@ -26,32 +26,6 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .tag-button {
-            margin: 5px;
-        }
-
-        .tagButton .selected {
-            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
-        }
-
-        .type-button {
-            margin: 5px;
-        }
-
-        .typeButton .selected {
-            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
-        }
-
-        .gender-button {
-            margin: 5px;
-        }
-
-        .genderButton .selected {
-            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
-        }
-
-
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/formValidation.js"></script>
