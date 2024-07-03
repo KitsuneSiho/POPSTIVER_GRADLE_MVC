@@ -1,3 +1,23 @@
+$(document).ready(function () {
+    var gender = $("#user_gender").val();
+
+    console.log(gender);
+    // gender 값에 따라 버튼 선택 상태 설정
+    if (gender === 'M') {
+        $('#male').addClass('selected'); // 주최자 버튼 선택
+        $('#female').removeClass('selected'); // 사용자 버튼 선택 해제
+        $("#user_gender").val("male");
+    } else if (gender === 'F') {
+        $('#female').addClass('selected'); // 사용자 버튼 선택
+        $('#male').removeClass('selected'); // 주최자 버튼 선택 해제
+        $("#user_gender").val("female");
+    }
+
+    $('#user').addClass('selected');// 맨 처음에는 사용자 선택된게 기본 값이도록
+    $('#user_type').val("ROLE_USER");
+});
+
+
 const forbiddenWords = [
     '관리자', 'admin', 'ADMIN', 'test', 'TEST', 'example', 'EXAMPLE', 'root', 'ROOT', 'superuser', 'SUPERUSER', 'guest', 'GUEST', 'temp', 'TEMP', 'user', 'USER', 'username', 'USERNAME', 'sample', 'SAMPLE',
     'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'damn', 'crap', 'dick', 'pussy', 'cunt', 'faggot', 'douche', 'nigger', 'slut', 'whore',
@@ -5,7 +25,7 @@ const forbiddenWords = [
 ]; // 금지어 목록
 
 let isNicknameAvailable = false;
-
+let isNicknameChecked = false;
 function containsForbiddenWord(input) {
     for (let i = 0; i < forbiddenWords.length; i++) {
         if (input.includes(forbiddenWords[i])) {
@@ -84,39 +104,69 @@ function showCustomAlert(message) {
 function validateForm() {
     const userNickName = document.getElementById('user_nickName').value.trim();
     const userBirth = document.getElementById('user_birth').value.trim();
+    const userType = document.getElementById('user_type').value.trim();
+    const userGender = document.getElementById('user_gender').value.trim();
+
+    console.log(userGender);
+    console.log(userType);
+
+    if (userType === '') {
+        showCustomAlert('회원 유형을 선택해주세요.');
+        document.getElementById('host').focus();
+        return false;
+    }
+
+    if (userGender === '') { // 수정된 부분
+        showCustomAlert('성별을 선택해주세요.');
+        document.getElementById('male').focus();
+        return false;
+    }
 
     if (userNickName === '') {
         showCustomAlert('닉네임을 입력해주세요.');
         document.getElementById('user_nickName').focus();
         return false;
     }
+
     if (containsForbiddenWord(userNickName)) {
         showCustomAlert('닉네임에 금지된 단어가 포함되어 있습니다.');
         document.getElementById('user_nickName').focus();
         return false;
     }
+
     if (containsOnlyConsonantsOrVowels(userNickName)) {
         showCustomAlert('닉네임에 자음이나 모음만 사용할 수 없습니다.');
         document.getElementById('user_nickName').focus();
         return false;
     }
+
+    if(!isNicknameChecked){
+        showCustomAlert('닉네임 중복 확인 후 가입해주세요.');
+        document.getElementById('user_nickName').focus();
+        return false;
+    }
+
     if (!isNicknameAvailable) {
         showCustomAlert('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.');
         return false;
     }
+
     if (userBirth === '') {
         showCustomAlert('생일을 입력해주세요.');
         document.getElementById('user_birth').focus();
         return false;
     }
-    if (!/^[0-9]+$/.test(userBirth)) {
-        showCustomAlert('생일은 숫자만 입력 가능합니다.');
+
+    // 생일이 미래인지 확인
+    const today = new Date().toISOString().split('T')[0];
+    if (userBirth > today) {
+        showCustomAlert('생일은 미래 날짜가 될 수 없습니다.');
         document.getElementById('user_birth').focus();
         return false;
     }
-    if (!isValidDateFormat(userBirth)) {
-        showCustomAlert('생일을 yyyymmdd 형식으로 입력해주세요.');
-        document.getElementById('user_birth').focus();
+
+    if(!saveUserTags()){
+        showCustomAlert('태그를 하나 이상 선택해주세요.');
         return false;
     }
 
@@ -169,6 +219,7 @@ function checkNickname() {
         data: { nickname: nickname },
         success: function(response) {
             if (response.available) {
+                isNicknameChecked = true;
                 document.getElementById('nicknameCheckResult').textContent = '사용 가능한 닉네임입니다.';
                 document.getElementById('nicknameCheckResult').style.color = 'green';
                 isNicknameAvailable = true;
@@ -181,16 +232,61 @@ function checkNickname() {
         error: function() {
             showCustomAlert('닉네임 중복 확인 중 오류가 발생했습니다.');
             isNicknameAvailable = false;
+            isNicknameChecked = false;
         }
     });
 }
 
-// 생일 입력란에 숫자만 입력할 수 있도록 이벤트 추가
-document.getElementById('user_birth').addEventListener('input', function (e) {
-    const userBirth = e.target.value;
-    if (!/^[0-9]*$/.test(userBirth)) {
-        showCustomAlert('생일은 숫자만 입력 가능합니다.');
-        e.target.value = userBirth.replace(/[^0-9]/g, ''); // 숫자 외의 문자는 제거
-        e.target.focus();
+function toggleTagSelection(button) {
+    button.classList.toggle('selected');
+    console.log('Tag selected:', button.getAttribute('data-tag-no')); // 태그 선택 이벤트 확인용 로그
+}
+
+function setTags() {
+
+    document.querySelectorAll('.tag-button').forEach(button => {
+        button.addEventListener('click', function() {
+            this.classList.toggle('selected');
+            console.log(`Button ${button.getAttribute('data-tag-no')} clicked`); // 클릭 이벤트 확인용 로그
+        });
+    });
+}
+
+function saveUserTags() {
+    const selectedTags = Array.from(document.querySelectorAll('.tag-button.selected')).map(button => button.getAttribute('data-tag-no'));
+    const tagsField = document.getElementById('tags');
+    tagsField.value = selectedTags.join(',');
+
+    if (selectedTags.length === 0) {
+        return false;
+    } else {
+        return true;
     }
-});
+
+}
+
+function toggleTypeSelection(button) {
+    button.classList.toggle('selected');
+    if (button.id === 'host' && button.classList.contains('selected')) {
+        console.log("주최자 선택");
+        document.getElementById('user').classList.remove('selected');
+        $('#user_type').val('ROLE_HOST');
+    } else if (button.id === 'user' && button.classList.contains('selected')) {
+        console.log("사용자 선택");
+        document.getElementById('host').classList.remove('selected');
+        $('#user_type').val('ROLE_USER');
+    }
+}
+
+function toggleGenderSelection(button) {
+    button.classList.toggle('selected');
+    if (button.id === 'male' && button.classList.contains('selected')) {
+        console.log("남 선택");
+        document.getElementById('female').classList.remove('selected');
+        $('#user_gender').val('male');
+    } else if (button.id === 'female' && button.classList.contains('selected')) {
+        console.log("여 선택");
+        document.getElementById('male').classList.remove('selected');
+        $('#user_gender').val('female');
+    }
+}

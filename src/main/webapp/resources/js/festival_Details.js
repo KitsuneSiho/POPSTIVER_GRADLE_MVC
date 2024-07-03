@@ -195,6 +195,13 @@ function editComment(commentNo, commentContent, starRate, visitDate) {
     commentNoInput.value = commentNo;
     document.getElementById('commentForm').appendChild(commentNoInput);
 
+    // 기존 별점 표시
+    document.querySelectorAll('.new-star').forEach(star => {
+        if (star.dataset.value <= starRate) {
+            star.classList.add('selected');
+        }
+    });
+
     var submitButton = document.querySelector('#commentForm button[type="submit"]');
     submitButton.textContent = '수정 완료';
 

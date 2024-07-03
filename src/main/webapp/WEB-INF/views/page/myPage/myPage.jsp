@@ -162,7 +162,7 @@
             <li>
                 <span>생일</span><br>
                 <label>
-                    <input type="text" name="user_birth" value="${user.user_birth}" readonly>
+                    <input type="date" class="birthday" name="user_birth" value="${user.user_birth}" readonly>
                 </label>
             </li>
             <li>
