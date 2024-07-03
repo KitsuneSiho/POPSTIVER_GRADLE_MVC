@@ -19,7 +19,7 @@
     z-index: 1001;
     right: 20px;
     bottom: 80px;
-    width: 400px; /* 기본 크기 증가 */
+    width: 400px;
     max-width: calc(100% - 40px);
     height: auto;
     overflow: auto;
@@ -48,17 +48,77 @@
 }
 
 .chatBox {
-    height: 400px; /* 기본 크기 증가 */
+    height: 400px;
     overflow-y: auto;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
     line-height: 1.3;
+    background-color: #2e2e2e;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.userMessage {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.adminMessage {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.messageText {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #4a4a4a;
+    color: black;
+    position: relative;
+}
+
+.userMessage .messageText {
+    background-color: gold;
+    order: 1;
+}
+
+.adminMessage .messageText {
+    background-color: white;
+    order: 1;
+}
+
+.timestamp-user {
+    font-size: 0.8em;
+    color: #cccccc;
+    margin: 0 5px;
+    white-space: nowrap;
+    order: 0;
+    margin-left: 10px;
+}
+
+.timestamp-admin {
+    font-size: 0.8em;
+    color: #cccccc;
+    margin: 0 5px;
+    white-space: nowrap;
+    order: 2;
+    margin-left: 10px;
+}
+
+.sender {
+    font-weight: bold;
+    margin: 10px 0 5px;
+    align-self: flex-start;
 }
 
 #chatInput {
-    width: calc(100% - 80px); /* 너비 조정 */
+    width: calc(100% - 80px);
     padding: 10px;
     border: none;
     border-radius: 5px;
@@ -70,7 +130,7 @@
 }
 
 #sendChatButton {
-    width: 70px; /* 너비 조정 */
+    width: 70px;
     background-color: #ffff33;
     border: none;
     border-radius: 5px;
@@ -83,16 +143,23 @@
     background-color: #ffff3388;
 }
 
+.dateDisplay {
+    text-align: center;
+    color: #888;
+    font-size: 0.8em;
+    margin: 10px 0;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 1024px) {
     .chatModal {
         right: 15px;
         bottom: 70px;
-        width: 350px; /* 중간 크기 */
+        width: 350px;
     }
 
     .chatBox {
-        height: 350px; /* 중간 크기 */
+        height: 350px;
     }
 }
 
@@ -100,7 +167,7 @@
     .chatModal {
         right: 10px;
         bottom: 70px;
-        width: 300px; /* 작은 크기 */
+        width: 300px;
     }
 
     .chatButton {
@@ -114,7 +181,7 @@
     }
 
     .chatBox {
-        height: 300px; /* 작은 크기 */
+        height: 300px;
     }
 }
 
@@ -123,18 +190,18 @@
         right: 10px;
         bottom: 60px;
         width: calc(100% - 20px);
-        max-width: 300px; /* 최종 크기 */
+        max-width: 300px;
     }
 
     .chatBox {
-        height: 250px; /* 최종 크기 */
+        height: 250px;
     }
 
     #chatInput {
-        width: calc(100% - 65px); /* 너비 조정 */
+        width: calc(100% - 65px);
     }
 
     #sendChatButton {
-        width: 60px; /* 너비 조정 */
+        width: 60px;
     }
 }

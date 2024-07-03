@@ -64,7 +64,7 @@ public interface BoardService {
     public CommunityDTO selectCommunityOne(int board_no) throws Exception;
     //해당 보드넘버를 가진 데이터를 수정
     public void updateCommunity(CommunityDTO communityDTO) throws Exception;
-    public void deleteCommunity(CommunityDTO communityDTO) throws Exception;
+    public void deleteCommunity(int board_no) throws Exception;
     public void increaseCommunityViews(int board_no);
     //=====================================================================================//
     //                              ⚠️⚠️ NOTICE  공지게시판 ⚠️⚠️                            //
@@ -83,13 +83,16 @@ public interface BoardService {
     public void insertReport(ReportDTO reportDTO) throws Exception;
     public List<ReportDTO> selectReportAll() throws Exception;
     public ReportDTO selectReportOne(int report_no) throws Exception;
+    public void updateReport(ReportDTO reportDTO) throws Exception;
+    public void deleteReport(int report_no) throws Exception;
     //=====================================================================================//
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
     public void insertCompanion(CompanionDTO companionDTO) throws Exception;
     public List<CompanionDTO> selectCompanionAll() throws Exception;
     public CompanionDTO selectCompanionOne(int comp_no) throws Exception;
-
     public void increaseCompanionViews(int board_no);
+    public void updateCompanion(CompanionDTO companionDTO) throws Exception;
+    public void deleteCompanion(int comp_no) throws Exception;
 
 }

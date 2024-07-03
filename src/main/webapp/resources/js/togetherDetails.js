@@ -22,8 +22,8 @@ function loginID() {
                 $('#sessionIdSpan').text(sessionID);
                 if(response.user_id === boardUserId) {
                     console.log("삭제 버튼 조건 충족"); // 로그 추가
-                    $('#deleteButton').html('<button class="deleteButton" onclick="window.location.href=\'/deleteCommunity/'+ boardNo +'\'">삭제하기</button>');
-                    $('#editButton').html('<button class="editButton" onclick="window.location.href=\'/editCommunity/' + boardNo + '\'">수정하기</button>');
+                    $('#deleteButton').html('<button class="deleteButton" onclick="window.location.href=\'/deleteTogether/'+ boardNo +'\'">삭제하기</button>');
+                    $('#editButton').html('<button class="editButton" onclick="window.location.href=\'/editTogether/' + boardNo + '\'">수정하기</button>');
                 } else {
                     console.log("삭제 버튼 조건 불충족"); // 로그 추가
                 }

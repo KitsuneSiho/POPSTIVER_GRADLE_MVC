@@ -30,8 +30,8 @@ public class LikeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "User not authenticated"));
         }
 
-        String userId = getUserId(customOAuth2User);
-        String userName = getUserName(customOAuth2User);
+        String userId = payload.get("user_id");
+        String userName = payload.get("user_name");
 
         String eventNoStr = payload.get("event_no");
         String eventTypeStr = payload.get("event_type");
@@ -131,6 +131,4 @@ public class LikeController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(simplifiedLikes);
     }
-
-
 }
