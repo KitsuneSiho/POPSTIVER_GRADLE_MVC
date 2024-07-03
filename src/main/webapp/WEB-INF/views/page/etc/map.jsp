@@ -26,6 +26,18 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
+
+        .district-select-wrapper {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 2s ease-in-out; /* 애니메이션 지속 시간과 이징 함수 설정 */
+        }
+
+        .district-select-wrapper.show {
+            display: block; /* display 속성을 block으로 변경 */
+            max-height: 500px; /* 충분한 크기로 설정하여 전체 내용이 보이도록 함 */
+        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -37,142 +49,166 @@
 
 <div class="map">
     <h3>모든 행사 위치 (카카오 지도)</h3>
+
+    <h4>원하는 축제 타입을 선택해 주세요</h4>
+
     <div class="dropdown-wrapper">
-        <button class="city-button" data-city="전체">전체</button>
+        <button class="type-button" id="popup" data-city="팝업">팝업</button>
+    </div>
+
+    <div class="dropdown-wrapper">
+        <button class="type-button" id="festival"  data-city="지역 축제">지역 축제</button>
     </div>
     <div class="dropdown-wrapper">
-        <button class="city-button" data-city="서울특별시">서울특별시</button>
-        <div class="dropdown-content">
-            <label>
-                <select class="district-select">
-                    <option value="">구 선택</option>
-                    <option value="강남구">강남구</option>
-                    <option value="강동구">강동구</option>
-                    <option value="강북구">강북구</option>
-                    <option value="강서구">강서구</option>
-                    <option value="관악구">관악구</option>
-                    <option value="광진구">광진구</option>
-                    <option value="구로구">구로구</option>
-                    <option value="금천구">금천구</option>
-                    <option value="노원구">노원구</option>
-                    <option value="도봉구">도봉구</option>
-                    <option value="동대문구">동대문구</option>
-                    <option value="동작구">동작구</option>
-                    <option value="마포구">마포구</option>
-                    <option value="서대문구">서대문구</option>
-                    <option value="서초구">서초구</option>
-                    <option value="성동구">성동구</option>
-                    <option value="성북구">성북구</option>
-                    <option value="송파구">송파구</option>
-                    <option value="양천구">양천구</option>
-                    <option value="영등포구">영등포구</option>
-                    <option value="용산구">용산구</option>
-                    <option value="은평구">은평구</option>
-                    <option value="종로구">종로구</option>
-                    <option value="중구">중구</option>
-                    <option value="중랑구">중랑구</option>
-                </select>
-            </label>
+        <button id="type_select">선택</button>
+    </div>
+    <br>
+
+    <div class="district-select-wrapper">
+        <h4>원하는 지역을 선택해 주세요</h4>
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="전체">전체</button>
         </div>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="경기도">경기도</button>
-        <div class="dropdown-content">
-            <label>
-                <select class="district-select">
-                    <option value="">시 또는 군 선택</option>
-                    <option value="가평군">가평군</option>
-                    <option value="고양시">고양시</option>
-                    <option value="과천시">과천시</option>
-                    <option value="광명시">광명시</option>
-                    <option value="광주시">광주시</option>
-                    <option value="구리시">구리시</option>
-                    <option value="군포시">군포시</option>
-                    <option value="김포시">김포시</option>
-                    <option value="남양주시">남양주시</option>
-                    <option value="동두천시">동두천시</option>
-                    <option value="부천시">부천시</option>
-                    <option value="성남시">성남시</option>
-                    <option value="수원시">수원시</option>
-                    <option value="시흥시">시흥시</option>
-                    <option value="안산시">안산시</option>
-                    <option value="안성시">안성시</option>
-                    <option value="안양시">안양시</option>
-                    <option value="양주시">양주시</option>
-                    <option value="양평군">양평군</option>
-                    <option value="여주시">여주시</option>
-                    <option value="연천군">연천군</option>
-                    <option value="오산시">오산시</option>
-                    <option value="용인시">용인시</option>
-                    <option value="의왕시">의왕시</option>
-                    <option value="의정부시">의정부시</option>
-                    <option value="이천시">이천시</option>
-                    <option value="파주시">파주시</option>
-                    <option value="평택시">평택시</option>
-                    <option value="포천시">포천시</option>
-                    <option value="하남시">하남시</option>
-                    <option value="화성시">화성시</option>
-                </select>
-            </label>
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="서울특별시">서울특별시</button>
+            <div class="dropdown-content">
+                <label>
+                    <select class="district-select">
+                        <option value="">구 선택</option>
+                        <option value="강남구">강남구</option>
+                        <option value="강동구">강동구</option>
+                        <option value="강북구">강북구</option>
+                        <option value="강서구">강서구</option>
+                        <option value="관악구">관악구</option>
+                        <option value="광진구">광진구</option>
+                        <option value="구로구">구로구</option>
+                        <option value="금천구">금천구</option>
+                        <option value="노원구">노원구</option>
+                        <option value="도봉구">도봉구</option>
+                        <option value="동대문구">동대문구</option>
+                        <option value="동작구">동작구</option>
+                        <option value="마포구">마포구</option>
+                        <option value="서대문구">서대문구</option>
+                        <option value="서초구">서초구</option>
+                        <option value="성동구">성동구</option>
+                        <option value="성북구">성북구</option>
+                        <option value="송파구">송파구</option>
+                        <option value="양천구">양천구</option>
+                        <option value="영등포구">영등포구</option>
+                        <option value="용산구">용산구</option>
+                        <option value="은평구">은평구</option>
+                        <option value="종로구">종로구</option>
+                        <option value="중구">중구</option>
+                        <option value="중랑구">중랑구</option>
+                    </select>
+                </label>
+            </div>
         </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="경기도">경기도</button>
+            <div class="dropdown-content">
+                <label>
+                    <select class="district-select">
+                        <option value="">시 또는 군 선택</option>
+                        <option value="가평군">가평군</option>
+                        <option value="고양시">고양시</option>
+                        <option value="과천시">과천시</option>
+                        <option value="광명시">광명시</option>
+                        <option value="광주시">광주시</option>
+                        <option value="구리시">구리시</option>
+                        <option value="군포시">군포시</option>
+                        <option value="김포시">김포시</option>
+                        <option value="남양주시">남양주시</option>
+                        <option value="동두천시">동두천시</option>
+                        <option value="부천시">부천시</option>
+                        <option value="성남시">성남시</option>
+                        <option value="수원시">수원시</option>
+                        <option value="시흥시">시흥시</option>
+                        <option value="안산시">안산시</option>
+                        <option value="안성시">안성시</option>
+                        <option value="안양시">안양시</option>
+                        <option value="양주시">양주시</option>
+                        <option value="양평군">양평군</option>
+                        <option value="여주시">여주시</option>
+                        <option value="연천군">연천군</option>
+                        <option value="오산시">오산시</option>
+                        <option value="용인시">용인시</option>
+                        <option value="의왕시">의왕시</option>
+                        <option value="의정부시">의정부시</option>
+                        <option value="이천시">이천시</option>
+                        <option value="파주시">파주시</option>
+                        <option value="평택시">평택시</option>
+                        <option value="포천시">포천시</option>
+                        <option value="하남시">하남시</option>
+                        <option value="화성시">화성시</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="경상남도">경상남도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="대구광역시">대구광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="제주특별자치도">제주특별자치도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="대전광역시">대전광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="전북특별자치도">전북특별자치도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="전라남도">전라남도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="부산광역시">부산광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="경상북도">경상북도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="인천광역시">인천광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="충청북도">충청북도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="충청남도">충청남도</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="광주광역시">광주광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="울산광역시">울산광역시</button>
+        </div>
+
+        <div class="dropdown-wrapper">
+            <button class="city-button" data-city="세종특별자치시">세종특별자치시</button>
+        </div>
+
+
+        <br>
     </div>
 
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="경상남도">경상남도</button>
-    </div>
 
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="대구광역시">대구광역시</button>
-    </div>
 
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="제주특별자치도">제주특별자치도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="대전광역시">대전광역시</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="전북특별자치도">전북특별자치도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="전라남도">전라남도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="부산광역시">부산광역시</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="경상북도">경상북도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="인천광역시">인천광역시</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="충청북도">충청북도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="충청남도">충청남도</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="광주광역시">광주광역시</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="울산광역시">울산광역시</button>
-    </div>
-
-    <div class="dropdown-wrapper">
-        <button class="city-button" data-city="세종특별자치시">세종특별자치시</button>
-    </div>
 
     <div id="multiMap">
         <button id="currentLocationButton">내 위치로 돌아가기</button>
@@ -202,9 +238,60 @@
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 <script>
+
+    // 버튼 요소들을 가져옵니다.
+    const typeButtons = document.querySelectorAll('.type-button');
+    const cityButtons = document.querySelectorAll('.city-button');
+    const districtSelects = document.querySelectorAll('.district-select');
+
+    var typeSelectButton = document.getElementById('type_select');
+    typeSelectButton.addEventListener('click', function() {
+        var districtSelectWrapper = document.querySelector('.district-select-wrapper');
+        districtSelectWrapper.classList.toggle('show'); // show 클래스를 토글하여 보이기/숨기기
+
+        // 선택 완료 버튼의 텍스트를 변경
+        if (districtSelectWrapper.classList.contains('show')) {
+            this.textContent = "다시 검색";
+        } else {
+            this.textContent = "선택";
+            var typeButtons = document.querySelectorAll('.type-button');
+            var cityButtons = document.querySelectorAll('.city-button');
+
+            cityButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            typeButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            addMarkers(multiMap, geocoder, festivals);
+            addPopupMarkers(multiMap, geocoder, popups);
+
+        }
+    });
+
+    // 타입 버튼 클릭 시 이벤트를 처리합니다.
+    typeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            this.classList.toggle('active');
+
+            cityButtons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+        });
+    });
+
+
     var geocoder = new kakao.maps.services.Geocoder();
     var festivalMarkers = []; // 지역 축제 마커 배열
     var popupMarkers = []; // 팝업 마커 배열
+
+    var buttonPopup = document.getElementById('popup');
+    var isActivePopup = "";
+
+    var buttonFestival = document.getElementById('festival'); // 버튼 요소 가져오기
+    var isActiveFestival = "";
 
     var festivalMarkerImage = new kakao.maps.MarkerImage(
         '${root}/resources/asset/파랑마커.png',
@@ -221,6 +308,8 @@
             offset: new kakao.maps.Point(25, 25)
         }
     );
+
+    var multiMap;
 
     function getUserLocation(callback) {
         if (navigator.geolocation) {
@@ -252,7 +341,7 @@
                 level: 4
             };
 
-            var multiMap = new kakao.maps.Map(multiMapContainer, multiMapOption);
+            multiMap = new kakao.maps.Map(multiMapContainer, multiMapOption);
 
 // 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
             var zoomControl = new kakao.maps.ZoomControl();
@@ -272,268 +361,188 @@
             // 지도에 중앙 마커를 표시합니다
             centerMarker.setMap(multiMap);
 
-
-
-            // 지역 축제 데이터
-            var festivals = [
-                <c:forEach var="festival" items="${allFestivals}" varStatus="loop">
-                {
-                    title: "${festival.festival_title}",
-                    location: "${festival.festival_location}",
-                    link: "${pageContext.request.contextPath}/festival_Details/${festival.festival_no}",
-                    dist: "${festival.festival_dist}",
-                    subdist: "${festival.festival_subdist}",
-                    start: "${festival.festival_start}",
-                    end: "${festival.festival_end}"
-                }<c:if test="${!loop.last}">,</c:if>
-                </c:forEach>
-            ];
-
-            // 팝업 데이터
-            var popups = [
-                <c:forEach var="popup" items="${allPopups}" varStatus="loop">
-                {
-                    title: "${popup.popup_title}",
-                    location: "${popup.popup_location}",
-                    link: "${pageContext.request.contextPath}/popup_Details/${popup.popup_no}",
-                    dist: "${popup.popup_dist}",
-                    subdist: "${popup.popup_subdist}",
-                    start: "${popup.popup_start}",
-                    end: "${popup.popup_end}"
-                }<c:if test="${!loop.last}">,</c:if>
-                </c:forEach>
-            ];
-
-            // 함수 내에서 마커를 비동기적으로 추가
-            function addMarkers(map, geocoder, festivals) {
-                festivals.forEach(function(festival) {
-                    geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
-                        if (status === kakao.maps.services.Status.OK) {
-                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                            var marker = new kakao.maps.Marker({
-                                map: map,
-                                position: coords,
-                                image: festivalMarkerImage,
-                                data: festival
-                            });
-
-                            festivalMarkers.push(marker);
-
-                            kakao.maps.event.addListener(marker, 'click', function() {
-                                var modal = document.getElementById('festivalModal');
-                                document.getElementById('festivalTitle').textContent = festival.title;
-                                document.getElementById('festivalDist').textContent = festival.dist;
-                                document.getElementById('festivalSubdist').textContent = festival.subdist;
-                                document.getElementById('festivalLocation').textContent = festival.location;
-                                document.getElementById('festivalStart').textContent = festival.start;
-                                document.getElementById('festivalEnd').textContent = festival.end;
-                                document.getElementById('festivalLink').href = festival.link;
-                                modal.style.display = "block";
-                            });
-                        } else {
-                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
-                        }
-                    });
-                });
-            }
-
-            function addPopupMarkers(map, geocoder, popups) {
-                console.log("팝업 : " + popups);
-                popups.forEach(function(popup) {
-                    geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
-                        if (status === kakao.maps.services.Status.OK) {
-
-                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                            var marker = new kakao.maps.Marker({
-                                map: map,
-                                position: coords,
-                                image: popupMarkerImage,
-                                data: popup
-                            });
-
-                            popupMarkers.push(marker); // 팝업 마커 배열에 추가
-
-                            kakao.maps.event.addListener(marker, 'click', function() {
-                                var modal = document.getElementById('festivalModal');
-                                document.getElementById('festivalTitle').textContent = popup.title;
-                                document.getElementById('festivalDist').textContent = popup.dist;
-                                document.getElementById('festivalSubdist').textContent = popup.subdist;
-                                document.getElementById('festivalLocation').textContent = popup.location;
-                                document.getElementById('festivalStart').textContent = popup.start;
-                                document.getElementById('festivalEnd').textContent = popup.end;
-                                document.getElementById('festivalLink').href = popup.link;
-                                modal.style.display = "block";
-                            });
-                        } else {
-                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
-                        }
-                    });
-                });
-
-            }
-
             addMarkers(multiMap, geocoder, festivals);
             addPopupMarkers(multiMap, geocoder, popups);
 
-            // 모든 도 버튼에 대한 이벤트 리스너 추가
-            document.querySelectorAll('.city-button').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    var city = this.getAttribute('data-city');
-                    console.log("선택된 도시:", city);
 
-                    // 지역축제 모든 마커 숨기기 (보이지 않게 설정)
+
+        });
+    });
+
+    // 내 위치로 돌아가는 버튼 클릭 시 지도 중심 이동
+    document.getElementById('currentLocationButton').addEventListener('click', function() {
+        getUserLocation(function(newUserLocation) {
+            multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
+            multiMap.setLevel(3);
+        });
+    });
+
+
+
+    // 지역 축제 데이터
+    var festivals = [
+        <c:forEach var="festival" items="${allFestivals}" varStatus="loop">
+        {
+            title: "${festival.festival_title}",
+            location: "${festival.festival_location}",
+            link: "${pageContext.request.contextPath}/festival_Details/${festival.festival_no}",
+            dist: "${festival.festival_dist}",
+            subdist: "${festival.festival_subdist}",
+            start: "${festival.festival_start}",
+            end: "${festival.festival_end}"
+        }<c:if test="${!loop.last}">,</c:if>
+        </c:forEach>
+    ];
+
+    // 팝업 데이터
+    var popups = [
+        <c:forEach var="popup" items="${allPopups}" varStatus="loop">
+        {
+            title: "${popup.popup_title}",
+            location: "${popup.popup_location}",
+            link: "${pageContext.request.contextPath}/popup_Details/${popup.popup_no}",
+            dist: "${popup.popup_dist}",
+            subdist: "${popup.popup_subdist}",
+            start: "${popup.popup_start}",
+            end: "${popup.popup_end}"
+        }<c:if test="${!loop.last}">,</c:if>
+        </c:forEach>
+    ];
+
+    // 함수 내에서 마커를 비동기적으로 추가
+    function addMarkers(map, geocoder, festivals) {
+        festivals.forEach(function(festival) {
+            geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords,
+                        image: festivalMarkerImage,
+                        data: festival
+                    });
+
+                    festivalMarkers.push(marker);
+
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        var modal = document.getElementById('festivalModal');
+                        document.getElementById('festivalTitle').textContent = festival.title;
+                        document.getElementById('festivalDist').textContent = festival.dist;
+                        document.getElementById('festivalSubdist').textContent = festival.subdist;
+                        document.getElementById('festivalLocation').textContent = festival.location;
+                        document.getElementById('festivalStart').textContent = festival.start;
+                        document.getElementById('festivalEnd').textContent = festival.end;
+                        document.getElementById('festivalLink').href = festival.link;
+                        modal.style.display = "block";
+                    });
+                } else {
+                    console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
+                }
+            });
+        });
+    }
+
+    function addPopupMarkers(map, geocoder, popups) {
+        console.log("팝업 : " + popups);
+        popups.forEach(function(popup) {
+            geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords,
+                        image: popupMarkerImage,
+                        data: popup
+                    });
+
+                    popupMarkers.push(marker); // 팝업 마커 배열에 추가
+
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        var modal = document.getElementById('festivalModal');
+                        document.getElementById('festivalTitle').textContent = popup.title;
+                        document.getElementById('festivalDist').textContent = popup.dist;
+                        document.getElementById('festivalSubdist').textContent = popup.subdist;
+                        document.getElementById('festivalLocation').textContent = popup.location;
+                        document.getElementById('festivalStart').textContent = popup.start;
+                        document.getElementById('festivalEnd').textContent = popup.end;
+                        document.getElementById('festivalLink').href = popup.link;
+                        modal.style.display = "block";
+                    });
+                } else {
+                    console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
+                }
+            });
+        });
+
+    }
+
+
+    // 모든 도 버튼에 대한 이벤트 리스너 추가
+    document.querySelectorAll('.city-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var city = this.getAttribute('data-city');
+            console.log("선택된 도시:", city);
+
+            // 지역축제 모든 마커 숨기기 (보이지 않게 설정)
+            festivalMarkers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+
+            // 팝업 모든 마커 숨기기 (보이지 않게 설정)
+            popupMarkers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+
+            // 모든 버튼의 active 클래스 제거
+            document.querySelectorAll('.city-button').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            // 모든 구 선택 드롭다운 메뉴 숨기기
+            document.querySelectorAll('.dropdown-content').forEach(function(content) {
+                content.style.display = 'none';
+            });
+
+            // 선택된 버튼에 active 클래스 추가
+            this.classList.add('active');
+
+
+
+            // 서울특별시와 경기도 버튼에 대해서는 subdist 선택을 위한 드롭다운을 표시
+            if (city === '서울특별시' || city === '경기도') {
+                var dropdownContent = this.nextElementSibling; // 다음 형제 요소인 .dropdown-content 선택
+                dropdownContent.style.display = 'block';
+
+                // 선택된 도시와 구에 해당하는 축제만 표시
+                var districtSelect = dropdownContent.querySelector('.district-select');
+                districtSelect.addEventListener('change', function() {
+                    var selectedDistrict = this.value;
+                    console.log("선택된 도시:", city, "선택된 구:", selectedDistrict);
+
+                    // 모든 마커 숨기기 (보이지 않게 설정)
                     festivalMarkers.forEach(function(marker) {
                         marker.setMap(null);
                     });
-
                     // 팝업 모든 마커 숨기기 (보이지 않게 설정)
                     popupMarkers.forEach(function(marker) {
                         marker.setMap(null);
                     });
 
-                    // 모든 버튼의 active 클래스 제거
-                    document.querySelectorAll('.city-button').forEach(function(btn) {
-                        btn.classList.remove('active');
-                    });
-
-                    // 모든 구 선택 드롭다운 메뉴 숨기기
-                    document.querySelectorAll('.dropdown-content').forEach(function(content) {
-                        content.style.display = 'none';
-                    });
-
                     // 선택된 버튼에 active 클래스 추가
-                    this.classList.add('active');
+                    button.classList.add('active');
 
-                    // 서울특별시와 경기도 버튼에 대해서는 subdist 선택을 위한 드롭다운을 표시
-                    if (city === '서울특별시' || city === '경기도') {
-                        var dropdownContent = this.nextElementSibling; // 다음 형제 요소인 .dropdown-content 선택
-                        dropdownContent.style.display = 'block';
+                    let isCenterSet = false;
+                    // 선택된 도시와 구에 해당하는 축제만 표시
 
-                        // 선택된 도시와 구에 해당하는 축제만 표시
-                        var districtSelect = dropdownContent.querySelector('.district-select');
-                        districtSelect.addEventListener('change', function() {
-                            var selectedDistrict = this.value;
-                            console.log("선택된 도시:", city, "선택된 구:", selectedDistrict);
+                    isActivePopup = buttonPopup.classList.contains('active');
+                    isActiveFestival = buttonFestival.classList.contains('active');
 
-                            // 모든 마커 숨기기 (보이지 않게 설정)
-                            festivalMarkers.forEach(function(marker) {
-                                marker.setMap(null);
-                            });
-                            // 팝업 모든 마커 숨기기 (보이지 않게 설정)
-                            popupMarkers.forEach(function(marker) {
-                                marker.setMap(null);
-                            });
-
-                            // 선택된 버튼에 active 클래스 추가
-                            button.classList.add('active');
-
-                            let isCenterSet = false;
-                            // 선택된 도시와 구에 해당하는 축제만 표시
-                            festivals.forEach(function(festival) {
-                                if (festival.dist === city && festival.subdist === selectedDistrict) {
-                                    geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
-                                        if (status === kakao.maps.services.Status.OK) {
-                                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                                            // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
-                                            if (!isCenterSet) {
-                                                multiMap.setCenter(coords);
-                                                isCenterSet = true;
-                                            }
-
-                                            var marker = new kakao.maps.Marker({
-                                                map: multiMap,
-                                                position: coords,
-                                                image: festivalMarkerImage,
-                                                data: festival // 축제 데이터를 마커에 연결
-                                            });
-
-                                            festivalMarkers.push(marker); // markers 배열에 추가
-
-                                            (function(marker, festival) {
-                                                // 마커 클릭 시 모달 창에 정보 표시
-                                                kakao.maps.event.addListener(marker, 'click', function() {
-                                                    var modal = document.getElementById('festivalModal');
-                                                    document.getElementById('festivalTitle').textContent = festival.title;
-                                                    document.getElementById('festivalDist').textContent = festival.dist;
-                                                    document.getElementById('festivalSubdist').textContent = festival.subdist;
-                                                    document.getElementById('festivalLocation').textContent = festival.location;
-                                                    document.getElementById('festivalStart').textContent = festival.start;
-                                                    document.getElementById('festivalEnd').textContent = festival.end;
-                                                    document.getElementById('festivalLink').href = festival.link;
-                                                    modal.style.display = "block";
-                                                });
-                                            })(marker, festival);
-                                        } else {
-                                            console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
-                                            console.error('주소를 찾을 수 없습니다:', festival.location);
-                                        }
-                                    });
-                                }
-                            });
-
-                            // 선택된 도시와 구에 해당하는 축제만 표시
-                            popups.forEach(function(popup) {
-                                if (popup.dist === city && popup.subdist === selectedDistrict) {
-                                    geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
-                                        if (status === kakao.maps.services.Status.OK) {
-                                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                                            // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
-                                            if (!isCenterSet) {
-                                                multiMap.setCenter(coords);
-                                                isCenterSet = true;
-                                            }
-
-                                            var marker = new kakao.maps.Marker({
-                                                map: multiMap,
-                                                position: coords,
-                                                image: popupMarkerImage,
-                                                data: popup // 축제 데이터를 마커에 연결
-                                            });
-
-                                            popupMarkers.push(marker); // markers 배열에 추가
-
-                                            (function(marker, popup) {
-                                                // 마커 클릭 시 모달 창에 정보 표시
-                                                kakao.maps.event.addListener(marker, 'click', function() {
-                                                    var modal = document.getElementById('festivalModal');
-                                                    document.getElementById('festivalTitle').textContent = popup.title;
-                                                    document.getElementById('festivalDist').textContent = popup.dist;
-                                                    document.getElementById('festivalSubdist').textContent = popup.subdist;
-                                                    document.getElementById('festivalLocation').textContent = popup.location;
-                                                    document.getElementById('festivalStart').textContent = popup.start;
-                                                    document.getElementById('festivalEnd').textContent = popup.end;
-                                                    document.getElementById('festivalLink').href = popup.link;
-                                                    modal.style.display = "block";
-                                                });
-                                            })(marker, popup);
-                                        } else {
-                                            console.error('주소를 찾을 수 없습니다:', popup.location);
-                                        }
-                                    });
-                                }
-                            });
-                        });
-                    } else if (city === '전체'){
-                        addMarkers(multiMap, geocoder, festivals);
-                        addPopupMarkers(multiMap, geocoder, popups);
-                    } else {
-                        // 모든 마커 숨기기 (보이지 않게 설정)
-                        festivalMarkers.forEach(function(marker) {
-                            marker.setMap(null);
-                        });
-                        // 팝업 모든 마커 숨기기 (보이지 않게 설정)
-                        popupMarkers.forEach(function(marker) {
-                            marker.setMap(null);
-                        });
-
-                        let isCenterSet = false;
-                        // 서울특별시와 경기도를 제외한 버튼은 바로 해당 도시의 행사만 표시
+                    if(isActiveFestival){
                         festivals.forEach(function(festival) {
-                            if (festival.dist === city) {
+                            if (festival.dist === city && festival.subdist === selectedDistrict) {
                                 geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
                                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -568,14 +577,18 @@
                                             });
                                         })(marker, festival);
                                     } else {
+                                        console.log("못 찾는 주소 : " + popup.dist + popup.subdist + popup.location);
                                         console.error('주소를 찾을 수 없습니다:', festival.location);
                                     }
                                 });
                             }
                         });
+                    }
 
+                    if(isActivePopup){
+                        // 선택된 도시와 구에 해당하는 축제만 표시
                         popups.forEach(function(popup) {
-                            if (popup.dist === city) {
+                            if (popup.dist === city && popup.subdist === selectedDistrict) {
                                 geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
                                         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -616,29 +629,134 @@
                             }
                         });
                     }
+
                 });
-            });
-            // 모달 창 닫기 기능
-            var modal = document.getElementById('festivalModal');
-            var span = document.getElementsByClassName('festivalModalClose')[0];
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-            window.onclick = function(event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
+            } else if (city === '전체'){
+                isActivePopup = buttonPopup.classList.contains('active');
+                isActiveFestival = buttonFestival.classList.contains('active');
+
+                if(isActiveFestival){
+                    addMarkers(multiMap, geocoder, festivals);
+                }
+                if(isActivePopup){
+                    addPopupMarkers(multiMap, geocoder, popups);
+                }
+            } else {
+                isActivePopup = buttonPopup.classList.contains('active');
+                isActiveFestival = buttonFestival.classList.contains('active');
+
+                // 모든 마커 숨기기 (보이지 않게 설정)
+                festivalMarkers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+                // 팝업 모든 마커 숨기기 (보이지 않게 설정)
+                popupMarkers.forEach(function(marker) {
+                    marker.setMap(null);
+                });
+
+                let isCenterSet = false;
+                // 서울특별시와 경기도를 제외한 버튼은 바로 해당 도시의 행사만 표시
+                if(isActiveFestival){
+                    festivals.forEach(function(festival) {
+                        if (festival.dist === city) {
+                            geocoder.addressSearch(festival.dist + festival.subdist + festival.location, function(result, status) {
+                                if (status === kakao.maps.services.Status.OK) {
+                                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                    // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                    if (!isCenterSet) {
+                                        multiMap.setCenter(coords);
+                                        isCenterSet = true;
+                                    }
+
+                                    var marker = new kakao.maps.Marker({
+                                        map: multiMap,
+                                        position: coords,
+                                        image: festivalMarkerImage,
+                                        data: festival // 축제 데이터를 마커에 연결
+                                    });
+
+                                    festivalMarkers.push(marker); // markers 배열에 추가
+
+                                    (function(marker, festival) {
+                                        // 마커 클릭 시 모달 창에 정보 표시
+                                        kakao.maps.event.addListener(marker, 'click', function() {
+                                            var modal = document.getElementById('festivalModal');
+                                            document.getElementById('festivalTitle').textContent = festival.title;
+                                            document.getElementById('festivalDist').textContent = festival.dist;
+                                            document.getElementById('festivalSubdist').textContent = festival.subdist;
+                                            document.getElementById('festivalLocation').textContent = festival.location;
+                                            document.getElementById('festivalStart').textContent = festival.start;
+                                            document.getElementById('festivalEnd').textContent = festival.end;
+                                            document.getElementById('festivalLink').href = festival.link;
+                                            modal.style.display = "block";
+                                        });
+                                    })(marker, festival);
+                                } else {
+                                    console.error('주소를 찾을 수 없습니다:', festival.location);
+                                }
+                            });
+                        }
+                    });
+                }
+
+                if(isActivePopup){
+                    popups.forEach(function(popup) {
+                        if (popup.dist === city) {
+                            geocoder.addressSearch(popup.dist + popup.subdist + popup.location, function(result, status) {
+                                if (status === kakao.maps.services.Status.OK) {
+                                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                                    // 첫 번째 축제 데이터를 처리할 때 맵의 중심을 설정
+                                    if (!isCenterSet) {
+                                        multiMap.setCenter(coords);
+                                        isCenterSet = true;
+                                    }
+
+                                    var marker = new kakao.maps.Marker({
+                                        map: multiMap,
+                                        position: coords,
+                                        image: popupMarkerImage,
+                                        data: popup // 축제 데이터를 마커에 연결
+                                    });
+
+                                    popupMarkers.push(marker); // markers 배열에 추가
+
+                                    (function(marker, popup) {
+                                        // 마커 클릭 시 모달 창에 정보 표시
+                                        kakao.maps.event.addListener(marker, 'click', function() {
+                                            var modal = document.getElementById('festivalModal');
+                                            document.getElementById('festivalTitle').textContent = popup.title;
+                                            document.getElementById('festivalDist').textContent = popup.dist;
+                                            document.getElementById('festivalSubdist').textContent = popup.subdist;
+                                            document.getElementById('festivalLocation').textContent = popup.location;
+                                            document.getElementById('festivalStart').textContent = popup.start;
+                                            document.getElementById('festivalEnd').textContent = popup.end;
+                                            document.getElementById('festivalLink').href = popup.link;
+                                            modal.style.display = "block";
+                                        });
+                                    })(marker, popup);
+                                } else {
+                                    console.error('주소를 찾을 수 없습니다:', popup.location);
+                                }
+                            });
+                        }
+                    });
                 }
             }
-
-            // 내 위치로 돌아가는 버튼 클릭 시 지도 중심 이동
-            document.getElementById('currentLocationButton').addEventListener('click', function() {
-                getUserLocation(function(newUserLocation) {
-                    multiMap.setCenter(new kakao.maps.LatLng(newUserLocation.lat, newUserLocation.lng));
-                    multiMap.setLevel(3);
-                });
-            });
         });
     });
+    // 모달 창 닫기 기능
+    var modal = document.getElementById('festivalModal');
+    var span = document.getElementsByClassName('festivalModalClose')[0];
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
 
 </script>
 </body>

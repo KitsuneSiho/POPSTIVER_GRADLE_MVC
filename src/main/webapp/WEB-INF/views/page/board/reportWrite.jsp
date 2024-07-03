@@ -29,6 +29,7 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${root}/resources/js/reportWrite.js"></script>
 </head>
 
@@ -82,11 +83,12 @@
         <li>
             <span>행사주소</span>
             <label class="addressLabel">
+                <input type="text" id="report_location" name="report_location">
                 <input type="text" name="report_dist" placeholder="시/도">
                 <input type="text" name="report_subdist" placeholder="시/군/구">
                 <input type="text" name="report_location" placeholder="상세주소">
             </label>
-
+            <button class="searchAddress" type="button" onclick="checkPost()">주소 검색</button>
         </li>
         <li>
             <span>행사기간</span>
