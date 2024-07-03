@@ -67,7 +67,7 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${event.location}
+                                         ${event.dist} ${event.subdist} ${event.location}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -107,7 +107,7 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${event.location}
+                                        ${event.dist} ${event.subdist} ${event.location}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -147,12 +147,15 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${event.location}
+                                        ${event.dist} ${event.subdist} ${event.location}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
                                         ${event.startDate} - ${event.endDate}
                                 </p>
+
+                                <input type="hidden" id="user_id" name="user_id" value="">
+                                <input type="hidden" id="user_name" name="user_name" value="">
                             </div>
                         </div>
                     </c:forEach>
@@ -163,6 +166,7 @@
 </div>
 
 <jsp:include page="/WEB-INF/views/page/fix/footer.jsp" />
+
 
 <script src="${root}/resources/js/bookmark.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>

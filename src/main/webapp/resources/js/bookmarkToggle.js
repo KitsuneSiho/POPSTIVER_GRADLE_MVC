@@ -82,6 +82,9 @@ function updateOtherPages(eventNo, eventType, isLiked, likeCount) {
     });
 }
 
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     loadUserLikes().then(() => {
         document.querySelectorAll('.bookmark').forEach(bookmark => {
@@ -94,3 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+

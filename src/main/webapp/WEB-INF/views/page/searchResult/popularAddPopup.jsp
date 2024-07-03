@@ -63,7 +63,7 @@
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                            ${popup.popup_location}
+                                            ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -103,7 +103,7 @@
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                            ${popup.popup_location}
+                                            ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -143,7 +143,7 @@
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                            ${popup.popup_location}
+                                            ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
