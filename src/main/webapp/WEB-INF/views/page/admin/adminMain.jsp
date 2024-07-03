@@ -41,9 +41,13 @@
             border-bottom: none;
         }
         .chart-container {
-            position: relative;
-            height: 200px;
-            width: 100%;
+            text-align: center; /* 차트 컨테이너 가운데 정렬 */
+            margin-bottom: 20px; /* 차트 간 간격 추가 */
+        }
+        canvas {
+            display: inline-block; /* 캔버스를 인라인 블록으로 설정 */
+            max-width: 100%; /* 캔버스 최대 너비 설정 */
+            height: auto; /* 캔버스 높이를 자동으로 설정 */
         }
     </style>
 </head>
@@ -167,7 +171,8 @@
 <!-- 데이터를 JSON 형태로 전달 -->
 <script id="visitorData" type="application/json">${visitorDataJson}</script>
 <script id="chatData" type="application/json">${chatDataJson}</script>
-<script id="likedPostsData" type="application/json">${likedPostsDataJson}</script>
+<script id="likedPostsData" type="application/json">${popularPopupEventsJson}</script>
+<script id="festivalLikedPostsData" type="application/json">${popularFestivalEventsJson}</script>
 <script id="recentReviewsData" type="application/json">${recentReviewsDataJson}</script>
 <!-- JavaScript 파일 포함 -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
