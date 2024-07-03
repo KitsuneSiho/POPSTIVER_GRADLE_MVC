@@ -1,31 +1,5 @@
-// 사용자 정보 가져오기 함수
-function getUserInfoAndSetUserId() {
-    fetch("/member/getUserInfo")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data && data.user_id && data.user_nickname) {
-                const userIdElement = document.getElementById("user_id");
-                const userNameElement = document.getElementById("user_name");
-                if (userIdElement) userIdElement.value = data.user_id;
-                if (userNameElement) userNameElement.value = data.user_nickname;
-            } else {
-                console.error("사용자 정보를 가져오는 데 실패했습니다.");
-            }
-        })
-        .catch(error => {
-            console.error("사용자 정보를 가져오는 중 오류 발생:", error);
-        });
-}
-
 // DOM이 로드되면 실행될 함수
 document.addEventListener('DOMContentLoaded', function() {
-    // 사용자 정보 가져오기
-    getUserInfoAndSetUserId();
 
     // 섹션 토글 기능 설정
     const sections = [
@@ -46,6 +20,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// 사용자 정보 가져오기 함수
+// function getUserInfoAndSetUserId() {
+//     fetch("/member/getUserInfo")
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Network response was not ok');
+//             }
+//             return response.json();
+//         })
+//         .then(data => {
+//             if (data && data.user_id && data.user_nickname) {
+//                 const userIdElement = document.getElementById("user_id");
+//                 const userNameElement = document.getElementById("user_name");
+//                 if (userIdElement) userIdElement.value = data.user_id;
+//                 if (userNameElement) userNameElement.value = data.user_nickname;
+//             } else {
+//                 console.error("사용자 정보를 가져오는 데 실패했습니다.");
+//             }
+//         })
+//         .catch(error => {
+//             console.error("사용자 정보를 가져오는 중 오류 발생:", error);
+//         });
+// }
+
+
 
 // 검색 목록 토글 함수
 function toggleSearchList(element) {

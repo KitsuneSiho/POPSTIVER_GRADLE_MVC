@@ -10,6 +10,8 @@ public class BookmarkDTO {
     private String endDate;
     private String location;
     private String attachment;
+    private String dist;
+    private String subdist;
     private int event_type;
     private int likeCount;
 

@@ -8,9 +8,12 @@ function getUserInfoAndSetUserId() {
         url: "/member/getUserInfo",
         success: function (response) {
             if (response && response.user_id && response.user_nickname) {
-// Set the user_id and user_nickname in the hidden input fields
+
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
+                console.log("사용자 정보 갖다 줌");
+                console.log(response.user_id);
+                console.log(response.user_nickname);
             } else {
                 console.error("사용자 정보를 가져오는 데 실패했습니다.");
             }

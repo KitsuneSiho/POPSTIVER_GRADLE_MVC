@@ -194,6 +194,7 @@ public class MemberController {
     @GetMapping("/getUserInfo")
     @ResponseBody
     public MemberEntity getUserInfo(@AuthenticationPrincipal CustomOAuth2User customOAuth2User) {
+
         String provider = customOAuth2User.getProvider();
         Object attribute = customOAuth2User.getAttributes();
         String userId = "";
@@ -210,6 +211,7 @@ public class MemberController {
                 NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
                 userId = "naver" + naverResponse.getProviderId();
                 break;
+
         }
         return memberService.findById(userId);
     }

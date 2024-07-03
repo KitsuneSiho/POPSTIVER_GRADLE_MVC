@@ -8,6 +8,7 @@ public class SearchResult {
     private String title;
     private String content;
     private String location;
+    private String host;
     private String attachment; // 포스터 이미지
     private String start_date; // 시작일
     private String end_date; // 종료일
@@ -83,6 +84,14 @@ public class SearchResult {
 
     public void setIsLiked(boolean liked) {
         isLiked = liked;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 }
 

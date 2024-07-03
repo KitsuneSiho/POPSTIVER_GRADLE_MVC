@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    getUserInfoAndSetUserId();
+    getUserInfoAndSetUserId3();
 });
 
-function getUserInfoAndSetUserId() {
+function getUserInfoAndSetUserId3() {
     $.ajax({
         type: "GET",
         url: "/member/getUserInfo",

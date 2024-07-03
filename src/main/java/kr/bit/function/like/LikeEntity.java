@@ -9,5 +9,4 @@ public class LikeEntity {
     private String user_id;
     private int event_no;
     private int event_type;
-
 }
