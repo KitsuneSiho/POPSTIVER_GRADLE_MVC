@@ -32,9 +32,12 @@ function submitForm(event) {
     var reportTitle = $("input[name='report_title']").val();
     var reportEventType = ($("input[name='event_type']:checked").val());
     var reportContent = $("textarea[name='report_content']").val();
+    var reportDist = $("input[name='report_dist']").val();
+    var reportSubdist = $("input[name='report_subdist']").val();
     var reportLocation = $("input[name='report_location']").val();
     var reportStart = $("input[name='report_start']").val();
     var reportEnd = $("input[name='report_end']").val();
+    var openTime = $("textarea[name='open_time']").val();
     var reportHost = $("input[name='report_host']").val();
     var reportBrandLink = $("input[name='brand_link']").val();
     var reportBrandSns = $("input[name='brand_sns']").val();
@@ -50,9 +53,12 @@ function submitForm(event) {
             "report_title": reportTitle,
             "event_type": reportEventType,
             "report_content": reportContent,
+            "report_dist" : reportDist,
+            "report_subdist" : reportSubdist,
             "report_location": reportLocation,
             "report_start" : reportStart,
             "report_end" : reportEnd,
+            "open_time" : openTime,
             "report_host" : reportHost,
             "brand_link" : reportBrandLink,
             "brand_sns" : reportBrandSns,
@@ -62,7 +68,7 @@ function submitForm(event) {
 
         success: function (response) {
 // 업데이트 성공 시 처리할 코드
-            alert("제보가 완료되었습니다!");
+            alert("정상적으로 등록되었습니다. 제보해주셔서 감사합니다!");
             window.location.href = "/report";
 // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },

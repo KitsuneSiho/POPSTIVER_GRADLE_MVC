@@ -80,9 +80,11 @@
             </label>
         </li>
         <li>
-            <span>주소</span>
+            <span>행사주소</span>
             <label class="addressLabel">
-                <input type="text" name="report_location">
+                <input type="text" name="report_dist" placeholder="시/도">
+                <input type="text" name="report_subdist" placeholder="시/군/구">
+                <input type="text" name="report_location" placeholder="상세주소">
             </label>
 
         </li>
@@ -98,20 +100,26 @@
             <p>까지</p>
         </li>
         <li>
+            <span>운영시간</span>
+            <label class="infoTextarea">
+                <textarea name="open_time" placeholder="운영시간을 작성해주세요!" rows="7" style="resize: none"></textarea>
+            </label>
+        </li>
+        <li>
             <span>주최하는 곳</span>
             <label>
-                <input type="text" class="host" name="report_host">
+                <input type="text" name="report_host" placeholder="주최업체명 또는 지방자치단체명을 기입하세요!">
             </label>
         </li>
         <li>
             <span>링크</span>
             <p>공식홈페이지</p>
             <label>
-                <input type="text" class="brand_link" name="brand_link">
+                <input type="text" class="brand_link" name="brand_link" placeholder="wwww.popstiver.com">
             </label>
             <p>SNS</p>
             <label>
-                <input type="text" class="brand_sns" name="brand_sns">
+                <input type="text" class="brand_sns" name="brand_sns" placeholder="카카오톡/인스타그램/X 등">
             </label>
             <input type="hidden" id="user_id" name="user_id" value="">
             <input type="hidden" id="user_name" name="user_name" value="">
