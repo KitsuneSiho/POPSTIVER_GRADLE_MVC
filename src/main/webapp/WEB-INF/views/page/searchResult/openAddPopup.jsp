@@ -28,6 +28,7 @@
             src: url('${root}/resources/font/Pre.ttf');
         }
     </style>
+
 </head>
 
 <body>
@@ -90,7 +91,6 @@
     var hasUpcoming = ${hasUpcoming};
     var hasEnded = ${hasEnded};
 </script>
-
 <script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>

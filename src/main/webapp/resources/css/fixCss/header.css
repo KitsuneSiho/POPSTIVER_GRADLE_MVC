@@ -200,6 +200,10 @@ body {
     overflow: hidden; /* 날씨 위젯 영역을 벗어나지 않도록 설정 */
 }
 
+#ww_8fe9e8e469269 {
+    color: #ffffff !important;
+}
+
 
 .mainTopButton {
     display: flex;
