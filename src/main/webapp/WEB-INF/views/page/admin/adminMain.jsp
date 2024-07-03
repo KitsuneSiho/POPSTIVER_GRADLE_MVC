@@ -7,8 +7,12 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <style>
         .dashboard-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -121,9 +125,7 @@
                         <div class="card dashboard-card">
                             <div class="card-body">
                                 <h5 class="card-title">1:1 Chats</h5>
-                                <div class="chart-container">
-                                    <canvas id="chatChart"></canvas>
-                                </div>
+                                <div id="chatNotifications" class="mb-3"></div>
                                 <a href="<c:url value='/chatManagement' />" class="card-link">View Details</a>
                             </div>
                         </div>
@@ -175,7 +177,6 @@
 <script id="festivalLikedPostsData" type="application/json">${popularFestivalEventsJson}</script>
 <script id="recentReviewsData" type="application/json">${recentReviewsDataJson}</script>
 <!-- JavaScript 파일 포함 -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

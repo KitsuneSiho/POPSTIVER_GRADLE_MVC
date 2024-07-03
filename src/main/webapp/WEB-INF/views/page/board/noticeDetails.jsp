@@ -57,7 +57,7 @@
     <%-- 만약 model데 담긴 list의 값이 비어있다면 --%>
     <c:when test="${empty notice}">
         <%-- 아래의 메시지를 출력한다. --%>
-        <h1>본 요청은 정상적이지 않으며, 해킹의 가능성이 있어 당신의 IP는 경찰에 고발조치 되었습니다.</h1>
+        <h1>공지사항이 없습니다.</h1>
 
     </c:when>
     <%-- 그렇지 않으면  --%>
@@ -71,6 +71,13 @@
         <div class="noticeText">
             <p>${notice.notice_content}</p>
         </div>
+<%--        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
+<%--            <div class="write">--%>
+<%--                <button class="writeButton" onclick="window.location.href='/deleteReport/${report_detail.report_no}'">--%>
+<%--                    <img src="${root}/resources/asset/글쓰기.svg" alt="">--%>
+<%--                    [관리자]삭제</button>--%>
+<%--            </div>--%>
+<%--        </sec:authorize>--%>
     </c:otherwise>
 </c:choose>
     <div class="listButton">

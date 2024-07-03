@@ -96,9 +96,6 @@ public class AdminController {
             e.printStackTrace();
         }
 
-        // 1:1 채팅 통계 (예시)
-        List<Integer> chatData = List.of(5, 10, 15, 20, 25, 30, 35);
-        model.addAttribute("chatDataJson", objectMapper.writeValueAsString(chatData));
 
         // 좋아요 많은 게시글 통계
         List<BookmarkDTO> popularPopupEvents = likeService.getPopularPopupEvents(10);

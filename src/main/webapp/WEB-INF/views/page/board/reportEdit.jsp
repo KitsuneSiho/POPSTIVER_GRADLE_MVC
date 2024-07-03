@@ -82,6 +82,8 @@
             <li>
                 <span>주소</span>
                 <label class="addressLabel">
+                    <input type="text" name="report_dist" placeholder="${current_report.report_dist}" value="${current_report.report_dist}">
+                    <input type="text" name="report_subdist" placeholder="${current_report.report_subdist}" value="${current_report.report_subdist}">
                     <input type="text" name="report_location" placeholder="${current_report.report_location}" value="${current_report.report_location}">
                 </label>
             </li>
@@ -97,14 +99,20 @@
                 <p>까지</p>
             </li>
             <li>
+                <span>운영시간</span>
+                <label class="infoTextarea">
+                    <textarea name="open_time" placeholder="${current_report.open_time}" rows="7" style="resize: none">${current_report.open_time}</textarea>
+                </label>
+            </li>
+            <li>
                 <span>주최하는 곳</span>
                 <input type="text" class="host" name="report_host" placeholder="${current_report.report_host}" value="${current_report.report_host}">
             </li>
             <li>
                 <span>링크</span>
-                <p>공식홈페이지</p>
+                <p>공식 홈페이지</p>
                 <input type="text" class="brand_link" name="brand_link" placeholder="${current_report.brand_link}" value="${current_report.brand_link}">
-                <p>SNS</p>
+                <p>공식 SNS</p>
                 <input type="text" class="brand_sns" name="brand_sns" placeholder="${current_report.brand_sns}" value="${current_report.brand_sns}">
                 <input type="hidden" name="report_no" value="${current_report.report_no}">
 

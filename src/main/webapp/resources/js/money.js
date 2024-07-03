@@ -32,10 +32,15 @@ function submitForm(event) {
     var tempTitle = $("input[name='temp_title']").val();
     var tempType = $("input[name='event_type']:checked").val();
     var tempContent = $("textarea[name='temp_content']").val();
+    var tempDist = $("input[name='temp_dist']").val();
+    var tempSubdist = $("input[name='temp_subdist']").val();
     var tempLocation = $("input[name='temp_location']").val();
     var tempStart = $("input[name='temp_start']").val();
     var tempEnd = $("input[name='temp_end']").val();
+    var openTime = $("textarea[name='open_time']").val();
     var tempHost = $("input[name='temp_host']").val();
+    var brandLink = $("input[name='brand_link']").val();
+    var brandSNS = $("input[name='brand_sns']").val();
 
     $.ajax({
         method: "put",
@@ -46,15 +51,20 @@ function submitForm(event) {
             "temp_title": tempTitle,
             "event_type": tempType,
             "temp_content": tempContent,
+            "temp_dist" : tempDist,
+            "temp_subdist" : tempSubdist,
             "temp_location": tempLocation,
             "temp_start" : tempStart,
             "temp_end" : tempEnd,
-            "temp_host" : tempHost
+            "open_time" : openTime,
+            "temp_host" : tempHost,
+            "brand_link" : brandLink,
+            "brand_sns" : brandSNS
         }),
 
         success: function (response) {
 // 업데이트 성공 시 처리할 코드
-            alert("등록이 요청되었습니다!");
+            alert("등록이 요청되었습니다! 등록에 다소 시간이 소요될 수 있습니다.");
             window.location.href = "/contact";
 // 필요한 경우 추가적인 UI 업데이트 등을 수행할 수 있음
         },
