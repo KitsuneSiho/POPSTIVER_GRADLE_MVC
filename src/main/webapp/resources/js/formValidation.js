@@ -17,22 +17,17 @@ $(document).ready(function () {
     $('#user_type').val("ROLE_USER");
 });
 
-
 const forbiddenWords = [
     '관리자', 'admin', 'ADMIN', 'test', 'TEST', 'example', 'EXAMPLE', 'root', 'ROOT', 'superuser', 'SUPERUSER', 'guest', 'GUEST', 'temp', 'TEMP', 'user', 'USER', 'username', 'USERNAME', 'sample', 'SAMPLE',
     'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'damn', 'crap', 'dick', 'pussy', 'cunt', 'faggot', 'douche', 'nigger', 'slut', 'whore',
-    '시발', '병신', '존나', '좆', '새끼', 'ㅅㅂ', 'ㅄ', 'ㅈㄴ', 'ㄷㅊ', '애미', '니미', '니애미', '꺼져', '닥쳐', '미친', '개새끼' ,'씨발'
+    '시발', '병신', '존나', '좆', '새끼', 'ㅅㅂ', 'ㅄ', 'ㅈㄴ', 'ㄷㅊ', '애미', '니미', '니애미', '꺼져', '닥쳐', '미친', '개새끼' ,'씨발' ,"씨바" ,"씌바" , "씌발" ,"개새"
 ]; // 금지어 목록
 
 let isNicknameAvailable = false;
 let isNicknameChecked = false;
+
 function containsForbiddenWord(input) {
-    for (let i = 0; i < forbiddenWords.length; i++) {
-        if (input.includes(forbiddenWords[i])) {
-            return true;
-        }
-    }
-    return false;
+    return forbiddenWords.some(word => input.includes(word));
 }
 
 function containsOnlyConsonantsOrVowels(input) {
@@ -111,6 +106,13 @@ function validateForm() {
         return false;
     }
 
+    // 닉네임 길이 검사
+    if (userNickName.length < 2 || userNickName.length > 10) {
+        showCustomAlert('닉네임은 2글자 이상 10글자 이하로 입력해주세요.');
+        document.getElementById('user_nickName').focus();
+        return false;
+    }
+
     if (containsForbiddenWord(userNickName)) {
         showCustomAlert('닉네임에 금지된 단어가 포함되어 있습니다.');
         document.getElementById('user_nickName').focus();
@@ -123,7 +125,7 @@ function validateForm() {
         return false;
     }
 
-    if(!isNicknameChecked){
+    if (!isNicknameChecked) {
         showCustomAlert('닉네임 중복 확인 후 가입해주세요.');
         document.getElementById('user_nickName').focus();
         return false;
@@ -148,7 +150,7 @@ function validateForm() {
         return false;
     }
 
-    if(!saveUserTags()){
+    if (!saveUserTags()) {
         showCustomAlert('태그를 하나 이상 선택해주세요.');
         return false;
     }
@@ -184,11 +186,20 @@ function checkNickname() {
         document.getElementById('user_nickName').focus();
         return;
     }
+
+    // 닉네임 길이 검사
+    if (nickname.length < 2 || nickname.length > 10) {
+        showCustomAlert('닉네임은 2글자 이상 10글자 이하로 입력해주세요.');
+        document.getElementById('user_nickName').focus();
+        return;
+    }
+
     if (containsForbiddenWord(nickname)) {
         showCustomAlert('닉네임에 금지된 단어가 포함되어 있습니다.');
         document.getElementById('user_nickName').focus();
         return;
     }
+
     if (containsOnlyConsonantsOrVowels(nickname)) {
         showCustomAlert('닉네임에 자음이나 모음만 사용할 수 없습니다.');
         document.getElementById('user_nickName').focus();
@@ -226,7 +237,6 @@ function toggleTagSelection(button) {
 }
 
 function setTags() {
-
     document.querySelectorAll('.tag-button').forEach(button => {
         button.addEventListener('click', function() {
             this.classList.toggle('selected');
@@ -245,7 +255,6 @@ function saveUserTags() {
     } else {
         return true;
     }
-
 }
 
 function toggleTypeSelection(button) {
