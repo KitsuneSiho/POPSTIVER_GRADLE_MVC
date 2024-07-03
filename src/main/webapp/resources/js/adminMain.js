@@ -1,44 +1,115 @@
-document.addEventListener('DOMContentLoaded', function() {
-    function safeParseJSON(jsonString, fallback) {
-        try {
-            return JSON.parse(jsonString);
-        } catch (e) {
-            console.error('Error parsing JSON:', e);
-            return fallback;
+$(document).ready(function() {
+    // 기존 코드 유지
+    createVisitorChart();
+    createLikedPostsChart();
+
+    // 새로운 기능 추가
+    let contextPath = 'http://localhost:8080';
+    let stompClient = null;
+    let chatNotifications = {};
+
+    function connect() {
+        let socket = new SockJS(contextPath + '/chat-websocket');
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
+
+            stompClient.subscribe('/topic/messages', function(messageOutput) {
+                let message = JSON.parse(messageOutput.body);
+                console.log("Received message:", message);
+
+                if (message.receiver === 'admin') {
+                    updateChatNotification(message);
+                    saveNotification(message);
+                }
+            });
+
+            stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: 'admin', type: 'JOIN'}));
+        });
+    }
+
+    function updateChatNotification(message) {
+        if (!chatNotifications[message.sender]) {
+            chatNotifications[message.sender] = 0;
+        }
+        chatNotifications[message.sender]++;
+
+        displayChatNotifications();
+    }
+
+    function displayChatNotifications() {
+        let $chatNotifications = $("#chatNotifications");
+        $chatNotifications.empty();
+
+        for (let user in chatNotifications) {
+            if (chatNotifications[user] > 0) {
+                let $notification = $("<div>").addClass("alert alert-info")
+                    .text(`${user}님으로부터 ${chatNotifications[user]}개의 메시지가 도착했습니다.`);
+                $chatNotifications.append($notification);
+            }
         }
     }
 
-    var visitorData = safeParseJSON(document.getElementById('visitorData').textContent, []);
-    var chatData = safeParseJSON(document.getElementById('chatData').textContent, []);
-    var likedPostsData = safeParseJSON(document.getElementById('likedPostsData').textContent, []);
-    var festivalLikedPostsData = safeParseJSON(document.getElementById('festivalLikedPostsData').textContent, []);
-
-    function formatDate(timestamp) {
-        var date = new Date(timestamp);
-        return date.toLocaleDateString();
+    function saveNotification(message) {
+        $.ajax({
+            type: "POST",
+            url: contextPath + "/api/notifications/add",
+            contentType: "application/json",
+            data: JSON.stringify(message),
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.error("Error saving notification:", error);
+            }
+        });
     }
 
-    // 차트 인스턴스를 저장할 전역 변수를 선언합니다.
-    var visitorChart;
-    var chatChart;
-    var likedPostsChart;
+    function loadNotifications() {
+        $.ajax({
+            type: "GET",
+            url: contextPath + "/api/notifications/get",
+            success: function(notifications) {
+                notifications.forEach(notification => {
+                    updateChatNotification(notification);
+                });
+            },
+            error: function(error) {
+                console.error("Error loading notifications:", error);
+            }
+        });
+    }
 
-    function createVisitorChart() {
-        console.log('Creating visitor chart...');
-        var visitorChartCanvas = document.getElementById('visitorChart');
-        if (!visitorChartCanvas) {
-            console.error('Cannot find canvas element with id "visitorChart"');
-            return;
-        }
+    function checkNewMessages() {
+        $.ajax({
+            type: "GET",
+            url: contextPath + "/api/notifications/get",
+            success: function(notifications) {
+                notifications.forEach(notification => {
+                    updateChatNotification(notification);
+                });
+            },
+            error: function(error) {
+                console.error("Error checking new messages:", error);
+            }
+        });
+    }
 
+    // 페이지 로드 시 실행
+    connect();
+    loadNotifications();
+
+    // 5초마다 새 메시지 확인
+    setInterval(checkNewMessages, 5000);
+});
+
+function createVisitorChart() {
+    var visitorData = JSON.parse(document.getElementById('visitorData').textContent);
+    var visitorChartCanvas = document.getElementById('visitorChart');
+    if (visitorChartCanvas) {
         var visitorChartCtx = visitorChartCanvas.getContext('2d');
-
-        // 기존 차트 인스턴스가 존재하면 제거합니다.
-        if (visitorChart) {
-            visitorChart.destroy();
-        }
-
-        visitorChart = new Chart(visitorChartCtx, {
+        new Chart(visitorChartCtx, {
             type: 'line',
             data: {
                 labels: visitorData.map(v => formatDate(v.visitDate)),
@@ -51,7 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }]
             },
             options: {
-                maintainAspectRatio: false,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -60,99 +130,55 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+}
 
-    function createChatChart() {
-    }
+function createLikedPostsChart() {
+    var likedPostsData = JSON.parse(document.getElementById('likedPostsData').textContent);
+    var festivalLikedPostsData = JSON.parse(document.getElementById('festivalLikedPostsData').textContent);
+    var likedPostsChartCanvas = document.getElementById('likedPostsChart');
+    if (likedPostsChartCanvas) {
+        var likedPostsChartCtx = likedPostsChartCanvas.getContext('2d');
+        var combinedLikedPostsData = likedPostsData.concat(festivalLikedPostsData);
+        combinedLikedPostsData.sort((a, b) => b.likeCount - a.likeCount);
+        var top5LikedPosts = combinedLikedPostsData.slice(0, 5);
 
-        function createLikedPostsChart() {
-            console.log('Creating liked posts chart...');
-            var likedPostsChartCanvas = document.getElementById('likedPostsChart');
-            if (!likedPostsChartCanvas) {
-                console.error('Cannot find canvas element with id "likedPostsChart"');
-                return;
-            }
-
-            var likedPostsChartCtx = likedPostsChartCanvas.getContext('2d');
-
-            // 기존 차트 인스턴스가 존재하면 제거합니다.
-            if (likedPostsChart) {
-                likedPostsChart.destroy();
-            }
-
-            var combinedLikedPostsData = likedPostsData.concat(festivalLikedPostsData);
-            combinedLikedPostsData.sort((a, b) => b.likeCount - a.likeCount);
-            var top5LikedPosts = combinedLikedPostsData.slice(0, 5);
-
-            likedPostsChart = new Chart(likedPostsChartCtx, {
-                type: 'bar',
-                data: {
-                    labels: top5LikedPosts.map(post => post.title),
-                    datasets: [
-                        {
-                            label: '페스티벌',
-                            data: top5LikedPosts.map(post => post.event_type === 1 || post.event_type === 2 ? post.likeCount : 0),
-                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                            borderColor: 'rgba(54, 162, 235, 1)',
-                            borderWidth: 1
-                        },
-                        {
-                            label: '팝업',
-                            data: top5LikedPosts.map(post => post.event_type === 3 ? post.likeCount : 0),
-                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            stacked: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return this.getLabelForValue(value).substr(0, 20) + (this.getLabelForValue(value).length > 20 ? '...' : '');
-                                }
-                            }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Likes'
-                            }
-                        }
+        new Chart(likedPostsChartCtx, {
+            type: 'bar',
+            data: {
+                labels: top5LikedPosts.map(post => post.title),
+                datasets: [
+                    {
+                        label: '페스티벌',
+                        data: top5LikedPosts.map(post => post.event_type === 1 || post.event_type === 2 ? post.likeCount : 0),
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
                     },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                        },
-                        tooltip: {
-                            callbacks: {
-                                title: function(context) {
-                                    return context[0].label;
-                                },
-                                label: function(context) {
-                                    var post = top5LikedPosts[context.dataIndex];
-                                    return [
-                                        'Likes: ' + context.parsed.y,
-                                        'Type: ' + (post.event_type === 3 ? '팝업' : '페스티벌')
-                                    ];
-                                }
-                            }
-                        }
+                    {
+                        label: '팝업',
+                        data: top5LikedPosts.map(post => post.event_type === 3 ? post.likeCount : 0),
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
                     },
-                    barPercentage: 0.8,
-                    categoryPercentage: 0.9
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
                 }
-            });
-        }
+            }
+        });
+    }
+}
 
-        // 차트를 생성하는 함수를 약간의 지연 후 호출합니다.
-        setTimeout(function() {
-            createVisitorChart();
-            createChatChart();
-            createLikedPostsChart();
-        }, 100);
-    });
+function formatDate(timestamp) {
+    var date = new Date(timestamp);
+    return date.toLocaleDateString();
+}

@@ -33,10 +33,24 @@ $(document).ready(function() {
                 sender: username,
                 receiver: 'admin',
                 content: messageContent,
-                type: 'CHAT'
+                type: 'CHAT',
+                timestamp: new Date().toISOString()
             };
 
             stompClient.send("/app/chat.message", {}, JSON.stringify(chatMessage));
+            $.ajax({
+                type: "POST",
+                url: contextPath + "/api/chat/message",
+                contentType: "application/json",
+                data: JSON.stringify(chatMessage),
+                success: function(response) {
+                    console.log("Message saved:", response);
+                },
+                error: function(error) {
+                    console.error("Error saving message:", error);
+                }
+            });
+
             $("#chatInput").val("");
             console.log("User sent message:", chatMessage);
         }
@@ -125,4 +139,22 @@ $(document).ready(function() {
     });
 
     connect();
+
+    // 페이지 로드 시 메시지 데이터 불러오기
+    loadMessages();
+
+    function loadMessages() {
+        $.ajax({
+            type: "GET",
+            url: contextPath + "/api/chat/messages/" + encodeURIComponent(username),
+            success: function(messages) {
+                messages.forEach(function(message) {
+                    showMessage(message);
+                });
+            },
+            error: function(error) {
+                console.error("Error loading messages:", error);
+            }
+        });
+    }
 });

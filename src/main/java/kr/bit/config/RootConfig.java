@@ -2,6 +2,7 @@ package kr.bit.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import kr.bit.function.chat.service.NotificationService;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -21,9 +22,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "kr.bit.**")
-@PropertySource("classpath:properties/db.properties") //프로퍼티 소스를 불러오겠다!
+@PropertySource("classpath:properties/db.properties")
 @MapperScan("kr.bit.function.page.pageMapper")
-@EnableTransactionManagement // 트랜잭션 관리 활성화
+@EnableTransactionManagement
 public class RootConfig {
 
     @Value("${database.url}")
@@ -35,8 +36,6 @@ public class RootConfig {
     @Value("${database.password}")
     private String databasePassword;
 
-
-    //좋아요 기능때문에 추가
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
@@ -64,17 +63,21 @@ public class RootConfig {
         return sessionFactory.getObject();
     }
 
-    // JdbcTemplate 빈 설정
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-    // ObjectMapper 빈 설정
+
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
         return mapper;
     }
-    // 기타 비 웹 관련 설정들
+
+    // Add NotificationService Bean
+    @Bean
+    public NotificationService notificationService() {
+        return new NotificationService();
+    }
 }
