@@ -1,5 +1,6 @@
 let userLikes = [];
 
+
 function loadUserLikes() {
     return fetch('/api/like/user-likes')
         .then(response => response.json())
@@ -24,13 +25,16 @@ function updateBookmarkIcons() {
 function toggleLike(eventNo, eventType, element) {
     const csrfToken = document.querySelector('meta[name="_csrf"]')?.getAttribute('content');
 
+    var userId = $("input[name='user_id']").val();
+    var userName = $("input[name='user_name']").val();
+
     fetch('/api/like/toggle', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken || ''
         },
-        body: JSON.stringify({ event_no: eventNo, event_type: eventType }),
+        body: JSON.stringify({ event_no: eventNo, event_type: eventType, user_id: userId, user_name:userName }),
     })
         .then(response => {
             if (!response.ok) {
