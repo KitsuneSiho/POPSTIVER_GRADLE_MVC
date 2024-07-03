@@ -1,6 +1,8 @@
 function toggleLike(event_no, event_type) {
     const user_id = document.getElementById('user_id').value;
     const user_name = document.getElementById('user_name').value;
+    console.log(user_id);
+    console.log(user_name);
 
     fetch('/api/like/toggle', {
         method: 'POST',
