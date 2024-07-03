@@ -172,7 +172,14 @@ public class BoardController {
             model.addAttribute("allComments", allComments);
 
             // 축제 평균 별점 조회
-            double avgStarRate = commentService.getPopupStarAvg(popupNo);
+            Double avgStarRate = commentService.getPopupStarAvg(popupNo);
+
+            // 평균 별점이 null인 경우 0으로 처리
+            if (avgStarRate == null) {
+                avgStarRate = 0.0; // 또는 원하는 기본값으로 설정
+            }
+
+
             // 평균 별점을 소수점 한 자리까지 포맷팅
             String formattedAvgStarRate = String.format("%.1f", avgStarRate);
             model.addAttribute("avgStarRate", formattedAvgStarRate);

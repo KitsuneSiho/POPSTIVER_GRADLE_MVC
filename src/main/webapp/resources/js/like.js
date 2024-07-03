@@ -4,6 +4,9 @@ function toggleLike(event_no, event_type) {
     console.log(user_id);
     console.log(user_name);
 
+    console.log(event_no);
+    console.log(event_type);
+
     fetch('/api/like/toggle', {
         method: 'POST',
         headers: {

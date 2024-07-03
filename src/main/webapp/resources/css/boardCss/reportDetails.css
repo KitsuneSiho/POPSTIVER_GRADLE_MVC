@@ -2,102 +2,223 @@ body {
     margin: 0;
     padding: 0;
     background-color: black;
-    font-family: 'Pre', sans-serif;
+}
+
+.searchResultTitle{
+    font-family: 'Pre',sans-serif;
     color: white;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    text-align: left;
+    font-size: 25px;
 }
 
-.contactMenu {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 50px 0 20px;
-    padding-bottom: 10px;
-    font-family: 'Pre', sans-serif;
-    color: white;
+.searchList {
+    margin: 40px 0;
+    padding-bottom: 100px;
 }
 
-.contactMenu a, .contactMenu a:visited {
-    text-decoration: none;
-    color: inherit;
-    margin: 5px;
-    font-size: 1rem;
-}
-
-.contactMenu .on {
-    color: #ffff33;
-    border-bottom: 2px solid #ffff33;
-}
-
-.notice {
-    width: 80%;
+.searchList article {
+    width: 70%;
     margin: 0 auto;
     overflow: hidden;
-    font-family: 'Pre', sans-serif;
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.searchListOpen {
+    font-size: 18px;
+    background: #1e1e1e;
+    border-bottom: 1px solid #ffff33;
+    padding: 3px 10px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchListOpen p {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.searchListOpen img.on {
+    transform: rotate(180deg);
+}
+
+.searchListOpen img {
+    transition: all 0.3s;
+}
+
+.popupFestivalInfo {
+    display: none;
+    padding: 10px 16px;
+    background: #2e2e2e;
     color: white;
 }
 
-.noticeDetails h1 {
-    border-bottom: 1px solid #2e2e2e;
-    padding-bottom: 1%;
-    margin-bottom: 1%;
+.carousel {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-.writerDate {
+.carousel-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    flex-wrap: wrap;
+    font-family: 'Pre',sans-serif;
+}
+
+.card {
+    width: 33.33%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+}
+
+.card-content {
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 5px;
+    position: relative;
+}
+
+.card-content .bookmark {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.card-content p{
     display: flex;
     align-content: center;
-    color: #5e5e5e;
+}
+
+.card-content .cardAddress {
+    width: 20px;
+    height: 20px;
+    margin-right: 2%;
+    padding: 0;
+}
+
+.card-content .cardDate {
+    width: 18px;
+    height: 18px;
+    margin-right: 2%;
+    padding: 0;
+}
+
+.carousel-nav {
+    display: flex;
     justify-content: space-between;
-    margin-bottom: 2%;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.noticeText {
-    line-height: 1.8;
-    border-bottom: 1px solid #2e2e2e;
-    padding-bottom: 1%;
-}
-
-.type, .address, .date{
-    line-height: 1.5;
-    padding-bottom: 1%;
-}
-
-.listButton{
-    text-align: right;
-}
-
-.listButton button{
-    padding: 5px 10px;
-    margin-top: 1%;
+.carousel-nav button {
+    background: none;
     border: none;
-    border-radius: 5px;
-    background-color: #ffff33;
-    color: black;
-    font-family: 'Pre', sans-serif;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+footer {
+    margin-top: 50px;
+    border-top: 1px solid #2e2e2e;
+    color: #5e5e5e;
+    text-align: center;
+    padding: 20px 0;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Pre',sans-serif;
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    color: white;
     font-size: 20px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 0 10px;
 }
 
-.listButton button:hover{
-    background-color: #ffff3388;
+.pagination button:disabled {
+    color: #5e5e5e;
+    cursor: not-allowed;
 }
 
-@media (max-width: 768px) {
-    .notice {
+.page-info {
+    color: white;
+    margin: 0 10px;
+}
+
+
+/* 수정된 CSS */
+
+@media (max-width: 767px) {
+    .searchList article {
         width: 90%;
     }
 
-    .contactMenu {
-        flex-direction: column;
-        align-items: center;
+    .card {
+        width: 100%;
     }
 
-    .contactMenu a {
-        margin: 10px 0;
-        font-size: 1.2rem;
+    .card img {
+        width: 100%;
+        height: auto;
     }
+
+    .carousel {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .searchList article {
+        width: 70%;
+    }
+
+    .card {
+        width: 50%;
+    }
+}
+
+/* 링크 색상 설정 */
+a {
+    color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+a:hover {
+    text-decoration: underline; /* 호버 시에는 밑줄 추가 */
 }

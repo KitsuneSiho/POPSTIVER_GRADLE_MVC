@@ -12,8 +12,10 @@ body {
 
 .mainPoster img {
     margin-top: 30px;
-    max-width: 80%; /* 최대 너비 설정 */
-    height: auto; /* 높이 자동 조정 */
+    /*max-width: 80%; !* 최대 너비 설정 *!*/
+    /*height: auto; !* 높이 자동 조정 *!*/
+    width: 40%;
+    height: 40%;
     border: none;
 }
 .detailInfo{
@@ -24,15 +26,14 @@ body {
 
 }
 .detailInfoTitle{
-    width: 80%;
+    width: 70%;
     border: none;
 }
 .detailInfoTitle ul{
     list-style: none;
     display: flex;
     justify-content: right;
-    margin: 0;
-    margin-top: 10px;
+    margin: 10px 0 0;
     padding: 0;
     align-items: center;
 
@@ -92,7 +93,7 @@ body {
     background-color: #2e2e2e;
     border-radius: 5px;
     color: #7e7e7e;
-    width: 50%;
+    width: 97%;
     height: auto;
     padding: 20px;
     line-height: 1.5;
@@ -102,7 +103,7 @@ body {
     margin-top: 100px;
 }
 .detailInfoMap #singleMap{
-    width: 70%;
+    width: 100%;
     height: 500px;
 }
 .detailInfoReviewTitle{
@@ -139,23 +140,22 @@ body {
 }
 
 .detailInfoReview button{
-    width: 90px;
-    height: 40px;
-    border: none;
-    margin-left: 3%;
-    background-color: #ffff33;
-    font-family: inherit;
+    width: 100px;
+    height: 45px;
+    border: 2px solid #5e5e5e;
     border-radius: 20px;
+    background: none;
+    font-family: inherit;
     font-size: 20px;
     cursor: pointer;
+    color: white;
 }
-.detailInfoReview button:hover{
-    background-color: #ffff3388;
-}
+
 .detailInfoReviewTable table {
     width: 100%;
     margin: 0 auto;
     border-collapse: collapse;
+    border-top: 1px solid #7e7e7e;
 }
 
 .detailInfoReviewTable table td {
@@ -180,15 +180,39 @@ body {
 }
 
 .comment-header {
+    display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+.comment-header .name{
+    width: 50%;
+    margin-right: 10%;
+}
+.comment-header button{
+    background: none;
+    border: none;
+    color: #5e5e5e;
+    margin: 5%;
+    padding: 0;
+    width: 60px;
+}
+.comment-header button:hover{
+    color: #ffff33;
 }
 .comment-header .date {
     font-size: 15px;
     color: #aaa;
 }
 .comment-text {
-    margin-bottom: 10px;
+    margin: 0 10px 10px 0;
+    width: 70%;
+}
+.date{
+    color: #5e5e5e;
+    font-size: 15px;
+    align-self: end;
+    line-height: 1.5;
+    text-align: right;
 }
 .comment-img {
     width: 100px;
@@ -305,6 +329,7 @@ body {
 .stars {
     display: inline-block;
     margin-left: 2%;
+    align-content: center;
 }
 
 .star.non-interactive {
@@ -378,28 +403,35 @@ body {
     display: flex;
     align-content: center;
 }
+.commentArea2{
+    margin-bottom: 10px;
+}
 .commentArea .commentDate{
     width: 20%;
-    border: none;
     background-color: black;
-    border-right: 1px solid #5e5e5e;
+    border: 2px solid #5e5e5e;
+    border-radius: 20px;
     color: white;
     outline: none;
     font-family: 'Pre', sans-serif;
     font-size: 1.2rem;
     margin: 10px;
+    padding: 10px;
 }
-.commentArea .commentContent{
+.commentArea2 .commentContent{
     width: 50%;
-    border: none;
+    border: 2px solid #5e5e5e;
+    border-radius: 20px;
     background-color: black;
     color: white;
     outline: none;
     font-family: 'Pre', sans-serif;
     font-size: 1.2rem;
     margin: 10px;
+    padding: 10px;
 }
 
 .commentDate::-webkit-calendar-picker-indicator {
     filter: invert(1); /* 아이콘을 흰색으로 반전 */
 }
+

@@ -114,7 +114,7 @@ body {
 #currentLocationButton {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 50px;
     background-color: #ffff33;
     border: none;
     border-radius: 5px;
@@ -254,17 +254,6 @@ body {
     font-family: 'Pre', sans-serif;
 }
 
-#currentLocationButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #ffff33;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    cursor: pointer;
-}
-
 .dropdown-wrapper {
     position: relative;
     display: inline-block;
@@ -350,3 +339,4 @@ body {
     color: #f00;
     cursor: pointer;
 }
+

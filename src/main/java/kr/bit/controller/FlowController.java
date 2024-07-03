@@ -33,6 +33,11 @@ public class FlowController {
     @GetMapping("/login")//로그인페이지
     public String login_page() { return "page/myPage/login"; }
 
+//    @GetMapping("/contact")//연락처 페이지
+//    public String contact_page() {
+//        return "page/board/contact";
+//    }
+
     @GetMapping("/myPage")//마이페이지
     public String my_page(@AuthenticationPrincipal OAuth2User principal, Model model) {
         return "forward:/member/myPage";
@@ -56,6 +61,28 @@ public class FlowController {
     public String money_page() {
         return "page/board/money";
     }
+
+
+//    @GetMapping("report")//제보하기게시판페이지
+//    public String report_page() {
+//        return "page/board/report";
+//    }
+//
+
+//    @GetMapping("together")//동행구하기게시판페이지
+//    public String together_page() {
+//        return "page/board/together";
+//    }
+
+//    @GetMapping("togetherWrite")//동행구하기게시판글작성페이지
+//    public String togetherWrite_page() {
+//        return "page/board/togetherWrite";
+//    }
+
+//    @GetMapping("free")//자유게시판페이지
+//    public String free_page() {
+//        return "page/board/free";
+//    }
 
     @GetMapping("freeWrite")//자유게시판글작성페이지
     public String freeWrite_page() {

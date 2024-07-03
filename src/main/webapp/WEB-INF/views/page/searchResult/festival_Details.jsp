@@ -33,33 +33,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/festival_Details.js"></script>
     <script src="${root}/resources/js/like.js"></script>
-    <script>
-        // 이미지가 로드된 후 실행할 함수 정의
-        function adjustImageSize() {
-            var img = document.querySelector('.mainPoster img'); // 이미지 요소 선택
-
-            if (img.complete) { // 이미지가 로드되었는지 확인
-                var maxWidth = window.innerWidth; // 현재 창의 너비
-                var maxHeight = window.innerHeight; // 현재 창의 높이
-
-                var ratio = Math.min(maxWidth / img.naturalWidth, maxHeight / img.naturalHeight); // 이미지 비율 계산
-
-                img.style.width = (img.naturalWidth * ratio) + 'px'; // 이미지 너비 설정
-                img.style.height = (img.naturalHeight * ratio) + 'px'; // 이미지 높이 설정
-            }
-        }
-
-        // 페이지 로드 시 실행할 함수 등록
-        window.onload = function() {
-            adjustImageSize(); // 이미지 크기 조정 함수 호출
-        }
-
-        // 창 크기 변경 시에도 이미지 크기 조정
-        window.onresize = function() {
-            adjustImageSize(); // 이미지 크기 조정 함수 호출
-        }
-
-    </script>
 </head>
 <body>
 
@@ -75,11 +48,21 @@
 <div class="detailInfo">
     <div class="detailInfoTitle">
         <ul>
-            <li><button>${festival.festival_tag1}</button></li>
-            <li><button>${festival.festival_tag2}</button></li>
-            <li><button>${festival.festival_tag3}</button></li>
-            <li><button>${festival.festival_tag4}</button></li>
-            <li><button>${festival.festival_tag5}</button></li>
+            <c:if test="${not empty festival.festival_tag1}">
+                <li><button>${festival.festival_tag1}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag2}">
+                <li><button>${festival.festival_tag2}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag3}">
+                <li><button>${festival.festival_tag3}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag4}">
+                <li><button>${festival.festival_tag4}</button></li>
+            </c:if>
+            <c:if test="${not empty festival.festival_tag5}">
+                <li><button>${festival.festival_tag5}</button></li>
+            </c:if>
 
             <li><img src="${root}/resources/asset/조회수.svg" alt=""><p>${festival.views}</p></li>
             <li>
@@ -125,7 +108,7 @@
         <p class="detailDate">${festival.festival_start} ~ ${festival.festival_end}</p>
         <p class="detailAddress">
             <img src="${root}/resources/asset/위치표시.svg" alt="">
-            ${festival.festival_location}
+            ${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}
         </p>
 
         <div class="detailInfoTime">
@@ -141,20 +124,17 @@
         <div class="detailInfoMap">
             <div id="singleMap"></div>
         </div>
-        <div class="detailInfoReview">
+        <div class="detailInfoReview" id="detailInfoReview">
             <p class="detailInfoReviewTitle">후기</p>
             <!-- 후기 개수 표시 -->
             <p>댓글 ${allComments.size()}개 ${avgStarRate}</p>
-            <form method="post" onsubmit="submitForm(event)">
-
+            <form id="commentForm" method="post" onsubmit="submitForm(event)">
                 <input type="hidden" name="festival_no" value="${festival.festival_no}">
                 <input type="hidden" name="event_type" value="${festival.event_type}">
                 <input type="hidden" id="user_name" name="user_name" value="">
                 <input type="hidden" id="user_id" name="user_id" value="">
                 <div class="commentArea">
                     <input class="commentDate" type="date" name="visit_date" placeholder="방문일을 입력해주세요.">
-                    <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
-
                     <div class="stars" id="starRating">
                         <span class="new-star" data-value="1">&#9733;</span>
                         <span class="new-star" data-value="2">&#9733;</span>
@@ -162,8 +142,11 @@
                         <span class="new-star" data-value="4">&#9733;</span>
                         <span class="new-star" data-value="5">&#9733;</span>
                     </div>
-                <input type="hidden" name="star_rate" id="star_rate">
-                <button type="submit">등록</button>
+                </div>
+                <div class="commentArea2">
+                    <input class="commentContent" type="text" name="comment_content" placeholder="후기를 입력해주세요.">
+                    <input type="hidden" name="star_rate" id="star_rate">
+                    <button type="submit">등록</button>
                 </div>
             </form>
             <div class="detailInfoReviewTable">
@@ -174,26 +157,27 @@
                             <td>
                                 <div class="comment-header">
                                     <div class="name">${comment.comment_writer}</div>
-                                    <div class="date">${comment.visit_date}</div>
+                                    <button type="button" class="edit-button"  data-comment-writer="${comment.comment_writer}"
+                                            onclick="editComment(${comment.comment_no}, '${comment.comment_content}', ${comment.star_rate},
+                                                    '${comment.visit_date}')">수정</button>
+                                    <button type="button" onclick="deleteComment(${comment.comment_no})"
+                                            class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">삭제</button>
                                 </div>
                                 <div class="star_rate">
                                     <c:forEach var="i" begin="1" end="5">
                                         <span class="star ${i <= comment.star_rate ? 'selected readonly' : 'readonly'}">&#9733;</span>
                                     </c:forEach>
-
-                                    <img src="${root}/resources/asset/삭제버튼.svg" alt="" onclick="deleteComment(${comment.comment_no})"
-                                         class="delete" style="display: none;" data-comment-writer="${comment.comment_writer}">
                                 </div>
                             </td>
                             <td>
                                 <div class="comment-text">${comment.comment_content}</div>
+                                <div class="date"> 방문일자 : ${comment.visit_date}<br>
+                                    작성일 : ${comment.comment_date}</div>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -283,10 +267,6 @@
             });
         });
     });
-
-
-
-
 </script>
 
 

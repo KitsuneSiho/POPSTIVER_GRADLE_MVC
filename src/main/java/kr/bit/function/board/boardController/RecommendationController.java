@@ -1,11 +1,8 @@
 package kr.bit.function.board.boardController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.json.JsonReadFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -29,7 +26,7 @@ import java.io.InputStreamReader;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-@PropertySource("classpath:properties/application.properties") //프로퍼티 소스를 불러오겠다!
+@PropertySource("classpath:properties/application.properties")
 @Controller
 public class RecommendationController {
 
@@ -104,8 +101,10 @@ public class RecommendationController {
                     .build();
             Map<String, Object> recommendations = mapper.readValue(sb.toString(), Map.class);
 
-            model.addAttribute("festivals", recommendations.get("festivals"));
-            model.addAttribute("popups", recommendations.get("popups"));
+            model.addAttribute("user_festivals", recommendations.get("user_festivals"));
+            model.addAttribute("user_popups", recommendations.get("user_popups"));
+            model.addAttribute("similar_festivals", recommendations.get("similar_festivals"));
+            model.addAttribute("similar_popups", recommendations.get("similar_popups"));
 
         } catch (Exception e) {
             LOGGER.severe("Error: " + e.getMessage());
@@ -114,6 +113,5 @@ public class RecommendationController {
 
         return "page/board/recommendedList";
     }
-
 
 }
