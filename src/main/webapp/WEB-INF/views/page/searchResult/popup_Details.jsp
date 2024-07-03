@@ -129,8 +129,9 @@
 
         <div class="detailInfoTime">
             <p class="detailInfoTimeTitle">운영시간</p>
-            <p class="detailInfoTimeInfo">
-            <p>${popup.open_time}</p>
+            <p class="detailInfoTimeInfo" id="openTime">
+                ${popup.open_time}
+            </p>
         </div>
         <p class="detailIntroduceTitle">팝업스토어, 페스티벌 소개</p>
         <div class="detailIntroduce">
@@ -239,6 +240,15 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
+
+        var openTimeElement = document.getElementById('openTime');
+        var openTimeText = openTimeElement.textContent || openTimeElement.innerText;
+
+// 정규표현식을 사용하여 요일을 찾아서 해당 요일 앞에 <br> 태그 추가
+        openTimeText = openTimeText.replace(/(월|화|수|목|금|토|일|휴일)(?=\s*:\s*\d{2}:\d{2}\s*~\s*\d{2}:\d{2}|(?!\s*:\s*\d{2}:\d{2}))/g, '<br>$1');
+
+        openTimeElement.innerHTML = openTimeText;
+
         // 새 댓글 폼의 별점 요소들 선택
         var stars = document.querySelectorAll('#starRating .new-star');
 
