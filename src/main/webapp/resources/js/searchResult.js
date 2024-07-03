@@ -21,58 +21,58 @@ function getUserInfoAndSetUserId() {
     });
 }
 
-$(document).ready(function () {
-    getUserInfoAndSetUserId();
-
-    $('.bookmark').click(function() {
-        var isLiked = $(this).hasClass('liked');
-        var eventType = $(this).closest('.card-content').data('eventtype');
-        var eventNo = $(this).closest('.card-content').data('eventno');
-        var userId = $("#user_id").val();
-        var userName = $("#user_name").val();
-
-        var requestType = isLiked ? 'delete' : 'put';
-
-        if(requestType === 'delete'){
-            $.ajax({
-                type: "delete",
-                url: '/like/remove/' + eventNo + '/' + userId + '/' + eventType,
-                success: function(response) {
-                    if (response === 'liked') {
-                        $('.bookmark').addClass('liked');
-                    } else if (response === 'unliked') {
-                        $('.bookmark').removeClass('liked');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        } else {
-            $.ajax({
-                type: "put",
-                url: '/like/add',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({
-                    "event_type": eventType,
-                    "event_no": eventNo,
-                    "user_id": userId,
-                    "user_name": userName
-                }),
-                success: function(response) {
-                    if (response === 'liked') {
-                        $('.bookmark').addClass('liked');
-                    } else if (response === 'unliked') {
-                        $('.bookmark').removeClass('liked');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-    });
-});
+// $(document).ready(function () {
+//     getUserInfoAndSetUserId();
+//
+//     $('.bookmark').click(function() {
+//         var isLiked = $(this).hasClass('liked');
+//         var eventType = $(this).closest('.card-content').data('eventtype');
+//         var eventNo = $(this).closest('.card-content').data('eventno');
+//         var userId = $("#user_id").val();
+//         var userName = $("#user_name").val();
+//
+//         var requestType = isLiked ? 'delete' : 'put';
+//
+//         if(requestType === 'delete'){
+//             $.ajax({
+//                 type: "delete",
+//                 url: '/like/remove/' + eventNo + '/' + userId + '/' + eventType,
+//                 success: function(response) {
+//                     if (response === 'liked') {
+//                         $('.bookmark').addClass('liked');
+//                     } else if (response === 'unliked') {
+//                         $('.bookmark').removeClass('liked');
+//                     }
+//                 },
+//                 error: function(xhr, status, error) {
+//                     console.error('Error:', error);
+//                 }
+//             });
+//         } else {
+//             $.ajax({
+//                 type: "put",
+//                 url: '/like/add',
+//                 contentType: 'application/json;charset=utf-8',
+//                 data: JSON.stringify({
+//                     "event_type": eventType,
+//                     "event_no": eventNo,
+//                     "user_id": userId,
+//                     "user_name": userName
+//                 }),
+//                 success: function(response) {
+//                     if (response === 'liked') {
+//                         $('.bookmark').addClass('liked');
+//                     } else if (response === 'unliked') {
+//                         $('.bookmark').removeClass('liked');
+//                     }
+//                 },
+//                 error: function(xhr, status, error) {
+//                     console.error('Error:', error);
+//                 }
+//             });
+//         }
+//     });
+// });
 
 document.addEventListener('DOMContentLoaded', function() {
     const sections = [
@@ -142,11 +142,11 @@ function toggleSearchList(element) {
     }
 }
 
-function toggleMenu() {
-    var modal = document.getElementById('menuModal');
-    if (modal.style.display === "none" || modal.style.display === "") {
-        modal.style.display = "block";
-    } else {
-        modal.style.display = "none";
-    }
-}
+// function toggleMenu() {
+//     var modal = document.getElementById('menuModal');
+//     if (modal.style.display === "none" || modal.style.display === "") {
+//         modal.style.display = "block";
+//     } else {
+//         modal.style.display = "none";
+//     }
+// }

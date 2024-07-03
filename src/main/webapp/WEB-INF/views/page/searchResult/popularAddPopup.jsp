@@ -55,7 +55,11 @@
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
                                     <img src="${popup.popup_attachment}" alt="포스터">
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${popup.popup_no}"
+                                         data-event-type="${popup.event_type}">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -91,7 +95,11 @@
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
                                     <img src="${popup.popup_attachment}" alt="포스터">
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${popup.popup_no}"
+                                         data-event-type="${popup.event_type}">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -127,7 +135,11 @@
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
                                     <img src="${popup.popup_attachment}" alt="포스터">
-                                    <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                    <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                         class="bookmark"
+                                         alt=""
+                                         data-event-no="${popup.popup_no}"
+                                         data-event-type="${popup.event_type}">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
