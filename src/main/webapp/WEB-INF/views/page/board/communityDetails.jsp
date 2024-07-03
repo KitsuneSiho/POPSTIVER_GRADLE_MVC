@@ -79,6 +79,15 @@
         <div id="deleteButton"></div>
 <%--        수정버튼--%>
         <div id="editButton"></div>
+
+<%--        관리자 삭제--%>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <div class="write">
+                <button class="writeButton" onclick="window.location.href='/deleteCommunity/${community.board_no}'">
+                    <img src="${root}/resources/asset/글쓰기.svg" alt="">
+                    [관리자]삭제</button>
+            </div>
+        </sec:authorize>
     </c:otherwise>
 </c:choose>
     <div class="listButton">
