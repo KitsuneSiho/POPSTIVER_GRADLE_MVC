@@ -142,6 +142,42 @@ body {
     cursor: pointer;
 }
 
+.typeButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.genderButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.genderButton button {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
 .infoModal {
     display: none;
     position: fixed;
@@ -178,7 +214,12 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
+    background-color: #006fff;
+    border-radius: 10px;
+    color: white;
 }
+
 
 @media screen and (max-width: 768px) {
     .userInfo {
@@ -299,4 +340,57 @@ body {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
+}
+
+.user_birth::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
+}
+
+
+.tagButton .tag-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.tagButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+}
+
+.typeButton .type-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.typeButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+}
+
+.genderButton .gender-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.genderButton .selected {
+    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
 }

@@ -133,6 +133,39 @@
     $("#searchButton").on("click", function() {
         $("#searchModal").slideToggle();
     });
+
+    $(document).ready(function() {
+        $("#searchButton").on("click", function(e) {
+            e.preventDefault(); // 기본 동작(폼 제출 또는 링크 이동) 방지
+
+            // 검색 모달 열기
+            $("#searchModal").fadeIn(300, function() {
+                // fadeIn 애니메이션 완료 후, 입력 필드에 포커스 설정
+                $(this).find('input[name="keyword"]').focus();
+            });
+        });
+
+        // 모달 외부 클릭 시 모달 닫기
+        $(document).on("click", function(event) {
+            if (!$(event.target).closest('#searchModal').length &&
+                !$(event.target).closest('#searchButton').length &&
+                $('#searchModal').is(":visible")) {
+                $('#searchModal').fadeOut(300);
+            }
+        });
+
+        // 모달 내부 클릭 시 닫기 방지
+        $("#searchModal").on("click", function(event) {
+            event.stopPropagation();
+        });
+
+        // ESC 키 누를 때 모달 닫기
+        $(document).on("keyup", function(event) {
+            if (event.key === "Escape" && $('#searchModal').is(":visible")) {
+                $('#searchModal').fadeOut(300);
+            }
+        });
+    });
 </script>
 </body>
 </html>

@@ -87,4 +87,22 @@ public class CommentService {
         return jdbcTemplate.queryForObject(sql, new Object[]{popupNo}, Double.class);
     }
 
+    // 축제 댓글 수정
+    public void updateFestivalComment(FestivalCommentDTO festivalCommentDTO) {
+        String sql = "UPDATE festival_comment SET comment_content = ?, star_rate = ? WHERE comment_no = ?";
+        jdbcTemplate.update(sql,
+                festivalCommentDTO.getComment_content(),
+                festivalCommentDTO.getStar_rate(),
+                festivalCommentDTO.getComment_no());
+    }
+
+    // 팝업 댓글 수정
+    public void updatePopupComment(PopupCommentDTO popupCommentDTO) {
+        String sql = "UPDATE popup_comment SET comment_content = ?, star_rate = ? WHERE comment_no = ?";
+        jdbcTemplate.update(sql,
+                popupCommentDTO.getComment_content(),
+                popupCommentDTO.getStar_rate(),
+                popupCommentDTO.getComment_no());
+    }
+
 }

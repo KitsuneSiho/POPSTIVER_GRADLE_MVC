@@ -22,7 +22,7 @@ public class PopupUpcomingDAO {
 
 
     public List<PopupUpcomingEntity> getUpcomingPopups() {
-        String sql = "SELECT popup_no, popup_title, popup_attachment FROM popup WHERE popup_start > CURDATE() ORDER BY popup_start ASC LIMIT 10";
+        String sql = "SELECT popup_no, popup_title, popup_attachment FROM popup WHERE popup_start > CURDATE() ORDER BY popup_start ASC LIMIT 20";
         List<PopupUpcomingEntity> results = jdbcTemplate.query(sql, new PopupUpcomingRowMapper());
         return results;
     }

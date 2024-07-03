@@ -26,45 +26,9 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .tag-button {
-            margin: 5px;
-        }
-
-        .tagButton .selected {
-            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
-        }
-
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="${root}/resources/js/formValidation.js"></script>
-
-    <script>
-        function toggleTagSelection(button) {
-            button.classList.toggle('selected');
-            console.log('Tag selected:', button.getAttribute('data-tag-no')); // 태그 선택 이벤트 확인용 로그
-        }
-
-        function setTags() {
-
-            document.querySelectorAll('.tag-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    this.classList.toggle('selected');
-                    console.log(`Button ${button.getAttribute('data-tag-no')} clicked`); // 클릭 이벤트 확인용 로그
-                });
-            });
-        }
-        function saveUserTags() {
-            const selectedTags = Array.from(document.querySelectorAll('.tag-button.selected')).map(button => button.getAttribute('data-tag-no'));
-            const tagsField = document.getElementById('tags');
-            tagsField.value = selectedTags.join(',');
-
-            // 폼을 직접 제출
-            document.getElementById('userForm').submit();
-        }
-
-    </script>
-
 </head>
 
 <body>
@@ -87,12 +51,11 @@
         <ul class="info">
             <li>
                 <span>회원 유형</span><br>
-                <div class="userType">
-                    <input type="radio" id="host" name="user_type" value="ROLE_HOST">
-                    <label for="host">주최자</label>
-                    <input type="radio" id="user" name="user_type" value="ROLE_USER" checked>
-                    <label for="user">사용자</label>
+                <div class="typeButton">
+                    <button type="button" class="type-button" id="host" name="user_type" value="ROLE_HOST" onclick="toggleTypeSelection(this)">주최자</button>
+                    <button type="button" class="type-button" id="user" name="user_type" value="ROLE_USER" onclick="toggleTypeSelection(this)">사용자</button>
                 </div>
+                <input type="hidden" name="user_type" id="user_type">
             </li>
             <li>
                 <span>이름</span><br>
@@ -117,17 +80,16 @@
             <li>
                 <span>생일</span><br>
                 <label>
-                    <input type="text" name="user_birth" id="user_birth" placeholder="YYYYMMDD" maxlength="8">
+                    <input type="date" class="user_birth" name="user_birth" value="${birthday}" id="user_birth">
                 </label>
             </li>
             <li>
                 <span>성별</span><br>
-                <div class="userGender">
-                    <input type="radio" id="male" name="user_gender" value="male" ${gender == 'M' ? 'checked' : ''}>
-                    <label for="male">남</label>
-                    <input type="radio" id="female" name="user_gender" value="female" ${gender == 'F' ? 'checked' : ''}>
-                    <label for="female">여</label>
+                <div class="genderButton">
+                    <button type="button" class="gender-button" id="male" name="gender" value="male" onclick="toggleGenderSelection(this)">남</button>
+                    <button type="button" class="gender-button" id="female" name="gender" value="female" onclick="toggleGenderSelection(this)">여</button>
                 </div>
+                <input type="hidden" name="user_gender" id="user_gender" value="${gender}">
             </li>
             <li>
                 <h1>관심 태그</h1>
@@ -143,7 +105,7 @@
 
 
     <div class="updateButton">
-        <button type="button" onclick="saveUserTags()">가입하기</button>
+        <button type="submit">가입하기</button>
         <button type="reset">취소</button>
     </div>
 </form>

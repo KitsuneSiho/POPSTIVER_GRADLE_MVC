@@ -44,6 +44,7 @@ function getUserInfoAndSetUserId() {
                 console.log(userType);
                 // 삭제 버튼 표시 여부 업데이트
                 updateDeleteButtonVisibility(userName, userType);
+                updateEditButtonVisibility(userName);
 
             } else {
                 console.error("사용자 정보를 가져오는 데 실패했습니다.");
@@ -61,6 +62,20 @@ function updateDeleteButtonVisibility(userName, userType) {
 
         // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
         if (commentWriter === userName || userType === 'ROLE_ADMIN') {
+            $(this).show(); // 삭제 버튼 표시
+        } else {
+            $(this).hide(); // 삭제 버튼 숨김
+        }
+    });
+}
+
+function updateEditButtonVisibility(userName) {
+    $('.edit-button').each(function () {
+        var commentWriter = $(this).data('comment-writer'); // 댓글 작성자 가져오기
+
+        console.log(commentWriter);
+        // 댓글 작성자와 현재 사용자 이름 비교하여 삭제 버튼 표시 여부 결정
+        if (commentWriter === userName) {
             $(this).show(); // 삭제 버튼 표시
         } else {
             $(this).hide(); // 삭제 버튼 숨김
@@ -174,3 +189,68 @@ document.addEventListener('DOMContentLoaded', () => {
         loadUserLikes();
     }
 });
+
+// 후기 수정을 위한 함수
+function editComment(commentNo, commentContent, starRate, visitDate) {
+    // 수정할 폼의 값을 설정
+    document.querySelector('input[name="comment_content"]').value = commentContent;
+    document.querySelector('input[name="comment_content"]').style.backgroundColor = '#3e3e3e';
+    document.querySelector('input[name="star_rate"]').value = starRate;
+    document.querySelector('input[name="visit_date"]').value = visitDate;
+    document.querySelector('input[name="visit_date"]').style.backgroundColor = '#3e3e3e';
+
+    // commentNo를 hidden으로 전달하여 서버에서 식별할 수 있도록 함
+    var commentNoInput = document.createElement('input');
+    commentNoInput.type = 'hidden';
+    commentNoInput.name = 'comment_no';
+    commentNoInput.value = commentNo;
+    document.getElementById('commentForm').appendChild(commentNoInput);
+
+    // 기존 별점 표시
+    document.querySelectorAll('.new-star').forEach(star => {
+        if (star.dataset.value <= starRate) {
+            star.classList.add('selected');
+        }
+    });
+
+    var submitButton = document.querySelector('#commentForm button[type="submit"]');
+    submitButton.textContent = '수정 완료';
+
+
+    // 방문일을 readonly로 설정
+    $("input[name='visit_date']").prop('readonly', true);
+
+    // 스크롤을 폼 위치로 이동
+    document.getElementById('detailInfoReview').scrollIntoView();
+
+    // 수정 완료 버튼 클릭 시 처리할 이벤트 추가
+    submitButton.onclick = function(event) {
+        event.preventDefault();
+
+        var commentContent = $("input[name='comment_content']").val();
+        var starRate = $("#star_rate").val();
+        var commentNo = $("input[name='comment_no']").val();
+
+        $.ajax({
+            method: "put",
+            url: "/comment/updatePopup", // 수정용 URL로 변경
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify({
+                "comment_no": commentNo, // 수정할 댓글 번호
+                "comment_content": commentContent, // 수정할 댓글 내용
+                "star_rate": starRate // 수정할 별점
+            }),
+            success: function (response) {
+                var message = "후기 수정이 완료되었습니다!";
+                openCustomAlert(message);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = "후기 수정 중 오류가 발생했습니다.";
+                openCustomAlert(errorMessage);
+                location.reload();
+            }
+        });
+
+    };
+}
