@@ -29,9 +29,9 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${root}/resources/js/money.js"></script>
 </head>
-
 <body>
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
@@ -82,9 +82,9 @@
         <li>
             <span>주소</span>
             <label class="addressLabel">
-                <input type="text" name="temp_location">
+                <input type="text" id="temp_location" name="temp_location">
             </label>
-            <button class="searchAddress" type="button">주소 검색</button>
+            <button class="searchAddress" type="button" onclick="checkPost()">주소 검색</button>
         </li>
         <li>
             <span>행사기간</span>

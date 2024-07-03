@@ -176,6 +176,26 @@ body {
     color: black;
 }
 
+.type-button{
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #2e2e2e;
+    background-color: black;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+.type-button:hover {
+    background-color: #ffff33;
+    color: black;
+}
+.type-button.active {
+    background-color: #ffff33;
+    color: black;
+}
+
 .dropdown-wrapper select {
     background-color: #444;
     color: white;
