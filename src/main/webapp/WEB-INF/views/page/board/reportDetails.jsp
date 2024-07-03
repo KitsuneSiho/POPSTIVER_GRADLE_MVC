@@ -104,9 +104,10 @@
                 <li>
                     <span>주소</span>
                     <label class="addressLabel">
+                        <input type="text" name="report_dist" value="${report_detail.report_dist}" readonly>
+                        <input type="text" name="report_subdist" value="${report_detail.report_subdist}" readonly>
                         <input type="text" name="report_location" value="${report_detail.report_location}" readonly>
                     </label>
-                    <button class="searchAddress" type="button">주소 검색</button>
                 </li>
                 <li>
                     <span>행사기간</span>
@@ -118,6 +119,12 @@
                         <input type="date" class="date" name="report_end" value="${report_detail.report_end}" readonly>
                     </label>
                     <p>까지</p>
+                </li>
+                <li>
+                    <span>운영시간</span>
+                    <label class="infoTextarea">
+                        <textarea name="open_time" rows="7" style="resize: none">${report_detail.open_time}</textarea>
+                    </label>
                 </li>
                 <li>
                     <span>주최하는 곳</span>

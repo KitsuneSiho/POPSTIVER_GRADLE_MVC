@@ -473,14 +473,19 @@ public class BoardRepository {
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//
     public void insertBusinessRepo(TemporaryPostDTO temporaryPostDTO) {
-        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host, temp_location, temp_start, temp_end, event_type) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO temporary_post (temp_title, temp_content, temp_host,temp_dist,temp_subdist, temp_location, temp_start, temp_end,open_time,brand_link,brand_sns, event_type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         // board_view 값은 일단 하드코딩으로 1로 지정
         jdbcTemplate.update(sql, temporaryPostDTO.getTemp_title(),
                 temporaryPostDTO.getTemp_content(),
                 temporaryPostDTO.getTemp_host(),
+                temporaryPostDTO.getTemp_dist(),
+                temporaryPostDTO.getTemp_subdist(),
                 temporaryPostDTO.getTemp_location(),
                 temporaryPostDTO.getTemp_start(),
                 temporaryPostDTO.getTemp_end(),
+                temporaryPostDTO.getOpen_time(),
+                temporaryPostDTO.getBrand_link(),
+                temporaryPostDTO.getBrand_sns(),
                 temporaryPostDTO.getEvent_type()
         );
     }
@@ -490,13 +495,16 @@ public class BoardRepository {
     //                             📤📤 REPORT  제보게시판 📤📤                             //
     //=====================================================================================//
     public void insertReportRepo(ReportDTO reportDTO) {
-        String sql = "INSERT INTO report (report_title, report_content, report_host, report_location, report_start, report_end, brand_link, brand_sns,user_id, user_name, event_type) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO report (report_title, report_content, report_host,report_dist,report_subdist, report_location, report_start, report_end,open_time, brand_link, brand_sns,user_id, user_name, event_type) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql, reportDTO.getReport_title(),
                 reportDTO.getReport_content(),
                 reportDTO.getReport_host(),
+                reportDTO.getReport_dist(),
+                reportDTO.getReport_subdist(),
                 reportDTO.getReport_location(),
                 reportDTO.getReport_start(),
                 reportDTO.getReport_end(),
+                reportDTO.getOpen_time(),
                 reportDTO.getBrand_link(),
                 reportDTO.getBrand_sns(),
                 reportDTO.getUser_id(),

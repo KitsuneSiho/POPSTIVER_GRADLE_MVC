@@ -22,9 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 <header class="mainTop">
     <div class="mainTopLogo">
-        <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
-        <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
-        <h1 class="h1glitch"><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
+        <h1><a href="#" onclick="window.location.href='${root}/main'">POPSTIVER</a></h1>
         <div class="logoButtons">
             <button class="logoButton" onclick="window.location.href='${root}/mainPopup'">POP-UP</button>
             <button class="logoButton" onclick="window.location.href='${root}/mainFestival'">FESTIVAL</button>
@@ -128,7 +126,7 @@
             setTimeout(function() {
                 $('#weatherOverlay').hide();
             }, 500); // 페이드아웃 효과 시간과 일치시킴
-        }, 1300);
+        }, 1500);
     });
 
     // 검색 버튼 클릭 시 검색 모달 열기
