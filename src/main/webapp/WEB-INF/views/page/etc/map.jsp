@@ -26,18 +26,6 @@
             font-family: Pre;
             src: url('${root}/resources/font/Pre.ttf');
         }
-
-        .district-select-wrapper {
-            display: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 2s ease-in-out; /* 애니메이션 지속 시간과 이징 함수 설정 */
-        }
-
-        .district-select-wrapper.show {
-            display: block; /* display 속성을 block으로 변경 */
-            max-height: 500px; /* 충분한 크기로 설정하여 전체 내용이 보이도록 함 */
-        }
     </style>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9441e4fcdaf29ae0ef64a498fa8c752d&libraries=services"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -247,12 +235,24 @@
     var typeSelectButton = document.getElementById('type_select');
     typeSelectButton.addEventListener('click', function() {
         var districtSelectWrapper = document.querySelector('.district-select-wrapper');
-        districtSelectWrapper.classList.toggle('show'); // show 클래스를 토글하여 보이기/숨기기
+        var isShowing = districtSelectWrapper.classList.contains('show');
+
+        if (isShowing) {
+            districtSelectWrapper.style.maxHeight = districtSelectWrapper.scrollHeight + 'px';
+            setTimeout(() => {
+                districtSelectWrapper.style.maxHeight = '0px';
+            }, 10);
+            districtSelectWrapper.classList.remove('show');
+        } else {
+            districtSelectWrapper.classList.add('show');
+            districtSelectWrapper.style.maxHeight = '0px';
+            setTimeout(() => {
+                districtSelectWrapper.style.maxHeight = districtSelectWrapper.scrollHeight + 'px';
+            }, 10);
+        }
 
         // 선택 완료 버튼의 텍스트를 변경
-        if (districtSelectWrapper.classList.contains('show')) {
-            this.textContent = "다시 검색";
-        } else {
+        if (isShowing) {
             this.textContent = "선택";
             var typeButtons = document.querySelectorAll('.type-button');
             var cityButtons = document.querySelectorAll('.city-button');
@@ -267,7 +267,8 @@
 
             addMarkers(multiMap, geocoder, festivals);
             addPopupMarkers(multiMap, geocoder, popups);
-
+        } else {
+            this.textContent = "다시 검색";
         }
     });
 
@@ -281,6 +282,7 @@
             });
         });
     });
+
 
 
     var geocoder = new kakao.maps.services.Geocoder();

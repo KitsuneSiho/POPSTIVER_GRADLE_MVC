@@ -28,6 +28,11 @@ body {
     margin-left: 1%;
 }
 
+.map h4{
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+}
+
 .map #multiMap {
     width: 100%; /* 전체 너비로 설정 */
     height: 600px;
@@ -159,7 +164,7 @@ body {
 .city-button{
     width: 150px;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid #2e2e2e;
     background-color: black;
     font-family: 'Pre', sans-serif;
@@ -179,7 +184,7 @@ body {
 .type-button{
     width: 150px;
     height: 40px;
-    border-radius: 20px;
+    border-radius: 10px;
     border: 1px solid #2e2e2e;
     background-color: black;
     font-family: 'Pre', sans-serif;
@@ -195,6 +200,38 @@ body {
     background-color: #ffff33;
     color: black;
 }
+
+.dropdown-wrapper #type_select{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #2e2e2e;
+    background-color: black;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.dropdown-wrapper #type_select {
+    background-color: #ffff33;
+    color: black;
+}
+
+.dropdown-wrapper #type_select::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
 
 .dropdown-wrapper select {
     background-color: #444;
@@ -219,6 +256,19 @@ body {
 
 .dropdown-wrapper:after {
     content: none; /* 기본적으로 화살표를 표시하지 않음 */
+}
+
+/* CSS 애니메이션 */
+.district-select-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+.district-select-wrapper.show {
+    max-height: 500px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
 }
 
 /* 서울특별시와 경기도 버튼에만 화살표 표시 */
@@ -359,4 +409,7 @@ body {
     color: #f00;
     cursor: pointer;
 }
+
+
+
 

@@ -38,7 +38,7 @@ body {
 .mainPoster {
     display: flex;
     justify-content: center;
-    margin: 0 12%;
+    margin: 0 20%;
 }
 
 .main-content {
@@ -177,15 +177,13 @@ body {
 .popularPoster-caption {
     color: white;
     font-family: 'Pre', sans-serif;
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 30px;
     text-align: center;
     width: 100%;
 }
 
 .popularPoster-overlay {
     position: absolute;
-    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -196,6 +194,7 @@ body {
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
+    height: 30%;
 }
 
 .popularPoster-button {
@@ -207,6 +206,11 @@ body {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+a.popularPoster-button{
+    text-decoration: none;
 }
 
 .popularPoster-button:hover {
@@ -347,6 +351,11 @@ body {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+a.openPoster-button{
+    text-decoration: none;
 }
 
 .openPoster-button:hover {
