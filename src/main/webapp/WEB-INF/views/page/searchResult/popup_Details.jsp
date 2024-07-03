@@ -124,7 +124,7 @@
         <p class="detailDate">${popup.popup_start} ~ ${popup.popup_end}</p>
         <p class="detailAddress">
             <img src="${root}/resources/asset/위치표시.svg" alt="">
-            ${popup.popup_location}
+            ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
         </p>
 
         <div class="detailInfoTime">

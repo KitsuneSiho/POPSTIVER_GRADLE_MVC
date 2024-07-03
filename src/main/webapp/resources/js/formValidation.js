@@ -52,23 +52,6 @@ function containsOnlyConsonantsOrVowels(input) {
     return (containsConsonant && !containsVowel) || (!containsConsonant && containsVowel);
 }
 
-function isValidDateFormat(date) {
-    const regex = /^[0-9]{8}$/;
-    if (!regex.test(date)) {
-        return false;
-    }
-    const year = parseInt(date.substring(0, 4));
-    const month = parseInt(date.substring(4, 6));
-    const day = parseInt(date.substring(6, 8));
-    if (month < 1 || month > 12) {
-        return false;
-    }
-    if (day < 1 || day > 31) {
-        return false;
-    }
-    return true;
-}
-
 function showCustomAlert(message) {
     // 모달 요소 생성
     const modal = document.createElement('div');

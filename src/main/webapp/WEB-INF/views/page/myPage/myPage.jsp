@@ -34,8 +34,20 @@
             background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
         }
 
-        .tag-button.active {
-            cursor: pointer;
+        .type-button {
+            margin: 5px;
+        }
+
+        .typeButton .selected {
+            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+        }
+
+        .gender-button {
+            margin: 5px;
+        }
+
+        .genderButton .selected {
+            background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
         }
 
     </style>
@@ -57,6 +69,9 @@
 
         function saveUserTags(event) {
             event.preventDefault(); // 폼의 기본 제출 방지
+
+            var userNickname = $("input[name='user_nickName']").val();
+
             const selectedTags = Array.from(document.querySelectorAll('.tag-button.selected')).map(button => button.getAttribute('data-tag-no'));
             const tagsField = document.getElementById('tags');
             tagsField.value = selectedTags.join(',');
@@ -64,6 +79,28 @@
             const form = document.getElementById('userInfoForm');
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
+
+            if(!isNicknameChecked){
+                showCustomAlert('닉네임 중복 확인 후 가입해주세요.');
+                document.getElementById('user_nickName').focus();
+                return false;
+            }
+
+            if (containsForbiddenWord(userNickname)) {
+                showCustomAlert("닉네임에 금지된 단어가 포함되어 있습니다.");
+                return;
+            }
+
+            if (containsOnlyConsonantsOrVowels(userNickname)) {
+                showCustomAlert('닉네임에 자음이나 모음만 사용할 수 없습니다.');
+                document.getElementById('user_nickName').focus();
+                return;
+            }
+
+            if (!isNicknameAvailable) {
+                showCustomAlert("중복된 닉네임입니다. 다른 닉네임을 입력해주세요.");
+                return;
+            }
 
             fetch('/member/updateUser', {
                 method: 'PUT',
@@ -88,18 +125,11 @@
                 });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // 선택된 태그를 표시하기 위해 selected 클래스를 추가
-            const selectedTagIds = ${selectedTagIds};  // 모델에서 제공된 선택된 태그 ID 목록
-            document.querySelectorAll('.tag-button').forEach(button => {
-                if (selectedTagIds.includes(parseInt(button.getAttribute('data-tag-no')))) {
-                    button.classList.add('selected');
-                }
-            });
-        });
 
         function enableEdit() {
             document.querySelectorAll('.tag-button').forEach(button => {
+                console.log("활성화");
+                button.disabled = false;
                 button.classList.add('active'); // 태그 버튼 활성화
                 button.style.cursor = 'pointer'; // 커서 변경
             });
@@ -110,6 +140,16 @@
             document.getElementById('editButton').style.display = 'none';
             document.getElementById('saveButton').style.display = 'block';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 선택된 태그를 표시하기 위해 selected 클래스를 추가
+            const selectedTagIds = ${selectedTagIds};  // 모델에서 제공된 선택된 태그 ID 목록
+            document.querySelectorAll('.tag-button').forEach(button => {
+                if (selectedTagIds.includes(parseInt(button.getAttribute('data-tag-no')))) {
+                    button.classList.add('selected');
+                }
+            });
+        });
     </script>
 </head>
 
@@ -132,12 +172,11 @@
         <ul class="info">
         <li>
                 <span>회원 유형</span><br>
-                <div class="userType">
-                    <input type="radio" id="host" name="user_type" value="ROLE_HOST" <c:if test="${user.user_type == 'ROLE_HOST'}">checked</c:if>>
-                    <label for="host">주최자</label>
-                    <input type="radio" id="user" name="user_type" value="ROLE_USER" <c:if test="${user.user_type == 'ROLE_USER'}">checked</c:if>>
-                    <label for="user">사용자</label>
+                <div class="typeButton">
+                    <button type="button" class="type-button" id="host" name="user_type" value="ROLE_HOST" onclick="toggleTypeSelection(this)" disabled>주최자</button>
+                    <button type="button" class="type-button" id="user" name="user_type" value="ROLE_USER" onclick="toggleTypeSelection(this)" disabled>사용자</button>
                 </div>
+                <input type="hidden" name="user_type" id="user_type">
             </li>
             <li>
                 <span>이름</span><br>
@@ -167,12 +206,11 @@
             </li>
             <li>
                 <span>성별</span><br>
-                <div class="userGender">
-                    <input type="radio" id="male" name="user_gender" value="male" <c:if test="${user.user_gender == 'male'}">checked</c:if>>
-                    <label for="male">남</label>
-                    <input type="radio" id="female" name="user_gender" value="female" <c:if test="${user.user_gender == 'female'}">checked</c:if>>
-                    <label for="female">여</label>
+                <div class="genderButton">
+                    <button type="button" class="gender-button" id="male" name="gender" value="male" onclick="toggleGenderSelection(this)" disabled>남</button>
+                    <button type="button" class="gender-button" id="female" name="gender" value="female" onclick="toggleGenderSelection(this)" disabled>여</button>
                 </div>
+                <input type="hidden" name="user_gender" id="user_gender" value="${gender}">
             </li>
             <li>
                 <h1>관심 태그</h1>

@@ -125,7 +125,7 @@
         <p class="detailDate">${festival.festival_start} ~ ${festival.festival_end}</p>
         <p class="detailAddress">
             <img src="${root}/resources/asset/위치표시.svg" alt="">
-            ${festival.festival_location}
+            ${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}
         </p>
 
         <div class="detailInfoTime">
