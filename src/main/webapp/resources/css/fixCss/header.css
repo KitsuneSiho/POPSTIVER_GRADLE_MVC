@@ -14,6 +14,200 @@ body {
     width: 100%;
     background-color: black;
 }
+.h1glitch {
+    text-align: center;
+    color: #ffff33;
+    font-size: 40px;
+    letter-spacing: 8px;
+    font-family: 'Giants', sans-serif;
+    /*font-weight: 400;*/
+
+    cursor: pointer;
+    position: relative;
+
+    margin: 0;
+    line-height: 0;
+
+
+    animation: glitch1 2.5s infinite;
+
+}
+
+h1:nth-child(2) {
+    color: #67f3da;
+    animation: glitch2 2.5s infinite;
+}
+
+h1:nth-child(3) {
+    color: #f16f6f;
+    animation: glitch3 2.5s infinite;
+}
+/*Keyframes*/
+
+@keyframes glitch1 {
+    0% {
+        transform: none;
+        opacity: 1;
+    }
+    7% {
+        transform: skew(-0.5deg, -0.9deg);
+        opacity: 0.75;
+    }
+    10% {
+        transform: none;
+        opacity: 1;
+    }
+    27% {
+        transform: none;
+        opacity: 1;
+    }
+    30% {
+        transform: skew(0.8deg, -0.1deg);
+        opacity: 0.75;
+    }
+    35% {
+        transform: none;
+        opacity: 1;
+    }
+    52% {
+        transform: none;
+        opacity: 1;
+    }
+    55% {
+        transform: skew(-1deg, 0.2deg);
+        opacity: 0.75;
+    }
+    50% {
+        transform: none;
+        opacity: 1;
+    }
+    72% {
+        transform: none;
+        opacity: 1;
+    }
+    75% {
+        transform: skew(0.4deg, 1deg);
+        opacity: 0.75;
+    }
+    80% {
+        transform: none;
+        opacity: 1;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes glitch2 {
+    0% {
+        transform: none;
+        opacity: 0.25;
+    }
+    7% {
+        transform: translate(-2px, -3px);
+        opacity: 0.5;
+    }
+    10% {
+        transform: none;
+        opacity: 0.25;
+    }
+    27% {
+        transform: none;
+        opacity: 0.25;
+    }
+    30% {
+        transform: translate(-5px, -2px);
+        opacity: 0.5;
+    }
+    35% {
+        transform: none;
+        opacity: 0.25;
+    }
+    52% {
+        transform: none;
+        opacity: 0.25;
+    }
+    55% {
+        transform: translate(-5px, -1px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: none;
+        opacity: 0.25;
+    }
+    72% {
+        transform: none;
+        opacity: 0.25;
+    }
+    75% {
+        transform: translate(-2px, -6px);
+        opacity: 0.5;
+    }
+    80% {
+        transform: none;
+        opacity: 0.25;
+    }
+    100% {
+        transform: none;
+        opacity: 0.25;
+    }
+}
+
+@keyframes glitch3 {
+    0% {
+        transform: none;
+        opacity: 0.25;
+    }
+    7% {
+        transform: translate(2px, 3px);
+        opacity: 0.5;
+    }
+    10% {
+        transform: none;
+        opacity: 0.25;
+    }
+    27% {
+        transform: none;
+        opacity: 0.25;
+    }
+    30% {
+        transform: translate(5px, 2px);
+        opacity: 0.5;
+    }
+    35% {
+        transform: none;
+        opacity: 0.25;
+    }
+    52% {
+        transform: none;
+        opacity: 0.25;
+    }
+    55% {
+        transform: translate(5px, 1px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: none;
+        opacity: 0.25;
+    }
+    72% {
+        transform: none;
+        opacity: 0.25;
+    }
+    75% {
+        transform: translate(2px, 6px);
+        opacity: 0.5;
+    }
+    80% {
+        transform: none;
+        opacity: 0.25;
+    }
+    100% {
+        transform: none;
+        opacity: 0.25;
+    }
+}
 
 .mainTopLogo {
     font-family: 'Giants', sans-serif;
@@ -131,15 +325,73 @@ body {
     padding: 5px 15px;
     text-align: center;
 }
+/* 날씨 위젯 덮개 스타일 */
+#weatherOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
 
-.weather{
+/* 막대 애니메이션 스타일 */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loader div {
+    width: 8px;
+    height: 48px;
+    margin: 0 4px;
+    background-color: white;
+    animation: loading 1s infinite;
+}
+
+.loader div:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader div:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes loading {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+}
+
+/* 기존 날씨 위젯 스타일 */
+.weather {
+    position: relative; /* 날씨 위젯을 relative로 설정하여 덮개 위치 조정 */
     margin-top: 8px;
     color: white;
     border: none;
     border-radius: 10px;
     width: 240px;
     height: 80px;
+    overflow: hidden; /* 날씨 위젯 영역을 벗어나지 않도록 설정 */
 }
+
 
 .mainTopButton {
     display: flex;
