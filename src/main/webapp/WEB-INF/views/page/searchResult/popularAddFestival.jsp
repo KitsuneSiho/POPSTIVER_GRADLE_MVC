@@ -53,13 +53,13 @@
                         <c:if test="${today >= festival.festival_start && today <= festival.festival_end}">
                             <c:set var="hasOngoing" value="true" />
                             <div class="card">
-                                <div class="card-content" data-eventtype="2" data-eventno="${festival.festival_no}">
+                                <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
                                     <img src="${festival.festival_attachment}" alt="포스터">
                                     <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                          class="bookmark"
                                          alt=""
-                                         data-event-no="${result.event_no}"
-                                         data-event-type="${result.event_type}">
+                                         data-event-no="${festival.festival_no}"
+                                         data-event-type="${festival.event_type}">
                                     <h3>${festival.festival_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -93,13 +93,13 @@
                         <c:if test="${today < festival.festival_start}">
                             <c:set var="hasUpcoming" value="true" />
                             <div class="card">
-                                <div class="card-content" data-eventtype="2" data-eventno="${festival.festival_no}">
+                                <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
                                     <img src="${festival.festival_attachment}" alt="포스터">
                                     <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                          class="bookmark"
                                          alt=""
-                                         data-event-no="${result.event_no}"
-                                         data-event-type="${result.event_type}">
+                                         data-event-no="${festival.festival_no}"
+                                         data-event-type="${festival.event_type}">
                                     <h3>${festival.festival_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -133,13 +133,13 @@
                     <c:if test="${today > festival.festival_end}">
                         <c:set var="hasEnded" value="true" />
                         <div class="card">
-                            <div class="card-content" data-eventtype="3" data-eventno="${festival.festival_no}">
+                            <div class="card-content" data-eventtype="${festival.event_type}" data-eventno="${festival.festival_no}">
                                 <img src="${festival.festival_attachment}" alt="포스터">
                                 <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                      class="bookmark"
                                      alt=""
-                                     data-event-no="${result.event_no}"
-                                     data-event-type="${result.event_type}">
+                                     data-event-no="${festival.festival_no}"
+                                     data-event-type="${festival.event_type}">
                                 <h3>${festival.festival_title}</h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">

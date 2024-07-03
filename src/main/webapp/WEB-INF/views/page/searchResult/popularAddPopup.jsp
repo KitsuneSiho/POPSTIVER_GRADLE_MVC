@@ -59,7 +59,7 @@
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
-                                         data-event-type="${popup.event_type}">
+                                         data-event-type="3">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -99,7 +99,7 @@
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
-                                         data-event-type="${popup.event_type}">
+                                         data-event-type="3">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
@@ -139,7 +139,7 @@
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
-                                         data-event-type="${popup.event_type}">
+                                         data-event-type="3">
                                     <h3>${popup.popup_title}</h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
