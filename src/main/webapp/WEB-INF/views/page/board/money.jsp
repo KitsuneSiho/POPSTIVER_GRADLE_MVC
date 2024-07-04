@@ -107,9 +107,7 @@
         </li>
         <li>
             <span>주최하는 곳</span>
-            <label>
                 <input type="text" name="temp_host" placeholder="주최업체명 또는 지방자치단체명을 기입하세요!">
-            </label>
         </li>
         <li>
             <span>행사링크</span>
