@@ -807,3 +807,4 @@ public class BoardRepository {
     }
 }
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결
+//810 줄

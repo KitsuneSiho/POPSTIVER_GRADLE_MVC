@@ -100,7 +100,7 @@
                 <li>
                     <span>내용</span>
                     <label class="infoTextarea">
-                        <textarea name="comp_content" readonly rows="10" style="resize: none" >${together.comp_link}</textarea>
+                        <textarea name="comp_content" readonly rows="10" style="resize: none" >${together.comp_content}</textarea>
                     </label>
                 </li>
                 <li>
