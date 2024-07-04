@@ -14,10 +14,11 @@ body {
 .searchList {
     margin: 40px 0;
     padding-bottom: 100px;
+    font-family: 'Pre',sans-serif;
 }
 
 .searchList article {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     overflow: hidden;
     display: block;
@@ -55,6 +56,15 @@ body {
     padding: 10px 16px;
     background: #2e2e2e;
     color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+}
+
+.popupFestivalInfo.open {
+    display: block;
+    max-height: 2000px; /* Adjust this value based on your content */
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in, padding 0.5s ease-in;
 }
 
 .carousel {
@@ -67,8 +77,15 @@ body {
 .carousel-content {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.carousel-page {
+    display: flex;
     flex-wrap: wrap;
-    font-family: 'Pre',sans-serif;
+    width: 100%;
+    flex-shrink: 0;
 }
 
 .card {
@@ -201,7 +218,7 @@ body {
     }
 
     .card {
-        width: 50%;
+        width: 33.33%;
     }
 }
 
@@ -209,8 +226,4 @@ body {
 a {
     color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
     text-decoration: none; /* 링크 밑줄 제거 */
-}
-
-a:hover {
-    text-decoration: underline; /* 호버 시에는 밑줄 추가 */
 }

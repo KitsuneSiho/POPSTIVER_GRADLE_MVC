@@ -153,11 +153,14 @@ body {
 
 .listButton{
     text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: right;
 }
 
 .listButton button{
     padding: 5px 10px;
-    margin-top: 1%;
     border: none;
     border-radius: 5px;
     background-color: #ffff33;
@@ -166,6 +169,8 @@ body {
     font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
 .listButton button:hover{

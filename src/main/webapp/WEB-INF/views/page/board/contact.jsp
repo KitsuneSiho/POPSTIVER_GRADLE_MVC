@@ -36,19 +36,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a class="on" href="contact">
+    <a class="on" href="${root}/contact">
         <h2>공지사항</h2>
     </a>
-    <a href="money">
+    <a href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="report">
+    <a href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a href="${root}/together">
         <h2>동행구하기</h2>
     </a>
-    <a href="free">
+    <a href="${root}/free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -88,7 +88,7 @@
 </div>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
     <div class="write">
-        <button class="writeButton" onclick="window.location.href='noticeWrite'">
+        <button class="writeButton" onclick="window.location.href='${root}/noticeWrite'">
             <img src="${root}/resources/asset/글쓰기.svg" alt="">
             공지 등록하기</button>
     </div>

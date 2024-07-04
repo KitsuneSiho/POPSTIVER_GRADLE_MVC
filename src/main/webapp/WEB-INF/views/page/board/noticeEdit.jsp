@@ -37,19 +37,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="contact">
+    <a class="on" href="${root}/contact">
         <h2>공지사항</h2>
     </a>
-    <a href="money">
+    <a href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="report">
+    <a href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a href="${root}/together">
         <h2>동행구하기</h2>
     </a>
-    <a class="on" href="free">
+    <a href="${root}/free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -79,7 +79,7 @@
         <input type="hidden" id="notice_no" name="notice_no" value="${current_notice.notice_no}">
         <div class="updateButton">
             <button type="submit">수정하기</button>
-            <button type="reset" onclick="window.location.href='contact'">취소</button>
+            <button type="reset" onclick="window.location.href='${root}/contact'">취소</button>
         </div>
     </form>
 

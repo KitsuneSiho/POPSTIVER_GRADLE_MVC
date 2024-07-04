@@ -37,19 +37,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="contact">
+    <a href="${root}/contact">
         <h2>공지사항</h2>
     </a>
-    <a href="money">
+    <a href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a class="on" href="report">
+    <a class="on" href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a href="${root}/together">
         <h2>동행구하기</h2>
     </a>
-    <a href="free">
+    <a href="${root}/free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -109,20 +109,16 @@
         </li>
         <li>
             <span>주최하는 곳</span>
-            <label>
+
                 <input type="text" name="report_host" placeholder="주최업체명 또는 지방자치단체명을 기입하세요!">
-            </label>
+
         </li>
         <li>
             <span>링크</span>
             <p>공식홈페이지</p>
-            <label>
                 <input type="text" class="brand_link" name="brand_link" placeholder="wwww.popstiver.com">
-            </label>
             <p>SNS</p>
-            <label>
                 <input type="text" class="brand_sns" name="brand_sns" placeholder="카카오톡/인스타그램/X 등">
-            </label>
             <input type="hidden" id="user_id" name="user_id" value="">
             <input type="hidden" id="user_name" name="user_name" value="">
 
@@ -130,7 +126,7 @@
     </ul>
         <div class="updateButton">
             <button type="submit">제보하기</button>
-            <button type="reset" onclick="window.location.href='report'">취소</button>
+            <button type="reset" onclick="window.location.href='${root}/report'">취소</button>
         </div>
     </form>
 </div>

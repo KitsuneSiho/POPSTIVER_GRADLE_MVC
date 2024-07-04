@@ -34,7 +34,7 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="mainButton">
-    <button class="festivalButton" onclick="window.location.href='mainFestival'">
+    <button class="festivalButton" onclick="window.location.href='${root}/mainFestival'">
         FESTIVAL 보러가기
     </button>
 </div>
@@ -43,7 +43,7 @@
     <div class="popular">
         <div class="popularPosterText">
             <p class="popularText1">인기</p>
-            <p class="popularText2" onclick="window.location.href='popularAddPopup'">더보기</p>
+            <p class="popularText2" onclick="window.location.href='${root}/popularAddPopup'">더보기</p>
         </div>
         <div class="popularPoster">
             <button class="arrow-btn prev-btn">&lt;</button>
@@ -71,7 +71,7 @@
     <div class="open">
         <div class="openPosterText">
             <p class="openText1">오픈 예정</p>
-            <p class="openText2" onclick="window.location.href='openAddPopup'">더보기</p>
+            <p class="openText2" onclick="window.location.href='${root}/openAddPopup'">더보기</p>
         </div>
         <div class="openPoster">
             <div class="openSlide-container">
