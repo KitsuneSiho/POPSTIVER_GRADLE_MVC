@@ -151,8 +151,8 @@ body {
 }
 
 .tagButton button {
-    width: 100px;
-    height: 50px;
+    width: 80px;
+    height: 45px;
     border: none;
     border-radius: 100px;
     background-color: #5e5e5e;
@@ -169,8 +169,8 @@ body {
 }
 
 .typeButton button {
-    width: 100px;
-    height: 50px;
+    width: 90px;
+    height: 45px;
     border: none;
     border-radius: 20px;
     background-color: #5e5e5e;
@@ -187,8 +187,8 @@ body {
 }
 
 .genderButton button {
-    width: 100px;
-    height: 50px;
+    width: 80px;
+    height: 45px;
     border: none;
     border-radius: 20px;
     background-color: #5e5e5e;
@@ -306,8 +306,8 @@ body {
 
 
 .tagButton .tag-button {
-    width: 100px;
-    height: 50px;
+    width: 80px;
+    height: 45px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
@@ -322,8 +322,8 @@ body {
 }
 
 .typeButton .type-button {
-    width: 100px;
-    height: 50px;
+    width: 90px;
+    height: 45px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
@@ -338,8 +338,8 @@ body {
 }
 
 .genderButton .gender-button {
-    width: 100px;
-    height: 50px;
+    width: 80px;
+    height: 45px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
