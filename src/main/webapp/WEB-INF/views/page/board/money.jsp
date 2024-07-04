@@ -82,7 +82,6 @@
         <li>
             <span>행사주소</span>
             <label class="addressLabel">
-                <input type="text" id="temp_location" name="temp_location">
                 <input type="text" name="temp_dist" placeholder="시/도">
                 <input type="text" name="temp_subdist" placeholder="시/군/구">
                 <input type="text" name="temp_location" placeholder="상세주소">
