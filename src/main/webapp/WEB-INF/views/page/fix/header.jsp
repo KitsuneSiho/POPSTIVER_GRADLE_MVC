@@ -76,14 +76,20 @@
 
     <div class="weather">
         <div id="weatherOverlay">
+            <div class="loadText">
+                창문밖을<br>
+                보고있어요 😊
+            </div>
             <div class="loader">
                 <div></div>
                 <div></div>
                 <div></div>
             </div>
+
         </div>
         <jsp:include page="/WEB-INF/views/page/fix/weatherWidget.jsp" />
     </div>
+
 
     <div class="mainTopButton">
         <sec:authorize access="!isAuthenticated()">
@@ -126,7 +132,7 @@
             setTimeout(function() {
                 $('#weatherOverlay').hide();
             }, 500); // 페이드아웃 효과 시간과 일치시킴
-        }, 1500);
+        }, 1700);
     });
 
     // 검색 버튼 클릭 시 검색 모달 열기

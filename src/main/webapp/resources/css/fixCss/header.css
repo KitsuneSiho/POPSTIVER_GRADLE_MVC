@@ -149,6 +149,7 @@ body {
     transition: opacity 0.5s ease;
 }
 #ww_8fe9e8e469269{
+    font-family: Ownglyph_eunbyul21-Rg;
     color: #ffffff !important;
 }
 /* 막대 애니메이션 스타일 */
@@ -160,8 +161,8 @@ body {
 }
 
 .loader div {
-    width: 8px;
-    height: 48px;
+    width: 5px;
+    height: 40px;
     margin: 0 4px;
     background-color: white;
     animation: loading 1s infinite;
@@ -177,6 +178,19 @@ body {
 
 .loader div:nth-child(3) {
     animation-delay: 0.3s;
+}
+
+@font-face {
+    font-family: 'Ownglyph_eunbyul21-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+.loadText{
+    display: flex;
+    font-family: Ownglyph_eunbyul21-Rg;
+    font-size: 15px;
+    margin-right: 5px;
 }
 
 @keyframes loading {
@@ -203,6 +217,12 @@ body {
 #ww_8fe9e8e469269 {
     color: #ffffff !important;
     font-family: 'Pre', sans-serif !important;
+}
+#ww_cond{
+    font-size: 20px;
+}
+#ww_temp{
+    font-size: 35px;
 }
 
 
