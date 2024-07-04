@@ -113,13 +113,13 @@ body {
  /*event_type에 따른 배경색 */
 .fc-event.event-type-1,
 .fc-event.event-type-2 {
-    background-color: rgba(80, 80, 217, 0.73) !important;
-    border-color: rgba(80, 80, 217, 0.73) !important;
+    background-color: #246ABF !important;
+    border-color: #246ABF !important;
 }
 
 .fc-event.event-type-3 {
-    background-color: rgba(253, 253, 136, 0.73) !important;
-    border-color: rgba(253, 253, 136, 0.73) !important;
+    background-color: #F5C12E !important;
+    border-color: #F5C12E !important;
 }
 
 
