@@ -280,7 +280,7 @@ a.popularPoster-button{
 
 .openSlide-track {
     display: flex;
-    animation: scroll 30s linear infinite;
+    animation: scroll 20s linear infinite;
     transition: all 0.5s;
     user-select: none;
     width: 100%;

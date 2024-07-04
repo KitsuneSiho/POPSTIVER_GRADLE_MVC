@@ -113,7 +113,7 @@
             <span>행사링크</span>
             <p>공식홈페이지</p>
             <label>
-                <input type="text" class="brand_link" name="brand_link" placeholder="wwww.popstiver.com">
+                <input type="text" class="brand_link" name="brand_link" placeholder="www.popstiver.com">
             </label>
             <p>공식SNS</p>
             <label>

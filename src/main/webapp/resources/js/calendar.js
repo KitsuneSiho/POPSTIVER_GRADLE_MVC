@@ -51,10 +51,16 @@ document.addEventListener('DOMContentLoaded', function() { //DOM이 모두 로�
                 window.location.href = info.event.url; // 클릭 시 URL로 이동
             },
             eventDidMount: function(info) {
-                if (info.event.title.length > 18) { // 제목이 18자 이상일 경우
+                if (info.event.title.length > 18) {
                     info.el.querySelector('.fc-event-title').innerHTML = info.event.title.substring(0, 10) + '...';
                 }
+                if (info.event.classNames.includes('event-type-1') || info.event.classNames.includes('event-type-2')) {
+                    info.el.querySelector('.fc-event-title').style.color = 'white'; // event-type-1, event-type-2의 글씨색을 하얀색으로
+                } else if (info.event.classNames.includes('event-type-3')) {
+                    info.el.querySelector('.fc-event-title').style.color = 'black'; // event-type-3의 글씨색을 검정색으로
+                }
             }
+
 
         });
         calendar.render();

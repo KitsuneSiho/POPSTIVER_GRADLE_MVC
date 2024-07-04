@@ -75,7 +75,6 @@
     </c:otherwise>
 </c:choose>
     <div class="listButton">
-        <button onclick="window.location.href='${root}/contact'">목록</button>
         <sec:authorize access="hasRole('ROLE_ADMIN')">
             <div class="write">
                 <button class="writeButton" onclick="window.location.href='/deleteNotice/${notice.notice_no}'">
@@ -88,6 +87,7 @@
                 </button>
             </div>
         </sec:authorize>
+        <button onclick="window.location.href='${root}/contact'">목록</button>
     </div>
 
     </div>

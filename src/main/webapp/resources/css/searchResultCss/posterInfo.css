@@ -190,7 +190,7 @@ body {
 }
 .comment-header .name{
     width: 100%;
-    font-size: 20px;
+    font-size: 22px;
 }
 .comment-header button{
     background: none;
@@ -208,7 +208,7 @@ body {
 .comment-text {
     margin: 0 10px 10px 0;
     width: 70%;
-    font-size: 15px;
+    font-size: 19px;
 }
 .date{
     color: #5e5e5e;

@@ -147,9 +147,6 @@
             </ul>
 
             <div class="listButton">
-                <button onclick="window.location.href='${root}/report'">목록</button>
-                <div id="deleteButton"></div>
-                <div id="editButton"></div>
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <div class="write">
                         <button class="writeButton" onclick="window.location.href='/deleteReport/${report_detail.report_no}'">
@@ -157,6 +154,9 @@
                             [관리자]삭제</button>
                     </div>
                 </sec:authorize>
+                <div id="deleteButton"></div>
+                <div id="editButton"></div>
+                <button onclick="window.location.href='${root}/report'">목록</button>
             </div>
         </div>
     </c:otherwise>

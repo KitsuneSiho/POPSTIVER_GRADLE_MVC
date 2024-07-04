@@ -82,7 +82,7 @@
                             <p style="color: white;">현재 오픈 예정인 팝업이 없습니다.</p>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${upcomingPopups}" var="popup" begin="0" end="7">
+                            <c:forEach items="${upcomingPopups}" var="popup" begin="0" end="5">
                                 <div class="openPoster-item">
                                     <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
                                     <p class="openPoster-caption">${popup.popupTitle}</p>
@@ -100,7 +100,7 @@
                             <p style="color: white;">현재 오픈 예정인 팝업이 없습니다.</p>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach items="${upcomingPopups}" var="popup" begin="8" end="15">
+                            <c:forEach items="${upcomingPopups}" var="popup" begin="6" end="11">
                                 <div class="openPoster-item">
                                     <img src="${popup.popupAttachment}" alt="${popup.popupTitle}">
                                     <p class="openPoster-caption">${popup.popupTitle}</p>

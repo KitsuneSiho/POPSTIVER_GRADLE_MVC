@@ -75,7 +75,7 @@ body {
 
 .fc-day-sat .fc-event-title,
 .fc-day-sun .fc-event-title { /* 주말 일정제목 색깔*/
-    color: white ;
+    color: black ;
 }
 
 .fc .fc-col-header-cell-cushion {
@@ -134,13 +134,11 @@ body {
 .fc-event.event-type-2 {
     background-color: #246ABF !important;
     border-color: #246ABF !important;
-    color: white !important;
 }
 
 .fc-event.event-type-3 {
     background-color: #F5C12E !important;
     border-color: #F5C12E !important;
-    color: black !important;
 }
 
 
