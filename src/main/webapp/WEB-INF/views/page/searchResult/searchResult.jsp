@@ -71,7 +71,7 @@
                                     </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        <c:out value="${result.host}"/> <c:out value="${result.location}"/>
+                                        <c:out value="${result.host}"/>
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -119,7 +119,7 @@
                                     </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        <c:out value="${result.host}"/> <c:out value="${result.location}"/>
+                                        <c:out value="${result.host}"/>
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -165,7 +165,7 @@
                                     </h3>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        <c:out value="${result.host}"/> <c:out value="${result.location}"/>
+                                        <c:out value="${result.host}"/>
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">

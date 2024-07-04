@@ -20,7 +20,7 @@ body {
 
 .searchListOpen {
     font-size: 18px;
-    background: #1e1e1e;
+    background: none;
     border-bottom: 1px solid #ffff33;
     padding: 3px 10px;
     cursor: pointer;
@@ -47,7 +47,7 @@ body {
 .popupFestivalInfo {
     display: none;
     padding: 10px 16px;
-    background: #2e2e2e;
+    background: none;
     color: white;
     max-height: 0;
     overflow: hidden;
@@ -96,10 +96,11 @@ body {
 
 .card-content {
     padding: 20px;
-    background-color: #1e1e1e;
+    background: none;
     color: white;
     border-radius: 5px;
     position: relative;
+    border: 1px solid;
 }
 
 .card-content .bookmark {

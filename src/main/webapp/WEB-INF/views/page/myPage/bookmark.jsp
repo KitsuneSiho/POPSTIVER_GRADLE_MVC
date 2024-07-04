@@ -67,7 +67,7 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                         ${event.dist} ${event.subdist} ${event.location}
+                                         ${event.dist} ${event.subdist}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -112,7 +112,7 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${event.dist} ${event.subdist} ${event.location}
+                                        ${event.dist} ${event.subdist}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -157,7 +157,7 @@
                                 </h3>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${event.dist} ${event.subdist} ${event.location}
+                                        ${event.dist} ${event.subdist}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">

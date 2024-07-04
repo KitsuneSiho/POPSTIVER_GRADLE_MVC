@@ -75,7 +75,7 @@ body {
 
 .fc-day-sat .fc-event-title,
 .fc-day-sun .fc-event-title { /* 주말 일정제목 색깔*/
-    color: white !important;
+    color: white ;
 }
 
 .fc .fc-col-header-cell-cushion {
@@ -89,7 +89,7 @@ body {
 }
 
 .fc-event-title {
-    color: white !important;
+    color: black ;
     font-size: 70%; /* 이벤트 제목 글자 크기  */
     /*white-space: nowrap; !*이벤트 제목이 긴 경우 줄 바꿈 없이 한 줄에 모두 표시*!*/
     /*overflow: hidden; !*요소의 내용이 넘칠 경우, 넘치는 부분을 숨김*!*/
@@ -115,12 +115,12 @@ body {
 
 .fc-more-popover {
     background-color: black !important; /* 팝업창 배경색을 검정색으로 설정 */
-    color: white !important; /* 팝업창 텍스트 색상을 흰색으로 설정 */
+    color: white ; /* 팝업창 텍스트 색상을 흰색으로 설정 */
 }
 
 .fc-popover-body {
     background-color: black !important; /* 팝업창 내부 배경색을 검정색으로 설정 */
-    color: white !important; /* 팝업창 내부 텍스트 색상을 흰색으로 설정 */
+    color: white ; /* 팝업창 내부 텍스트 색상을 흰색으로 설정 */
 }
 
 .fc-popover-header {
@@ -134,11 +134,13 @@ body {
 .fc-event.event-type-2 {
     background-color: #246ABF !important;
     border-color: #246ABF !important;
+    color: white !important;
 }
 
 .fc-event.event-type-3 {
     background-color: #F5C12E !important;
     border-color: #F5C12E !important;
+    color: black !important;
 }
 
 
