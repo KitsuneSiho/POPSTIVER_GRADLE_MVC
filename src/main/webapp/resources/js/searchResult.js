@@ -8,7 +8,6 @@ function getUserInfoAndSetUserId() {
         url: "/member/getUserInfo",
         success: function (response) {
             if (response && response.user_id && response.user_nickname) {
-
                 $("#user_id").val(response.user_id);
                 $("#user_name").val(response.user_nickname);
                 console.log("사용자 정보 갖다 줌");
@@ -24,59 +23,6 @@ function getUserInfoAndSetUserId() {
     });
 }
 
-// $(document).ready(function () {
-//     getUserInfoAndSetUserId();
-//
-//     $('.bookmark').click(function() {
-//         var isLiked = $(this).hasClass('liked');
-//         var eventType = $(this).closest('.card-content').data('eventtype');
-//         var eventNo = $(this).closest('.card-content').data('eventno');
-//         var userId = $("#user_id").val();
-//         var userName = $("#user_name").val();
-//
-//         var requestType = isLiked ? 'delete' : 'put';
-//
-//         if(requestType === 'delete'){
-//             $.ajax({
-//                 type: "delete",
-//                 url: '/like/remove/' + eventNo + '/' + userId + '/' + eventType,
-//                 success: function(response) {
-//                     if (response === 'liked') {
-//                         $('.bookmark').addClass('liked');
-//                     } else if (response === 'unliked') {
-//                         $('.bookmark').removeClass('liked');
-//                     }
-//                 },
-//                 error: function(xhr, status, error) {
-//                     console.error('Error:', error);
-//                 }
-//             });
-//         } else {
-//             $.ajax({
-//                 type: "put",
-//                 url: '/like/add',
-//                 contentType: 'application/json;charset=utf-8',
-//                 data: JSON.stringify({
-//                     "event_type": eventType,
-//                     "event_no": eventNo,
-//                     "user_id": userId,
-//                     "user_name": userName
-//                 }),
-//                 success: function(response) {
-//                     if (response === 'liked') {
-//                         $('.bookmark').addClass('liked');
-//                     } else if (response === 'unliked') {
-//                         $('.bookmark').removeClass('liked');
-//                     }
-//                 },
-//                 error: function(xhr, status, error) {
-//                     console.error('Error:', error);
-//                 }
-//             });
-//         }
-//     });
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
     const sections = [
         { id: 'ongoing', contentId: 'ongoingContent', hasResults: hasOngoing },
@@ -88,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (section.hasResults) {
             const sectionElement = document.getElementById(section.id + 'Section');
             const contentElement = document.getElementById(section.contentId);
+
+            // 검색 결과가 있는 섹션을 열린 상태로 설정
             contentElement.style.display = "block";
+            contentElement.classList.add('open');
             sectionElement.querySelector('img.arrow').classList.add("on");
 
             initPagination(section.id);
@@ -107,10 +56,18 @@ function initPagination(sectionId) {
     const nextButton = content.parentElement.querySelector('.next-page');
     const pageInfo = content.parentElement.querySelector('.page-info');
 
+    // 카드들을 페이지별로 그룹화
+    for (let i = 0; i < pageCount; i++) {
+        const page = document.createElement('div');
+        page.className = 'carousel-page';
+        content.appendChild(page);
+        for (let j = i * pageSize; j < (i + 1) * pageSize && j < cards.length; j++) {
+            page.appendChild(cards[j]);
+        }
+    }
+
     function updatePage() {
-        cards.forEach((card, index) => {
-            card.style.display = (index >= (currentPage - 1) * pageSize && index < currentPage * pageSize) ? '' : 'none';
-        });
+        content.style.transform = `translateX(-${(currentPage - 1) * 100}%)`;
         pageInfo.textContent = `${currentPage}/${pageCount}`;
         prevButton.disabled = currentPage === 1;
         nextButton.disabled = currentPage === pageCount;
@@ -136,20 +93,18 @@ function initPagination(sectionId) {
 function toggleSearchList(element) {
     var popupInfo = element.nextElementSibling;
     var arrow = element.querySelector('img.arrow');
-    if (popupInfo.style.display === "none" || popupInfo.style.display === "") {
+
+    if (!popupInfo.classList.contains('open')) {
         popupInfo.style.display = "block";
+        setTimeout(() => {
+            popupInfo.classList.add('open');
+        }, 10);
         arrow.classList.add("on");
     } else {
-        popupInfo.style.display = "none";
+        popupInfo.classList.remove('open');
         arrow.classList.remove("on");
+        setTimeout(() => {
+            popupInfo.style.display = "none";
+        }, 500); // This should match the transition duration
     }
 }
-
-// function toggleMenu() {
-//     var modal = document.getElementById('menuModal');
-//     if (modal.style.display === "none" || modal.style.display === "") {
-//         modal.style.display = "block";
-//     } else {
-//         modal.style.display = "none";
-//     }
-// }

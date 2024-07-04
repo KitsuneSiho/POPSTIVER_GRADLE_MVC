@@ -7,6 +7,7 @@ body {
 .searchList {
     margin: 40px 0;
     padding-bottom: 100px;
+    font-family: 'Pre',sans-serif;
 }
 
 .searchList article {
@@ -48,6 +49,15 @@ body {
     padding: 10px 16px;
     background: #2e2e2e;
     color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+}
+
+.popupFestivalInfo.open {
+    display: block;
+    max-height: 2000px; /* Adjust this value based on your content */
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in, padding 0.5s ease-in;
 }
 
 .carousel {
@@ -60,7 +70,15 @@ body {
 .carousel-content {
     display: flex;
     transition: transform 0.5s ease-in-out;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.carousel-page {
+    display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    flex-shrink: 0;
 }
 
 .card {
@@ -137,6 +155,33 @@ footer {
     }
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Pre',sans-serif;
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.pagination button:disabled {
+    color: #5e5e5e;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: white;
+    margin: 0 10px;
+}
+
 /* 수정된 CSS */
 
 @media (max-width: 767px) {
@@ -176,4 +221,10 @@ footer {
     .card {
         width: 33.33%;
     }
+}
+
+/* 링크 색상 설정 */
+a {
+    color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
+    text-decoration: none; /* 링크 밑줄 제거 */
 }

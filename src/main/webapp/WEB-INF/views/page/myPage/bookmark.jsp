@@ -77,6 +77,11 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
+                </div>
             </div>
         </div>
 
@@ -116,6 +121,11 @@
                             </div>
                         </div>
                     </c:forEach>
+                </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
                 </div>
             </div>
         </div>
@@ -160,6 +170,11 @@
                         </div>
                     </c:forEach>
                 </div>
+                <div class="pagination">
+                    <button class="prev-page">&lt;</button>
+                    <span class="page-info">1/1</span>
+                    <button class="next-page">&gt;</button>
+                </div>
             </div>
         </div>
     </article>
@@ -169,6 +184,7 @@
 
 
 <script src="${root}/resources/js/bookmark.js"></script>
+<script src="${root}/resources/js/searchResult.js"></script>
 <script src="${root}/resources/js/bookmarkToggle.js"></script>
 </body>
 
