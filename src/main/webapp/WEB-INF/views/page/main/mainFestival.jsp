@@ -42,7 +42,7 @@
 <div class="mainPoster">
     <div class="popular">
         <div class="popularPosterText">
-            <p class="popularText1">인기</p>
+            <p class="popularText1">인기 축제</p>
             <p class="popularText2" onclick="window.location.href='${root}/popularAddFestival'">더보기</p>
         </div>
         <div class="popularPoster">
@@ -69,7 +69,7 @@
 <div class="main-content">
     <div class="open">
         <div class="openPosterText">
-            <p class="openText1">오픈 예정</p>
+            <p class="openText1">오픈 예정 축제</p>
             <p class="openText2" onclick="window.location.href='${root}/openAddFestival'">더보기</p>
         </div>
         <hr>

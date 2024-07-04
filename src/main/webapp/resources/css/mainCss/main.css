@@ -129,12 +129,12 @@ body, html {
     text-align: center;
     font-family: 'Pre', sans-serif;
     color: white;
-    font-size: 30px;
+    font-size: 50px;
     transition: transform 0.3s ease;
 }
 
 .enterPopup:hover, .enterFestival:hover{
-    transform: scale(1.05);
+    transform: scale(1.55);
 }
 
 .enterPopup button, .enterFestival button{
@@ -150,8 +150,7 @@ body, html {
 }
 
 .enterPopup button:hover, .enterFestival button:hover {
-    /*background-color: white;*/
-    /*color: black;*/
+    color: #ffff33;
 }
 
 .img-background {

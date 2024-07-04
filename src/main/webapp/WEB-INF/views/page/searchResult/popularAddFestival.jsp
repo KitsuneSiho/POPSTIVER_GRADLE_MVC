@@ -67,7 +67,7 @@
                                     </a>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                            ${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}
+                                            ${festival.festival_dist} ${festival.festival_subdist}
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -111,7 +111,7 @@
                                     </a>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                            ${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}
+                                            ${festival.festival_dist} ${festival.festival_subdist}
                                     </p>
                                     <p>
                                         <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">
@@ -155,7 +155,7 @@
                                 </a>
                                 <p>
                                     <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
-                                        ${festival.festival_dist} ${festival.festival_subdist} ${festival.festival_location}
+                                        ${festival.festival_dist} ${festival.festival_subdist}
                                 </p>
                                 <p>
                                     <img src="${root}/resources/asset/날짜.svg" class="cardDate" alt="">

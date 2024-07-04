@@ -58,7 +58,7 @@ body {
 }
 
 .popularText1 {
-    color: #ffff33;
+    color: #ffffff;
     font-size: 50px;
     margin: 0;
 }
@@ -113,7 +113,7 @@ body {
 .dot.active {
     width: 20px;
     border-radius: 5px;
-    background-color: #ffff33;
+    background-color: #ffffff;
 }
 
 
@@ -235,7 +235,7 @@ a.popularPoster-button{
 }
 
 .openText1 {
-    color: #ffff33;
+    color: #ffffff;
     font-size: 50px;
     margin: 0;
 }
