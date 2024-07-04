@@ -73,6 +73,7 @@
             <p class="openText1">오픈 예정</p>
             <p class="openText2" onclick="window.location.href='${root}/openAddPopup'">더보기</p>
         </div>
+        <hr>
         <div class="openPoster">
             <div class="openSlide-container">
                 <div class="openSlide-track">

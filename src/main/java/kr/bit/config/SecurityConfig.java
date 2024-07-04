@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
-
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,25 +20,27 @@ public class SecurityConfig {
     private final CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler; // LogoutSuccessHandler 주입
     private final JdbcTemplate jdbcTemplate;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler; // Custom AccessDeniedHandler 주입
 
     public SecurityConfig(
             CustomClientRegistrationRepo customClientRegistrationRepo,
             CustomOAuth2AuthorizedClientService customOAuth2AuthorizedClientService,
             JdbcTemplate jdbcTemplate,
             SocialClientRegistration socialClientRegistration,
-            CustomLogoutSuccessHandler customLogoutSuccessHandler) {
+            CustomLogoutSuccessHandler customLogoutSuccessHandler,
+            CustomAccessDeniedHandler customAccessDeniedHandler) {
         this.customClientRegistrationRepo = customClientRegistrationRepo;
         this.customOAuth2AuthorizedClientService = customOAuth2AuthorizedClientService;
         this.jdbcTemplate = jdbcTemplate;
         this.socialClientRegistration = socialClientRegistration;
         this.customLogoutSuccessHandler = customLogoutSuccessHandler;
+        this.customAccessDeniedHandler = customAccessDeniedHandler;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-//                .headers(headers -> headers.frameOptions().sameOrigin()) // X-Frame-Options 설정 // 6.1버전 이전 사용코드
                 .headers(headers -> headers
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()) // X-Frame-Options 설정, 최신 API 사용( 시큐리티 6.3)
                 )
@@ -49,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/freeBoard/**").permitAll() // 자유게시판 기능
                         .requestMatchers("/like/**").permitAll() // 자유게시판 기능
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
+                        .requestMatchers("/money").hasAuthority("ROLE_HOST, ROLE_ADMIN") // 비즈니스 문의
                         .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자페이지
                         .requestMatchers("/recommendations").permitAll() // /recommendations 경로는 인증 필요
                         .anyRequest().authenticated()
@@ -70,6 +73,9 @@ public class SecurityConfig {
                         .logoutSuccessHandler(customLogoutSuccessHandler) // 분리된 핸들러를 사용
                         .invalidateHttpSession(true)
                         .deleteCookies("refreshToken")
+                )
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.accessDeniedHandler(customAccessDeniedHandler) // Custom AccessDeniedHandler 등록
                 );
 
         return http.build();
