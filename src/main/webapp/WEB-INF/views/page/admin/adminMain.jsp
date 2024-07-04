@@ -16,6 +16,12 @@
     <style>
         .dashboard-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 383.3px;
+        }
+        .card-total-users,
+        .card-new-signups,
+        .card-business-inquiries {
+            min-height: 0; /* Total Users, New Signups, Business Inquiries 섹션의 최소 높이를 0으로 설정 */
         }
         .dashboard-card:hover {
             transform: translateY(-10px);
@@ -74,7 +80,7 @@
                 <!-- 대시보드 내용 -->
                 <div class="row">
                     <div class="col-md-4 mb-4">
-                        <div class="card dashboard-card">
+                        <div class="card dashboard-card card-total-users">
                             <div class="card-body">
                                 <h5 class="card-title">Total Users</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${totalUsers}</h6>
@@ -84,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <div class="card dashboard-card">
+                        <div class="card dashboard-card card-new-signups">
                             <div class="card-body">
                                 <h5 class="card-title">New Signups</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${newSignups}</h6>
@@ -96,7 +102,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
-                        <div class="card dashboard-card">
+                        <div class="card dashboard-card card-business-inquiries">
                             <div class="card-body">
                                 <h5 class="card-title">Business Inquiries</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${businessInquiries}</h6>

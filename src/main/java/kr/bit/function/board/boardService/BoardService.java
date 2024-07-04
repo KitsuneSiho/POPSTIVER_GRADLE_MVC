@@ -97,4 +97,10 @@ public interface BoardService {
     public void updateCompanion(CompanionDTO companionDTO) throws Exception;
     public void deleteCompanion(int comp_no) throws Exception;
 
+
+    //조회수 통계 //
+    List<FestivalBoardDTO> getMostViewedFestivalPosts() throws Exception;
+    List<PopupBoardDTO> getMostViewedPopupPosts() throws Exception;
+    List<CommunityDTO> getMostViewedCommunityPosts() throws Exception;
+    List<CompanionDTO> getMostViewedCompanionPosts() throws Exception;
 }

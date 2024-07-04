@@ -31,6 +31,16 @@ public class BusinessContentsDAO {
         return jdbcTemplate.query(sql, new BusinessContentsRowMapper());
     }
 
+    public int getTotalBusinessContents() {
+        String sql = "SELECT COUNT(*) FROM temporary_post";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    public List<businessContents> getBusinessContentsByPage(int offset, int limit) {
+        String sql = "SELECT * FROM temporary_post LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, new Object[]{limit, offset}, new BusinessContentsRowMapper());
+    }
+
     private static final class BusinessContentsRowMapper implements RowMapper<businessContents> {
         public businessContents mapRow(ResultSet rs, int rowNum) throws SQLException {
             businessContents post = new businessContents();
