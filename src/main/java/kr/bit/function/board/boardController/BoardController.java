@@ -294,6 +294,56 @@ public class BoardController {
     }
 
 
+    @RequestMapping(value = "/editNotice/{notice_no}", method = RequestMethod.GET)
+    public String editNotice(@PathVariable("notice_no") int notice_no, HttpSession session, Model model) {
+        try {
+            model.addAttribute("current_notice",boardService.selectNoticeOne(notice_no));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //oneviewDB.jsp로 이동한다.
+        return "page/board/noticeEdit";
+    }
+
+    @RequestMapping(value = "/contact")
+    @Controller
+    class EditNoticeController {
+
+        @PutMapping("/updateEdit")
+        @ResponseBody
+        public void editNotice(@RequestBody NoticeDTO noticeDTO,
+                               @AuthenticationPrincipal CustomOAuth2User customOAuth2User, RedirectAttributes redirectAttributes) {
+            String provider = customOAuth2User.getProvider();
+            Object attribute = customOAuth2User.getAttributes();
+            String user_id = "";
+
+            switch (provider) {
+                case "google":
+                    GoogleResponse googleResponse = new GoogleResponse((Map<String, Object>) attribute);
+                    user_id = "google" + googleResponse.getProviderId();
+                    break;
+                case "kakao":
+                    KakaoResponse kakaoResponse = new KakaoResponse((Map<String, Object>) attribute);
+                    user_id = "kakao" + kakaoResponse.getProviderId();
+                    break;
+                case "naver":
+                    NaverResponse naverResponse = new NaverResponse((Map<String, Object>) attribute);
+                    user_id = "naver" + naverResponse.getProviderId();
+                    break;
+            }
+
+            try {
+                boardService.updateNotice(noticeDTO);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
 
     //=====================================================================================//
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
@@ -441,6 +491,18 @@ public class BoardController {
         }
     }
 
+    @RequestMapping(value = "/deleteNotice/{notice_no}", method = RequestMethod.GET)
+    public String deleteNotice(@PathVariable("notice_no") int notice_no, RedirectAttributes redirectAttributes) {
+        try {
+            boardService.deleteNotice(notice_no);
+            redirectAttributes.addFlashAttribute("message", "공지글이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "공지글 삭제 중 오류가 발생했습니다.");
+        }
+        return "redirect:/contact"; // 삭제 후 리다이렉트할 페이지
+    }
+
 
     //=====================================================================================//
     //                             📤📤 REPORT  제보게시판 📤📤                             //
@@ -574,7 +636,6 @@ public class BoardController {
     //                            🧑‍🤝‍🧑🧑‍🤝‍🧑 COMPANION  동행게시판 🧑‍🤝‍🧑🧑‍🤝‍🧑                           //
     //=====================================================================================//
     @RequestMapping(value = "/together/{comp_no}", method = RequestMethod.GET)
-    //Pathvariable 어노테이션으로 notice_no 값을 notice_no라는 이름의 매개변수로 만든다.
     public String selectCompanionOne(@PathVariable("comp_no") int comp_no, Model model, HttpSession session) {
         try {
             //위에서 선언한 service의 selectOne()메소드 요청한다.
@@ -712,7 +773,4 @@ public class BoardController {
         }
 
     }
-
-
-
 }

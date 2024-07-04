@@ -427,6 +427,15 @@ public class BoardServiceImpl implements BoardService {
         return new NoticeDTO(noticeEntity.getNotice_no(), noticeEntity.getNotice_title(), noticeEntity.getNotice_content(), noticeEntity.getNotice_date());
     }
 
+    @Override
+    public void updateNotice(NoticeDTO noticeDTO) throws Exception{
+        boardRepository.updateNoticeRepo(noticeDTO);
+    }
+    @Override
+    public void deleteNotice(int notice_no)throws Exception{
+        boardRepository.deleteNoticeRepo(notice_no);
+    }
+
     //=====================================================================================//
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//

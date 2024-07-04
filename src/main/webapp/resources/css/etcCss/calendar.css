@@ -32,6 +32,25 @@ body {
     display: none;
 }
 
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: rgb(253 94 94 / 32%) !important;
+}
+
+.fc .fc-daygrid-event-harness {
+    position: relative;
+    padding: 1px;
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-weight: 700;
+    min-width: 0;
+    overflow: hidden;
+    padding: 3px;
+}
+
+
 .fc-today-button,
 .fc-prev-button,
 .fc-next-button {
@@ -113,13 +132,13 @@ body {
  /*event_type에 따른 배경색 */
 .fc-event.event-type-1,
 .fc-event.event-type-2 {
-    background-color: rgba(80, 80, 217, 0.73) !important;
-    border-color: rgba(80, 80, 217, 0.73) !important;
+    background-color: #246ABF !important;
+    border-color: #246ABF !important;
 }
 
 .fc-event.event-type-3 {
-    background-color: rgba(253, 253, 136, 0.73) !important;
-    border-color: rgba(253, 253, 136, 0.73) !important;
+    background-color: #F5C12E !important;
+    border-color: #F5C12E !important;
 }
 
 
