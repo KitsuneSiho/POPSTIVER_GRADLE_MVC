@@ -85,16 +85,16 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
-
     </table>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div class="write">
+            <button class="writeButton" onclick="window.location.href='${root}/noticeWrite'">
+                <img src="${root}/resources/asset/글쓰기.svg" alt="">
+                공지 등록하기</button>
+        </div>
+    </sec:authorize>
 </div>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <div class="write">
-        <button class="writeButton" onclick="window.location.href='${root}/noticeWrite'">
-            <img src="${root}/resources/asset/글쓰기.svg" alt="">
-            공지 등록하기</button>
-    </div>
-</sec:authorize>
+
 <div class="pageNumber">
     <ul id="pageNumberList">
         <li><a class="pageOn"></a></li>

@@ -86,9 +86,10 @@ body {
 }
 
 .write {
-    width: 85%;
+    width: 100%;
     display: flex;
     justify-content: right;
+    margin-top: 1%;
 }
 
 .write .writeButton {
