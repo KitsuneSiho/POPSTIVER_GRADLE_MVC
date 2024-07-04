@@ -127,7 +127,7 @@ body {
 .tagButton {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 
 .tagButton button {
@@ -149,8 +149,8 @@ body {
 }
 
 .typeButton button {
-    width: 80px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border: none;
     border-radius: 100px;
     background-color: #5e5e5e;
@@ -348,14 +348,14 @@ body {
 
 
 .tagButton .tag-button {
-    width: 100px;
-    height: 40px;
+    width: 70px;
+    height: 70px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
     color: white;
     font-family: 'Pre', sans-serif;
-    font-size: 1rem;
+    font-size: 14px;
     cursor: pointer;
 }
 
@@ -364,8 +364,8 @@ body {
 }
 
 .typeButton .type-button {
-    width: 100px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
@@ -380,8 +380,8 @@ body {
 }
 
 .genderButton .gender-button {
-    width: 100px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
