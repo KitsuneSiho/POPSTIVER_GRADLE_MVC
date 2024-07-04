@@ -54,13 +54,17 @@
                             <c:set var="hasOngoing" value="true" />
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
-                                    <img src="${popup.popup_attachment}" alt="포스터">
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <img src="${popup.popup_attachment}" alt="포스터">
+                                    </a>
                                     <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
                                          data-event-type="3">
-                                    <h3>${popup.popup_title}</h3>
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <h3>${popup.popup_title}</h3>
+                                    </a>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                             ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
@@ -94,13 +98,17 @@
                             <c:set var="hasUpcoming" value="true" />
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
-                                    <img src="${popup.popup_attachment}" alt="포스터">
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <img src="${popup.popup_attachment}" alt="포스터">
+                                    </a>
                                     <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
                                          data-event-type="3">
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
                                     <h3>${popup.popup_title}</h3>
+                                    </a>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                             ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}
@@ -134,13 +142,17 @@
                             <c:set var="hasEnded" value="true" />
                             <div class="card">
                                 <div class="card-content" data-eventtype="3" data-eventno="${popup.popup_no}">
-                                    <img src="${popup.popup_attachment}" alt="포스터">
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <img src="${popup.popup_attachment}" alt="포스터">
+                                    </a>
                                     <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
                                          class="bookmark"
                                          alt=""
                                          data-event-no="${popup.popup_no}"
                                          data-event-type="3">
-                                    <h3>${popup.popup_title}</h3>
+                                    <a href="${root}/popup_Details/${popup.popup_no}">
+                                        <h3>${popup.popup_title}</h3>
+                                    </a>
                                     <p>
                                         <img src="${root}/resources/asset/위치표시.svg" class="cardAddress" alt="">
                                             ${popup.popup_dist} ${popup.popup_subdist} ${popup.popup_location}

@@ -211,7 +211,3 @@ a {
     color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
     text-decoration: none; /* 링크 밑줄 제거 */
 }
-
-a:hover {
-    text-decoration: underline; /* 호버 시에는 밑줄 추가 */
-}
