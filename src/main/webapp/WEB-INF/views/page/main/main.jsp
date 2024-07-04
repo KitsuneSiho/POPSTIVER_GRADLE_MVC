@@ -62,14 +62,10 @@
 <div class="enterContainer">
     <div class="enterPopup" onclick="window.location.href='mainPopup'">
         <img src="" alt="">
-<%--        <p>팝업스토어가 있는 모든곳에 언제나</p>--%>
         <button>POP-UP 보러가기</button>
     </div>
     <div class="enterFestival" onclick="window.location.href='mainFestival'">
         <img src="" alt="">
-<%--        <p>더 많은 공연 덕후들이<br><br>--%>
-<%--        더 좋은 공연과 페스티벌을<br><br>--%>
-<%--        더 나은 환경에서 즐길 수 있게</p>--%>
         <button>FESTIVAL 보러가기</button>
     </div>
     <div class="scroll-up">

@@ -318,7 +318,8 @@ body {
 }
 
 .tagButton .selected {
-    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
 }
 
 .typeButton .type-button {
@@ -334,7 +335,8 @@ body {
 }
 
 .typeButton .selected {
-    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
 }
 
 .genderButton .gender-button {
@@ -350,5 +352,6 @@ body {
 }
 
 .genderButton .selected {
-    background-color: dodgerblue; /* 선택된 태그 버튼의 배경색 변경 */
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
 }
