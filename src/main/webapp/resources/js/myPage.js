@@ -66,8 +66,8 @@ function closeCustomAlert() {
 }
 
 function containsOnlyConsonantsOrVowels(input) {
-    const consonants = 'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ';
-    const vowels = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ';
+    const consonants = 'ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄴㄸㄹㅁㅃㅆㅇㅉㅊㅋㅌㅍㅎㄻㄼㄳㄱㄷㄵ';
+    const vowels = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅚㅟㅢ';
     let containsConsonant = false;
     let containsVowel = false;
 

@@ -45,15 +45,21 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.sameOrigin()) // X-Frame-Options 설정, 최신 API 사용( 시큐리티 6.3)
                 )
                 .authorizeRequests(auth -> auth
+                        // Publicly accessible endpoints
                         .requestMatchers("/", "/login/**", "/oauth2/**", "/resources/**", "/css/**", "/js/**", "/images/**", "/assets/**", "/fonts/**").permitAll()
-                        .requestMatchers("/main", "/map", "/calendar", "/openAddFestival","/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd" , "/posterInfo", "/searchResult").permitAll()
+                        .requestMatchers("/main", "/map", "/calendar", "/openAddFestival", "/openAddPopup", "/openAdd", "/mainPopup", "/mainFestival", "/popularAdd", "/posterInfo", "/searchResult").permitAll()
                         .requestMatchers("/comment/**").permitAll() // 댓글 기능
                         .requestMatchers("/freeBoard/**").permitAll() // 자유게시판 기능
-                        .requestMatchers("/like/**").permitAll() // 자유게시판 기능
+                        .requestMatchers("/like/**").permitAll() // 좋아요 기능
                         .requestMatchers("/chat-websocket/**").permitAll() // WebSocket 엔드포인트 허용
-                        .requestMatchers("/money").hasAuthority("ROLE_HOST, ROLE_ADMIN") // 비즈니스 문의
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN") // 관리자페이지
-                        .requestMatchers("/recommendations").permitAll() // /recommendations 경로는 인증 필요
+                        .requestMatchers("/recommendations").permitAll() // 추천 기능
+
+                        // Role-based access control
+                        .requestMatchers("/money").hasAnyRole("HOST", "ADMIN") // 비즈니스 문의
+
+                        .requestMatchers("/admin", "/visitor-stats", "/memberStats", "/likedPostsStats", "/mostViewedPostsStats", "/usersList", "/businessContents", "/chatManagement", "/recentReviews").hasAuthority("ROLE_ADMIN") // 관리자 페이지
+
+                        // Any other request needs to be authenticated
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

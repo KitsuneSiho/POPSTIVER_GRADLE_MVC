@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script> const root = "${root}"; </script>
     <script src="${root}/resources/js/loginName.js"></script>
+    <script src="${root}/resources/js/accessDeniedAlert.js"></script>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -172,6 +173,8 @@
             }
         });
     });
+
+
 </script>
 </body>
 </html>
