@@ -75,41 +75,41 @@
 
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <h2 class="mt-4">Dashboard</h2>
+            <h2 class="mt-4">관리자 대시보드</h2>
             <div class="container mt-4">
                 <!-- 대시보드 내용 -->
                 <div class="row">
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card card-total-users">
                             <div class="card-body">
-                                <h5 class="card-title">Total Users</h5>
+                                <h5 class="card-title">총 사용자 수</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${totalUsers}</h6>
-                                <p class="card-text">${totalUsers - previousTotalUsers > 0 ? '+' : ''}${totalUsers - previousTotalUsers} Since last week</p>
-                                <a href="<c:url value='/usersList' />" class="card-link">View Details</a>
+                                <p class="card-text"> 지난 주 대비 ${totalUsers - previousTotalUsers > 0 ? '+' : ''}${totalUsers - previousTotalUsers}</p>
+                                <a href="<c:url value='/usersList' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card card-new-signups">
                             <div class="card-body">
-                                <h5 class="card-title">New Signups</h5>
+                                <h5 class="card-title">새로운 가입자 수</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${newSignups}</h6>
                                 <p class="card-text">
-                                    <fmt:formatNumber value="${signupGrowthRate}" pattern="+#,##0.0;-#,##0.0" />% Since last week
+                                    지난 주 대비 <fmt:formatNumber value="${signupGrowthRate}" pattern="+#,##0.0;-#,##0.0" />%
                                 </p>
-                                <a href="<c:url value='/memberStats' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/memberStats' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="card dashboard-card card-business-inquiries">
                             <div class="card-body">
-                                <h5 class="card-title">Business Inquiries</h5>
+                                <h5 class="card-title">비즈니스 문의 수</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">${businessInquiries}</h6>
                                 <p class="card-text">
-                                    <fmt:formatNumber value="${businessInquiriesGrowthRate}" pattern="+#,##0.0;-#,##0.0" />% Since last week
+                                    지난 주 대비 <fmt:formatNumber value="${businessInquiriesGrowthRate}" pattern="+#,##0.0;-#,##0.0" />%
                                 </p>
-                                <a href="<c:url value='/businessContents' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/businessContents' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
@@ -119,20 +119,20 @@
                     <div class="col-md-6 mb-4">
                         <div class="card dashboard-card">
                             <div class="card-body">
-                                <h5 class="card-title">Visitors</h5>
+                                <h5 class="card-title">방문자 통계</h5>
                                 <div class="chart-container">
                                     <canvas id="visitorChart"></canvas>
                                 </div>
-                                <a href="<c:url value='/visitor-stats' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/visitor-stats' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card dashboard-card">
                             <div class="card-body">
-                                <h5 class="card-title">1:1 Chats</h5>
+                                <h5 class="card-title">채팅 관리</h5>
                                 <div id="chatNotifications" class="mb-3"></div>
-                                <a href="<c:url value='/chatManagement' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/chatManagement' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
@@ -141,18 +141,18 @@
                     <div class="col-md-6 mb-4">
                         <div class="card dashboard-card">
                             <div class="card-body">
-                                <h5 class="card-title">Top Liked Posts</h5>
+                                <h5 class="card-title">좋아요 많은 게시글</h5>
                                 <div class="chart-container">
                                     <canvas id="likedPostsChart"></canvas>
                                 </div>
-                                <a href="<c:url value='/likedPostsStats' />" class="card-link">View Details</a>
+                                <a href="<c:url value='/likedPostsStats' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <div class="card dashboard-card">
                             <div class="card-body">
-                                <h5 class="card-title">Recent Reviews</h5>
+                                <h5 class="card-title">최근 후기</h5>
                                 <div class="review-list">
                                     <c:forEach var="review" items="${recentComments}" varStatus="status">
                                         <c:if test="${status.index < 5}">
@@ -163,7 +163,7 @@
                                         </c:if>
                                     </c:forEach>
                                 </div>
-                                <a href="<c:url value='/recentReviews' />" class="card-link">View All Reviews</a>
+                                <a href="<c:url value='/recentReviews' />" class="card-link">더보기</a>
                             </div>
                         </div>
                     </div>
