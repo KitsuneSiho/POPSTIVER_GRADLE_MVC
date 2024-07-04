@@ -150,7 +150,7 @@ body {
 
 .typeButton button {
     width: 60px;
-    height: 60px;
+    height: 40px;
     border: none;
     border-radius: 100px;
     background-color: #5e5e5e;
@@ -349,7 +349,7 @@ body {
 
 .tagButton .tag-button {
     width: 70px;
-    height: 70px;
+    height: 40px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
@@ -365,7 +365,7 @@ body {
 
 .typeButton .type-button {
     width: 60px;
-    height: 60px;
+    height: 40px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
@@ -381,7 +381,7 @@ body {
 
 .genderButton .gender-button {
     width: 50px;
-    height: 50px;
+    height: 30px;
     border: 1px solid #2e2e2e;
     border-radius: 100px;
     background-color: black;
