@@ -90,46 +90,39 @@
     let festivalData;
 
     function showChart(type) {
-        let data = [];
-        let labels = [];
-        let backgroundColor = [];
-        let borderColor = [];
+        let datasets = [];
 
         if (type === 'popup') {
-            data = popupData.data;
-            labels = popupData.labels;
-            backgroundColor = Array(data.length).fill('rgba(255, 99, 132, 0.6)');
-            borderColor = Array(data.length).fill('rgba(255, 99, 132, 1)');
+            datasets.push({
+                label: '팝업 좋아요 수',
+                data: popupData.data,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            });
         } else if (type === 'festival') {
-            data = festivalData.data;
-            labels = festivalData.labels;
-            backgroundColor = Array(data.length).fill('rgba(54, 162, 235, 0.6)');
-            borderColor = Array(data.length).fill('rgba(54, 162, 235, 1)');
+            datasets.push({
+                label: '페스티벌 좋아요 수',
+                data: festivalData.data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            });
         } else if (type === 'all') {
-            const combinedData = popupData.data.concat(festivalData.data);
-            const combinedLabels = popupData.labels.concat(festivalData.labels);
-            const combinedColors = popupData.data.map(() => ({
-                background: 'rgba(255, 99, 132, 0.6)',
-                border: 'rgba(255, 99, 132, 1)'
-            })).concat(festivalData.data.map(() => ({
-                background: 'rgba(54, 162, 235, 0.6)',
-                border: 'rgba(54, 162, 235, 1)'
-            })));
-
-            const combined = combinedData.map((likeCount, index) => ({
-                likeCount,
-                label: combinedLabels[index],
-                colors: combinedColors[index]
-            }));
-
-            combined.sort((a, b) => b.likeCount - a.likeCount);
-
-            const top20 = combined.slice(0, 20);
-
-            data = top20.map(item => item.likeCount);
-            labels = top20.map(item => item.label);
-            backgroundColor = top20.map(item => item.colors.background);
-            borderColor = top20.map(item => item.colors.border);
+            datasets.push({
+                label: '팝업 좋아요 수',
+                data: popupData.data,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            });
+            datasets.push({
+                label: '페스티벌 좋아요 수',
+                data: festivalData.data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            });
         }
 
         if (myChart) {
@@ -140,14 +133,8 @@
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
-                datasets: [{
-                    label: '좋아요 수',
-                    data: data,
-                    backgroundColor: backgroundColor,
-                    borderColor: borderColor,
-                    borderWidth: 1
-                }]
+                labels: type === 'all' ? popupData.labels.concat(festivalData.labels) : (type === 'popup' ? popupData.labels : festivalData.labels),
+                datasets: datasets
             },
             options: {
                 responsive: true,
@@ -170,7 +157,7 @@
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true // 범례 표시
                     },
                     tooltip: {
                         callbacks: {
@@ -197,7 +184,5 @@
         showChart('all');
     });
 </script>
-
-
 </body>
 </html>
