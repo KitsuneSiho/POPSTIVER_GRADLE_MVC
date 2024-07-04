@@ -29,7 +29,7 @@
         }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${root}/resources/js/noticeWrite.js"></script>
+    <script src="${root}/resources/js/noticeEdit.js"></script>
 
 </head>
 
@@ -37,19 +37,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a class="on" href="${root}/contact">
+    <a href="contact">
         <h2>공지사항</h2>
     </a>
-    <a href="${root}/money">
+    <a href="money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="${root}/report">
+    <a href="report">
         <h2>제보하기</h2>
     </a>
-    <a href="${root}/together">
+    <a href="together">
         <h2>동행구하기</h2>
     </a>
-    <a href="${root}/free">
+    <a class="on" href="free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -61,13 +61,13 @@
             <li>
                 <span>공지사항 제목</span>
                 <label class="title">
-                    <input type="text" name="notice_title" placeholder="공지할 제목을 30자 이내로 작성해주세요">
+                    <input type="text" name="notice_title" placeholder="${current_notice.notice_title}" value="${current_notice.notice_title}">
                 </label>
             </li>
             <li>
                 <span>공지사항 내용</span>
                 <label class="infoTextarea">
-                    <textarea name="notice_content" placeholder="공지할 내용을 입력해주세요." rows="10" style="resize: none"></textarea>
+                    <textarea name="notice_content" placeholder="${current_notice.notice_content}" rows="10" style="resize: none">${current_notice.notice_content}</textarea>
                 </label>
             </li>
 <%--            <li>--%>
@@ -76,9 +76,10 @@
 <%--            </li>--%>
 
         </ul>
+        <input type="hidden" id="notice_no" name="notice_no" value="${current_notice.notice_no}">
         <div class="updateButton">
-            <button type="submit">등록하기</button>
-            <button type="reset" onclick="window.location.href='${root}/contact'">취소</button>
+            <button type="submit">수정하기</button>
+            <button type="reset" onclick="window.location.href='contact'">취소</button>
         </div>
     </form>
 
