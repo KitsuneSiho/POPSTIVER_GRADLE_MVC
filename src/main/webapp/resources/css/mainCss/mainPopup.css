@@ -177,7 +177,7 @@ body {
 .popularPoster-caption {
     color: white;
     font-family: 'Pre', sans-serif;
-    font-size: 30px;
+    font-size: 25px;
     text-align: center;
     width: 100%;
 }
@@ -348,7 +348,7 @@ a.popularPoster-button{
     border: none;
     padding: 10px 20px;
     font-family: 'Pre', sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 10px;

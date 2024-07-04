@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //@Service 어노테이션으로 해당 클래스는 service의 역활을 하는 클래스임을 선언함
 //이 클래스는 BoardService인터페이스를 상속 받음.
@@ -683,5 +684,103 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteCompanion(int comp_no)throws Exception{
         boardRepository.deleteCompanionRepo(comp_no);
+    }
+
+
+
+    // 조회수 통계
+
+    @Override
+    public List<FestivalBoardDTO> getMostViewedFestivalPosts() throws Exception {
+        List<FestivalEntity> festivalEntities = boardRepository.getMostViewedFestivalPosts();
+        return festivalEntities.stream()
+                .map(entity -> new FestivalBoardDTO(
+                        entity.getFestival_no(),
+                        entity.getFestival_title(),
+                        entity.getFestival_content(),
+                        entity.getHost(),
+                        entity.getFestival_dist(),
+                        entity.getFestival_subdist(),
+                        entity.getFestival_location(),
+                        entity.getFestival_start(),
+                        entity.getFestival_end(),
+                        entity.getOpen_time(),
+                        entity.getFestival_post_date(),
+                        entity.getFestival_attachment(),
+                        entity.getEvent_type(),
+                        entity.getLike_that(),
+                        entity.getViews(),
+                        entity.getBrand_link(),
+                        entity.getBrand_sns(),
+                        entity.getFestival_tag1(),
+                        entity.getFestival_tag2(),
+                        entity.getFestival_tag3(),
+                        entity.getFestival_tag4(),
+                        entity.getFestival_tag5()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PopupBoardDTO> getMostViewedPopupPosts() throws Exception {
+        List<PopupEntity> popupEntities = boardRepository.getMostViewedPopupPosts();
+        return popupEntities.stream()
+                .map(entity -> new PopupBoardDTO(
+                        entity.getPopup_no(),
+                        entity.getPopup_title(),
+                        entity.getPopup_content(),
+                        entity.getHost(),
+                        entity.getPopup_dist(),
+                        entity.getPopup_subdist(),
+                        entity.getPopup_location(),
+                        entity.getPopup_start(),
+                        entity.getPopup_end(),
+                        entity.getOpen_time(),
+                        entity.getPopup_post_date(),
+                        entity.getPopup_attachment(),
+                        entity.getEvent_type(),
+                        entity.getLike_that(),
+                        entity.getViews(),
+                        entity.getBrand_link(),
+                        entity.getBrand_sns(),
+                        entity.getPopup_tag1(),
+                        entity.getPopup_tag2(),
+                        entity.getPopup_tag3(),
+                        entity.getPopup_tag4(),
+                        entity.getPopup_tag5()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommunityDTO> getMostViewedCommunityPosts() throws Exception {
+        List<CommunityEntity> communityEntities = boardRepository.getMostViewedCommunityPosts();
+        return communityEntities.stream()
+                .map(entity -> new CommunityDTO(
+                        entity.getBoard_no(),
+                        entity.getBoard_title(),
+                        entity.getBoard_content(),
+                        entity.getUser_id(),
+                        entity.getUser_name(),
+                        entity.getBoard_post_date(),
+                        entity.getBoard_attachment(),
+                        entity.getBoard_views()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompanionDTO> getMostViewedCompanionPosts() throws Exception {
+        List<CompanionEntity> companionEntities = boardRepository.getMostViewedCompanionPosts();
+        return companionEntities.stream()
+                .map(entity -> new CompanionDTO(
+                        entity.getComp_no(),
+                        entity.getComp_title(),
+                        entity.getComp_content(),
+                        entity.getUser_name(),
+                        entity.getUser_id(),
+                        entity.getComp_date(),
+                        entity.getComp_link(),
+                        entity.getEvent_type(),
+                        entity.getComp_post_date(),
+                        entity.getComp_views()))
+                .collect(Collectors.toList());
     }
 }

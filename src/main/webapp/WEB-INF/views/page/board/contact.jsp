@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/contact.css">
     <link rel="stylesheet" href="${root}/resources/css/boardCss/chatModal.css">
+    <script src="${root}/resources/js/accessDeniedAlert.js"></script>
     <title>POPSTIVER</title>
     <style>
         @font-face {
@@ -33,6 +34,7 @@
     alert('<%= request.getAttribute("message") %>');
 </script>
 <% } %>
+
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
@@ -129,6 +131,8 @@
         }<c:if test="${!loop.last}">, </c:if>
         </c:forEach>
     ];
+
+
 </script>
 </body>
 </html>

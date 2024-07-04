@@ -24,4 +24,13 @@ public class BusinessContentsService {
     public List<businessContents> getBusinessContentsFromLastWeek() {
         return businessContentsDAO.getBusinessContentsFromLastWeek();
     }
+
+    public int getTotalBusinessContents() {
+        return businessContentsDAO.getTotalBusinessContents();
+    }
+
+    public List<businessContents> getBusinessContentsByPage(int page, int size) {
+        int offset = (page - 1) * size;
+        return businessContentsDAO.getBusinessContentsByPage(offset, size);
+    }
 }

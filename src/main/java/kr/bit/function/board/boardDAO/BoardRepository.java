@@ -6,6 +6,7 @@ import kr.bit.function.board.boardEntity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -805,5 +806,119 @@ public class BoardRepository {
     private String joinTags(List<Integer> tags) {
         return String.join(",", tags.stream().map(String::valueOf).toArray(String[]::new));
     }
+
+
+    //-----------------------------------------------------------------------------------------//
+    // 조회수가 많은 Festival 게시글을 가져오는 메소드
+    public List<FestivalEntity> getMostViewedFestivalPosts() {
+        String sql = "SELECT * FROM festival ORDER BY views DESC LIMIT 20";
+        return jdbcTemplate.query(sql, new RowMapper<FestivalEntity>() {
+            @Override
+            public FestivalEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                FestivalEntity festivalEntity = new FestivalEntity();
+                festivalEntity.setFestival_no(rs.getInt("festival_no"));
+                festivalEntity.setFestival_title(rs.getString("festival_title"));
+                festivalEntity.setFestival_content(rs.getString("festival_content"));
+                festivalEntity.setHost(rs.getString("host"));
+                festivalEntity.setFestival_dist(rs.getString("festival_dist"));
+                festivalEntity.setFestival_subdist(rs.getString("festival_subdist"));
+                festivalEntity.setFestival_location(rs.getString("festival_location"));
+                festivalEntity.setFestival_start(rs.getString("festival_start"));
+                festivalEntity.setFestival_end(rs.getString("festival_end"));
+                festivalEntity.setOpen_time(rs.getString("open_time"));
+                festivalEntity.setFestival_post_date(rs.getString("festival_post_date"));
+                festivalEntity.setFestival_attachment(rs.getString("festival_attachment"));
+                festivalEntity.setEvent_type(rs.getInt("event_type"));
+                festivalEntity.setLike_that(rs.getObject("like_that") != null ? rs.getInt("like_that") : 0); // null이면 기본값 0
+                festivalEntity.setViews(rs.getInt("views"));
+                festivalEntity.setBrand_link(rs.getString("brand_link"));
+                festivalEntity.setBrand_sns(rs.getString("brand_sns"));
+                festivalEntity.setFestival_tag1(rs.getString("festival_tag1"));
+                festivalEntity.setFestival_tag2(rs.getString("festival_tag2"));
+                festivalEntity.setFestival_tag3(rs.getString("festival_tag3"));
+                festivalEntity.setFestival_tag4(rs.getString("festival_tag4"));
+                festivalEntity.setFestival_tag5(rs.getString("festival_tag5"));
+                return festivalEntity;
+            }
+        });
+    }
+
+
+
+    public List<PopupEntity> getMostViewedPopupPosts() {
+        String sql = "SELECT * FROM popup ORDER BY views DESC LIMIT 20";
+        return jdbcTemplate.query(sql, new RowMapper<PopupEntity>() {
+            @Override
+            public PopupEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                PopupEntity popupEntity = new PopupEntity();
+                popupEntity.setPopup_no(rs.getInt("popup_no"));
+                popupEntity.setPopup_title(rs.getString("popup_title"));
+                popupEntity.setPopup_content(rs.getString("popup_content"));
+                popupEntity.setHost(rs.getString("host"));
+                popupEntity.setPopup_dist(rs.getString("popup_dist"));
+                popupEntity.setPopup_subdist(rs.getString("popup_subdist"));
+                popupEntity.setPopup_location(rs.getString("popup_location"));
+                popupEntity.setPopup_start(rs.getString("popup_start"));
+                popupEntity.setPopup_end(rs.getString("popup_end"));
+                popupEntity.setOpen_time(rs.getString("open_time"));
+                popupEntity.setPopup_post_date(rs.getString("popup_post_date"));
+                popupEntity.setPopup_attachment(rs.getString("popup_attachment"));
+                popupEntity.setEvent_type(rs.getInt("event_type"));
+                popupEntity.setLike_that(rs.getObject("like_that") != null ? rs.getInt("like_that") : 0); // null이면 기본값 0
+                popupEntity.setViews(rs.getInt("views"));
+                popupEntity.setBrand_link(rs.getString("brand_link"));
+                popupEntity.setBrand_sns(rs.getString("brand_sns"));
+                popupEntity.setPopup_tag1(rs.getString("popup_tag1"));
+                popupEntity.setPopup_tag2(rs.getString("popup_tag2"));
+                popupEntity.setPopup_tag3(rs.getString("popup_tag3"));
+                popupEntity.setPopup_tag4(rs.getString("popup_tag4"));
+                popupEntity.setPopup_tag5(rs.getString("popup_tag5"));
+                return popupEntity;
+            }
+        });
+    }
+
+
+    public List<CommunityEntity> getMostViewedCommunityPosts() {
+        String sql = "SELECT * FROM community ORDER BY board_views DESC LIMIT 20";
+        return jdbcTemplate.query(sql, new RowMapper<CommunityEntity>() {
+            @Override
+            public CommunityEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CommunityEntity communityEntity = new CommunityEntity();
+                communityEntity.setBoard_no(rs.getInt("board_no"));
+                communityEntity.setBoard_title(rs.getString("board_title"));
+                communityEntity.setBoard_content(rs.getString("board_content"));
+                communityEntity.setUser_id(rs.getString("user_id"));
+                communityEntity.setUser_name(rs.getString("user_name"));
+                communityEntity.setBoard_post_date(rs.getString("board_post_date"));
+                communityEntity.setBoard_views(rs.getInt("board_views"));
+                communityEntity.setBoard_attachment(rs.getString("board_attachment"));
+                return communityEntity;
+            }
+        });
+    }
+
+
+    public List<CompanionEntity> getMostViewedCompanionPosts() {
+        String sql = "SELECT * FROM companion ORDER BY comp_views DESC LIMIT 20";
+        return jdbcTemplate.query(sql, new RowMapper<CompanionEntity>() {
+            @Override
+            public CompanionEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CompanionEntity companionEntity = new CompanionEntity();
+                companionEntity.setComp_no(rs.getInt("comp_no"));
+                companionEntity.setComp_title(rs.getString("comp_title"));
+                companionEntity.setComp_content(rs.getString("comp_content"));
+                companionEntity.setUser_name(rs.getString("user_name"));
+                companionEntity.setUser_id(rs.getString("user_id"));
+                companionEntity.setComp_date(rs.getString("comp_date"));
+                companionEntity.setComp_link(rs.getString("comp_link"));
+                companionEntity.setEvent_type(rs.getString("event_type"));
+                companionEntity.setComp_post_date(rs.getString("comp_post_date"));
+                companionEntity.setComp_views(rs.getInt("comp_views"));
+                return companionEntity;
+            }
+        });
+    }
+
 }
 //커뮤니티 DTO 연결, 상세페이지 연결, 제보파일 연결

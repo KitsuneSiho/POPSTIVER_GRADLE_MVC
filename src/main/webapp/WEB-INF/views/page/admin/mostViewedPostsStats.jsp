@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +13,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .chart-container {
-            position: relative;
-            margin: auto;
+            width: 100%;
             height: 400px;
-            width: 80%;
-        }
-        .navbar {
-            z-index: 1030; /* Ensure the navbar is above the sidebar */
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -35,9 +33,27 @@
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <h2 class="mt-4">조회수 많은 게시글 통계</h2>
-            <div class="chart-container">
-                <canvas id="mostViewedPostsChart"></canvas>
-            </div>
+
+            <c:if test="${not empty topFestivals}">
+                <div class="chart-container">
+                    <canvas id="festivalChart"></canvas>
+                </div>
+            </c:if>
+            <c:if test="${not empty topPopups}">
+                <div class="chart-container">
+                    <canvas id="popupChart"></canvas>
+                </div>
+            </c:if>
+            <c:if test="${not empty topCommunityPosts}">
+                <div class="chart-container">
+                    <canvas id="communityChart"></canvas>
+                </div>
+            </c:if>
+            <c:if test="${not empty topCompanionPosts}">
+                <div class="chart-container">
+                    <canvas id="companionChart"></canvas>
+                </div>
+            </c:if>
         </main>
     </div>
 </div>
@@ -46,34 +62,97 @@
     <jsp:include page="/WEB-INF/views/page/admin/layout/footer.jsp"/>
 </footer>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('mostViewedPostsChart').getContext('2d');
+    // 차트 데이터 준비
+    <c:if test="${not empty topFestivals}">
+    const festivalData = {
+        labels: [<c:forEach items="${topFestivals}" var="festival">'${festival.festival_title}',</c:forEach>],
+        datasets: [{
+            label: '축제 게시글 조회수',
+            data: [<c:forEach items="${topFestivals}" var="festival">${festival.views},</c:forEach>],
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+        }]
+    };
+    </c:if>
 
-        // 임시 데이터 (실제 데이터로 교체 필요)
-        var data = {
-            labels: ['게시글 A', '게시글 B', '게시글 C', '게시글 D', '게시글 E'],
-            datasets: [{
-                label: '조회수',
-                data: [500, 450, 400, 350, 300],
-                backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
-            }]
-        };
+    <c:if test="${not empty topPopups}">
+    const popupData = {
+        labels: [<c:forEach items="${topPopups}" var="popup">'${popup.popup_title}',</c:forEach>],
+        datasets: [{
+            label: '팝업 게시글 조회수',
+            data: [<c:forEach items="${topPopups}" var="popup">${popup.views},</c:forEach>],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    };
+    </c:if>
 
-        var mostViewedPostsChart = new Chart(ctx, {
-            type: 'horizontalBar',
+    <c:if test="${not empty topCommunityPosts}">
+    const communityData = {
+        labels: [<c:forEach items="${topCommunityPosts}" var="post">'${post.board_title}',</c:forEach>],
+        datasets: [{
+            label: '커뮤니티 게시글 조회수',
+            data: [<c:forEach items="${topCommunityPosts}" var="post">${post.board_views},</c:forEach>],
+            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+            borderColor: 'rgba(255, 206, 86, 1)',
+            borderWidth: 1
+        }]
+    };
+    </c:if>
+
+    <c:if test="${not empty topCompanionPosts}">
+    const companionData = {
+        labels: [<c:forEach items="${topCompanionPosts}" var="post">'${post.comp_title}',</c:forEach>],
+        datasets: [{
+            label: '동행 게시글 조회수',
+            data: [<c:forEach items="${topCompanionPosts}" var="post">${post.comp_views},</c:forEach>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+    </c:if>
+
+    // 차트 생성
+    function createChart(ctx, data, title, maxYValue) {
+        return new Chart(ctx, {
+            type: 'bar',
             data: data,
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
                 scales: {
-                    x: {
-                        beginAtZero: true
+                    y: {
+                        beginAtZero: true,
+                        max: maxYValue,
+                        stepSize: maxYValue / 10
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: title
                     }
                 }
             }
         });
+    }
+
+    // 차트 렌더링
+    document.addEventListener('DOMContentLoaded', function() {
+        <c:if test="${not empty topFestivals}">
+        createChart(document.getElementById('festivalChart').getContext('2d'), festivalData, '페스티벌 게시글 조회수 Top 20', 6000);
+        </c:if>
+        <c:if test="${not empty topPopups}">
+        createChart(document.getElementById('popupChart').getContext('2d'), popupData, '팝업 게시글 조회수 Top 20', 6000);
+        </c:if>
+        <c:if test="${not empty topCommunityPosts}">
+        createChart(document.getElementById('communityChart').getContext('2d'), communityData, '커뮤니티 게시글 조회수 Top 20', 6000);
+        </c:if>
+        <c:if test="${not empty topCompanionPosts}">
+        createChart(document.getElementById('companionChart').getContext('2d'), companionData, '동행 게시글 조회수 Top 20', 6000);
+        </c:if>
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

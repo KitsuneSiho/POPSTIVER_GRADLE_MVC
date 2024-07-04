@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-
 import java.io.IOException;
 
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
@@ -23,6 +22,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String userName = oAuth2User.getAttribute("name");
         String authorities = oAuth2User.getAuthorities().toString();
 
+        logger.info("User '{}' with authorities '{}' has logged in successfully.", userName, authorities);
 
         response.sendRedirect("/login_success");
     }

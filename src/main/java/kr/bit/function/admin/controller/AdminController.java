@@ -8,9 +8,8 @@ import kr.bit.function.admin.dao.VisitorStatisticsDAO;
 import kr.bit.function.admin.model.VisitorStatistic;
 import kr.bit.function.admin.model.businessContents;
 import kr.bit.function.admin.service.BusinessContentsService;
-import kr.bit.function.board.boardDTO.FestivalCommentDTO;
-import kr.bit.function.board.boardDTO.PopupCommentDTO;
-import kr.bit.function.board.boardDTO.TotalCommentDTO;
+import kr.bit.function.board.boardDTO.*;
+import kr.bit.function.board.boardService.BoardService;
 import kr.bit.function.board.boardService.CommentService;
 import kr.bit.function.like.BookmarkDTO;
 import kr.bit.function.like.LikeService;
@@ -50,6 +49,9 @@ public class AdminController {
 
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private DataSource dataSource;
@@ -187,7 +189,20 @@ public class AdminController {
 
 
     @GetMapping("/mostViewedPostsStats")
-    public String getMostViewedPostsStats() {
+    public String getMostViewedPostsStats(Model model) {
+        try {
+            List<FestivalBoardDTO> mostViewedFestivalPosts = boardService.getMostViewedFestivalPosts();
+            List<PopupBoardDTO> mostViewedPopupPosts = boardService.getMostViewedPopupPosts();
+            List<CommunityDTO> mostViewedCommunityPosts = boardService.getMostViewedCommunityPosts();
+            List<CompanionDTO> mostViewedCompanionPosts = boardService.getMostViewedCompanionPosts();
+
+            model.addAttribute("topFestivals", mostViewedFestivalPosts);
+            model.addAttribute("topPopups", mostViewedPopupPosts);
+            model.addAttribute("topCommunityPosts", mostViewedCommunityPosts);
+            model.addAttribute("topCompanionPosts", mostViewedCompanionPosts);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "page/admin/mostViewedPostsStats";
     }
 
@@ -211,9 +226,19 @@ public class AdminController {
     }
 
     @GetMapping("/businessContents")
-    public String getBusinessContents(Model model) {
-        List<businessContents> posts = businessContentsService.getAllBusinessContents();
+    public String getBusinessContents(
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            Model model) {
+        int totalItems = businessContentsService.getTotalBusinessContents();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+
+        List<businessContents> posts = businessContentsService.getBusinessContentsByPage(page, size);
+
         model.addAttribute("posts", posts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
         return "page/admin/businessContents";
     }
 
