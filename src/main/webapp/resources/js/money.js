@@ -109,15 +109,25 @@ function checkPost() {
                 if(extraAddr !== ''){
                     extraAddr = ' (' + extraAddr + ')';
                 }
-                // 조합된 참고항목을 해당 필드에 넣는다.
-                document.getElementById("temp_location").value = addr + extraAddr;
-
-            } else {
-                document.getElementById("temp_location").value = addr;
+                addr = addr + extraAddr;
             }
 
-            // 우편번호 필드에 값을 입력한다.
-            //document.getElementById("postcode").value = data.zonecode;
+            // 주소 필드를 세 개로 나눈다.
+            var addrParts = addr.split(' ');
+            var city = addrParts[0]; // 시/도
+            var district = addrParts[1]; // 구/군
+            var location = addrParts.slice(2).join(' '); // 나머지 주소
+
+            console.log(addrParts);
+
+            console.log(city);
+            console.log(district);
+            console.log(location);
+
+            document.getElementsByName("temp_dist")[0].value = city;
+            document.getElementsByName("temp_subdist")[0].value = district;
+            document.getElementsByName("temp_location")[0].value = location; // 첫 번째 필드는 id가 temp_location인 필드이므로 두 번째 필드에 값을 설정
+
         }
     }).open();
 }
