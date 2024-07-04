@@ -54,7 +54,11 @@
                                         <a href="${root}/festival_Details/${festival.festival_no}">
                                             <img src="${festival.festival_attachment}" alt="포스터 이미지"/>
                                         </a>
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                             class="bookmark"
+                                             alt=""
+                                             data-event-no="${festival.festival_no}"
+                                             data-event-type="${festival.event_type}">
                                         <h3>
                                             <a href="${root}/festival_Details/${festival.festival_no}">
                                                 <c:out value="${festival.festival_title}" />
@@ -97,7 +101,11 @@
                                         <a href="${root}/popup_Details/${popup.popup_no}">
                                             <img src="${popup.popup_attachment}" alt="포스터 이미지"/>
                                         </a>
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                             class="bookmark"
+                                             alt=""
+                                             data-event-no="${popup.popup_no}"
+                                             data-event-type="${popup.event_type}">
                                         <h3>
                                             <a href="${root}/popup_Details/${popup.popup_no}">
                                                 <c:out value="${popup.popup_title}" />
@@ -140,7 +148,11 @@
                                         <a href="${root}/festival_Details/${festival.festival_no}">
                                             <img src="${festival.festival_attachment}" alt="포스터 이미지"/>
                                         </a>
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                             class="bookmark"
+                                             alt=""
+                                             data-event-no="${festival.festival_no}"
+                                             data-event-type="${festival.event_type}">
                                         <h3>
                                             <a href="${root}/festival_Details/${festival.festival_no}">
                                                 <c:out value="${festival.festival_title}" />
@@ -183,7 +195,11 @@
                                         <a href="${root}/popup_Details/${popup.popup_no}">
                                             <img src="${popup.popup_attachment}" alt="포스터 이미지"/>
                                         </a>
-                                        <img src="${root}/resources/asset/좋아요.svg" class="bookmark" alt="">
+                                        <img src="${root}/resources/asset/${isLiked ? '좋아요' : '아니좋아요'}.svg"
+                                             class="bookmark"
+                                             alt=""
+                                             data-event-no="${popup.popup_no}"
+                                             data-event-type="${popup.event_type}">
                                         <h3>
                                             <a href="${root}/popup_Details/${popup.popup_no}">
                                                 <c:out value="${popup.popup_title}" />
