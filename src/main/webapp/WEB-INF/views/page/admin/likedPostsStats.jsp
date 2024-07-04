@@ -90,9 +90,11 @@
     let festivalData;
 
     function showChart(type) {
+        let labels = [];
         let datasets = [];
 
         if (type === 'popup') {
+            labels = popupData.labels;
             datasets.push({
                 label: '팝업 좋아요 수',
                 data: popupData.data,
@@ -101,6 +103,7 @@
                 borderWidth: 1
             });
         } else if (type === 'festival') {
+            labels = festivalData.labels;
             datasets.push({
                 label: '페스티벌 좋아요 수',
                 data: festivalData.data,
@@ -109,16 +112,30 @@
                 borderWidth: 1
             });
         } else if (type === 'all') {
+            // Combine labels and sort them
+            labels = [...new Set(popupData.labels.concat(festivalData.labels))].sort();
+
+            // Prepare data for popup and festival, filling missing values with 0
+            let popupLikes = labels.map(label => {
+                let index = popupData.labels.indexOf(label);
+                return index !== -1 ? popupData.data[index] : 0;
+            });
+
+            let festivalLikes = labels.map(label => {
+                let index = festivalData.labels.indexOf(label);
+                return index !== -1 ? festivalData.data[index] : 0;
+            });
+
             datasets.push({
                 label: '팝업 좋아요 수',
-                data: popupData.data,
+                data: popupLikes,
                 backgroundColor: 'rgba(255, 99, 132, 0.6)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             });
             datasets.push({
                 label: '페스티벌 좋아요 수',
-                data: festivalData.data,
+                data: festivalLikes,
                 backgroundColor: 'rgba(54, 162, 235, 0.6)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -133,7 +150,7 @@
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: type === 'all' ? popupData.labels.concat(festivalData.labels) : (type === 'popup' ? popupData.labels : festivalData.labels),
+                labels: labels,
                 datasets: datasets
             },
             options: {
@@ -142,16 +159,21 @@
                 scales: {
                     y: {
                         beginAtZero: true,
+                        stacked: true,
                         ticks: {
                             stepSize: 1,
                             precision: 0
                         }
                     },
                     x: {
+                        stacked: true,
                         ticks: {
                             autoSkip: false,
-                            maxRotation: 45,
-                            minRotation: 45
+                            maxRotation: 45, // 레이블을 45도 기울임
+                            minRotation: 45,
+                            font: {
+                                size: 10 // 폰트 크기를 줄임
+                            }
                         }
                     }
                 },
