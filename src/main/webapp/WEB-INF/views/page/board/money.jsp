@@ -36,19 +36,19 @@
 <jsp:include page="/WEB-INF/views/page/fix/header.jsp" />
 
 <div class="contactMenu">
-    <a href="contact">
+    <a href="${root}/contact">
         <h2>공지사항</h2>
     </a>
-    <a class="on" href="money">
+    <a class="on" href="${root}/money">
         <h2>비즈니스 문의</h2>
     </a>
-    <a href="report">
+    <a href="${root}/report">
         <h2>제보하기</h2>
     </a>
-    <a href="together">
+    <a href="${root}/together">
         <h2>동행구하기</h2>
     </a>
-    <a href="free">
+    <a href="${root}/free">
         <h2>자유게시판</h2>
     </a>
 </div>
@@ -82,7 +82,6 @@
         <li>
             <span>행사주소</span>
             <label class="addressLabel">
-                <input type="text" id="temp_location" name="temp_location">
                 <input type="text" name="temp_dist" placeholder="시/도">
                 <input type="text" name="temp_subdist" placeholder="시/군/구">
                 <input type="text" name="temp_location" placeholder="상세주소">

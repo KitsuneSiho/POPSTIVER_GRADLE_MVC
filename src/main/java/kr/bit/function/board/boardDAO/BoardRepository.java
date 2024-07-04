@@ -371,6 +371,29 @@ public class BoardRepository {
         return result.isEmpty() ? null : result.get(0);
     }
 
+    //게시글 수정
+    public void updateNoticeRepo(NoticeDTO noticeDTO) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(update는 update)
+        //sql : community안에서 해당하는 게시글넘버의 데이터를 수정한다.
+        //update 시  update메소드 안에 쿼리문을 적고 쿼리문에서 넣고자 하는 데이터는 ?로 처리한다 (preparedstatement 형식)
+        //그리고 , 쿼리문 뒤에 ?에 해당하는 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(
+                "update notice set notice_title=?,notice_content=? where notice_no=?;"
+                ,noticeDTO.getNotice_title(), noticeDTO.getNotice_content(),noticeDTO.getNotice_no());
+
+    }
+
+    public void deleteNoticeRepo(int notice_no) throws Exception{
+        //쿼리문을 적고 실행하고 리턴한다.(delete는 update)
+        //sql : communitytable안에서 해당하는 데이터(row)를 지운다.
+        //delete 시 문자열 변수에 sql문을 넣고, 지울게시글번호를 받아오는곳은 ?로 처리한다. (preparedstatement 형식)
+        String query = "delete from notice where notice_no = ?;";
+        //update메소드에 쿼리문을 넣고,그 뒤에 ?에 넣을 데이터를 적어준다.(template 형식)
+        //CommunityEntity형의 객체에 들어있는 데이터를 get메소드로 가져왔다.
+        jdbcTemplate.update(query,notice_no);
+    }
+
     //=====================================================================================//
     //                               📖📖 COMMUNITY 자유게시판 📖📖                         //
     //=====================================================================================//

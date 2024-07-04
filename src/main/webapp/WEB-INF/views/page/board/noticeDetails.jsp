@@ -71,17 +71,23 @@
         <div class="noticeText">
             <p>${notice.notice_content}</p>
         </div>
-<%--        <sec:authorize access="hasRole('ROLE_ADMIN')">--%>
-<%--            <div class="write">--%>
-<%--                <button class="writeButton" onclick="window.location.href='/deleteReport/${report_detail.report_no}'">--%>
-<%--                    <img src="${root}/resources/asset/글쓰기.svg" alt="">--%>
-<%--                    [관리자]삭제</button>--%>
-<%--            </div>--%>
-<%--        </sec:authorize>--%>
+
     </c:otherwise>
 </c:choose>
     <div class="listButton">
         <button onclick="window.location.href='${root}/contact'">목록</button>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <div class="write">
+                <button class="writeButton" onclick="window.location.href='/deleteNotice/${notice.notice_no}'">
+                    <img src="${root}/resources/asset/글쓰기.svg" alt="">
+                    [관리자]삭제
+                </button>
+                <button class="writeButton" onclick="window.location.href='/editNotice/${notice.notice_no}'">
+                    <img src="${root}/resources/asset/글쓰기.svg" alt="">
+                    [관리자]수정
+                </button>
+            </div>
+        </sec:authorize>
     </div>
 
     </div>

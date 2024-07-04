@@ -72,6 +72,8 @@ public interface BoardService {
     public void insertNotice(NoticeDTO noticeDTO) throws Exception;
     public List<NoticeDTO> selectNoticeAll() throws Exception;//공지출력
     public NoticeDTO selectNoticeOne(int notice_no) throws Exception;
+    public void updateNotice(NoticeDTO noticeDTO) throws Exception;
+    public void deleteNotice(int notice_no) throws Exception;
     //=====================================================================================//
     //                          📢📢 BUSINESS  주최자등록게시판 📢📢                         //
     //=====================================================================================//

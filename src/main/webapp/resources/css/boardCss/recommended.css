@@ -5,8 +5,8 @@ body {
     color: white;
 }
 
-.searchResultTitle{
-    font-family: 'Pre',sans-serif;
+.searchResultTitle {
+    font-family: 'Pre', sans-serif;
     color: white;
     text-align: left;
     font-size: 25px;
@@ -18,11 +18,21 @@ body {
 }
 
 .searchList article {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     overflow: hidden;
     display: block;
     unicode-bidi: isolate;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.grid-item {
+    width: 100%;
 }
 
 .searchListOpen {
@@ -52,10 +62,19 @@ body {
 }
 
 .popupFestivalInfo {
-    display: block;
+    display: none;
     padding: 10px 16px;
     background: #2e2e2e;
     color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+}
+
+.popupFestivalInfo.open {
+    display: block;
+    max-height: 2000px; /* Adjust this value based on your content */
+    transition: max-height 0.5s ease-in, opacity 0.5s ease-in, padding 0.5s ease-in;
 }
 
 .carousel {
@@ -66,16 +85,18 @@ body {
 }
 
 .carousel-content {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    flex-wrap: wrap;
-    font-family: 'Pre',sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    transition: transform 0.5s ease-in-out; /* 현재 페이지 이동에 사용하는 애니메이션 */
+    font-family: 'Pre', sans-serif;
 }
 
+
+
 .card {
-    width: 50%;
+    width: 100%;
     box-sizing: border-box;
-    padding: 10px;
 }
 
 .card img {
@@ -92,6 +113,7 @@ body {
     position: relative;
 }
 
+
 .card-content .bookmark {
     width: 40px;
     height: 40px;
@@ -101,9 +123,10 @@ body {
     cursor: pointer;
 }
 
-.card-content p{
+.card-content p {
     display: flex;
     align-content: center;
+    font-size: 12px;
 }
 
 .card-content .cardAddress {
@@ -120,31 +143,6 @@ body {
     padding: 0;
 }
 
-.carousel-nav {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.carousel-nav button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-footer {
-    margin-top: 50px;
-    border-top: 1px solid #2e2e2e;
-    color: #5e5e5e;
-    text-align: center;
-    padding: 20px 0;
-}
-
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -155,53 +153,53 @@ footer {
     }
 }
 
-/* 수정된 CSS */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: 'Pre',sans-serif;
+}
 
-@media (max-width: 767px) {
-    .searchList article {
-        width: 90%;
+.pagination button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.pagination button:disabled {
+    color: #5e5e5e;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: white;
+    margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr;
     }
 
-    .card {
-        width: 100%;
+    .searchList article {
+        width: 90%;
     }
 
     .card img {
         width: 100%;
         height: auto;
     }
-
-    .carousel {
-        width: 100%;
-    }
 }
 
-@media (min-width: 768px) {
-    .searchList article {
-        width: 80%;
-    }
-
-    .card {
-        width: 50%;
-    }
-}
-
-@media (min-width: 1024px) {
-    .searchList article {
-        width: 70%;
-    }
-
-    .card {
-        width: 33.33%;
-    }
-}
-
-/* 링크 색상 설정 */
 a {
-    color: white; /* 링크 텍스트 색상을 흰색으로 설정 */
-    text-decoration: none; /* 링크 밑줄 제거 */
+    color: white;
+    text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline; /* 호버 시에는 밑줄 추가 */
+    text-decoration: underline;
 }

@@ -42,11 +42,11 @@
         <c:set var="hasUpcoming" value="false" />
         <c:set var="hasEnded" value="false" />
 
-        <div class="searchListOpen" onclick="toggleSearchList(this)">
+        <div class="searchListOpen" id="upcomingSection" onclick="toggleSearchList(this)">
             <p>오픈 예정 페스티벌</p>
             <img src="${root}/resources/asset/화살표.svg" class="arrow" alt="화살표">
         </div>
-        <div class="popupFestivalInfo">
+        <div class="popupFestivalInfo" id="upcomingContent">
             <div class="carousel">
                 <div class="carousel-content" id="carousel-content-upcoming">
                     <c:forEach var="festival" items="${festivals}">

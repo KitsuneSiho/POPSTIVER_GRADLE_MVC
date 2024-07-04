@@ -84,6 +84,9 @@ body {
     font-size: 25px;
     margin-top: 100px;
 }
+.detailInfoTime .detailInfoTimeInfo{
+    line-height: 1.8;
+}
 
 .detailInfoTitle .detailIntroduceTitle{
     margin-top: 100px;
@@ -96,7 +99,7 @@ body {
     width: 97%;
     height: auto;
     padding: 20px;
-    line-height: 1.5;
+    line-height: 1.8;
 }
 .detailInfoTitle .detailInfoMapTitle{
     font-size: 25px;
@@ -183,6 +186,7 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    gap: 20px;
 }
 .comment-header .name{
     width: 100%;
@@ -193,7 +197,6 @@ body {
     border: none;
     color: #5e5e5e;
     margin: 1%;
-    width: 60px;
 }
 .comment-header button:hover{
     color: #ffff33;

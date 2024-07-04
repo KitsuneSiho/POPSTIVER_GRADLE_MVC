@@ -113,21 +113,17 @@
 
             <div class="listButton">
                 <button onclick="window.location.href='${root}/together'">목록</button>
+                <div id="deleteButton"></div>
+                <div id="editButton"></div>
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <div class="write">
+                        <button class="writeButton" onclick="window.location.href='/deleteTogether/${together.comp_no}'">
+                            <img src="${root}/resources/asset/글쓰기.svg" alt="">
+                            [관리자]삭제</button>
+                    </div>
+                </sec:authorize>
             </div>
-
         </div>
-        <%--        삭제버튼--%>
-        <div id="deleteButton"></div>
-        <%--        수정버튼--%>
-        <div id="editButton"></div>
-
-        <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <div class="write">
-                <button class="writeButton" onclick="window.location.href='/deleteTogether/${together.comp_no}'">
-                    <img src="${root}/resources/asset/글쓰기.svg" alt="">
-                    [관리자]삭제</button>
-            </div>
-        </sec:authorize>
     </c:otherwise>
 </c:choose>
 

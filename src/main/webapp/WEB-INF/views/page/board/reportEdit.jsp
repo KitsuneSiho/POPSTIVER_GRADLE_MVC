@@ -120,7 +120,7 @@
         </ul>
         <div class="updateButton">
             <button type="submit">수정하기</button>
-            <button type="reset" onclick="window.location.href='report'">취소</button>
+            <button type="reset" onclick="window.location.href='${root}/report'">취소</button>
         </div>
     </form>
 </div>
