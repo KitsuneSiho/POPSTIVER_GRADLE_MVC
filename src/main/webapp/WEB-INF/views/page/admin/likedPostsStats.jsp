@@ -61,7 +61,7 @@
         <!-- 메인 콘텐츠 -->
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="content-wrapper">
-                <h2><i class="fas fa-chart-bar"></i> 좋아요 누른 게시글 통계</h2>
+                <h2><i class="fas fa-chart-bar"></i> 좋아요 많이 누른 게시글 통계</h2>
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-custom" onclick="showChart('all')">전체</button>
                     <button type="button" class="btn btn-custom" onclick="showChart('festival')">페스티벌</button>
@@ -90,40 +90,56 @@
     let festivalData;
 
     function showChart(type) {
-        let data = [];
         let labels = [];
-        let backgroundColor = [];
-        let borderColor = [];
+        let datasets = [];
 
         if (type === 'popup') {
-            data = popupData.data;
             labels = popupData.labels;
-            backgroundColor = 'rgba(255, 99, 132, 0.6)';
-            borderColor = 'rgba(255, 99, 132, 1)';
+            datasets.push({
+                label: '팝업 좋아요 수',
+                data: popupData.data,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            });
         } else if (type === 'festival') {
-            data = festivalData.data;
             labels = festivalData.labels;
-            backgroundColor = 'rgba(54, 162, 235, 0.6)';
-            borderColor = 'rgba(54, 162, 235, 1)';
+            datasets.push({
+                label: '페스티벌 좋아요 수',
+                data: festivalData.data,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            });
         } else if (type === 'all') {
-            const combinedData = popupData.data.concat(festivalData.data);
-            const combinedLabels = popupData.labels.concat(festivalData.labels);
+            // Combine labels and sort them
+            labels = [...new Set(popupData.labels.concat(festivalData.labels))].sort();
 
-            // 좋아요 수 기준으로 정렬
-            const combined = combinedData.map((likeCount, index) => ({
-                likeCount,
-                label: combinedLabels[index]
-            }));
+            // Prepare data for popup and festival, filling missing values with 0
+            let popupLikes = labels.map(label => {
+                let index = popupData.labels.indexOf(label);
+                return index !== -1 ? popupData.data[index] : 0;
+            });
 
-            combined.sort((a, b) => b.likeCount - a.likeCount);
+            let festivalLikes = labels.map(label => {
+                let index = festivalData.labels.indexOf(label);
+                return index !== -1 ? festivalData.data[index] : 0;
+            });
 
-            // 상위 20개 항목 선택
-            const top20 = combined.slice(0, 20);
-
-            data = top20.map(item => item.likeCount);
-            labels = top20.map(item => item.label);
-            backgroundColor = top20.map((item, index) => index < 10 ? 'rgba(255, 99, 132, 0.6)' : 'rgba(54, 162, 235, 0.6)');
-            borderColor = top20.map((item, index) => index < 10 ? 'rgba(255, 99, 132, 1)' : 'rgba(54, 162, 235, 1)');
+            datasets.push({
+                label: '팝업 좋아요 수',
+                data: popupLikes,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            });
+            datasets.push({
+                label: '페스티벌 좋아요 수',
+                data: festivalLikes,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            });
         }
 
         if (myChart) {
@@ -135,13 +151,7 @@
             type: 'bar',
             data: {
                 labels: labels,
-                datasets: [{
-                    label: '좋아요 수',
-                    data: data,
-                    backgroundColor: backgroundColor,
-                    borderColor: borderColor,
-                    borderWidth: 1
-                }]
+                datasets: datasets
             },
             options: {
                 responsive: true,
@@ -149,22 +159,27 @@
                 scales: {
                     y: {
                         beginAtZero: true,
+                        stacked: true,
                         ticks: {
                             stepSize: 1,
                             precision: 0
                         }
                     },
                     x: {
+                        stacked: true,
                         ticks: {
                             autoSkip: false,
-                            maxRotation: 45,
-                            minRotation: 45
+                            maxRotation: 45, // 레이블을 45도 기울임
+                            minRotation: 45,
+                            font: {
+                                size: 10 // 폰트 크기를 줄임
+                            }
                         }
                     }
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: true // 범례 표시
                     },
                     tooltip: {
                         callbacks: {
@@ -188,7 +203,6 @@
             data: [<c:forEach items="${popularFestivalEvents}" var="event">${event.likeCount},</c:forEach>]
         };
 
-        // 초기 차트 표시 (전체)
         showChart('all');
     });
 </script>

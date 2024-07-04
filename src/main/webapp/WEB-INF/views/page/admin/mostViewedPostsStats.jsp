@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/adminCss/admin.css' />">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container-fluid {
+            flex: 1;
+        }
+        main {
+            margin: 0 auto;
+            float: none;
+            padding: 20px;
+        }
         .chart-container {
             width: 100%;
             height: 400px;
@@ -31,8 +44,8 @@
         </nav>
 
         <!-- 메인 콘텐츠 -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <h2 class="mt-4">조회수 많은 게시글 통계</h2>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-8 px-4">
+            <h2 class="mt-4 text-center">조회수 많은 게시글 통계</h2>
 
             <c:if test="${not empty topFestivals}">
                 <div class="chart-container">
