@@ -134,7 +134,7 @@ body {
     width: 80px;
     height: 40px;
     border: none;
-    border-radius: 20px;
+    border-radius: 100px;
     background-color: #5e5e5e;
     font-family: 'Pre', sans-serif;
     margin: 10px 0;
@@ -152,7 +152,7 @@ body {
     width: 80px;
     height: 40px;
     border: none;
-    border-radius: 20px;
+    border-radius: 100px;
     background-color: #5e5e5e;
     font-family: 'Pre', sans-serif;
     margin: 10px 0;
@@ -170,7 +170,7 @@ body {
     width: 80px;
     height: 40px;
     border: none;
-    border-radius: 20px;
+    border-radius: 100px;
     background-color: #5e5e5e;
     font-family: 'Pre', sans-serif;
     margin: 10px 0;
@@ -351,7 +351,7 @@ body {
     width: 100px;
     height: 40px;
     border: 1px solid #2e2e2e;
-    border-radius: 5px;
+    border-radius: 100px;
     background-color: black;
     color: white;
     font-family: 'Pre', sans-serif;
@@ -367,7 +367,7 @@ body {
     width: 100px;
     height: 40px;
     border: 1px solid #2e2e2e;
-    border-radius: 5px;
+    border-radius: 100px;
     background-color: black;
     color: white;
     font-family: 'Pre', sans-serif;
@@ -383,7 +383,7 @@ body {
     width: 100px;
     height: 40px;
     border: 1px solid #2e2e2e;
-    border-radius: 5px;
+    border-radius: 100px;
     background-color: black;
     color: white;
     font-family: 'Pre', sans-serif;

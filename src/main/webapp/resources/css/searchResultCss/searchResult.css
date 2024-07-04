@@ -14,10 +14,11 @@ body {
 .searchList {
     margin: 40px 0;
     padding-bottom: 100px;
+    font-family: 'Pre',sans-serif;
 }
 
 .searchList article {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     overflow: hidden;
     display: block;
@@ -201,7 +202,7 @@ body {
     }
 
     .card {
-        width: 50%;
+        width: 33.33%;
     }
 }
 
