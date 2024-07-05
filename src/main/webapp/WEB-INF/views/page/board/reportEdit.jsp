@@ -80,12 +80,13 @@
                 </label>
             </li>
             <li>
-                <span>주소</span>
+                <span>행사주소</span>
                 <label class="addressLabel">
                     <input type="text" name="report_dist" placeholder="${current_report.report_dist}" value="${current_report.report_dist}">
                     <input type="text" name="report_subdist" placeholder="${current_report.report_subdist}" value="${current_report.report_subdist}">
                     <input type="text" name="report_location" placeholder="${current_report.report_location}" value="${current_report.report_location}">
                 </label>
+                <button class="searchAddress" type="button" onclick="checkPost()">주소 검색</button>
             </li>
             <li>
                 <span>행사기간</span>
