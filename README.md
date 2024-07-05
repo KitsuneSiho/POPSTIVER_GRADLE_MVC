@@ -62,12 +62,12 @@
 
 ## 🐼 DEVELOPER
 
-#### KitsuneSiho (팀장) : SQL 및 데이터베이스 설계, 데이터 처리흐름 담당, Git 버전관리
-#### HarryKang (Back-End) : C/R/U/D 게시판 설계, 프로젝트 전체 버전관리, WebSocket 설계 ChatService 구현
-#### SangWoo (Back-End) : C/R/U/D 게시판 설계, Google API & Framwork 을 이용한 지도와 캘린더 서비스 구현
-#### boddak (Front-End) : UI설계, 반응형 웹페이지 제작, Front-End Data Flow Managerment
-#### Hojun (Back-End) : User Permission Managerment, PersonalSecurityToken 처리
-#### Jaeyoung (Back-End) : User Verification, Kakako/naver/google Login 구현, 외부 SecurityToken 처리
+#### KitsuneSiho (팀장) : LinuxBased SSH 데이터서버 구축, 커뮤니케이션 게시판(C/R/U/D), Relational DB 제작, E/R Model 설계, Project Flow 설계, Git&Repository 관리
+#### HarryKang (Back-End) : Setting up project security, Admin page, Chat service, SNS Login Service, Main page automation, Git version control, Project build control
+#### SangWoo (Back-End) : 검색 기능, 달력 페이지, API 활용, 좋아요 기능, 기타 페이지, 페이지간 동기화
+#### boddak (Front-End) : UI/UX 설계, 전체 프론트엔드 아키텍처 설계 및 구현, JSP, CSS, JavaScript 등을 사용한 웹 페이지 제작
+#### Hojun (Back-End) : DB crawling / 관리, 회원 및  페이지 태그, 행사 상세 페이지, 추천 행사 페이지, FLASK 서버 구축, 프로젝트 회의 및 진행사항 관리
+#### Jaeyoung (Back-End) : 간편 로그인 서비스, 근처 행사(지도 API) 페이지, 행사 후기 및 평점 기능, 회원 정보 관리 및 탈퇴, 세션 기반 조회수 기능, 자유게시판
 
 </p>
 
