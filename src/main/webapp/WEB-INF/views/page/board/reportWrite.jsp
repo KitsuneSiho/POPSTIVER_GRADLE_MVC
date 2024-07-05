@@ -83,7 +83,6 @@
         <li>
             <span>행사주소</span>
             <label class="addressLabel">
-                <input type="text" id="report_location" name="report_location">
                 <input type="text" name="report_dist" placeholder="시/도">
                 <input type="text" name="report_subdist" placeholder="시/군/구">
                 <input type="text" name="report_location" placeholder="상세주소">
