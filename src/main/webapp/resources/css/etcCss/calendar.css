@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.calendarTitle {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 20px; /* 추가: 제목과의 간격 */
+}
+
+#calendar {
+    width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
+    max-width: 80%; /* 추가: 최대 너비 설정 */
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    /*overflow: hidden !important;*/
+    /* 추가: 달력과의 간격 */
+    margin: 20px auto 0;
+}
+
+#calendar table {
+    background: none;
+    border: 1px solid #2e2e2e;
+}
+
+#calendar .fc-daygrid-event-dot {
+    display: none;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: rgb(253 94 94 / 32%) !important;
+}
+
+.fc .fc-daygrid-event-harness {
+    position: relative;
+    padding: 1px;
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-weight: 700;
+    min-width: 0;
+    overflow: hidden;
+    padding: 3px;
+}
+
+
+.fc-today-button,
+.fc-prev-button,
+.fc-next-button {
+    background-color: #ffff33 !important;
+    color: black !important;
+    font-family: 'Pre', sans-serif !important;
+}
+
+.fc-day a {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+}
+
+.fc-day-sat a {
+    color: #00aaff;
+}
+
+.fc-day-sun a {
+    color: #ff0000;
+}
+
+.fc-day-sat .fc-event-title,
+.fc-day-sun .fc-event-title { /* 주말 일정제목 색깔*/
+    color: black ;
+}
+
+.fc .fc-col-header-cell-cushion {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.fc-event {
+    max-width: 95%; /* 이벤트 요소의 최대 너비를 설정 */
+}
+
+.fc-event-title {
+    color: black ;
+    font-size: 70%; /* 이벤트 제목 글자 크기  */
+    /*white-space: nowrap; !*이벤트 제목이 긴 경우 줄 바꿈 없이 한 줄에 모두 표시*!*/
+    /*overflow: hidden; !*요소의 내용이 넘칠 경우, 넘치는 부분을 숨김*!*/
+    /*text-overflow: ellipsis; !*텍스트가 넘치는 경우 마지막 부분을 생략 부호(ellipsis, ...)로 표시*!*/
+    /*max-width: 80%; !* 이벤트 요소의 최대 너비를 설정 *!*/
+    /*padding: 1px 3px; !* 내부 여백을 조금 추가하여 가독성 향상 *!*/
+    /*제목 간추리는 설정은 js파일도 같이 엮여있음*/
+}
+
+/* 더 긴 제목을 표시하기 위해 이벤트 높이 조정 */
+/*.fc-daygrid-event {*/
+/*    min-height: 20px; !* 최소 높이 설정 *!*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*}*/
+
+
+/* "더보기" 링크 스타일 수정 */
+.fc-more-link {
+    font-size: 50%;
+    color: white !important;
+}
+
+.fc-more-popover {
+    background-color: black !important; /* 팝업창 배경색을 검정색으로 설정 */
+    color: white ; /* 팝업창 텍스트 색상을 흰색으로 설정 */
+}
+
+.fc-popover-body {
+    background-color: black !important; /* 팝업창 내부 배경색을 검정색으로 설정 */
+    color: white ; /* 팝업창 내부 텍스트 색상을 흰색으로 설정 */
+}
+
+.fc-popover-header {
+    background-color: black !important; /* 팝업창 헤더 배경색을 검정색으로 설정 */
+    color: white !important; /* 팝업창 헤더 텍스트 색상을 흰색으로 설정 */
+    font-family: 'Pre', sans-serif;
+}
+
+ /*event_type에 따른 배경색 */
+.fc-event.event-type-1,
+.fc-event.event-type-2 {
+    background-color: #246ABF !important;
+    border-color: #246ABF !important;
+}
+
+.fc-event.event-type-3 {
+    background-color: #F5C12E !important;
+    border-color: #F5C12E !important;
+}
+
+
+
+
+dialog {
+    font-family: 'Pre', sans-serif;
+    position: fixed;
+    width: 90%; /* 변경: 더 작은 화면에 맞춰 조정 */
+    max-width: 400px; /* 추가: 최대 너비 설정 */
+    margin: 0;
+    z-index: 100;
+    padding: 30px;
+    background: #9e9e9e;
+    color: black;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    border: none;
+    border-radius: 10px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: black;
+}
+
+@media (max-width: 768px) {
+    .calendarTitle {
+        font-size: 20px;
+    }
+
+    #calendar {
+        width: 95%; /* 더 작은 화면에 맞춰 더 조정 */
+    }
+
+    dialog {
+        width: 95%; /* 더 작은 화면에 맞춰 더 조정 */
+        max-width: none; /* 최대 너비 해제 */
+        padding: 20px; /* 패딩 줄임 */
+        font-size: 14px; /* 폰트 크기 줄임 */
+    }
+}

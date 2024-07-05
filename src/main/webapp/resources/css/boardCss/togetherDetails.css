@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.contactMenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
+.contactMenu a, .contactMenu a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contactMenu .on {
+    color: #ffff33;
+    border-bottom: 2px solid #ffff33;
+}
+
+.business {
+    font-family: 'Pre', sans-serif;
+    color: white;
+    background: none;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.business ul {
+    list-style: none;
+    padding: 3%;
+}
+
+.business li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.business span {
+    color: #ffff33;
+    display: inline-block;
+    width: auto;
+}
+
+.businessList input,
+.businessList textarea,
+.businessList .date {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #5e5e5e;
+    background: none;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+    outline: none;
+    align-content: end;
+}
+
+.businessList .title,
+.businessList .infoTextarea,
+.businessList .addressLabel {
+    width: 100%;
+}
+
+.businessList .dateLabel {
+    width: 30%;
+}
+
+.businessList .image {
+    width: 20%;
+    height: 20%;
+}
+
+.businessList .searchAddress {
+    width: 10%;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'Pre', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 1%;
+}
+
+.businessList button:hover {
+    background-color: #ffff3388;
+}
+
+.businessList p {
+    margin: 0 1%;
+}
+
+.businessList li {
+    display: flex;
+    align-items: center;
+}
+
+.businessList li span {
+    flex-shrink: 0;
+    width: 100px;
+}
+
+.businessList li input[type="radio"] {
+    width: 2%;
+    margin: 0 1%;
+    padding: 0;
+    color: black;
+}
+
+.businessList li input[type="radio"] + label {
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.updateButton {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.updateButton button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'Pre', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.updateButton button:hover {
+    background-color: #ffff3388;
+}
+
+.listButton{
+    text-align: right;
+}
+
+.listButton button{
+    padding: 5px 10px;
+    margin-top: 1%;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.listButton button:hover{
+    background-color: #ffff3388;
+}
+
+@media screen and (max-width: 1024px) {
+    .business {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .business {
+        width: 95%;
+    }
+
+    .businessList .dateLabel {
+        width: 45%;
+    }
+
+    .businessList .searchAddress {
+        width: 20%;
+        margin-top: 10px;
+    }
+
+    .businessList li {
+        flex-wrap: wrap;
+    }
+
+    .businessList li span {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .businessList input,
+    .businessList textarea,
+    .businessList .date {
+        font-size: 16px;
+    }
+
+    .businessList .dateLabel {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .businessList .searchAddress {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .businessList .image {
+        width: 50%;
+    }
+
+    .businessList li input[type="radio"] + label {
+        font-size: 16px;
+    }
+
+    .updateButton {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .updateButton button {
+        width: 80%;
+        margin-bottom: 10px;
+    }
+}

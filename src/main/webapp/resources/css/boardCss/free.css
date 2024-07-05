@@ -1,0 +1,202 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.contactMenu {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 50px 0 20px;
+    padding-bottom: 10px;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
+.contactMenu a, .contactMenu a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contactMenu .on {
+    color: #ffff33;
+    border-bottom: 2px solid #ffff33;
+}
+
+.board {
+    width: 70%;
+    margin: 0 auto 20px auto;
+}
+
+.boardTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    background: none;
+}
+
+.boardTable th, .boardTable td {
+    border: 1px solid #2e2e2e;
+    padding: 12px;
+    text-align: left;
+}
+
+.boardTable th {
+    background: none;
+    color: #ffff33;
+    text-align: center;
+}
+
+
+.boardTable td {
+    font-size: 20px;
+}
+
+.boardTable td p{
+    margin: 0;
+    padding: 0;
+}
+
+.boardTable td a {
+    text-decoration: none;
+    color: white;
+}
+
+.boardTable th:nth-child(1), .boardTable td:nth-child(1) {
+    width: 50%;
+}
+
+.boardTable th:nth-child(2), .boardTable td:nth-child(2) {
+    width: 15%;
+    text-align: center;
+}
+
+.boardTable th:nth-child(3), .boardTable td:nth-child(3) {
+    width: 18%;
+    text-align: center;
+}
+
+.boardTable th:nth-child(4), .boardTable td:nth-child(4) {
+    width: 10%;
+    text-align: center;
+}
+
+.write{
+    width: 85%;
+    display: flex;
+    justify-content: right;
+}
+.write .writeButton{
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffff33;
+    color: black;
+    font-family: 'Pre', sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.write .writeButton:hover{
+    background-color: #ffff3388;
+}
+
+.pageNumber {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.pageNumber ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+    list-style: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+}
+
+.pageNumber ul li {
+    cursor: pointer;
+    color: white;
+}
+
+.pageNumber ul li a.pageOn {
+    font-weight: 700;
+    color: #ffff33 !important;
+}
+.pageNumber ul li a:visited, .pageNumber ul li a{
+    text-decoration: none;
+    color: inherit;
+}
+
+@media screen and (max-width: 1024px) {
+    .board {
+        width: 80%;
+    }
+
+    .write {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactMenu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .board {
+        width: 90%;
+    }
+
+    .write {
+        width: 95%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 8px;
+    }
+
+    .boardTable td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .board {
+        width: 95%;
+    }
+
+    .write {
+        width: 100%;
+    }
+
+    .boardTable th, .boardTable td {
+        padding: 5px;
+    }
+
+    .boardTable td {
+        font-size: 10px;
+    }
+
+    .write .writeButton {
+        font-size: 14px;
+    }
+
+    .pageNumber ul {
+        font-size: 16px;
+    }
+}
+

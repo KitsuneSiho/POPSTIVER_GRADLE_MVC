@@ -1,0 +1,131 @@
+/* 모달 스타일 */
+.modal {
+    display: none;
+    top: 100px; /* 헤더 바로 아래 */
+    left: 0;
+    width: 100%;
+    height: auto; /* 필요한 높이로 설정 */
+    background: rgba(255, 255, 51, 0.8);
+    z-index: 999; /* 헤더 바로 아래에 오도록 설정 */
+    animation: slideDown 0.3s ease; /* 아래로 열리는 애니메이션 */
+}
+
+.modal-content ul {
+    display: flex;
+    justify-content: space-around; /* 항목들을 가로로 배치하고 간격 맞춤 */
+    list-style: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 30px;
+    line-height: 1.8;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: black;
+    flex-wrap: wrap; /* 줄바꿈을 허용하여 항목들이 잘리지 않도록 함 */
+}
+
+.modal-content li {
+    position: relative;
+    padding: 10px 20px; /* 항목 간 간격을 조절 */
+    margin: 0 10px; /* 항목 간 간격을 조절 */
+}
+
+.modal-content li ul {
+    display: none;
+    position: absolute;
+    top: 100%; /* 부모 항목 바로 아래 */
+    left: 0;
+    width: 200px;
+    background: rgba(255, 255, 51, 0.8);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 0 0 5px 5px; /* 모서리 둥글게 */
+    z-index: 1000; /* 하위 항목이 잘리지 않도록 z-index 설정 */
+}
+
+.modal-content li:hover ul {
+    display: block;
+    animation: slideDown 0.3s ease; /* 하위 항목이 열리는 애니메이션 */
+}
+
+.modal-content li a:link, li a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+.modal-content li ul li a:link, li ul li a:visited {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .modal-content ul {
+        font-size: 26px;
+    }
+
+    .modal-content li ul {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 992px) {
+    .modal-content ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-content li {
+        margin-bottom: 20px;
+    }
+
+    .modal-content ul {
+        font-size: 24px;
+    }
+
+    .modal-content li ul {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content ul {
+        font-size: 22px;
+    }
+
+    .modal-content li ul {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-content ul {
+        font-size: 20px;
+    }
+
+    .modal-content li ul {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content li ul li {
+        width: 100%; /* 작은 화면에서도 전체 너비를 차지하도록 설정 */
+    }
+}

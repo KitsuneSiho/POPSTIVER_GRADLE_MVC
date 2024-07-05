@@ -3,7 +3,7 @@ plugins {
     id 'war' // JSP를 사용하므로 WAR 플러그인을 사용
 }
 
-group 'com.example'
+group 'kr.bit'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = '17'
@@ -17,17 +17,23 @@ dependencies {
     implementation 'jakarta.servlet:jakarta.servlet-api:6.0.0' // Spring 6와 호환되는 Servlet API
     implementation 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.0' // JSP API
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0' // JSTL API
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' // JAKARTA 글래스피시 라이브러리. 이게있어야 taglibs사용가능!
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1' // JAKARTA 글래스피시 라이브러리. 이게 있어야 taglibs 사용 가능!
     implementation 'jakarta.el:jakarta.el-api:5.0.0' // Expression Language API
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.10' // JSP 지원을 위한 Tomcat Jasper
 
     // Spring Framework 및 Spring Security 관련 의존성
-    implementation 'org.springframework:spring-webmvc:6.0.11' // Spring Web MVC
+    implementation 'org.springframework:spring-webmvc:6.1.8' // Spring Web MVC
     implementation 'org.springframework:spring-jdbc:6.0.11' // Spring JDBC
-    implementation 'org.springframework.security:spring-security-web:6.2.1' // Spring Security Web
-    implementation 'org.springframework.security:spring-security-config:6.2.1' // Spring Security Config
-    implementation 'org.springframework.security:spring-security-oauth2-client:6.2.1' // Spring Security OAuth2 클라이언트
-    implementation 'org.springframework.security:spring-security-oauth2-core:6.2.1' // Spring Security OAuth2 Core
+    implementation 'org.springframework.security:spring-security-web:6.3.0' // Spring Security Web
+    implementation 'org.springframework.security:spring-security-config:6.3.0' // Spring Security Config
+    implementation 'org.springframework.security:spring-security-oauth2-client:6.3.0' // Spring Security OAuth2 클라이언트
+    implementation 'org.springframework.security:spring-security-oauth2-core:6.3.0' // Spring Security OAuth2 Core
+    implementation 'org.springframework.security:spring-security-oauth2-jose:6.3.0' // OAuth2 JWT 및 JWK 관련 의존성
+
+    // WebSocket 관련 의존성 추가
+    implementation 'org.springframework:spring-websocket:6.0.10' // Spring WebSocket
+    implementation 'org.springframework:spring-messaging:6.0.10'
+
 
     // JDBC 및 데이터베이스 관련 의존성
     implementation 'mysql:mysql-connector-java:8.0.33' // 최신 MySQL JDBC 드라이버
@@ -37,6 +43,57 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0' // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
     testImplementation 'org.junit.vintage:junit-vintage-engine:5.10.0' // JUnit 4와의 호환성을 위해
+
+    // Gson 라이브러리 의존성
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    // 예외 처리 라이브러리
+    implementation 'org.ibankapp:base-exception:1.0.0-beta.6'
+
+    // Lombok 의존성 추가
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    // JSON 직렬화/역직렬화
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.14.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.1'
+
+    // JWT 및 OAuth2 관련 의존성
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+
+    // 로깅 관련 의존성
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.14.1' // SLF4J와 Log4j 연동을 위한 의존성
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+
+    // Spring Security 태그 라이브러리
+    implementation 'org.springframework.security:spring-security-taglibs:6.1.2' // 최신 버전으로 업데이트 필요
+
+
+    // RESTful 웹 서비스 기능을 위한 Spring Web 의존성
+    implementation 'org.springframework:spring-web:6.1.8'
+
+
+    // Jackson-datatype
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.14.1'
+
+
+    //mybatis
+    implementation 'org.mybatis:mybatis:3.5.16'
+    implementation 'org.mybatis:mybatis-spring:3.0.3'
+
+    //FullCalendar
+    implementation 'org.webjars.npm:fullcalendar:6.1.14'
+
+    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0' // 자바 플랫폼의 영속성 관리(DataBase)
+
+    //python Flask서버 파일 업로드
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.json:json:20210307'
 
 
 }

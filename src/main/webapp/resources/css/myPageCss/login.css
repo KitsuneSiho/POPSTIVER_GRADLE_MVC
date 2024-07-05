@@ -1,0 +1,138 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.loginTitle {
+    font-family: 'Pre', sans-serif;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.5;
+    padding: 0 20px;
+}
+
+.nkgloginButton {
+    width: 100%;
+    margin: 3% auto;
+    text-align: center;
+    font-family: 'Pre', sans-serif;
+}
+
+.naverLogin button,
+.kakaoLogin button,
+.googleLogin button {
+    width: 30%;
+    height: 80px;
+    display: flex;
+    border: none;
+    align-items: center;
+    border-radius: 10px;
+    margin: 1% auto;
+    justify-content: start;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.naverLogin button {
+    background-color: #03c75a;
+}
+
+.kakaoLogin button {
+    background-color: #fee500;
+}
+
+.googleLogin button {
+    background-color: #ffffff;
+}
+
+.naverLogin button img {
+    width: 80px;
+    height: 80px;
+}
+
+.kakaoLogin button img,
+.googleLogin button img {
+    width: 45px;
+    height: 45px;
+    margin: 0 3%;
+}
+
+.naverLogin button span,
+.kakaoLogin button span,
+.googleLogin button span {
+    font-family: 'Pre', sans-serif;
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.naverLogin button span {
+    color: white;
+}
+
+.kakaoLogin button span,
+.googleLogin button span {
+    color: black;
+}
+
+/* 반응형 스타일 */
+@media screen and (max-width: 1200px) {
+    .naverLogin button,
+    .kakaoLogin button,
+    .googleLogin button {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .loginTitle {
+        font-size: 20px;
+    }
+
+    .naverLogin button,
+    .kakaoLogin button,
+    .googleLogin button {
+        width: 70%;
+    }
+
+    .naverLogin button span,
+    .kakaoLogin button span,
+    .googleLogin button span {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .loginTitle {
+        font-size: 18px;
+    }
+
+    .naverLogin button,
+    .kakaoLogin button,
+    .googleLogin button {
+        width: 90%;
+        height: 60px;
+    }
+
+    .naverLogin button img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .kakaoLogin button img,
+    .googleLogin button img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .naverLogin button span,
+    .kakaoLogin button span,
+    .googleLogin button span {
+        font-size: 18px;
+    }
+}

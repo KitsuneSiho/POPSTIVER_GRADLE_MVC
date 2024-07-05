@@ -1,0 +1,440 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.mainPoster {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.mainPoster img {
+    margin-top: 30px;
+    /*max-width: 80%; !* 최대 너비 설정 *!*/
+    /*height: auto; !* 높이 자동 조정 *!*/
+    width: 40%;
+    height: 40%;
+    border: none;
+}
+.detailInfo{
+    font-family: 'Pre',sans-serif;
+    color: white;
+    justify-content: center;
+    display: flex;
+
+}
+.detailInfoTitle{
+    width: 70%;
+    border: none;
+}
+.detailInfoTitle ul{
+    list-style: none;
+    display: flex;
+    justify-content: right;
+    margin: 10px 0 0;
+    padding: 0;
+    align-items: center;
+
+}
+.detailInfoTitle li{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.detailInfoTitle ul img{
+    margin: 0 20px;
+    cursor: pointer;
+}
+.detailInfoTitle ul p{
+    font-size: 20px;
+
+}
+.detailInfoTitle ul button{
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre',sans-serif;
+    margin-right: 12px;
+    color: white;
+    font-size: 20px;
+    padding: 0;
+}
+
+.detailInfoTitle .title{
+    font-size: 40px;
+    margin: 0;
+}
+.detailInfoTitle .detailDate{
+    font-size: 20px;
+    margin-top: 10px;
+}
+.detailInfoTitle .detailAddress{
+    font-size: 15px;
+    margin-top: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.detailInfoTime .detailInfoTimeTitle{
+    font-size: 25px;
+    margin-top: 100px;
+}
+.detailInfoTime .detailInfoTimeInfo{
+    line-height: 1.8;
+}
+
+.detailInfoTitle .detailIntroduceTitle{
+    margin-top: 100px;
+    font-size: 25px;
+}
+.detailInfoTitle .detailIntroduce{
+    background-color: #2e2e2e;
+    border-radius: 5px;
+    color: #7e7e7e;
+    width: 97%;
+    height: auto;
+    padding: 20px;
+    line-height: 1.8;
+}
+.detailInfoTitle .detailInfoMapTitle{
+    font-size: 25px;
+    margin-top: 100px;
+}
+.detailInfoMap #singleMap{
+    width: 100%;
+    height: 500px;
+}
+.detailInfoReviewTitle{
+    margin-top: 100px;
+    font-size: 25px;
+    border-bottom: 3px solid #ffff33;
+    color: white;
+}
+
+.detailInfoReview .visit_date{
+
+    padding: 10px 20px;
+    width: 15%;
+    height: 28px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    border-right: 1px solid #2e2e2e;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+.detailInfoReview .comment_content{
+    flex: 1;
+    padding: 10px 20px;
+    width: 50%;
+    height: 28px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
+.detailInfoReview button{
+    width: 100px;
+    height: 45px;
+    border: 2px solid #5e5e5e;
+    border-radius: 20px;
+    background: none;
+    font-family: inherit;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+}
+
+.detailInfoReviewTable table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    border-top: 1px solid #7e7e7e;
+}
+
+.detailInfoReviewTable table td {
+    padding: 10px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detailInfoReviewTable table td.star_rate {
+    display: flex;
+    align-items: center;
+}
+
+.delete{
+    cursor: pointer;
+}
+
+.detailInfoReviewTable table tr {
+    border-bottom: 1px solid #7e7e7e;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 20px;
+}
+.comment-header .name{
+    width: 100%;
+    font-size: 22px;
+}
+.comment-header button{
+    background: none;
+    border: none;
+    color: #5e5e5e;
+    margin: 1%;
+}
+.comment-header button:hover{
+    color: #ffff33;
+}
+.comment-header .date {
+    font-size: 15px;
+    color: #aaa;
+}
+.comment-text {
+    margin: 0 10px 10px 0;
+    width: 70%;
+    font-size: 19px;
+}
+.date{
+    color: #5e5e5e;
+    font-size: 15px;
+    align-self: end;
+    line-height: 1.5;
+    text-align: right;
+}
+.comment-img {
+    width: 100px;
+    height: 100px;
+}
+
+.share-modal {
+    display: none;
+    position: absolute;
+    top: 100%; /* 버튼 바로 아래에 위치 */
+    right: 0;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    z-index: 1000;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    width: max-content; /* 내용에 맞게 너비 조절 */
+    margin-top: 5%;
+}
+
+.share-modal p {
+    color: #ffff33;
+    margin-left: 2%;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+}
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.link-container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    margin-left: 2%;
+    min-height: 40px; /* 컨테이너의 최소 높이를 설정 */
+}
+
+.link-wrapper {
+    flex: 1; /* 링크를 포함하는 컨테이너가 가능한 공간을 차지하도록 설정 */
+    display: flex;
+    align-items: center;
+    min-height: 40px; /* 최소 높이 설정 */
+}
+
+.link-wrapper a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px; /* 링크의 최대 너비 설정 */
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.link-container button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* 버튼을 컨테이너의 중앙에 정렬 */
+    justify-content: center; /* 버튼을 수평으로 중앙에 정렬 */
+    height: 40px; /* 버튼의 높이를 고정 */
+}
+
+
+.brandWebsite, .brandSns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brandWebsite, .brandSns{
+    color: white;
+}
+
+.brandWebsite a:link, a:visited,
+.brandSns a:link, a:visited{
+    color: inherit;
+    text-decoration: none;
+    margin-left: 2%;
+}
+
+.share-modal-content button {
+    margin-left: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #2e2e2e !important;
+}
+
+.reviewWrite {
+    display: flex;
+    align-content: center;
+}
+
+.new-star {
+    font-size: 25px;
+    color: #ddd; /* 기본 색상 */
+    cursor: pointer;
+}
+
+.new-star.selected {
+    color: #ffff33; /* 선택된 별 색상 */
+}
+
+/* 호버 효과 */
+.new-star:hover,
+.new-star.hover {
+    color: #ffff33;
+}
+
+.stars {
+    display: inline-block;
+    margin-left: 2%;
+    align-content: center;
+}
+
+.star.non-interactive {
+    cursor: default;
+}
+
+.star {
+    font-size: 25px;
+    color: #ddd; /* 기본 색상 */
+    cursor: pointer;
+}
+
+.star.selected {
+    color: #ffff33; /* 선택된 별 색상 */
+}
+
+.star:hover,
+.star.hover {
+    color: #ffff33; /* 호버한 별과 그 오른쪽 별들 색상 변경 */
+}
+
+#starRating .star:hover ~ .star {
+    color: #ddd; /* 호버한 별의 오른쪽 별들은 기본 색상 유지 */
+}
+
+/* 상호작용하지 않는 별점 스타일 */
+.star.readonly {
+    cursor: default;
+    pointer-events: none; /* 클릭 및 호버 이벤트 비활성화 */
+}
+
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert-content {
+    font-family: 'Pre', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1.5rem;
+}
+
+.custom-alert-close {
+    font-family: 'Pre', sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.commentArea{
+    display: flex;
+    align-content: center;
+}
+.commentArea2{
+    margin-bottom: 10px;
+}
+.commentArea .commentDate{
+    width: 20%;
+    background-color: black;
+    border: 2px solid #5e5e5e;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px;
+    padding: 10px;
+}
+.commentArea2 .commentContent{
+    width: 50%;
+    border: 2px solid #5e5e5e;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 1.2rem;
+    margin: 10px;
+    padding: 10px;
+}
+
+.commentDate::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* 아이콘을 흰색으로 반전 */
+}
+

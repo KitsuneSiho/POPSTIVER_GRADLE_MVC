@@ -1,0 +1,431 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.mainButton {
+    display: flex;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    font-size: 30px;
+    transition: transform 0.3s ease;
+    width: 95%;
+    flex: 1;
+    justify-content: right;
+    text-align: center;
+}
+
+.festivalButton{
+    border: none;
+    background: none;
+    padding: 10px;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.festivalButton:hover{
+    transform: scale(1.05);
+    /*background-color: #ffff33;*/
+    color: #ffff33;
+}
+
+.mainPoster {
+    display: flex;
+    justify-content: center;
+    margin: 0 20%;
+}
+
+.main-content {
+    margin: 100px 5% 0 5%;
+}
+
+.popular {
+    width: 100%;
+    margin-top: 0;
+}
+
+.popularPosterText {
+    font-family: 'Pre', sans-serif;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.popularText1 {
+    color: #ffffff;
+    font-size: 50px;
+    margin: 0;
+}
+
+.popularText2 {
+    color: #5e5e5e;
+    font-size: 20px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.popularText2:hover{
+    color: #ffff33;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.slide-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #bbb;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.dot.active {
+    width: 20px;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+
+.popularPoster {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.popularPoster img {
+    display: inline-flex;
+    width: 550px;
+    height: 550px;
+    border: none;
+}
+
+.popularSlide-container {
+    width: 100%;
+    overflow-x: hidden; /* overflow-x: scroll에서 hidden으로 변경 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.popularSlide-container::-webkit-scrollbar {
+    display: none;
+}
+
+.popularSlide-track {
+    display: flex;
+    width: 100%;
+}
+
+
+.popularSlide-container.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.popularSlide-track img {
+    width: 100%;
+    height: 550px;
+    border: none;
+    cursor: pointer;
+}
+
+.popularPoster-item {
+    position: relative;
+    flex: 0 0 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+}
+
+.popularPoster-item img {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+}
+.popularPoster-caption {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    width: 100%;
+}
+
+.popularPoster-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    height: 30%;
+}
+
+.popularPoster-button {
+    background-color: #ffff33;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+a.popularPoster-button{
+    text-decoration: none;
+}
+
+.popularPoster-button:hover {
+    background-color: #e6e600;
+}
+
+.popularPoster-item:hover .popularPoster-overlay {
+    opacity: 1;
+}
+
+
+.open {
+    width:100%;
+    margin-top: 0;
+}
+
+.openPosterText {
+    font-family: 'Pre', sans-serif;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.openText1 {
+    color: #ffffff;
+    font-size: 50px;
+    margin: 0;
+}
+
+.openText2 {
+    color: #5e5e5e;
+    font-size: 20px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.openText2:hover{
+    color: #ffff33;
+}
+
+.openPoster {
+    overflow: hidden;
+    padding: 20px 0;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.openPoster img {
+    display: inline-flex;
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    border: none;
+}
+
+.openSlide-container {
+    width: 100%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.openSlide-container::-webkit-scrollbar {
+    display: none;
+}
+
+.openSlide-track {
+    display: flex;
+    animation: scroll 30s linear infinite;
+    transition: all 0.5s;
+    user-select: none;
+    width: 100%;
+    gap: 40px;
+}
+
+.openSlide-container.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.openSlide-track img {
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.openPoster-item {
+    position: relative; /* 포스터 이미지와 텍스트를 포지션을 활용하여 정렬 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin-bottom: 20px; /* 포스터 아이템 사이의 간격 */
+    flex: 0 0 auto;
+    overflow: hidden;
+}
+
+.openPoster-item img {
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.openPoster-caption {
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 350px;
+}
+
+.openPoster-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    width: 350px;
+    height: 350px;
+}
+
+.openPoster-button {
+    background-color: #ffff33;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Pre', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 10px;
+}
+
+a.openPoster-button{
+    text-decoration: none;
+}
+
+.openPoster-item:hover .openPoster-overlay {
+    opacity: 1;
+}
+
+.slider {
+    width: 100%;
+    margin-top: 5px;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-30%); /* 반만 이동하도록 수정 */
+    }
+}
+
+
+/* Added media queries for responsiveness */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .popular, .open {
+        width: 100%;
+    }
+
+    .open {
+        margin-top: 100px; /* 모바일 뷰에서 섹션 간 간격 유지 */
+    }
+}
+
+@media (max-width: 768px) {
+    .popularText1, .openText1 {
+        font-size: 7vw;
+    }
+
+    .popularText2, .openText2 {
+        font-size: 5vw;
+    }
+
+    .popularPoster-item img, .openPoster-item img {
+        width: 140px;
+        height: 200px;
+    }
+
+    .popularPoster-caption, .openPoster-caption {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainButton .popupButton img,
+    .mainButton .festivalButton img {
+        height: 40px;
+    }
+
+    .popularPoster-item img, .openPoster-item img {
+        width: 120px;
+        height: 170px;
+    }
+
+    .popularPoster-caption, .openPoster-caption {
+        font-size: 0.8rem;
+    }
+}
+
+
+

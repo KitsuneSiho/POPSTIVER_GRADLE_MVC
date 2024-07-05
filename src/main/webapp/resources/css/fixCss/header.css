@@ -1,0 +1,429 @@
+body {
+    margin: 0;
+    background-color: black;
+    padding: 0;
+}
+
+.mainTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 80px;
+    top: 0;
+    width: 100%;
+    background-color: black;
+}
+
+.mainTopLogo {
+    font-family: 'Giants', sans-serif;
+    color: #ffff33;
+    font-size: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.logoButtons {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: none;
+    padding: 10px 0;
+    z-index: 1000;
+    flex-direction: row; /* 가로로 배치 */
+    justify-content: center; /* 가운데 정렬 */
+}
+
+.mainTopLogo:hover .logoButtons {
+    display: flex; /* 마우스를 올릴 때 보이도록 설정 */
+    animation: slideDown 0.3s ease; /* 애니메이션 효과 추가 */
+}
+
+.logoButton {
+    display: block;
+    text-align: center;
+    width: 60%;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logoButton:hover {
+    transform: scale(1.05);
+    background-color: white;
+    color: black;
+}
+
+.topSearchButton{
+    background-color: #2e2e2e;
+    border-radius: 30px;
+    width: 10%;
+    cursor: pointer;
+}
+
+.mainTopLogo a, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.mainTopMenu {
+    display: flex;
+    justify-content: center;
+    width: 38%;
+}
+
+.mainTopMenu ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Pre', sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+.mainTopMenu li {
+    position: relative;
+    padding: 10px 20px;
+}
+
+.mainTopMenu li a {
+    text-decoration: none; /* Remove underline from menu links */
+    color: inherit;
+}
+
+.mainTopMenu li:hover > a {
+    color: #ffff33;
+    transition: color 0.3s ease;
+}
+
+.mainTopMenu li ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    font-size: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 150px;
+    line-height: 1.8;
+}
+
+.mainTopMenu li:hover ul {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.mainTopMenu li ul li {
+    padding: 5px 15px;
+    text-align: center;
+}
+/* 날씨 위젯 덮개 스타일 */
+#weatherOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+#ww_8fe9e8e469269{
+    font-family: Ownglyph_eunbyul21-Rg;
+    color: #ffffff !important;
+}
+/* 막대 애니메이션 스타일 */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.loader div {
+    width: 5px;
+    height: 40px;
+    margin: 0 4px;
+    background-color: white;
+    animation: loading 1s infinite;
+}
+
+.loader div:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader div:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@font-face {
+    font-family: 'Ownglyph_eunbyul21-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+.loadText{
+    display: flex;
+    font-family: Ownglyph_eunbyul21-Rg;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+@keyframes loading {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+}
+
+/* 기존 날씨 위젯 스타일 */
+.weather {
+    position: relative; /* 날씨 위젯을 relative로 설정하여 덮개 위치 조정 */
+    margin-top: 8px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    width: 240px;
+    height: 80px;
+    overflow: hidden; /* 날씨 위젯 영역을 벗어나지 않도록 설정 */
+}
+
+#ww_8fe9e8e469269 {
+    color: #ffffff !important;
+    font-family: 'Pre', sans-serif !important;
+}
+#ww_cond{
+    font-size: 20px;
+}
+#ww_temp{
+    font-size: 35px;
+}
+
+
+.mainTopButton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 3%;
+}
+
+.loginButton,
+.logoutButton,
+.searchButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: white;
+    font-family: 'Pre', sans-serif;
+}
+
+.searchButton img{
+    width: 32px;
+    height: 32px;
+    z-index: 100;
+}
+
+.userName{
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
+#loader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin: -30px 0 0 -30px;
+    border: 6px solid #ffd700;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) translateX(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+    }
+}
+
+.search-modal {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    z-index: 1000;
+    padding: 20px;
+    text-align: -webkit-center;
+}
+
+.mainTopSearch {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    text-align: center;
+}
+.mainTopSearchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mainTopSearchContainer label {
+    width: 100%;
+    display: flex;
+}
+
+.mainTopSearch input {
+    flex: 1;
+    padding: 10px 30px;
+    height: 28px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    color: black;
+
+}
+
+.mainTopSearch .searchButton {
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    right: 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+    .mainTopLogo {
+        font-size: 20px;
+    }
+
+    .loginButton, .logoutButton {
+        font-size: 18px;
+    }
+
+    .mainTopMenu ul {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 992px) {
+    .mainTop {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .mainTopLogo {
+        margin-bottom: 10px;
+    }
+
+    .mainTopMenu ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mainTopButton {
+        width: 100%;
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainTopMenu ul {
+        font-size: 16px;
+    }
+
+    .loginButton, .logoutButton, .searchButton {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mainTopLogo {
+        font-size: 18px;
+    }
+
+    .mainTopMenu ul {
+        font-size: 14px;
+    }
+
+    .loginButton, .logoutButton, .searchButton {
+        font-size: 14px;
+    }
+
+    .mainTopButton {
+        flex-direction: column;
+    }
+}

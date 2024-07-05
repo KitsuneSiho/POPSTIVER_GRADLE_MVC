@@ -1,0 +1,357 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.myPage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 15px 0 20px;
+    padding-bottom: 10px;
+    font-family: 'Pre', sans-serif;
+    color: white;
+}
+
+.myPage a, .myPage a:visited {
+    text-decoration: none;
+    color: inherit;
+    margin: 10px;
+}
+
+.myPage .on {
+    color: #ffff33;
+    border-bottom: 2px solid #ffff33;
+}
+
+.userInfo {
+    font-family: 'Pre', sans-serif;
+    color: white;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.userInfo ul {
+    list-style: none;
+    padding: 0;
+}
+
+.userInfo li {
+    margin-bottom: 20px;
+}
+
+.userInfo span {
+    color: #7e7e7e;
+}
+
+.userInfo p {
+    font-size: 1.5rem;
+    padding-left: 10px;
+}
+
+.info input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    background-color: black;
+    border-bottom: 1px solid #5e5e5e;
+    color: white;
+    outline: none;
+    font-family: 'Pre', sans-serif;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.info .searchAddress {
+    width: auto;
+    min-width: 80px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.userType,
+.userGender {
+    display: flex;
+    align-items: center;
+    margin: 1% auto;
+    flex-wrap: wrap;
+}
+
+.info li input[type="radio"] {
+    width: auto;
+    margin: 0 1%;
+    padding: 0;
+    color: black;
+}
+
+.info li input[type="radio"] + label {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+}
+
+.updateButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.updateButton button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.updateButton button:hover {
+    background-color: #ffff3388;
+}
+
+.tag {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    gap: 10px;
+    margin-bottom: 40px;
+    align-items: baseline;
+}
+
+.tag span {
+    font-size: 1.2rem;
+    margin-right: 30px;
+}
+
+.tagButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.tagButton button {
+    width: 80px;
+    height: 45px;
+    border: none;
+    border-radius: 100px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.typeButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeButton button {
+    width: 90px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.genderButton {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.genderButton button {
+    width: 80px;
+    height: 45px;
+    border: none;
+    border-radius: 20px;
+    background-color: #5e5e5e;
+    font-family: 'Pre', sans-serif;
+    margin: 10px 0;
+    color: white;
+    cursor: pointer;
+}
+
+.custom-alert-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.custom-alert-content {
+    font-family: 'Pre', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1.5rem;
+}
+
+.custom-alert-close {
+    font-family: 'Pre', sans-serif;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .userInfo {
+        width: 95%;
+    }
+
+    .info input,
+    .info li input[type="radio"] + label,
+    .tag span {
+        font-size: 1rem;
+    }
+
+    .userInfo p {
+        font-size: 1.2rem;
+    }
+
+    .custom-alert-content {
+        font-size: 1.2rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .myPage a, .myPage a:visited {
+        font-size: 0.9rem;
+    }
+
+    .updateButton button,
+    .tagButton button {
+        width: 80px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+
+    .custom-alert-content {
+        font-size: 1rem;
+    }
+}
+
+.nickname-container {
+    display: flex;
+    align-items: center;
+}
+
+.nickname-container input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.nickname-container button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2e2e2e;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.nickname-container button:hover{
+    background-color: #ffff3388;
+}
+
+#nicknameCheckResult {
+    display: block;
+    margin-top: 5px;
+}
+
+
+.tagButton .tag-button {
+    width: 80px;
+    height: 45px;
+    border: 1px solid #2e2e2e;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.tagButton .selected {
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
+}
+
+.typeButton .type-button {
+    width: 90px;
+    height: 45px;
+    border: 1px solid #2e2e2e;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.typeButton .selected {
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
+}
+
+.genderButton .gender-button {
+    width: 80px;
+    height: 45px;
+    border: 1px solid #2e2e2e;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    font-family: 'Pre', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.genderButton .selected {
+    background-color: #ffff33; /* 선택된 태그 버튼의 배경색 변경 */
+    color: black;
+}

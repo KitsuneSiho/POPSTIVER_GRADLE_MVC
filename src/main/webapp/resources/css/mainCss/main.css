@@ -1,0 +1,230 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5% 16%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popstiver {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.title {
+    font-size: 40px;
+    font-family: 'Giants', sans-serif;
+    line-height: 1;
+    color: white;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
+}
+
+.title span {
+    color: #ffff33;
+}
+
+.titleInfo {
+    font-family: 'Pre', serif;
+    line-height: 1.8;
+    max-width: 50%;
+    font-size: 18px;
+    align-self: center;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
+
+}
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.title h1 {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.title span {
+    animation: colorChange 5s infinite;
+}
+
+.title h1:nth-child(1) { animation-delay: 0.1s; }
+.title h1:nth-child(2) { animation-delay: 0.4s; }
+.title h1:nth-child(3) { animation-delay: 0.7s; }
+
+.titleInfo p {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+.titleInfo p:nth-child(1) { animation-delay: 1s; }
+.titleInfo p:nth-child(2) { animation-delay: 1.2s; }
+.titleInfo p:nth-child(3) { animation-delay: 1.4s; }
+.titleInfo p:nth-child(4) { animation-delay: 1.6s; }
+.titleInfo p:nth-child(5) { animation-delay: 1.8s; }
+
+.scroll{
+    text-align: center;
+    margin-top: 5%;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    font-family: 'Pre', serif;
+    cursor: pointer;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
+}
+
+.scroll-up {
+    text-align: center;
+    font-family: 'Pre', serif;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5%;
+    transform: translateX(-50%);
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    animation-delay: 2s;
+    text-shadow: 8px 8px 20px rgba(0, 0, 0, 1.0);
+}
+
+.scroll-up img {
+    transform: rotate(180deg);
+}
+
+.enterContainer{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.enterPopup, .enterFestival{
+    width: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    font-size: 50px;
+    transition: transform 0.3s ease;
+}
+
+.enterPopup:hover, .enterFestival:hover{
+    transform: scale(1.55);
+}
+
+.enterPopup button, .enterFestival button{
+    border: none;
+    background: none;
+    padding: 1%;
+    font-family: 'Pre', sans-serif;
+    color: white;
+    font-size: 30px;
+    margin-top: 5%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.enterPopup button:hover, .enterFestival button:hover {
+    color: #ffff33;
+}
+
+.img-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+#bg-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    filter: brightness(0.3);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+    .container {
+        padding: 5% 10%;
+    }
+    .title {
+        font-size: 32px;
+    }
+    .titleInfo {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .popstiver {
+        flex-direction: column;
+        align-items: center;
+    }
+    .title {
+        font-size: 28px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .titleInfo {
+        max-width: 100%;
+        text-align: center;
+    }
+    .enterContainer {
+        flex-direction: column;
+        padding: 0 10%;
+    }
+    .enterPopup, .enterFestival {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+    .titleInfo {
+        font-size: 12px;
+    }
+    .enterPopup button, .enterFestival button {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .scroll-up {
+        bottom: 10px;
+    }
+}
