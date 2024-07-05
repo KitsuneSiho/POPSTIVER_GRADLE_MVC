@@ -104,9 +104,7 @@
                 <li>
                     <span>주소</span>
                     <label class="addressLabel">
-                        <input type="text" name="report_dist" value="${report_detail.report_dist}" readonly>
-                        <input type="text" name="report_subdist" value="${report_detail.report_subdist}" readonly>
-                        <input type="text" name="report_location" value="${report_detail.report_location}" readonly>
+                        <input type="text" value="${report_detail.report_dist} ${report_detail.report_subdist} ${report_detail.report_location}" readonly>
                     </label>
                 </li>
                 <li>
