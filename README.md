@@ -22,9 +22,9 @@
 
 ## 🔧 기술 스택
 
-| JavaScript |   Spring   |     Java     |   Html   |  Node   |  Json   |   JQuery  |  MySQL  |   MongoDB  |
-| :--------: | :--------: | :----------: | :------: | :-----: | :-----: | :-------: | :-----: | :--------: |
-|   ![js]    |  ![spring] |   ![java]    | ![html]  | ![node] | ![json] | ![jquery] | ![mysql]| ![mongodb] |
+| JavaScript | Python |   Spring   |     Java     |   Html   |  Node   |  Json   |   JQuery  |  MySQL  |   MongoDB  |
+| :--------: | :---: | :--------: | :----------: | :------: | :-----: | :-----: | :-------: | :-----: | :--------: |
+|   ![js]    | ![python] |  ![spring] |   ![java]    | ![html]  | ![node] | ![json] | ![jquery] | ![mysql]| ![mongodb] |
 
 <br><br>
 ## 💻 IDE
@@ -126,3 +126,4 @@ SOFTWARE.
 [notion]: /readme_asset/stack/notion.svg
 [figma]: /readme_asset/stack/figma.svg
 [slack]: /readme_asset/stack/slack.svg
+[python]: /readme_asset/stack/python.svg
