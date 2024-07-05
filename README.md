@@ -22,8 +22,8 @@
 
 ## 🔧 기술 스택
 
-| JavaScript | Python |   Spring   |     Java     |   Html   |  Node   |  Json   |   JQuery  |  MySQL  |   MongoDB  |
-| :--------: | :---: | :--------: | :----------: | :------: | :-----: | :-----: | :-------: | :-----: | :--------: |
+| JavaScript |   Python  |   Spring   |     Java     |   Html   |  Node   |  Json   |   JQuery  |  MySQL  |   MongoDB  |
+| :--------: |:---------:| :--------: | :----------: | :------: | :-----: | :-----: | :-------: | :-----: | :--------: |
 |   ![js]    | ![python] |  ![spring] |   ![java]    | ![html]  | ![node] | ![json] | ![jquery] | ![mysql]| ![mongodb] |
 
 <br><br>
