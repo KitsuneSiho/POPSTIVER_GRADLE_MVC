@@ -15,12 +15,15 @@ $(document).ready(function () {
 
     $('#user').addClass('selected');// 맨 처음에는 사용자 선택된게 기본 값이도록
     $('#user_type').val("ROLE_USER");
+
+    // 페이지가 열리면 모달 실행
+    showModal();
 });
 
 const forbiddenWords = [
     '관리자', 'admin', 'ADMIN', 'test', 'TEST', 'example', 'EXAMPLE', 'root', 'ROOT', 'superuser', 'SUPERUSER', 'guest', 'GUEST', 'temp', 'TEMP', 'user', 'USER', 'username', 'USERNAME', 'sample', 'SAMPLE',
     'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'damn', 'crap', 'dick', 'pussy', 'cunt', 'faggot', 'douche', 'nigger', 'slut', 'whore',
-    '시발', '병신', '존나', '좆', '새끼', 'ㅅㅂ', 'ㅄ', 'ㅈㄴ', 'ㄷㅊ', '애미', '니미', '니애미', '꺼져', '닥쳐', '미친', '개새끼' ,'씨발' ,"씨바" ,"씌바" , "씌발" ,"개새"
+    '시발', '병신', '존나', '좆', '새끼', 'ㅅㅂ', 'ㅄ', 'ㅈㄴ', 'ㄷㅊ', '애미', '니미', '니애미', '꺼져', '닥쳐', '미친', '개새끼', '씨발', '씨바', '씌바', '씌발', '개새'
 ]; // 금지어 목록
 
 let isNicknameAvailable = false;
@@ -172,11 +175,6 @@ window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = 'none';
     }
-}
-
-// 페이지가 열리면 모달 실행
-window.onload = function() {
-    showModal();
 }
 
 function checkNickname() {
