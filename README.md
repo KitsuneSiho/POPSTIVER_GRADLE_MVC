@@ -1,5 +1,5 @@
 # 🎆 POPSTIVER - 축제와 팝업스토어 정보를 한곳에서
-### NaverCloud Devops 10rd : 3 TEAM
+### NaverCloud Devops 10th : 3 TEAM
 
 <p align="center">
   <br>
